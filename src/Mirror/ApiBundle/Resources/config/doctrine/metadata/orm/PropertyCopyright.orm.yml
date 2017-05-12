@@ -1,0 +1,58 @@
+PropertyCopyright:
+    type: entity
+    table: property_copyright
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 版权名称
+        applyDate:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 版权申请年限
+            column: apply_date
+        username:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 单位人
+        propertyId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: property_id
+        status:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

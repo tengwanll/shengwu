@@ -1,0 +1,51 @@
+LogLogin:
+    type: entity
+    table: log_login
+    indexes:
+        entityId:
+            columns:
+                - entity_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        entityId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: entity_id
+        ip:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        type:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                comment: '类型:1.前台用户2.后台用户'
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: update_time
+    lifecycleCallbacks: {  }

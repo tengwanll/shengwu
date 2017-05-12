@@ -1,0 +1,42 @@
+ErrorDefinitions:
+    type: entity
+    table: error_definitions
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        errorCode:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: error_code
+        errorMessage:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: error_message
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: update_time
+    lifecycleCallbacks: {  }

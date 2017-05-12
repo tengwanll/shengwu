@@ -1,0 +1,92 @@
+PropertyHouse:
+    type: entity
+    table: property_house
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        characters:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 房产性质
+        area:
+            type: float
+            nullable: false
+            precision: 11
+            scale: 2
+            options:
+                comment: 使用面积
+        isRight:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 是否有房产证
+            column: is_right
+        isPledge:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: is_pledge
+        useTime:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: use_time
+        country:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        province:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        source:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        propertyId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: property_id
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

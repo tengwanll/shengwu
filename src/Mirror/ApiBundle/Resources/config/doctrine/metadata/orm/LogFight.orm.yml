@@ -1,0 +1,88 @@
+LogFight:
+    type: entity
+    table: log_fight
+    indexes:
+        userId:
+            columns:
+                - user_id
+        rivalId:
+            columns:
+                - rival_id
+        matchFightId:
+            columns:
+                - match_fight_id
+        userMatchId:
+            columns:
+                - user_match_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 用户id
+            column: user_id
+        rivalId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: rival_id
+        userMatchId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 用户对战记录id
+            column: user_match_id
+        fightCode:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 对手对战记录id
+            column: fight_code
+        success:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        matchFightId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: match_fight_id
+        fightType:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '对战类型1:匹配对战 2好友挑战'
+            column: fight_type
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

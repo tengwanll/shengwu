@@ -1,0 +1,66 @@
+UserPlan:
+    type: entity
+    table: user_plan
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        circle:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 周期
+        calorie:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 消耗卡路里
+        beginTime:
+            type: datetime
+            nullable: false
+            options:
+                comment: 计划开始时间
+            column: begin_time
+        endTime:
+            type: datetime
+            nullable: false
+            options:
+                comment: 计划结束时间
+            column: end_time
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 用户Id
+            column: user_id
+        planId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: plan_id
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

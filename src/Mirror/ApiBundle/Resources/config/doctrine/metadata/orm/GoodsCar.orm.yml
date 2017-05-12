@@ -1,0 +1,59 @@
+GoodsCar:
+    type: entity
+    table: goods_car
+    indexes:
+        user:
+            columns:
+                - user_id
+        goods:
+            columns:
+                - goods_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: user_id
+        goodsId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: goods_id
+        number:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+                default: '1'
+        price:
+            type: decimal
+            nullable: false
+            precision: 11
+            scale: 2
+            options:
+                default: '0.00'
+        status:
+            type: boolean
+            nullable: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

@@ -1,0 +1,63 @@
+LogCurl:
+    type: entity
+    table: log_curl
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        request:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        response:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        errinfo:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: errInfo
+        method:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        url:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        state:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            column: update_time
+    lifecycleCallbacks: {  }

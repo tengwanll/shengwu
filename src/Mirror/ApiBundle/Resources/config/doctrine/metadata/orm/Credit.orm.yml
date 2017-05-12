@@ -1,0 +1,223 @@
+Credit:
+    type: entity
+    table: credit
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                comment: 债权发布人
+            column: user_id
+        code:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        type:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 债权类型
+        money:
+            type: decimal
+            nullable: false
+            precision: 11
+            scale: 0
+            options:
+                comment: 债权本金
+        borrowTime:
+            type: datetime
+            nullable: false
+            options:
+                comment: 借款时间
+            column: borrow_time
+        refundTime:
+            type: datetime
+            nullable: false
+            options:
+                comment: 还款时间
+            column: refund_time
+        overdueOrganization:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: overdue_organization
+        country:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 债权发生地
+        province:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        pattern:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                comment: 处置方式
+        evidencePhoto:
+            type: string
+            nullable: true
+            length: 11
+            options:
+                fixed: false
+                comment: 图片凭证
+            column: evidence_photo
+        evidenceBlurredPhoto:
+            type: string
+            nullable: true
+            length: 11
+            options:
+                fixed: false
+                comment: 模糊处理后的图片
+            column: evidence_blurred_photo
+        description:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+                comment: 描述
+        isAssure:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 是否担保
+            column: is_assure
+        assureName:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                comment: 担保方名称
+            column: assure_name
+        assureTelephone:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                comment: 担保方联系方式
+            column: assure_telephone
+        isLawsuit:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 是否诉讼
+            column: is_lawsuit
+        isJudgment:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 是否判决
+            column: is_judgment
+        isUrge:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 是否催收过
+            column: is_urge
+        contactName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: contact_name
+        contactTelephone:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: contact_telephone
+        debtorName:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: debtor_name
+        debtorTelephone:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: debtor_telephone
+        debtorCountry:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: debtor_country
+        debtorProvince:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: debtor_province
+        debtorCity:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: debtor_city
+        refuseMessage:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: refuse_message
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

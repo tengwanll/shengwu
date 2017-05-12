@@ -1,0 +1,46 @@
+UserCollection:
+    type: entity
+    table: user_collection
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        typeId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: type_id
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: user_id
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

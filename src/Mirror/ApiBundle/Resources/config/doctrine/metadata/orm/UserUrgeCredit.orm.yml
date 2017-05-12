@@ -1,0 +1,43 @@
+UserUrgeCredit:
+    type: entity
+    table: user_urge_credit
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        creditId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: credit_id
+        companyId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: company_id
+        endTime:
+            type: datetime
+            nullable: false
+            column: end_time
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            column: update_time
+    lifecycleCallbacks: {  }

@@ -1,0 +1,48 @@
+PropertyStock:
+    type: entity
+    table: property_stock
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 股权名称
+        source:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        propertyId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: property_id
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

@@ -1,0 +1,70 @@
+UserMatchAdventure:
+    type: entity
+    table: user_match_adventure
+    indexes:
+        userId:
+            columns:
+                - user_id
+        adventureId:
+            columns:
+                - adventure_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: user_id
+        adventureId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: adventure_id
+        isLock:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '是否解锁 0未解锁 1解锁'
+                default: '0'
+            column: is_lock
+        pass:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '是否通过冒险 0未通过 1通过'
+                default: '0'
+        download:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '是否下载 0未下载,1下载'
+                default: '0'
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

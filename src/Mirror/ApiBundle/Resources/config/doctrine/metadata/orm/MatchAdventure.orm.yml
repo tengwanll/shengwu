@@ -1,0 +1,83 @@
+MatchAdventure:
+    type: entity
+    table: match_adventure
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        difficulty:
+            type: float
+            nullable: false
+            precision: 5
+            scale: 1
+            options:
+                comment: 难度
+        coin:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 金币奖励
+        parentId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '解锁的父辈依赖  父辈通过,当前的解锁'
+            column: parent_id
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 冒险名称
+        otherName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: other_name
+        backUrl:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: back_url
+        refuseMessage:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: refuse_message
+        fightId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 关卡id
+            column: fight_id
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

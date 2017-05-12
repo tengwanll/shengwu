@@ -1,0 +1,55 @@
+Plan:
+    type: entity
+    table: plan
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: bmi对应评价
+        minValue:
+            type: float
+            nullable: false
+            precision: 11
+            scale: 2
+            options:
+                comment: bmi数据
+            column: min_value
+        maxValue:
+            type: float
+            nullable: false
+            precision: 11
+            scale: 2
+            column: max_value
+        calorie:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

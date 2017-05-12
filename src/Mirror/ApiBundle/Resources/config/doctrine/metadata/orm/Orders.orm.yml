@@ -1,0 +1,62 @@
+Orders:
+    type: entity
+    table: orders
+    indexes:
+        user:
+            columns:
+                - user_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        number:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 订单编号
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 下单人id
+            column: user_id
+        price:
+            type: decimal
+            nullable: false
+            precision: 11
+            scale: 2
+            options:
+                comment: 价格
+                default: '0.00'
+        message:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+                comment: 留言
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

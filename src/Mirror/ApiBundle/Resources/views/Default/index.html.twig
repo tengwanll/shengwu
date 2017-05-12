@@ -1,0 +1,14 @@
+{% if error %}
+    <div>{{ error.message }}</div>
+{% endif %}
+
+<form action="{{ path('login') }}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="_username" value="" />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="_password" />
+    <input type="checkbox" id="remember_me" name="_remember_me" checked />
+    <label for="remember_me">Keep me logged in</label>
+    <input type="submit" name="login" />
+</form>

@@ -1,0 +1,57 @@
+Reject:
+    type: entity
+    table: reject
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            type: string
+            nullable: false
+            length: 32
+            options:
+                fixed: false
+                default: '1'
+        typeId:
+            type: string
+            nullable: false
+            length: 32
+            options:
+                fixed: false
+                default: '0'
+            column: type_id
+        refuseMessage:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                default: ''
+            column: refuse_message
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            column: update_time
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+        sort:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
+    lifecycleCallbacks: {  }

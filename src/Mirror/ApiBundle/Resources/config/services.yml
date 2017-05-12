@@ -1,0 +1,15 @@
+parameters:
+services:
+    json_parse:
+        class: Mirror\ApiBundle\Util\JsonParser
+    mirror_api.event_listener.calltrace_listener:
+        class: Mirror\ApiBundle\EventListener\CallTraceListener
+        arguments: [@system_setting_service,@calltrace_service]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+################################################
+    base_model:
+        class: Mirror\ApiBundle\Model\BaseModel
+        arguments: [@validator,@doctrine.orm.entity_manager]
+        abstract: true

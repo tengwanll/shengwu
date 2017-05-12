@@ -1,0 +1,93 @@
+Profit:
+    type: entity
+    table: profit
+    indexes:
+        userId:
+            columns:
+                - user_id
+        type:
+            columns:
+                - type
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: user_id
+        coin:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        money:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        type:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        description:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        whole:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '0,单人 1所有人'
+        missionCoin:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: mission_coin
+        adventureCoin:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: adventure_coin
+        systemSend:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: system_send
+        systemCompensation:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: system_compensation
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

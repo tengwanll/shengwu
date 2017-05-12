@@ -1,0 +1,61 @@
+Mission:
+    type: entity
+    table: mission
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        value:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 任务需要完成的值
+        coin:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 任务成功获得的金币
+        type:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 任务的类型
+        refuseMessage:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: refuse_message
+        useStatus:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 是否启用
+            column: use_status
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

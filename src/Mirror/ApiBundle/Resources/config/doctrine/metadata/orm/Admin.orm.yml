@@ -1,0 +1,87 @@
+Admin:
+    type: entity
+    table: admin
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        username:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        telephone:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        password:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        avatar:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        email:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        ip:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        companyId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                comment: 对应公司id
+            column: company_id
+        roleId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: role_id
+        province:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            column: update_time
+    lifecycleCallbacks: {  }

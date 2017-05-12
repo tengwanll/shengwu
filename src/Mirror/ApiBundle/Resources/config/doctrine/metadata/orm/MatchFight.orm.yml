@@ -1,0 +1,81 @@
+MatchFight:
+    type: entity
+    table: match_fight
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        videoUrl:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 视频地址
+            column: video_url
+        damping:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+                comment: 阻尼难度数组
+        rankMin:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 关卡所属天梯分区间
+            column: rank_min
+        rankMax:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: rank_max
+        distance:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 距离
+        unit:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                comment: 最小单位
+        refuseMessage:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: refuse_message
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

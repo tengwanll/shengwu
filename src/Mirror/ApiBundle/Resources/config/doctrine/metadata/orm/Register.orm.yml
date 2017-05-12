@@ -1,0 +1,37 @@
+Register:
+    type: entity
+    table: register
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        username:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: openID
+        begintime:
+            type: datetime
+            nullable: false
+            options:
+                comment: '打卡开始时间 '
+        finishtime:
+            type: datetime
+            nullable: false
+            options:
+                comment: 打卡结束时间
+        status:
+            type: boolean
+            nullable: false
+            options:
+                comment: 打卡状态
+                default: '0'
+    lifecycleCallbacks: {  }

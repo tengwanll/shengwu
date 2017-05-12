@@ -1,0 +1,54 @@
+LogChat:
+    type: entity
+    table: log_chat
+    indexes:
+        userId:
+            columns:
+                - user_id
+        friendId:
+            columns:
+                - friend_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: user_id
+        friendId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: friend_id
+        content:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        udpateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: udpate_time
+    lifecycleCallbacks: {  }

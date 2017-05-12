@@ -1,0 +1,43 @@
+Application:
+    type: entity
+    table: application
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        creditId:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                comment: 债权号
+            column: credit_id
+        userId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                comment: 用户ID
+            column: user_id
+        status:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+        createTime:
+            type: datetime
+            nullable: true
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: true
+            column: update_time
+    lifecycleCallbacks: {  }

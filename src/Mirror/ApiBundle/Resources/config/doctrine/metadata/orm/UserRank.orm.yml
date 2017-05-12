@@ -1,0 +1,58 @@
+UserRank:
+    type: entity
+    table: user_rank
+    uniqueConstraints:
+        userId:
+            columns:
+                - user_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 用户id
+            column: user_id
+        rank:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 排位等级
+        type:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 设备类型
+        score:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 当前段位星星
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

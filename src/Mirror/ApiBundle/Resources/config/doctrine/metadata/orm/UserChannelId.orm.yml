@@ -1,0 +1,64 @@
+UserChannelId:
+    type: entity
+    table: user_channel_id
+    indexes:
+        channelId:
+            columns:
+                - channel_id
+    uniqueConstraints:
+        userId:
+            columns:
+                - user_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: user_id
+        channelId:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+                comment: 渠道号
+            column: channel_id
+        deviceToken:
+            type: string
+            nullable: true
+            length: 45
+            options:
+                fixed: false
+            column: device_token
+        platform:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                comment: 安卓苹果
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: update_time
+    lifecycleCallbacks: {  }

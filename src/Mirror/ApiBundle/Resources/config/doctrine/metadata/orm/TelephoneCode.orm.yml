@@ -1,0 +1,62 @@
+TelephoneCode:
+    type: entity
+    table: telephone_code
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        telephone:
+            type: string
+            nullable: false
+            length: 11
+            options:
+                fixed: true
+        code:
+            type: string
+            nullable: false
+            length: 6
+            options:
+                fixed: false
+        validity:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        validBeginTime:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: valid_begin_time
+        validEndTime:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: valid_end_time
+        validTime:
+            type: datetime
+            nullable: true
+            column: valid_time
+        status:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: update_time
+    lifecycleCallbacks: {  }

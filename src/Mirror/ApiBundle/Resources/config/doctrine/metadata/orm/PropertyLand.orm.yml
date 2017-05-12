@@ -1,0 +1,96 @@
+PropertyLand:
+    type: entity
+    table: property_land
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        owner:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 土地使用权归属人
+        isUseful:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 是否有土地使用权
+            column: is_useful
+        isPledge:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 是否抵押
+            column: is_pledge
+        getPattern:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '土地获取方式 0出让1划拨'
+            column: get_pattern
+        country:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        province:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        endTime:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 土地使用年限
+            column: end_time
+        area:
+            type: float
+            nullable: false
+            precision: 11
+            scale: 2
+            options:
+                comment: 土地使用面积
+        propertyId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: property_id
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

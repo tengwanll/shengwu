@@ -1,0 +1,50 @@
+DealPattern:
+    type: entity
+    table: deal_pattern
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 处置名
+        ratio:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+                comment: 报仇比例或几折转让
+        creditId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 债权id
+            column: credit_id
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

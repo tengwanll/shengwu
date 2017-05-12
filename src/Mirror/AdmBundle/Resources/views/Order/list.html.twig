@@ -1,0 +1,97 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('/bundles/mirroradm/js/order.js') }}"></script>
+{% endblock %}
+{% block typeForm %}
+    <form class="form-horizontal" role="form">
+        <div class="form-group col-md-8">
+            <!-- /.row -->
+            <div class="row margin_top">
+                <label for="number" class="col-md-1 control-label">编号：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="number">
+                </div>
+                <label for="status" class="col-md-1 control-label">状态：</label>
+                <div class="col-md-2">
+                    <select class="form-control messageType" id="status">
+                        <option value="all">全部</option>
+                        <option value="0">待审核</option>
+                        <option value="1">代发货</option>
+                        <option value="2">已发货</option>
+                        <option value="3">已完成</option>
+                        <option value="-1">未通过</option>
+                    </select>
+                </div>
+                <label for="username" class="col-md-1 control-label addressLabel">用户名：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="username">
+                </div>
+                <div style="clear:both"></div>
+                <label for="beginTime" class="col-md-2 control-label addressLabel">起始时间：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="beginTime">
+                </div>
+                <label for="endTime" class="col-md-2 control-label addressLabel">结束时间：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="endTime">
+                </div>
+
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <div class="form-group col-md-3">
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9">
+                    <button type="reset" class="btn btn-default resetButton">重置</button>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9 margin_top">
+                    <button id="search" class="btn btn-default resetButton">搜索</button>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+    </form>
+{% endblock %}
+{% block thead %}
+    <tr class="tableTit">
+        <td>订单编号</td>
+        <td>下单时间</td>
+        <td>下单人</td>
+        <td>价格</td>
+        <td>订单状态</td>
+        <td colspan="3" width="18%">操作</td>
+    </tr>
+{% endblock %}
+ {% block tbody %}
+     {#表格内容区#}
+ {% endblock %}
+ {% block page %}
+     <div class="row">
+         <div class="col-md-11 col-md-offset-1">
+             <p class="listInfo">显示第 1-10项结果，共 10 项</p>
+         </div>
+         <!-- /.col-md-5 col-md-offset-1 -->
+         <div class="col-md-6 col-md-offset-3 text-center">
+             <div class="page_list">
+                 <ul id="pagination">
+                     <span class="prev_page">上一页</span><li class="on">1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><span class="next_page">下一页</span>
+                 </ul>
+             </div>
+         </div>
+         <!-- /.col-md-6 col-md-offset-3 -->
+     </div>
+     <!-- /.row -->
+ {% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .order'));
+        });
+    </script>
+
+{% endblock %}

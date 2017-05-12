@@ -1,0 +1,4 @@
+###################  file  ###################
+mirror_api_test:
+    pattern:  /index
+    defaults: { _controller: MirrorApiBundle:Test:index }

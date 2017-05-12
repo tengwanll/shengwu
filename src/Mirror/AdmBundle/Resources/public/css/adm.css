@@ -1,0 +1,982 @@
+@charset "utf-8";
+
+/* GENERAL HTML /
+/********************/
+html, body, div, span,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,
+img, ins, kbd, q, s, samp,
+small, strike, strong,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    background: transparent;
+}
+body {
+    line-height: 1;
+    color: #4c4743;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.margin_top{ margin-top: 20px;}
+.margin_big_top{
+    margin-top: 40px;
+}
+.cls{
+    clear: both;
+}
+/*遮罩*/
+#screen{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+    background: #000;
+    z-index:9998;
+    filter: alpha(opacity=70);	/*IE透明度*/
+    opacity: 0.7;	/*W3C透明度*/
+    display: none;
+}
+/*弹窗*/
+.deletePopup,.rejectPopup{
+    width: 490px;
+    height: 254px;
+    position:fixed;
+    left:50%;
+    top:50%;
+    margin:-127px 0 0 -245px;
+    display: none;
+    z-index:9999;
+    background: #fff;
+    border-radius: 15px;
+}
+textarea.rejectReasonContent {
+    height: 297px;
+    margin: 40px;
+    resize: none;
+    width: 770px;
+}
+.ReasonCancel,.ReasonConfirm {
+    background: #ffa15b none repeat scroll 0 0;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+    height: 40px;
+    line-height: 40px;
+    margin: 10px auto 0;
+    width: 150px;
+}
+.rejectReasonPopup{
+    width: 850px;
+    height: 520px;
+    position:fixed;
+    left:50%;
+    top:50%;
+    margin:-260px 0 0 -410px;
+    display: none;
+    z-index:9999;
+    background: #fff;
+    border-radius: 15px;
+}
+.popupTit {
+    background-color: #4c4743;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    color: #fff;
+    font-size: 24px;
+    line-height: 50px;
+}
+.popupContent {
+    color: #4c4743;
+    font-size: 18px;
+    height: 152px;
+    line-height: 152px;
+}
+.popupCancel,.popupConfirm {
+    border: 1px solid #c6c6c6;
+    line-height: 50px;
+    width: 100%;
+    color: #4c4743;
+}
+.popupCancel{
+    border-bottom-left-radius: 15px;
+    border-right:none;
+    cursor: pointer;
+}
+.popupConfirm{
+    border-bottom-right-radius: 15px;
+    color: #ff5a00;
+    cursor: pointer;
+}
+/*初始化完成*/
+
+#container{
+    background-color: #f8f8f8;
+    overflow: hidden;
+    width: 100%;
+}
+.col-md-1,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-10,.col-md-8,.col-md-12,.col-md-11{
+    padding-left: 0;
+    padding-right: 0;
+}
+.adminLogo{
+    background-color: #8e8367;
+    width: 100%;
+    overflow: hidden;
+    background-image: url("../images/liulab_logo.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 190px auto;
+    height: 120px;
+}
+.slogan{
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+    background-image: url("../images/sloganBg.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: auto 120px;
+    line-height: 100px;
+    padding-left: 40px;
+    border-right: 1px solid #fff;
+}
+.adminUser{
+    background-color: #e3e3e3;
+    border-left: 1px solid #cbcbcb;
+    height: 120px;
+}
+.adminPhoto {
+    display: inline-block;
+    vertical-align: middle;
+    width: 80px;
+    line-height: 120px;
+    margin-right: 10px;
+}
+.adminUserName {
+    color: #6d7483;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    vertical-align: middle;
+}
+.setCenter,.outUser{
+    line-height: 120px;
+}
+.col-md-6.text-center.userBorder {
+    border-right: 1px solid #fff;
+}
+.setCenter {
+    border-left: 1px solid #cbcbcb;
+    display: inline-block;
+    width: 100%;
+    border-right: 1px solid #fff;
+}
+.outUser {
+    border-left: 1px solid #cbcbcb;
+    display: inline-block;
+    width: 100%;
+}
+.adminLeftNav {
+    background-color: #4c4743;
+    color: #fff;
+    min-height: 990px;
+}
+.adminLeftNav a {
+    color: #fff;
+    display: block;
+    font-size: 24px;
+    line-height: 80px;
+    padding-left: 60px;
+    text-align: center;
+    text-decoration: none;
+    background-repeat: no-repeat;
+    background-position: 70px center;
+}
+.order{
+    background-image:url("../images/infoIco_down.png");
+}
+.order.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/infoIco.png");
+}
+.goods{
+    background-image:url("../images/dataIco.png");
+}
+.goods.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/dataIco_on.png");
+}
+.users{background-image:url("../images/userIco.png");}
+.users.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/userIco_on.png");
+}
+.resetPwd{
+    background-image:url("../images/resetPwd.png");
+}
+.resetPwd.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/resetPwd_on.png");
+}
+.statistics{background-image:url("../images/statisticsIco.png");}
+.statistics.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/statisticsIco_on.png");
+}
+.finance{background-image:url("../images/financeIco.png");}
+.finance.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/financeIco_on.png");
+}
+.jurisdiction{background-image:url("../images/jurisdictionIco.png");}
+.jurisdiction.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/jurisdictionIco_on.png");
+}
+.info{background-image:url("../images/informationIco.png");}
+.info.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/informationIco_on.png");
+}
+.operation{background-image:url("../images/operation_ico.png");}
+.operation.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/operation_ico_on.png");
+}
+.typeTabTit {
+    margin-left: 30px;
+    margin-bottom: 10px;
+}
+.typeTabTit li {
+    color: #4c4743;
+    float: left;
+    font-size: 20px;
+    /*line-height: 80px;*/
+    margin: 0 20px;
+    cursor: pointer;
+    padding-right: 30px;
+    position:relative;
+}
+.typeTabTit .on{
+    background-image: url("../images/typeOn.png");
+    background-repeat: no-repeat;
+    background-position: center 60px;
+    color: #ff5a00;
+}
+.auditName {
+    font-size: 20px;
+    line-height: 70px;
+}
+.typeTabTit .on a{
+    color: #ff5a00;
+}
+.auditName > a {
+    color: #4c4743;
+    font-size: 20px;
+    line-height: 100%;
+    text-decoration: none;
+    line-height: 80px;
+}
+.waitAudit {
+    background-color: #f90500;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 14px;
+    padding: 2px;
+    position: absolute;
+    right: 4px;
+    top: 21px;
+}
+.form-control {
+    height: 40px;
+}
+.filtrate label {
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 35px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+.resetButton {
+    background-color: #ffa15b;
+    color: #fff;
+    font-size: 20px;
+    height: 40px;
+    width: 150px;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.col-md-2.col-md-offset-2.submit {
+    padding-left: 4.2%;
+    width: 13%;
+}
+tr.tableTit{
+    background-color: #4c4743;
+    color:#fff;
+}
+tbody tr:nth-child(2n){
+    background-color:#fffaf4;
+}
+tbody tr:nth-child(2n+1){
+    background-color:#fff;
+}
+table.table tr td{
+    line-height: 50px;
+}
+thead tr td{
+    font-size: 20px;
+}
+tbody tr td{
+    font-size: 18px;
+    color: #4c4743;
+}
+table.table tr td a{
+    text-decoration: none;
+    font-size:18px;
+
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-top: none;
+}
+.infoColor{
+    color: #ff7800;
+}
+.modificationColor{
+    color:#00aa00;
+}
+.deleteColor{
+    color:#dd6666;
+}
+.page_list ul li, .page_list ul span{
+    background: #fff;
+    border: 1px solid #c6c6c6;
+    display: inline-block;
+    padding: 5px 15px;
+    vertical-align: bottom;
+    cursor: pointer;
+    color: #ff974b;
+    border-left: none;
+}
+
+.page_list ul li:hover,.page_list ul span:hover{
+    background: #ffa15b;
+    color:#fff;
+}
+.page_list ul li.on{
+    background: #f6f6f6;
+    color: #919191;
+}
+.page_list ul span.prev_page {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-left:1px solid #c6c6c6;
+}
+.page_list ul span.next_page {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.copyright{
+    line-height: 50px;
+    color: #4c4743;
+    background-color: #e3e3e3;
+}
+.content{
+    margin-bottom: 50px;
+}
+
+.statisticsTypeRadio li {
+    background-color: #eeeeee;
+    border-radius: 8px;
+    color: #333333;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-size: 16px;
+    line-height: 34px;
+    margin-left: 25px;
+    position: relative;
+    text-align: center;
+    width: 9%;
+}
+.statisticsTypeRadio li label {
+    background-color: #eeeeee;
+    border-radius: 8px;
+    color: #333333;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: normal;
+    height: 34px;
+    line-height: 34px;
+    width: 100%;
+}
+.statisticsTypeRadio li input[type="radio"] {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    visibility: hidden;
+}
+.chart {
+    background: #fff none repeat scroll 0 0;
+    margin: 30px 30px 0;
+    min-height: 720px;
+}
+.fixedDate li {
+    background-color: #eee;
+    border-radius: 5px;
+    cursor: pointer;
+    float: left;
+    line-height: 25px;
+    margin: 0 10px;
+    text-align: center;
+    width: 80px;
+}
+.fixedDate li.on{
+    color: #ff8400;
+}
+.fixedDate > ul {
+    margin-top: 30px;
+}
+.selectDate > input {
+    width: 300px;
+    border: 1px solid #a2a2a2;
+    border-radius: 5px;
+}
+.date-picker-container .datepicker-inline {
+    width: 100%;
+    height: 100%;
+}
+
+.date-picker-container .table-condensed {
+    width: 100%;
+    height: 100%;
+}
+.selectDate.input-group.date {
+    margin-top: 25px;
+    padding-right: 60px;
+}
+.datepicker .table-condensed > thead > tr > th, .table-condensed > tbody > tr > th, .table-condensed > tfoot > tr > th, .table-condensed > thead > tr > td, .table-condensed > tbody > tr > td, .table-condensed > tfoot > tr > td {
+    text-align: center;
+    line-height: 50px;
+}
+.dropdown-menu{
+    width: 20%;
+}
+
+.datepicker table{
+    width: 100%;
+}
+.selectDateInput.form-control {
+    font-size: 25px;
+}
+.canvasPs {
+    font-size: 20px;
+    margin: 40px;
+    color: #4c4743;
+}
+.chart > #canvasDiv {
+    margin-top: 60px;
+}
+.datepicker table tr td.active, .datepicker table tr td.active:hover, .datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled:hover{
+    background-color: #ff8400;
+    background-image: linear-gradient(to bottom, #ff8400, #ff8400);
+}
+.filtrate {
+    overflow: hidden;
+    width: 100%;
+    padding: 0 30px;
+}
+.addUserTit h3 {
+    background: #4c4743;
+    color: #fff;
+    font-size: 18px;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 30px;
+}
+.addUser,.addRank {
+    background-color: #fff;
+    width: 100%;
+    overflow: hidden;
+}
+.addUser{
+    min-height: 825px;
+    padding-bottom: 50px;
+}
+.col-md-2.col-md-offset-5.userSubmit {
+    margin-left: 40%;
+}
+.addUserForm {
+    padding-top: 100px;
+}
+.infoUserTitle li {
+    background-color: #eeeeee;
+    border-radius: 10px;
+    color: #4c4743;
+    float: left;
+    font-size: 18px;
+    margin: 30px;
+    padding: 15px 50px;
+    cursor: pointer;
+}
+.infoUserTitle li.on{
+    background-color: #ff8400;
+    color: #fff;
+}
+.infoUserCon dt {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 50px;
+    margin-left: 100px;
+    width: 16%;
+}
+.infoUserCon dd{
+    display: inline-block;
+    font-size: 18px;
+    line-height: 50px;
+    width: 75%;
+}
+.infoPeopleCon dt{
+    float: left;
+    font-size: 18px;
+    font-weight: normal;
+    margin-left: 100px;
+    width: 130px;
+    line-height: 50px;
+}
+.infoPeopleCon dd{
+    font-size: 18px;
+    line-height: 50px;
+}
+.cardUser ul li {
+    border: 1px solid #ccc;
+    float: left;
+    height: 200px;
+    margin-right: 20px;
+    width: 160px;
+}
+.cardUser ul li img{
+    width: 160px;
+    height: 200px;
+}
+.tableCreditInfo{
+    background-color: #eeeeee;
+    color: #4c4743;
+}
+.creditorInfo {
+    padding: 0 20px;
+}
+.form-control.pushContent {
+    height: 200px;
+    resize: none;
+}
+.creditCard,.waitSigned {
+    background-color: #eeeeee;
+    display: inline-block;
+    font-size: 20px;
+    padding: 15px 30px;
+}
+.creditCard{
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    margin: 20px 0 20px 90px;
+}
+.waitSigned{
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    margin: 20px 20px 20px 0;
+}
+.disposal > dt {
+    float: none;
+}
+.disposal > li {
+    padding-left: 290px;
+    line-height: 30px;
+}
+.disposal span {
+    display: inline-block;
+    font-size: 18px;
+    margin-right: 20px;
+}
+.disposal p {
+    display: inline-block;
+    font-size: 18px;
+}
+.creditDescription > dt {
+    float: none;
+}
+.creditDescription > dd {
+    margin-left: 170px;
+}
+.creditDescription textarea {
+    height: 200px;
+    margin-bottom: 50px;
+    margin-left: 45px;
+    resize: none;
+    width: 830px;
+}
+.infoAmendCon {
+    overflow: hidden;
+    width: 100%;
+}
+.infoAmendCon .form-group {
+    line-height: 40px;
+}
+.infoAmendCon .col-md-2{
+    padding-left: 15px;
+    font-size: 18px;
+}
+.infoAmendCon .col-md-1 {
+    padding-left: 15px;
+}
+.infoAmendCon .col-md-9 {
+    font-size: 18px;
+}
+.disposition li {
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+.disposition input[type="radio"] {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    visibility: hidden;
+}
+.disposition input[type="checkbox"]{
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    visibility: hidden;
+}
+.creditLawsuit,.creditCollection,.creditAssignment {
+    background-color: #eee;
+    border-radius: 10px;
+    padding: 3px 10px;
+    width: 100%;
+}
+.infoAmendCon .col-md-2.col-md-offset-1 {
+    line-height: 40px;
+    font-size: 20px;
+}
+.infoAmendCon .radio-inline > label {
+    font-size: 18px;
+    line-height: 19px;
+}
+
+.form-control.debtDescription {
+    height: 210px;
+    margin-bottom: 30px;
+    resize: none;
+    width: 580px;
+}
+
+.creditDescription p {
+    border: 1px solid #eee;
+    height: 260px;
+    line-height: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    text-indent: 2em;
+    width: 900px;
+}
+
+.table.table-condensed.text-center img {
+    vertical-align: 0;
+}
+.addRankForm {
+    height: 200px;
+}
+.addRankForm .row {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.addRankForm {
+    height: 200px;
+    overflow: hidden;
+    width: 100%;
+}
+.addRankForm .form-group {
+    padding-top: 60px;
+}
+.permissionInfo{
+    background-color: #fff;
+}
+.permissionInfoNav{
+    background-color: #eeeeee;
+    padding: 15px 0;
+    height: 550px;
+}
+.permissionInfoNav li {
+    color: #4c4743;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 47px;
+    text-align: center;
+}
+.permissionInfoNav input[type="checkbox"],.permissionInfoList input[type="checkbox"]{
+    margin-right: 10px;
+}
+.container-fluid.permissionInfo {
+    margin-top: 30px;
+}
+.permissionInfoNav ul li.on {
+    color: #ff8400;
+}
+
+.permissionInfoList li {
+    float: left;
+    width: 360px;
+}
+.permissionInfoList {
+    padding: 30px 0;
+}
+
+.loginLogo {
+    line-height: 1080px;
+    text-align: center;
+    width: 100%;
+}
+.loginLogo img {
+    width: 500px;
+    margin-left: 100px;
+}
+.logoForm {
+    overflow: hidden;
+    padding: 200px 50px 30px;
+    text-align: center;
+    width: 100%;
+}
+.platformName {
+    font-size: 40px;
+    line-height: 120px;
+    margin-right: 130px;
+}
+.loginInfo {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    margin: 0 auto 0 100px;
+    overflow: hidden;
+    padding: 30px 60px;
+    width: 540px;
+}
+.loginInfoTit {
+    font-size: 30px;
+    line-height: 60px;
+    padding-bottom: 20px;
+}
+
+.loginInfo .loginSubmit {
+    background-color: #ff8400;
+    color: #fff;
+    font-size: 20px;
+    height: 40px;
+    letter-spacing: 20px;
+    margin-top: 30px;
+    width: 100%;
+    border: none;
+}
+.container-bg{
+    background-image: url("../images/lab.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.platformName > img {
+    width: 360px;
+}
+.btn.btn-default.codeLogin {
+    background-color: #ff8400;
+    border: medium none;
+    color: #fff;
+    height: 40px;
+    width: 100%;
+}
+
+.form-control {
+    height: 40px;
+}
+.form-control,.btn{
+    border-radius: 6px;
+}
+.user-name, .user-pwd {
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    background-size: 25px auto;
+    font-size: 18px;
+    padding-left: 70px;
+}
+.user-name{
+    background-image: url("../images/user_name_ico.png");
+}
+.user-pwd{
+    background-image: url("../images/user_pwd_ico.png");
+}
+.infoUserCon.verifyCon {
+    padding-top: 20px;
+    line-height: 40px;
+
+}
+.verifyCon .form-group {
+    margin: 15px 0;
+}
+.uploadFile {
+    position: relative;
+    width: 100%;
+    line-height: 40px;
+    padding-right: 10px;
+}
+.uploadFile > input[type="file"] {
+    left: 0;
+    position: absolute;
+    top: 25%;
+    width: 25%;
+    visibility: hidden;
+}
+.verifyCon .btn.btn-default.btn-block {
+    background: #ff8400 none repeat scroll 0 0;
+    border: medium none;
+    color: #fff;
+}
+
+.uploadFile {
+    display: inline-block;
+    font-size: 0.9rem;
+    line-height: 1.8rem;
+    padding-right: 0.5rem;
+    position: relative;
+    width: 64%;
+}
+.uploadFile > label {
+    background-color: #ff8400;
+    border-radius: 0.25rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: normal;
+    line-height: 32px;
+    text-align: center;
+    width: 20%;
+    padding-left: 0;
+}
+.uploadFile > input[type="file"] {
+    left: 0;
+    position: absolute;
+    top: 25%;
+    visibility: hidden;
+    width: 25%;
+}
+.btn.btn-default.btn-block.resetConfirm {
+    margin-left: 90px;
+}
+.passInfo > p {
+    font-size: 25px;
+    line-height: 100px;
+}
+.btn.btn-default.btn-block.passwordLogin {
+    margin-left: 60px;
+}
+.loginForget > a {
+    color: #fff;
+    display: block;
+    line-height: 60px;
+    text-align: right;
+    font-size: 18px;
+}
+.creditDescription.verifyReject dt {
+    margin-left: 0;
+}
+.creditDescription.verifyReject > dd {
+    margin-left: 125px;
+}
+.verifyStatus{
+    border-radius: 20px;
+    margin: 20px 124px;
+    background-color: #eeeeee;
+    display: inline-block;
+    font-size: 20px;
+    padding: 15px 30px;
+}
+table tr.tableBody > td,table.table-condensed.text-center tr.tableBody > td > img {
+    vertical-align: middle;
+}
+table.table-condensed.text-center tr.tableBody > td > img{
+    max-width: 440px;
+    max-height: 150px;
+}
+.filtrate .bannerUpload {
+    height: 150px;
+    position: relative;
+    width: 150px;
+    overflow: hidden;
+    padding-left: 0;
+    background-image: url("../images/jiahao.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 1px solid #ccc;
+}
+.bannerUpload > input[type="file"] {
+    width: 150px;
+    left: 0;
+    position: absolute;
+    top: 50%;
+    visibility: hidden;
+}
+.bannerUpload > img {
+    height: 150px;
+    width: 150px;
+}
+.edui-default {
+    line-height: 25px;
+}
+.edui-default .edui-toolbar .edui-combox-body .edui-button-body {
+    width: 70px;
+}
+.edui-editor-toolbarboxouter.edui-default {
+    padding-left: 5px;
+}
+.form-control.newsDescribe {
+    height: 90px;
+    resize: none;
+}

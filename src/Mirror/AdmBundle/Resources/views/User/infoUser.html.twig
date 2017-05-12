@@ -1,0 +1,95 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('/bundles/mirroradm/js/userInfo.js') }}"></script>
+{% endblock %}
+{% block typeForm %}
+    <div class="addUser">
+        <div class="addUserTit">
+            <h3><span>用户详情</span></h3>
+        </div>
+        <!-- /.addUserTit -->
+        <div class="infoUser">
+            <div class="infoUserTitle">
+                <ul>
+                    <li class="on">基本信息</li>
+                    <li class="normalVip">订单记录</li>
+                </ul>
+                <div class="cls"></div>
+            </div>
+            <div class="infoUserCon">
+                {#详情内容区域#}
+            </div>
+            <!-- /.infoUserCon -->
+            <div class="orderInfo">
+                <table class="table table-condensed text-center">
+                    <thead class="userTableHead">
+                        {#表格头部#}
+                    </thead>
+                    <tbody class="userTableBody">
+                       {#表格内容#}
+                    </tbody>
+                </table>
+                    <div class="row">
+                        <div class="col-md-11 col-md-offset-1">
+                            <p class="listInfo">显示第 1-10项结果，共 10 项</p>
+                        </div>
+                        <!-- /.col-md-5 col-md-offset-1 -->
+                        <div class="col-md-6 col-md-offset-3 text-center">
+                            <div class="page_list">
+                                <ul id="pagination">
+                                    <span class="prev_page">上一页</span><li class="on">1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><span class="next_page">下一页</span>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.col-md-6 col-md-offset-3 -->
+                    </div>
+                    <!-- /.row -->
+
+            </div>
+            <!-- /.creditorInfo -->
+
+        </div>
+    </div>
+    <!-- /.addUser -->
+
+{% endblock %}
+{% block otherJs %}
+    <script>
+        var userId={{ id }};
+        $(function(){
+            adminTabNav($('.adminLeftNav .users'));
+
+
+            $('.infoUserCon').show();
+            $('.orderInfo').hide();
+        });
+
+            userInfo(userId);
+
+            $('.infoUserTitle li').click(function(){
+                tabNavTitle($(this));
+                var thead='';
+                var tbody='';
+                if($(this).text()=='基本信息'){
+                    $('.infoUserCon').show();
+                    $('.orderInfo').hide();
+                    userInfo(userId);
+                }
+                if($(this).text()=='订单记录'){
+                    $('.infoUserCon').hide();
+                    $('.orderInfo').show();
+                    thead+=' <tr class="tableCreditInfo"><td>订单编号</td><td>下单时间</td><td>价格</td><td>订单状态</td><td>操作</td></tr>';
+                    orderList(userId);
+                    $('thead.userTableHead').html(thead);
+                }
+            });
+
+
+            //用户详情
+
+
+
+
+    </script>
+
+{% endblock %}

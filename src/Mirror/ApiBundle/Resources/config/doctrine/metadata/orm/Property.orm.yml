@@ -1,0 +1,134 @@
+Property:
+    type: entity
+    table: property
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                comment: 发布人
+            column: user_id
+        sellPattern:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 售让类型
+            column: sell_pattern
+        code:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        propertyPattern:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: property_pattern
+        contactName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: contact_name
+        contactTelephone:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: contact_telephone
+        country:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        province:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        city:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        money:
+            type: decimal
+            nullable: true
+            precision: 11
+            scale: 0
+        isLawsuit:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 是否诉讼
+            column: is_lawsuit
+        isJudgment:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: is_judgment
+        isUrge:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+            column: is_urge
+        evidencePhoto:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: evidence_photo
+        description:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        deadline:
+            type: datetime
+            nullable: false
+        refuseMessage:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+            column: refuse_message
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

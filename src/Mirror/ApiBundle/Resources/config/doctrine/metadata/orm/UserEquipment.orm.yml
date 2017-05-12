@@ -1,0 +1,50 @@
+UserEquipment:
+    type: entity
+    table: user_equipment
+    indexes:
+        userId:
+            columns:
+                - user_id
+        equipmentId:
+            columns:
+                - equipment_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 用户id
+            column: user_id
+        equipmentId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 设备id
+            column: equipment_id
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

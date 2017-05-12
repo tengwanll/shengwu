@@ -1,0 +1,52 @@
+Laws:
+    type: entity
+    table: laws
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        sort:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        content:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        photo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

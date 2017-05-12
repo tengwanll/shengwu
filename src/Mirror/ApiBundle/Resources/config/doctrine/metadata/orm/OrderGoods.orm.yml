@@ -1,0 +1,60 @@
+OrderGoods:
+    type: entity
+    table: order_goods
+    uniqueConstraints:
+        order:
+            columns:
+                - order_id
+                - goods_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        orderId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: order_id
+        goodsId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: goods_id
+        number:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 商品数量
+                default: '1'
+        price:
+            type: decimal
+            nullable: false
+            precision: 2
+            scale: 0
+            options:
+                default: '0'
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

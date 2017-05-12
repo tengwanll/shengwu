@@ -1,0 +1,55 @@
+MessagePush:
+    type: entity
+    table: message_push
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 标题
+        content:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+                comment: 内容
+        pattern:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '1 个人  2 系统'
+        type:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 类型
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

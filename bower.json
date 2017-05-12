@@ -1,0 +1,26 @@
+{
+  "name": "trunk",
+  "authors": [
+    "guyu <guyu@mirror-networks.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "AdminLTE": "admin-lte#^2.3.2",
+    "jquery-json": "^2.5.1",
+    "jquery-form": "^3.46.0"
+  }
+}

@@ -1,0 +1,55 @@
+PropertyCar:
+    type: entity
+    table: property_car
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        propertyId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: property_id
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 车辆名称
+        endTime:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: end_time
+        source:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

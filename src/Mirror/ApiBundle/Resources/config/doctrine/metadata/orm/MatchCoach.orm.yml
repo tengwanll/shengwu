@@ -1,0 +1,71 @@
+MatchCoach:
+    type: entity
+    table: match_coach
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        difficulty:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 难度
+        download:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '是否下载 0未下载,1下载'
+                default: '0'
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 冒险名称
+        videoUrl:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+                comment: 视频地址
+            column: video_url
+        photoUrl:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+                comment: 难度地图
+            column: photo_url
+        distance:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 要求距离
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

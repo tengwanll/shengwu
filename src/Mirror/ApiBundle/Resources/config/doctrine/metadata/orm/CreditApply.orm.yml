@@ -1,0 +1,39 @@
+CreditApply:
+    type: entity
+    table: credit_apply
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        creditId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: credit_id
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: user_id
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            column: update_time
+    lifecycleCallbacks: {  }

@@ -1,0 +1,63 @@
+UserFriendApply:
+    type: entity
+    table: user_friend_apply
+    indexes:
+        userId:
+            columns:
+                - user_id
+        friendId:
+            columns:
+                - friend_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 本人
+            column: user_id
+        friendId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 添加的好友
+            column: friend_id
+        pass:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '1:初始 2通过 3拒绝'
+        look:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '0:初始 1:查看过了'
+        status:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

@@ -1,0 +1,57 @@
+DictValue:
+    type: entity
+    table: dict_value
+    indexes:
+        keyid:
+            columns:
+                - key_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        keyId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: key_id
+        value:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        showValue:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: show_value
+        description:
+            type: text
+            nullable: true
+            length: 65535
+            options:
+                fixed: false
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: update_time
+    lifecycleCallbacks: {  }

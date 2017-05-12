@@ -1,0 +1,4 @@
+services:
+#    mirror_adm.example:
+#        class: Mirror\AdmBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

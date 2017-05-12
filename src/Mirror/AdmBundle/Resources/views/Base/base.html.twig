@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en" ng-app="routerApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>债基地后台管理系统</title>
+    <script src="//cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+    <script src="{{ asset('/bundles/mirroradm/js/jquery.json.js') }}"></script>
+    <script src="{{ asset('/bundles/mirroradm/js/jqPaginator.js') }}"></script>
+
+
+    <link href="{{ asset('/bundles/mirroradm/css/bootstrap-datepicker.css') }}" rel="stylesheet">
+    <link href="{{ asset('/bundles/mirroradm/css/bootstrap.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/bundles/mirroradm/css/adm.css') }}">
+    <script src="{{ asset('/bundles/mirroradm/js/admin.js') }}"></script>
+    <script src="{{ asset('/bundles/mirroradm/js/admPublic.js') }}"></script>
+    <script src="{{ asset('/bundles/mirroradm/js/jquery.json.js') }}"></script>
+    {% block javascript %} {% endblock %}
+    {% block css %} {% endblock %}
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div id="container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="adminLogo">
+
+                </div>
+                <!-- /.logo -->
+            </div>
+            <!-- /.col-md-3 -->
+            <div class="col-md-10">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="slogan" style="background-image:url({{ asset('/bundles/mirroradm/images/wenzi.png') }}) ">
+                            </div>
+                            <!-- /.slogan -->
+                        </div>
+                        <!-- /.col-md-8 -->
+                        <div class="col-md-4">
+                            <div class="container-fluid adminUser">
+                                <div class="row">
+                                    <div class="col-md-6 text-center userBorder">
+                                        <div class="adminPhoto">
+                                            <img src="{{ asset('/bundles/mirroradm/images/touxiang.png') }}" alt="">
+                                        </div>
+                                        <!-- /.adminPhoto -->
+                                        <div class="adminUserName">
+                                            {{app.session.get('roleName')}}
+                                            <br>
+                                            {{app.session.get('adminTelephone')}}
+                                        </div>
+                                        <!-- /.adminUserName -->
+                                    </div>
+                                    <!-- /.col-md-6 -->
+                                    <div class="col-md-3 text-center"><a href="javascript:void(0); " class="setCenter"><img src="{{ asset('/bundles/mirroradm/images/set.png') }}"
+                                                                                                                alt=""></a></div>
+                                    <!-- /.col-md-3 -->
+                                    <div class="col-md-3 text-center"><a href="javascript:void(0); " class="outUser"><img src="{{ asset('/bundles/mirroradm/images/outUser.png') }}"
+                                                                                                              alt=""></a></div>
+                                    <!-- /.col-md-3 -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.container-fluid -->
+                        </div>
+                        <!-- /.col-md-4 -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- /.col-md-9 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="adminLeftNav">
+                    <ul>
+                        {% block leftNav %}
+                        <li><a href="/adm/user" class="users">用户管理</a></li>
+                        <li><a href="/adm/order" class="order">订单管理</a></li>
+                        <li><a href="/adm/goods" class="goods">商品管理</a></li>
+                        {% endblock %}
+                    </ul>
+                </div>
+                <!-- /.adminLeftNav -->
+            </div>
+            <!-- /.col-md-2 -->
+            <div class="col-md-10 content">
+                {% block content %}
+                    <div class="container-fluid filtrateTab">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% block typeTabTit %} {% endblock %}
+                            </div>
+                            <!-- /.col-md-12 -->
+                            <div class="col-md-12">
+                                <div class="filtrate">
+                                    {% block typeForm %} {% endblock %}
+                                </div>
+                                <!-- /.filtrate -->
+                            </div>
+                            <!-- /.col-md-8 -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                    <!-- /.container-fluid -->
+                <div class="container-fluid">
+                    <table class="table table-condensed text-center">
+                        <thead>
+                        {% block thead %} {% endblock %}
+                        </thead>
+                        <tbody>
+                        {% block tbody %} {% endblock %}
+                        </tbody>
+
+                    </table>
+
+                    {% block page %} {% endblock %}
+                </div>
+                <!-- /.container-fluid -->
+                {% endblock %}
+            </div>
+            <!-- /.col-md-10 -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 text-center copyright">
+                        <p>公司名称</p>
+                    </div>
+                    <!-- /.col-md-12 text-center -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+    {% block otherJs %}
+        <script>
+            $(function(){
+                $('.outUser').click(function(){
+
+                });
+            });
+        </script>
+    {% endblock %}
+</div>
+<!-- /#container -->
+<div id="screen"></div>
+<div value="" class="deletePopup">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="popupTit">删除</div>
+                <!-- /.popupTit -->
+            </div>
+            <!-- /.col-md-12 -->
+            <div class="col-md-12 text-center">
+                <div class="popupContent">
+                    确认删除该条信息？
+                </div>
+                <!-- /.popupContent -->
+            </div>
+            <!-- /.col-md-12 text-center -->
+            <div class="col-md-6 text-center">
+                <div class="popupCancel">取消</div>
+                <!-- /.popupCancel -->
+            </div>
+            <!-- /.col-md-6 -->
+            <div class="col-md-6 text-center">
+                <div class="popupConfirm">确定</div>
+                <!-- /.popupConfirm -->
+            </div>
+            <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<div class="deletePopup jinyong">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="popupTit">禁用</div>
+                <!-- /.popupTit -->
+            </div>
+            <!-- /.col-md-12 -->
+            <div class="col-md-12 text-center">
+                <div class="popupContent">
+                    确认禁用该用户？
+                </div>
+                <!-- /.popupContent -->
+            </div>
+            <!-- /.col-md-12 text-center -->
+            <div class="col-md-6 text-center">
+                <div class="popupCancel">取消</div>
+                <!-- /.popupCancel -->
+            </div>
+            <!-- /.col-md-6 -->
+            <div  class="col-md-6 text-center">
+                <div value="" class="popupConfirm">确定</div>
+                <!-- /.popupConfirm -->
+            </div>
+            <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.deletePopup -->
+<div class="rejectPopup">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="popupTit">驳回</div>
+                <!-- /.popupTit -->
+            </div>
+            <!-- /.col-md-12 -->
+            <div class="col-md-12 text-center">
+                <div class="popupContent">
+                    确认驳回该申请？
+                </div>
+                <!-- /.popupContent -->
+            </div>
+            <!-- /.col-md-12 text-center -->
+            <div class="col-md-6 text-center">
+                <div class="popupCancel">取消</div>
+                <!-- /.popupCancel -->
+            </div>
+            <!-- /.col-md-6 -->
+            <div class="col-md-6 text-center">
+                <div class="popupConfirm">确定</div>
+                <!-- /.popupConfirm -->
+            </div>
+            <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.deletePopup -->
+<div class="rejectReasonPopup" value="">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="popupTit">驳回理由</div>
+                <!-- /.popupTit -->
+            </div>
+            <!-- /.col-md-12 -->
+            <div class="col-md-12 text-center">
+                    <textarea class="form-control rejectReasonContent" rows="3"></textarea>
+            </div>
+            <!-- /.col-md-12 text-center -->
+            <div class="col-md-6 text-center">
+                <div class="ReasonCancel">取消</div>
+                <!-- /.popupCancel -->
+            </div>
+            <!-- /.col-md-6 -->
+            <div class="col-md-6 text-center">
+                <div class="ReasonConfirm" id="aaa" value="">提交</div>
+                <!-- /.popupConfirm -->
+            </div>
+            <!-- /.col-md-6 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.deletePopup -->
+</body>
+</html>

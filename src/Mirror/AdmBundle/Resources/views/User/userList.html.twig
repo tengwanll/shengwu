@@ -1,0 +1,134 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('/bundles/mirroradm/js/user.js') }}"></script>
+{% endblock %}
+{% block typeForm %}
+    <form class="form-horizontal" role="form" name="select_addr" style="margin-top: 50px;">
+
+        <div class="form-group col-md-8">
+            <div class="row">
+                <label for="mobile" class="col-md-1 control-label text-right userNameScreen">手机：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="mobile">
+                </div>
+                <label for="username" class="col-md-1 control-label text-right userNameScreen">用户名：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="username">
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row margin_top">
+                <label for="add" class="col-md-1 control-label text-right">操作：</label>
+                <div class="col-md-3">
+                    <button class="btn btn-default resetButton userAdd" id="add">+添加</button>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <div class="form-group col-md-3">
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9">
+                    <button type="reset" class="btn btn-default resetButton">重置</button>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9 margin_top">
+                    <button class="btn btn-default resetButton" id="search">搜索</button>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <!-- /.form-group col-md-5 -->
+    </form>
+
+{% endblock %}
+{% block thead %}
+
+{% endblock %}
+{% block tbody %}
+
+{% endblock %}
+{% block page %}
+     <div class="row">
+         <div class="col-md-11 col-md-offset-1">
+             <p class="listInfo">显示第 1-10项结果，共 10 项</p>
+         </div>
+         <!-- /.col-md-5 col-md-offset-1 -->
+         <div class="col-md-6 col-md-offset-3 text-center">
+             <div class="page_list">
+                 <ul id="pagination">
+                     <span class="prev_page">上一页</span><li class="on">1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><span class="next_page">下一页</span>
+                 </ul>
+             </div>
+         </div>
+         <!-- /.col-md-6 col-md-offset-3 -->
+     </div>
+     <!-- /.row -->
+ {% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .users'));
+            userList();
+            $('#search').click(function(){
+                userSearch();
+            });
+            $('.stop').click(function(){
+
+                if($(this).text()=='禁用'){
+                    var id=$(this).parent().siblings('.id').text();
+                    stop(id,'-3');
+                    $(this).html('启用');
+
+                }else{
+                     id=$(this).parent().siblings('.id').text();
+                    stop(id,'1');
+                    $(this).html('禁用');
+
+                }
+
+            });
+
+            $('.resetpassword').click(function(){
+                var id=$(this).parent().siblings('.id').text();
+                resetPwd(id);
+
+            });
+
+
+            function stop(id,status){
+                var params={};
+                params.userId=id;
+                params.status=status;
+                ajaxAction("PUT", '/api/admin/user/manage',params, true, function (data, textStatus) {
+                    //window.location.href="/adm/info/creditor";
+                },function(errno,errmsg){
+                    alert(errmsg);
+                });
+
+            }
+
+            function resetPwd(id,status){
+                var params={};
+                params.userId=id;
+                ajaxAction("PUT", '/api/admin/user/resetpwd',params, true, function (data, textStatus) {
+                    //window.location.href="/adm/info/creditor";
+                },function(errno,errmsg){
+                    alert(errmsg);
+                });
+
+            }
+
+
+
+
+
+
+
+        });
+    </script>
+
+{% endblock %}

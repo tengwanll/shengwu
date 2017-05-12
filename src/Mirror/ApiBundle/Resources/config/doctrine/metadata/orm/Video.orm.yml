@@ -1,0 +1,71 @@
+Video:
+    type: entity
+    table: video
+    indexes:
+        coach:
+            columns:
+                - coach_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 视频名称
+        videoImage:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 视频图片路径
+            column: video_image
+        videoLength:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 视频时长
+            column: video_length
+        pay:
+            type: boolean
+            nullable: false
+            options:
+                comment: 视频付费提示
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    manyToOne:
+        coach:
+            targetEntity: CoachDetails
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                coach_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

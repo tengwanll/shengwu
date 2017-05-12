@@ -1,0 +1,119 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('/bundles/mirroradm/js/selectCity.js') }}"></script>
+{% endblock %}
+{% block typeTabTit %}
+    <div class="typeTabTit">
+        <ul>
+            <li><div class="auditName on">用户管理</div></li>
+        </ul>
+        <div class="cls"></div>
+    </div>
+    <!-- /.typeTabTit -->
+{% endblock %}
+{% block typeForm %}
+    <div class="addUser">
+        <div class="addUserTit">
+            <h3>用户管理-<span style="color: #ff8400; font-size:18px;">添加用户</span></h3>
+        </div>
+        <!-- /.addUserTit -->
+        <div class="addUserForm">
+            <form class="form-horizontal" name="select_addr" role="form">
+                <div class="form-group">
+                    <label for="number" class="col-md-3 control-label text-right">用户电话：</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="number">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="role_list" class="col-md-3 control-label text-right">角色：</label>
+                    <div class="col-md-3">
+                        <select class="form-control" id="role_list">
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="number" class="col-md-3 control-label text-right">所在地：</label>
+                    <div class="col-md-3">
+                        <select class="form-control" name="address">
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <select class="form-control" name="addressCity">
+
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-group margin_top">
+                    <div class="col-md-2 col-md-offset-3 userSubmit margin_top">
+                        <button class="btn btn-default resetButton" id="cancel">取消</button>
+                    </div>
+                    <div class="col-md-2 margin_top">
+                        <button class="btn btn-default resetButton" id="ensure">确定</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <!-- /.addUserForm -->
+    </div>
+    <!-- /.addUser -->
+
+{% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .users'));
+            ajaxAction("get",'/api/auth/role',"",true,function(data,textStatus){
+                var html='';
+                $.each(data.rows,function(index,value){
+                    html+='<option value="'+value.roleId+'">'+value.name+'</option>';
+                });
+                $('#role_list').html(html);
+            },function(errno,errmsg){
+                alert(errmsg);
+            });
+            selectprovince('address','addressCity');
+            $('select[name=address]').change(function(){
+                selectcityarea('select_addr','address','addressCity');
+            });
+
+            $('#cancel').click(function(){
+                location.href='/adm/user/list';
+            });
+
+            $('#ensure').click(function(){
+                var info={};
+                info.telephone=$('#number').val();
+                info.roleId=$('#role_list').val();
+                info.province=$('select[name=address]').val();
+                info.city=$('select[name=addressCity]').val();
+                if(!check_phone($('#number'))){
+                    alert('用户电话规则不对');
+                    return;
+                }
+                if(info.province=='0'){
+                    alert('请选择省市');
+                    return;
+                }
+                ajaxAction("post",'/api/admin',info,true,function(data,textStatus){
+                    alert('添加成功');
+                   location.href='/adm/user/list';
+                },function(errno,errmsg){
+                    alert(errmsg);
+                });
+            });
+        });
+        function check_phone(TagName) {
+            return /^(13[0-9]|14[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$/i.test($.trim(TagName.val()));
+        }
+    </script>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+File:
+    type: entity
+    table: file
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        md5:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        size:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        url:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        fileName:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: file_name
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: update_time
+    lifecycleCallbacks: {  }

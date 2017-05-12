@@ -1,0 +1,120 @@
+MatchData:
+    type: entity
+    table: match_data
+    indexes:
+        userId:
+            columns:
+                - user_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        userId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: user_id
+        heartRate:
+            type: float
+            nullable: false
+            precision: 11
+            scale: 2
+            options:
+                comment: 心率
+            column: heart_rate
+        calorie:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 消耗卡路里
+        maxSpeed:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 最高速度
+            column: max_speed
+        currentSpeed:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 当前速度
+            column: current_speed
+        averageSpeed:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 平均速度
+            column: average_speed
+        beginTime:
+            type: datetime
+            nullable: false
+            options:
+                comment: 比赛开始时间
+            column: begin_time
+        endTime:
+            type: datetime
+            nullable: false
+            options:
+                comment: 比赛结束时间
+            column: end_time
+        type:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '比赛类型 1:冒险模式 2对战模式 3好友挑战 4教练模式5竞技模式'
+                default: '1'
+        typeId:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+                comment: '对应type种类的id,比如第几种冒险模式'
+            column: type_id
+        equipmentId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: equipment_id
+        ridingTime:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: riding_time
+        ridingDistance:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 骑行距离
+            column: riding_distance
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                comment: 骑行时长
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }

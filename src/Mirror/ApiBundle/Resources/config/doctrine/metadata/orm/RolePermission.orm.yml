@@ -1,0 +1,43 @@
+RolePermission:
+    type: entity
+    table: role_permission
+    indexes:
+        roleId:
+            columns:
+                - role_id
+        permissionId:
+            columns:
+                - permission_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        roleId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: role_id
+        permissionId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: permission_id
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+            column: update_time
+    lifecycleCallbacks: {  }

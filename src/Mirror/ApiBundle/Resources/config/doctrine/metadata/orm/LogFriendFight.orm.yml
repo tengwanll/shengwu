@@ -1,0 +1,63 @@
+LogFriendFight:
+    type: entity
+    table: log_friend_fight
+    indexes:
+        sendId:
+            columns:
+                - send_id
+        acceptId:
+            columns:
+                - accept_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        sendId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: send_id
+        acceptId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            column: accept_id
+        expires:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        valid:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: '1有效 0无效'
+        validTime:
+            type: datetime
+            nullable: true
+            column: valid_time
+        status:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+        createTime:
+            type: datetime
+            nullable: false
+            column: create_time
+        updateTime:
+            type: datetime
+            nullable: false
+            options:
+                default: '0000-00-00 00:00:00'
+            column: update_time
+    lifecycleCallbacks: {  }
