@@ -32,9 +32,8 @@ class LogLoginModel extends BaseModel {
      * @param $entityId
      * @param $type
      * @param $ip
-     * @param $equipmentId
      */
-    public function saveLogin($entityId, $type, $ip,$equipmentId=0) {
+    public function saveLogin($entityId, $type, $ip) {
         $logLogin = new LogLogin();
         $logLogin->setEntityId($entityId);
         $logLogin->setType($type);

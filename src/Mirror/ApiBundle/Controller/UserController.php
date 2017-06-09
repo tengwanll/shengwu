@@ -36,15 +36,12 @@ class UserController extends BaseController
         $json=$this->getJson($request);
         $telephone=$json->get('telephone','');
         $password=$json->get('password','');
-        $creditId=$json->get('creditId',0);
-        $propertyId=$json->get('propertyId',0);
-        $rewardId=$json->get('rewardId',0);
         $ip=$this->getIpAddress($request);
-        $rr=$this->get('user_service')->login($telephone,$password,$ip,$creditId,$propertyId,$rewardId);
+        $rr=$this->get('user_service')->login($telephone,$password,$ip);
         if($rr->errno==0){
-//            $this->sessionSet($request,'userId',$rr->result['userId']);
-//            $this->sessionSet($request,'telephone',$rr->result['telephone']);
-//            $this->sessionSet($request,'identification',$rr->result['identification']);
+            $this->sessionSet($request,'userId',$rr->result['userId']);
+            $this->sessionSet($request,'username',$rr->result['username']);
+            $this->sessionSet($request,'telephone',$rr->result['telephone']);
             $this->sessionSet($request,Constant::$login_entity,1);
         }
         return $this->buildResponse($rr);

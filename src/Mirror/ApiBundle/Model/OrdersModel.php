@@ -41,8 +41,8 @@ class OrdersModel extends BaseModel
         $arguments=array();
         $where[]=' o.userId=u.id ';
         if($number){
-            $where[]=" o.number like :number ";
-            $arguments['number']='%'.$number.'%';
+            $where[]=" o.orderNo like :orderNo ";
+            $arguments['orderNo']='%'.$number.'%';
         }
         if($beginTime){
             $where[]=" o.createTime > :beginTime ";

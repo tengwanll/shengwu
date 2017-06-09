@@ -312,11 +312,16 @@ abstract class BaseModel {
      * @param array $parameters
      * @param string $pageable
      * @param string $sort
+     * @param string $fields
      * @return \Doctrine\ORM\Tools\Pagination\Paginator
      */
-    public function getByParams($parameters = array(), $pageable = '', $sort = '') {
+    public function getByParams($parameters = array(), $pageable = '', $sort = '',$fields='') {
         // 基础语句
-        $dql = "select u from ".$this->getRepositoryName()." u";
+        if($fields){
+            $dql = "select $fields from ".$this->getRepositoryName()." u";
+        }else{
+            $dql = "select u from ".$this->getRepositoryName()." u";
+        }
         $where = array();
         $arguments = array();
         $index=1;

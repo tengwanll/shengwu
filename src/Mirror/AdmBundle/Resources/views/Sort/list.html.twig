@@ -1,0 +1,33 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('/bundles/mirroradm/js/sort.js') }}"></script>
+{% endblock %}
+{% block css %}
+    <style>
+        .tr_hidden {
+
+        }
+    </style>
+{% endblock %}
+{% block thead %}
+    <tr class="tableTit">
+        <td>编号</td>
+        <td>名称</td>
+        <td>图片</td>
+        <td>子类</td>
+        <td>层级</td>
+        <td colspan="3" width="18%">操作</td>
+    </tr>
+{% endblock %}
+ {% block tbody %}
+     {#表格内容区#}
+ {% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .sort'));
+            sortList();
+        });
+    </script>
+
+{% endblock %}

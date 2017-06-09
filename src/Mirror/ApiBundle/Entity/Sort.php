@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Sort
  *
- * @ORM\Table(name="sort", indexes={@ORM\Index(name="parent", columns={"parent_id"})})
+ * @ORM\Table(name="sort", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name", "level"})}, indexes={@ORM\Index(name="parent", columns={"parent_id"}), @ORM\Index(name="left", columns={"left_r"}), @ORM\Index(name="right", columns={"right_r"}), @ORM\Index(name="status", columns={"status"})})
  * @ORM\Entity
  */
 class Sort
@@ -31,13 +31,6 @@ class Sort
     /**
      * @var integer
      *
-     * @ORM\Column(name="parent_id", type="integer", nullable=false)
-     */
-    private $parentId = '0';
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="image", type="integer", nullable=true)
      */
     private $image;
@@ -45,7 +38,35 @@ class Sort
     /**
      * @var integer
      *
-     * @ORM\Column(name="status", type="integer", nullable=false)
+     * @ORM\Column(name="left_r", type="smallint", nullable=false)
+     */
+    private $leftR;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="right_r", type="smallint", nullable=false)
+     */
+    private $rightR;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="parent_id", type="integer", nullable=false)
+     */
+    private $parentId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="level", type="smallint", nullable=false)
+     */
+    private $level = '0';
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="status", type="boolean", nullable=false)
      */
     private $status;
 
@@ -100,30 +121,6 @@ class Sort
     }
 
     /**
-     * Set parentId
-     *
-     * @param integer $parentId
-     *
-     * @return Sort
-     */
-    public function setParentId($parentId)
-    {
-        $this->parentId = $parentId;
-
-        return $this;
-    }
-
-    /**
-     * Get parentId
-     *
-     * @return integer
-     */
-    public function getParentId()
-    {
-        return $this->parentId;
-    }
-
-    /**
      * Set image
      *
      * @param integer $image
@@ -148,9 +145,105 @@ class Sort
     }
 
     /**
+     * Set leftR
+     *
+     * @param integer $leftR
+     *
+     * @return Sort
+     */
+    public function setLeftR($leftR)
+    {
+        $this->leftR = $leftR;
+
+        return $this;
+    }
+
+    /**
+     * Get leftR
+     *
+     * @return integer
+     */
+    public function getLeftR()
+    {
+        return $this->leftR;
+    }
+
+    /**
+     * Set rightR
+     *
+     * @param integer $rightR
+     *
+     * @return Sort
+     */
+    public function setRightR($rightR)
+    {
+        $this->rightR = $rightR;
+
+        return $this;
+    }
+
+    /**
+     * Get rightR
+     *
+     * @return integer
+     */
+    public function getRightR()
+    {
+        return $this->rightR;
+    }
+
+    /**
+     * Set parentId
+     *
+     * @param integer $parentId
+     *
+     * @return Sort
+     */
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
+
+        return $this;
+    }
+
+    /**
+     * Get parentId
+     *
+     * @return integer
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * Set level
+     *
+     * @param integer $level
+     *
+     * @return Sort
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return integer
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
      * Set status
      *
-     * @param integer $status
+     * @param boolean $status
      *
      * @return Sort
      */
@@ -164,7 +257,7 @@ class Sort
     /**
      * Get status
      *
-     * @return integer
+     * @return boolean
      */
     public function getStatus()
     {

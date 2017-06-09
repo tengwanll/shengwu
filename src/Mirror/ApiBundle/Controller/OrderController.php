@@ -47,10 +47,16 @@ class OrderController extends BaseController
         return $this->buildResponse($rr);
     }
 
-    public function getOrderGoods(Request $request){
+    /**
+     * @Route("/{id}/goods",requirements={"id":"\d+"})
+     * @Method("GET")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getOrderGoods($id,Request $request){
         $pageable=$this->getPage($request);
-        $orderId=$request->get('orderId','');
-        $rr=$this->get('order_service')->getOrderGoods($pageable,$orderId);
+        $rr=$this->get('order_service')->getOrderGoods($pageable,$id);
         return $this->buildResponse($rr);
     }
 }

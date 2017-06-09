@@ -17,8 +17,17 @@ class GoodsController extends Controller
      * @Template
      * @return array
      */
-    public function dataAction()
+    public function listAction()
     {
         return array();
+    }
+
+    /**
+     * @Route("/{id}",requirements={"id":"\d+"})
+     * @Template
+     * @return array
+     */
+    public function infoAction($id){
+        return array('id'=>$id);
     }
 }

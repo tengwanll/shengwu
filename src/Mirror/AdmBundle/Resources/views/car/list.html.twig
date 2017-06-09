@@ -1,0 +1,69 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('/bundles/mirroradm/js/goodsCar.js') }}"></script>
+{% endblock %}
+{% block typeForm %}
+        <div class="form-group col-md-8">
+            <!-- /.row -->
+            <div class="row margin_top">
+                <label  class="col-md-2 control-label">总价：</label>
+                <label id="totalPrice" class="control-label"></label> 元
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <div class="form-group col-md-3">
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9">
+                    <button id="import" class="btn btn-default resetButton">导入商品</button>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9 margin_top">
+                    <button id="order" class="btn btn-default resetButton">下单</button>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+{% endblock %}
+{% block thead %}
+    <tr class="tableTit">
+        <td><label for="choice">选项</label><input id="choice" type="checkbox" onclick="choiceAll(this)"></td>
+        <td>编号</td>
+        <td>名称</td>
+        <td>数量</td>
+        <td>价格</td>
+        <td colspan="3" width="18%">操作</td>
+    </tr>
+{% endblock %}
+ {% block tbody %}
+     {#表格内容区#}
+ {% endblock %}
+ {% block page %}
+     <div class="row">
+         <div class="col-md-11 col-md-offset-1">
+             <p class="listInfo">显示第 1-10项结果，共 10 项</p>
+         </div>
+         <!-- /.col-md-5 col-md-offset-1 -->
+         <div class="col-md-6 col-md-offset-3 text-center">
+             <div class="page_list">
+                 <ul id="pagination">
+                     <span class="prev_page">上一页</span><li class="on">1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><span class="next_page">下一页</span>
+                 </ul>
+             </div>
+         </div>
+         <!-- /.col-md-6 col-md-offset-3 -->
+     </div>
+     <!-- /.row -->
+ {% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .car'));
+            goodsList();
+        });
+    </script>
+
+{% endblock %}

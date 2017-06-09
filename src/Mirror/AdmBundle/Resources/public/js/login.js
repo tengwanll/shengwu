@@ -18,11 +18,7 @@ $(function(){
         }
 
         ajaxAction("post","/api/user/login",info,true,function(data,textStatus){
-            if(data.status){
-                window.location.href="/adm/info/creditor";
-            }else{
-                window.location.href="/adm/verify/index";
-            }
+            window.location.href="/adm/user";
         },function(errno,errmsg) {
             alert(errmsg);
             if(errno==2012){

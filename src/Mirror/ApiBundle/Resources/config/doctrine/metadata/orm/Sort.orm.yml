@@ -5,6 +5,20 @@ Sort:
         parent:
             columns:
                 - parent_id
+        left:
+            columns:
+                - left_r
+        right:
+            columns:
+                - right_r
+        status:
+            columns:
+                - status
+    uniqueConstraints:
+        name:
+            columns:
+                - name
+                - level
     id:
         id:
             type: integer
@@ -22,24 +36,42 @@ Sort:
             options:
                 fixed: false
                 comment: 商品名称
+        image:
+            type: integer
+            nullable: true
+            options:
+                unsigned: false
+        leftR:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+                comment: '左值,left是关键字不能取'
+            column: left_r
+        rightR:
+            type: smallint
+            nullable: false
+            options:
+                unsigned: false
+                comment: '右值,right是关键字不能取'
+            column: right_r
         parentId:
             type: integer
             nullable: false
             options:
                 unsigned: false
                 comment: 父辈id
-                default: '0'
             column: parent_id
-        image:
-            type: integer
-            nullable: true
-            options:
-                unsigned: false
-        status:
-            type: integer
+        level:
+            type: smallint
             nullable: false
             options:
                 unsigned: false
+                comment: 当前级别
+                default: '0'
+        status:
+            type: boolean
+            nullable: false
         createTime:
             type: datetime
             nullable: false

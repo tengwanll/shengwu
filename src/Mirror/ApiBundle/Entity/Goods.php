@@ -57,6 +57,13 @@ class Goods
     private $description;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="buy_num", type="integer", nullable=false)
+     */
+    private $buyNum = '0';
+
+    /**
      * @var string
      *
      * @ORM\Column(name="attr", type="blob", length=65535, nullable=true)
@@ -214,6 +221,30 @@ class Goods
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set buyNum
+     *
+     * @param integer $buyNum
+     *
+     * @return Goods
+     */
+    public function setBuyNum($buyNum)
+    {
+        $this->buyNum = $buyNum;
+
+        return $this;
+    }
+
+    /**
+     * Get buyNum
+     *
+     * @return integer
+     */
+    public function getBuyNum()
+    {
+        return $this->buyNum;
     }
 
     /**

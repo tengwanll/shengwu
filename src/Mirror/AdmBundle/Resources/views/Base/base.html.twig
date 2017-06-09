@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>债基地后台管理系统</title>
+    <title>Liu Lab后台管理系统</title>
     <script src="//cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
     <script src="{{ asset('/bundles/mirroradm/js/jquery.json.js') }}"></script>
     <script src="{{ asset('/bundles/mirroradm/js/jqPaginator.js') }}"></script>
@@ -15,6 +15,7 @@
     <script src="{{ asset('/bundles/mirroradm/js/admin.js') }}"></script>
     <script src="{{ asset('/bundles/mirroradm/js/admPublic.js') }}"></script>
     <script src="{{ asset('/bundles/mirroradm/js/jquery.json.js') }}"></script>
+    <script src="{{ asset('/bundles/mirroradm/js/comfirm.js') }}"></script>
     {% block javascript %} {% endblock %}
     {% block css %} {% endblock %}
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -92,6 +93,8 @@
                         <li><a href="/adm/user" class="users">用户管理</a></li>
                         <li><a href="/adm/order" class="order">订单管理</a></li>
                         <li><a href="/adm/goods" class="goods">商品管理</a></li>
+                        <li><a href="/adm/sort" class="sort">分类管理</a></li>
+                        <li><a href="/adm/car" class="car">购物车</a></li>
                         {% endblock %}
                     </ul>
                 </div>

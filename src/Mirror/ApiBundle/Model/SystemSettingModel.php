@@ -25,7 +25,7 @@ class SystemSettingModel extends BaseModel {
      * @return string
      */
     public function getDownLoadBaseUrl() {
-        $systemSetting = $this->getOneByProperty('name', Constant::$DOWNLOAD_SERVER);
+        $systemSetting = $this->getOneByProperty('name', Constant::$download_server);
 
         return $systemSetting ? $systemSetting->getValue() : '';
     }

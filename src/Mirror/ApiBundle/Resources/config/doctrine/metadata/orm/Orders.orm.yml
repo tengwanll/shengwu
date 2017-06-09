@@ -15,13 +15,14 @@ Orders:
             generator:
                 strategy: IDENTITY
     fields:
-        number:
+        orderNo:
             type: string
             nullable: false
             length: 255
             options:
                 fixed: false
                 comment: 订单编号
+            column: order_no
         userId:
             type: integer
             nullable: false
@@ -49,6 +50,7 @@ Orders:
             nullable: false
             options:
                 unsigned: false
+                comment: '0 无效 1待审核 2审核通过'
         createTime:
             type: datetime
             nullable: false

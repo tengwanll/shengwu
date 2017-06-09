@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
  */
 class OrderGoodsModel extends BaseModel
 {
-    private $repositoryName = 'MirrorApiBundle:Order_goods';
+    private $repositoryName = 'MirrorApiBundle:OrderGoods';
 
     public function getRepositoryName() {
         return $this->repositoryName;

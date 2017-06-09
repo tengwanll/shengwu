@@ -55,7 +55,7 @@
 {% endblock %}
 {% block otherJs %}
     <script>
-        var userId={{ id }};
+        var orderId={{ id }};
         $(function(){
             adminTabNav($('.adminLeftNav .order'));
 
@@ -64,7 +64,7 @@
             $('.orderInfo').hide();
         });
 
-            orderInfo(userId);
+            orderInfo(orderId);
 
             $('.infoUserTitle li').click(function(){
                 tabNavTitle($(this));
@@ -73,13 +73,13 @@
                 if($(this).text()=='订单信息'){
                     $('.infoUserCon').show();
                     $('.orderInfo').hide();
-                    orderInfo(userId);
+                    orderInfo(orderId);
                 }
                 if($(this).text()=='包含商品'){
                     $('.infoUserCon').hide();
                     $('.orderInfo').show();
                     thead+=' <tr class="tableCreditInfo"><td>商品名称</td><td>商品数量</td><td>价格</td><td>操作</td></tr>';
-                    goodsList(userId);
+                    orderGoodsList(orderId);
                     $('thead.userTableHead').html(thead);
                 }
             });

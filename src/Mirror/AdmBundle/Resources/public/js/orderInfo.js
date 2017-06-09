@@ -1,10 +1,21 @@
 $(function(){
 
 });
-function userInfo(orderId){
+function orderInfo(orderId){
 
     ajaxAction("get","/api/order/"+orderId,"",false,function(data,textStatus){
-        var infoHtml='<dl><dt>ID：</dt><dd>'+ data.userId +'</dd><dt>头像：</dt><dd><a href="javascript:void(0)"><img src="'+data.image+'" /></a></dd><dt>手机号：</dt><dd>'+data.mobile+'</dd><dt>用户名：</dt><dd>'+data.username+'</dd><dt>注册时间：</dt><dd>'+data.createTime+'</dd></dl>';
+        if(data.status=='-1'){
+            data.status='未通过';
+        }else if(data.status=='0'){
+            data.status='待审核';
+        }else if(data.status=='1'){
+            data.status='代发货';
+        }else if(data.status=='2'){
+            data.status='已发货';
+        }else if(data.status=='3'){
+            data.status='已完成';
+        }
+        var infoHtml='<dl><dt>ID：</dt><dd>'+ data.id +'</dd><dt>订单状态：</dt><dd>'+data.status+'</dd><dt>订单编号：</dt><dd>'+data.number+'</dd><dt>下单时间：</dt><dd>'+data.createTime+'</dd><dt>下单人：</dt><dd>'+data.username+'</dd><dt>价格：</dt><dd>'+data.price+'</dd></dl><dt>订单备注：</dt><dd>'+data.message+'</dd></dl>';
 
         $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
@@ -16,13 +27,12 @@ function userInfo(orderId){
 //////////////////////////////////////////////////////////
 
 //用户订单列表
-function orderList(userId){
+function orderGoodsList(orderId){
     // 债权列表
     var info={};
     info.rows=20;
     info.page=1;
-    info.userId=userId;
-    ajaxAction("get",'/api/user/order'+ passParam(info),"",false,function(data,textStatus){
+    ajaxAction("get",'/api/order/'+orderId+'/goods'+ passParam(info),"",false,function(data,textStatus){
         var count=Math.ceil(data.total/20);
         html="";
         if(!count){
@@ -39,25 +49,10 @@ function orderList(userId){
             page: '<li>{{page}}</li>',
             onPageChange: function (num, type) {
                 info.page=num;
-                ajaxAction("get",'/api/user/order'+ passParam(info),"",true,function(data,textStatus){
+                ajaxAction("get",'/api/order/'+orderId+'/goods'+ passParam(info),"",true,function(data,textStatus){
                     var html = '';
                     $.each(data.list,function(index,value){
-                        var deal=[];
-                        if(value.status==-1){
-                            value.status="未通过";
-                        }else if(value.status==0){
-                            value.status="待审核";
-                        }else if(value.status==1){
-                            value.status="代发货";
-                        }else if(value.status==3){
-                            value.status="已发货";
-                        }else if(value.status==4){
-                            value.status="已完成";
-                        }
-                        html='';
-                        html+=' <tr><td>'+value.number+'</td><td>'+value.createTime+'</td><td>'+value.price+'</td><td>'+value.status+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a></td></tr>';
-
-
+                        html+=' <tr><td>'+value.goodsName+'</td><td>'+value.number+'</td><td>'+value.price+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a></td></tr>';
                     });
                     $('tbody').html(html);
                 },function(errno,errmsg){

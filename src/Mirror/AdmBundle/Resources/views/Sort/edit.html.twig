@@ -1,0 +1,111 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block typeForm %}
+    <div class="addUser">
+        <div class="addUserTit">
+            <h3>分类管理-<span style="color: #ff8400; font-size:18px;">修改分类</span></h3>
+        </div>
+        <!-- /.addUserTit -->
+        <div class="addUserForm form-horizontal">
+
+                <div class="form-group">
+                    <label for="sortParent" class="col-md-3 control-label text-right">父级分类：</label>
+                    <div class="col-md-3">
+                        <input type="text" disabled class="form-control" id="sortParent" value="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sortName" class="col-md-3 control-label text-right">分类名称：</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="sortName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="number" class="col-md-3 control-label text-right">图片：</label>
+                    <div class="col-md-3 imageUpload">
+                        <form action="" name="uploadForm">
+                        <img src="{{ asset('/bundles/mirroradm/images/default.jpg') }}" alt="">
+                        <input type="file" id="imageUpload" name="file">
+                        <input type="hidden" id="imageValue">
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="sortAttr" class="col-md-3 control-label text-right">分类属性：</label>
+                    <div class="col-md-3" id="sortAttr">
+
+                        <img src="{{ asset('/bundles/mirroradm/images/jiahao.png') }}" width="30px" height="30px" style="cursor: pointer" onclick="addInput(this)" alt="">
+                    </div>
+                </div>
+
+                <div class="form-group margin_top">
+                    <div class="col-md-2 col-md-offset-3 userSubmit margin_top">
+                        <button class="btn btn-default resetButton" id="cancel">取消</button>
+                    </div>
+                    <div class="col-md-2 margin_top">
+                        <button class="btn btn-default resetButton" id="ensure">确定</button>
+                    </div>
+                </div>
+
+        </div>
+        <!-- /.addUserForm -->
+    </div>
+    <!-- /.addUser -->
+
+{% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .sort'));
+            var id={{ id }};
+            ajaxAction("get", '/api/sort/'+id, '', true, function (data, textStatus) {
+                $('#sortParent').val(data.parentName);
+                $('#sortName').val(data.name);
+                $('.imageUpload img').attr('src',data.image);
+                var attr=data.attr.split(',');
+               $.each(attr,function (index,value) {
+                    $('#sortAttr img').before('<input type="text" name="sortAttr" style="line-height: 30px" value="'+value+'">&nbsp;');
+                });
+            }, function (errno, errmsg) {
+                alert(errmsg);
+            });
+            $('#imageUpload').change(function () {
+                if(!/image\/\w+/.test(this.files[0].type)){
+                    alert("文件必须为图片！");
+                    return false;
+                }
+                banner_upload(this,$('.imageUpload'));
+                pubImgUpload($('form[name=uploadForm]')[0],$('#imageValue'));
+            });
+            $('#ensure').click(function(){
+                var info={};
+                info.id={{ id }};
+                info.name=$('#sortName').val();
+                info.image=$('#imageValue').val();
+                info.attr=[];
+                $('input[name=sortAttr]').each(function(){
+                    if($(this).val()!=''){
+                        info.attr.push($(this).val());
+                    }
+                });
+                if(info.name==''){
+                    alert('分类名不能为空');
+                    return;
+                }
+                ajaxAction("put",'/api/sort',info,false,function(data,textStatus){
+                    alert('修改成功');
+//                   location.href='/adm/sort';
+                },function(errno,errmsg){
+                    alert(errmsg);
+                });
+            });
+        });
+        function addInput(obj) {
+            $(obj).before('<input type="text" name="sortAttr" style="line-height: 30px">');
+        }
+    </script>
+
+{% endblock %}

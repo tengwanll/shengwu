@@ -70,7 +70,7 @@ class OrderService
             /**@var $order \Mirror\ApiBundle\Entity\Orders*/
             $arr[]=array(
                 'id'=>$order->getId(),
-                'number'=>$order->getNumber(),
+                'number'=>$order->getOrderNo(),
                 'createTime'=>$order->getCreateTime()->format('Y-m-d H:i:s'),
                 'username'=>$orderVal['username'],
                 'price'=>$order->getPrice(),
@@ -100,16 +100,14 @@ class OrderService
         $user=$this->userModel->getById($userId);
         $arr=array(
             'id'=>$order->getId(),
-            'number'=>$order->getNumber(),
+            'number'=>$order->getOrderNo(),
             'createTime'=>$order->getCreateTime()->format('Y-m-d H:i:s'),
-            'username'=>$user?$user->getUsername:'',
+            'username'=>$user?$user->getUsername():'',
             'price'=>$order->getPrice(),
             'message'=>$order->getMessage(),
             'status'=>$order->getStatus()
         );
-        $rr->result=array(
-            'info'=>$arr
-        );
+        $rr->result=$arr;
         return $rr;
     }
 
@@ -120,7 +118,7 @@ class OrderService
      */
     public function getOrderGoods($pageable,$orderId){
         $rr=new ReturnResult();
-        $orderGoodsList=$this->orderGoodsModel->getByParams(array('status=>1','orderId'=>$orderId),$pageable);
+        $orderGoodsList=$this->orderGoodsModel->getByParams(array('status'=>1,'orderId'=>$orderId),$pageable);
         $arr=array();
         foreach($orderGoodsList as $orderGoods){
             /**@var $orderGoods \Mirror\ApiBundle\Entity\OrderGoods*/

@@ -49,6 +49,14 @@ Goods:
             length: 65535
             options:
                 fixed: false
+        buyNum:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 订购次数
+                default: '0'
+            column: buy_num
         attr:
             type: blob
             nullable: true

@@ -24,9 +24,9 @@ class Orders
     /**
      * @var string
      *
-     * @ORM\Column(name="number", type="string", length=255, nullable=false)
+     * @ORM\Column(name="order_no", type="string", length=255, nullable=false)
      */
-    private $number;
+    private $orderNo;
 
     /**
      * @var integer
@@ -83,27 +83,27 @@ class Orders
     }
 
     /**
-     * Set number
+     * Set orderNo
      *
-     * @param string $number
+     * @param string $orderNo
      *
      * @return Orders
      */
-    public function setNumber($number)
+    public function setOrderNo($orderNo)
     {
-        $this->number = $number;
+        $this->orderNo = $orderNo;
 
         return $this;
     }
 
     /**
-     * Get number
+     * Get orderNo
      *
      * @return string
      */
-    public function getNumber()
+    public function getOrderNo()
     {
-        return $this->number;
+        return $this->orderNo;
     }
 
     /**

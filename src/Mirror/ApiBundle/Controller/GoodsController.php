@@ -1,0 +1,49 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: 31726
+ * Date: 2017/5/15
+ * Time: 17:16
+ */
+
+namespace Mirror\ApiBundle\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * @Route("/goods")
+ * Class GoodsController
+ * @package Mirror\ApiBundle\Controller
+ */
+class GoodsController extends  BaseController
+{
+    /**
+     * @Route("")
+     * @Method("GET")
+     * @param Request $request
+     * @return mixed
+     */
+    public function getList(Request $request){
+        $pageable=$this->getPage($request);
+        $name=$request->get('name','');
+        $sort=$request->get('sort',null);
+        $bigPrice=$request->get('bigPrice',null);
+        $smallPrice=$request->get('smallPrice',null);
+        $rr=$this->get('goods_service')->getList($name,$sort,$bigPrice,$smallPrice,$pageable);
+        return $this->buildResponse($rr);
+    }
+
+    /**
+     * @Route("/{id}",requirements={"id":"\d+"})
+     * @Method("GET")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getDetail($id){
+        $conn=$this->get('database_connection');
+        $rr=$this->get('goods_service')->getDetail($id,$conn);
+        return $this->buildResponse($rr);
+    }
+}

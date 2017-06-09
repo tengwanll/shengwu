@@ -22,7 +22,6 @@ class FileService {
     private $fileModel;
     private $systemSettingModel;
     private $rootDir;
-    private $logCurlModel;
 
     /**
      * @InjectParams({
@@ -94,17 +93,16 @@ class FileService {
     /**
      * 获取文件地址
      * @param $id
-     * @deprecated
      * @return null|string
      */
     public function getFullUrlById($id) {
         if (!$id) {
-            return null;
+            return '';
         }
 
         $file = $this->fileModel->getById($id);
         if (!$file) {
-            return null;
+            return '';
         }
 
         return $this->getFullUrl($file);

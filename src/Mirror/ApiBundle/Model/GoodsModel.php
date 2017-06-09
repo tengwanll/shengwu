@@ -20,9 +20,14 @@ use Symfony\Component\Validator\Constraints\DateTime;
  */
 class GoodsModel extends BaseModel
 {
-    private $repositoryName = 'MirrorApiBundle:goods';
+    private $repositoryName = 'MirrorApiBundle:Goods';
 
     public function getRepositoryName() {
         return $this->repositoryName;
+    }
+
+    public function getDetail($id,$conn){
+        $sql='select name,sort_id,price,image,description,buy_num,status,create_time,update_time,column_json(attr) as attrs from goods where id='.$id;
+        return $conn->fetchAssoc($sql);
     }
 }

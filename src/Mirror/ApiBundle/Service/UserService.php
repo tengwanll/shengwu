@@ -68,50 +68,31 @@ class UserService
      * @param $rewardId
      * @return ReturnResult
      */
-    public function login($telephone,$password,$ipAddress,$creditId=0,$propertyId=0,$rewardId=0){
+    public function login($telephone,$password,$ipAddress){
         $rr=new ReturnResult();
-//        $user=$this->userModel->getOneByCriteria(array('telephone'=>$telephone,'status'=>1));
-//        if(!$user){
-//            $rr->errno=Code::$user_not_exist;
-//            return $rr;
-//        }
-//        if($user->getStatus()==2){
-//            $rr->errno=Code::$user_forbidden;
-//            return $rr;
-//        }
-//        //判断密码
-//        if(md5($password)!=$user->getPassword()){
-//            $rr->errno=Code::$password_not_right;
-//            return $rr;
-//        }
-//        //验证是否有携带债权
-//        if($creditId){
-//            $credit=$this->creditModel->getById($creditId);
-//            $credit->setUserId($user->getId());
-//            $this->creditModel->flush($credit);
-//        }
-//        //验证是否携带资产
-//        if($propertyId){
-//            $property=$this->propertyModel->getById($propertyId);
-//            $property->setUserId($user->getId());
-//            $this->propertyModel->flush($property);
-//        }
-//        //验证是否携带悬赏
-//        if($rewardId){
-//            $reward=$this->rewardModel->getById($rewardId);
-//            if($reward){
-//                $reward->setUserId($user->getId());
-//                $this->propertyModel->flush($reward);
-//            }
-//        }
-//        //生成日志
-//        $this->logLoginModel->saveLogin($user->getId(),Constant::$login_type_user,$ipAddress);
-//        $data=array(
-//            'userId'=>$user->getId(),
-//            'telephone'=>$user->getTelephone(),
-//            'identification'=>$user->getIdentification()
-//        );
-//        $rr->result=$data;
+        $user=$this->userModel->getOneByCriteria(array('mobile'=>$telephone,'status'=>1));
+        if(!$user){
+            $rr->errno=Code::$user_not_exist;
+            return $rr;
+        }
+        if($user->getStatus()==2){
+            $rr->errno=Code::$user_forbidden;
+            return $rr;
+        }
+        //判断密码
+        if(md5($password)!=$user->getPassword()){
+            $rr->errno=Code::$password_not_right;
+            return $rr;
+        }
+
+        //生成日志
+        $this->logLoginModel->saveLogin($user->getId(),Constant::$login_type_admin,$ipAddress);
+        $data=array(
+            'userId'=>$user->getId(),
+            'username'=>$user->getUsername(),
+            'telephone'=>$user->getMobile()
+        );
+        $rr->result=$data;
         return $rr;
     }
 

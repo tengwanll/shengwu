@@ -17,7 +17,6 @@ function userInfo(userId){
 
 //用户订单列表
 function orderList(userId){
-    // 债权列表
     var info={};
     info.rows=20;
     info.page=1;
