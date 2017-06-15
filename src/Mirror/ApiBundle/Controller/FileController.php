@@ -58,4 +58,23 @@ class FileController extends BaseController {
         );
         return $this->buildResponse(new ReturnResult(0,$result));
     }
+
+    /**
+     * @Route("/import")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function import(Request $request){
+        $file = $request->files->get('file', '');
+        $userId=$this->sessionGet($request,'userId',0);
+        $file = $this->get('file_service')->saveFile($request,$file);
+        if (!$file) {
+            return $this->buildResponse(new ReturnResult(Code::$file_not_exist));
+        }
+        $url='./'.$file->getUrl();
+        $conn=$this->get('database_connection');
+        $rr=$this->get('car_service')->import($url,$userId,$conn);
+        return $this->buildResponse($rr);
+    }
 }

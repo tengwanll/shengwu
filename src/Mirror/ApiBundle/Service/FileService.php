@@ -5,6 +5,8 @@ namespace Mirror\ApiBundle\Service;
 use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use JMS\DiExtraBundle\Annotation\Service;
+use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\Common\Constant;
 use Mirror\ApiBundle\Entity\File;
 use Mirror\ApiBundle\Model\FileModel;
 use Mirror\ApiBundle\Model\SystemSettingModel;

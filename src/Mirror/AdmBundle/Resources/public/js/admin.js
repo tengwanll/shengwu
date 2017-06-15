@@ -160,7 +160,16 @@ function pubImgUpload(formTagName,filePosition){
     });
 }
 
-/*图片上传*/
+/*excel导入*/
+function fileUpload(formTagName){
+    imgUpload(formTagName,'/api/file/import','post',function(){},function(data,textStatus){
+        // location.href='/adm/car';
+    },function(errno,errmsg){
+        alert(errmsg);
+    });
+}
+
+/*图片预览*/
 function banner_upload(target,mark_target) {
     var url='';
     if(window.FileReader){

@@ -24,5 +24,9 @@ class Code {
     public static $password_not_right=20107;
     public static $car_not_exist=20108;
     public static $number_not_right=20109;
-
+    public static $create_order_fail=20110;
+    public static $file_not_right_excel=20111;
+    public static $file_name_null=20112;
+    public static $file_sort_not_exist=20113;
+    public static $file_price_null=20114;
 }

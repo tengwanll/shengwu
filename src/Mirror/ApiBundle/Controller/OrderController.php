@@ -59,4 +59,20 @@ class OrderController extends BaseController
         $rr=$this->get('order_service')->getOrderGoods($pageable,$id);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function create(Request $request){
+        $json=$this->getJson($request);
+        $carId=$json->get('carId',array());
+        $price=$json->get('price',0);
+        $userId=$this->sessionGet($request,'userId',0);
+        $message=$json->get('message','');
+        $rr=$this->get('order_service')->create($carId,$price,$userId,$message);
+        return $this->buildResponse($rr);
+    }
 }

@@ -11,6 +11,7 @@ namespace Mirror\ApiBundle\Service;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\Model\CarModel;
 use Mirror\ApiBundle\Model\GoodsModel;
 use Mirror\ApiBundle\Model\OrderGoodsModel;
 use Mirror\ApiBundle\Model\OrdersModel;
@@ -18,6 +19,7 @@ use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Mirror\ApiBundle\Model\UserModel;
 use Mirror\ApiBundle\ViewModel\ReturnResult;
+use Think\Exception;
 
 /**
  * @DI\Service("order_service")
@@ -30,26 +32,30 @@ class OrderService
     private $userModel;
     private $orderGoodsModel;
     private $goodsModel;
+    private $carModel;
 
     /**
      * @InjectParams({
      *     "orderModel"=@Inject("orders_model"),
      *     "userModel"=@Inject("user_model"),
      *     "orderGoodsModel"=@Inject("order_goods_model"),
-     *     "goodsModel"=@Inject("goods_model")
+     *     "goodsModel"=@Inject("goods_model"),
+     *     "carModel"=@Inject("car_model")
      * })
      * OrderService constructor.
      * @param OrdersModel $ordersModel
      * @param UserModel $userModel
      * @param OrderGoodsModel $orderGoodsModel
      * @param GoodsModel $goodsModel
+     * @param CarModel $carModel
      */
-    public function __construct(OrdersModel $ordersModel,UserModel $userModel,OrderGoodsModel $orderGoodsModel,GoodsModel $goodsModel)
+    public function __construct(OrdersModel $ordersModel,UserModel $userModel,OrderGoodsModel $orderGoodsModel,GoodsModel $goodsModel,CarModel $carModel)
     {
         $this->ordersModel=$ordersModel;
         $this->userModel=$userModel;
         $this->orderGoodsModel=$orderGoodsModel;
         $this->goodsModel=$goodsModel;
+        $this->carModel=$carModel;
     }
 
     /**
@@ -126,6 +132,7 @@ class OrderService
             $goods=$this->goodsModel->getById($goodsId);
             $arr[]=array(
                 'id'=>$orderGoods->getId(),
+                'goodsId'=>$orderGoods->getGoodsId(),
                 'goodsName'=>$goods?$goods->getName():'',
                 'number'=>$orderGoods->getNumber(),
                 'price'=>$orderGoods->getPrice(),
@@ -137,6 +144,41 @@ class OrderService
             'list'=>$arr,
             'total'=>$orderGoodsList->count()
         );
+        return $rr;
+    }
+
+    /**
+     * @param $carId
+     * @param $price
+     * @param $userId
+     * @param $message
+     * @return ReturnResult
+     */
+    public function create($carId,$price,$userId,$message){
+        $rr=new ReturnResult();
+        try{
+            $this->ordersModel->getEntityManager()->beginTransaction();
+            $order=$this->ordersModel->add($price,$userId,$message);
+            foreach ($carId as $id){
+                $goods=$this->carModel->getById($id);
+                if(!$goods){
+                    $this->ordersModel->getEntityManager()->rollback();
+                    $rr->errno=Code::$create_order_fail;
+                    return $rr;
+                }
+                /**@var $goods \Mirror\ApiBundle\Entity\GoodsCar*/
+                $goodsNumber=$goods->getNumber();
+                $goodsId=$goods->getGoodsId();
+                $goodsPrice=$goods->getPrice();
+                $this->orderGoodsModel->add($order->getId(),$goodsNumber,$goodsId,$goodsPrice);
+                $this->carModel->delete($goods);
+            }
+            $this->ordersModel->getEntityManager()->commit();
+        }catch (\Exception $e){
+            $this->ordersModel->getEntityManager()->rollback();
+            $rr->errno=Code::$create_order_fail;
+            return $rr;
+        }
         return $rr;
     }
 }

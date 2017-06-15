@@ -26,9 +26,9 @@ function orderInfo(orderId){
 }
 //////////////////////////////////////////////////////////
 
-//用户订单列表
+
 function orderGoodsList(orderId){
-    // 债权列表
+
     var info={};
     info.rows=20;
     info.page=1;
@@ -52,7 +52,7 @@ function orderGoodsList(orderId){
                 ajaxAction("get",'/api/order/'+orderId+'/goods'+ passParam(info),"",true,function(data,textStatus){
                     var html = '';
                     $.each(data.list,function(index,value){
-                        html+=' <tr><td>'+value.goodsName+'</td><td>'+value.number+'</td><td>'+value.price+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a></td></tr>';
+                        html+=' <tr><td>'+value.goodsName+'</td><td>'+value.number+'</td><td>'+value.price+'</td><td><a href="/adm/goods/'+value.goodsId+'" class="infoColor">查看详情</a></td></tr>';
                     });
                     $('tbody').html(html);
                 },function(errno,errmsg){

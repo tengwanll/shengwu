@@ -7,7 +7,7 @@
             <!-- /.row -->
             <div class="row margin_top">
                 <label  class="col-md-2 control-label">总价：</label>
-                <label id="totalPrice" class="control-label"></label> 元
+                <label id="totalPrice" class="control-label">0</label> 元
             </div>
             <!-- /.row -->
 
@@ -15,7 +15,10 @@
         <div class="form-group col-md-3">
             <div class="row">
                 <div class="col-md-3 col-md-offset-9">
-                    <button id="import" class="btn btn-default resetButton">导入商品</button>
+                    <label for="file" class="btn btn-default resetButton" style="max-width: 150px;margin-left: 0;">导入商品</label>
+                    <form action="" name="uploadForm">
+                    <input type="file" id="file" style="display: none" name="file">
+                    </form>
                 </div>
             </div>
             <!-- /.row -->

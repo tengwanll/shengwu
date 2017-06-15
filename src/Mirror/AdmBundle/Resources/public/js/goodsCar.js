@@ -6,14 +6,29 @@ $(function(){
         $(':checked').not('#choice').each(function(index,value){
             info.carId.push($(value).attr('carId'));
         });
-        console.log(info.carId);
         if(info.carId.length<=0){
             zdalert('系统提示','请选择操作项');
+        }else{
+            zdcomment('备注信息','输入备注信息更方便您之后查看',function(r,message){
+                if(r){
+                    info.message=message;
+                    ajaxAction("post",'/api/order',info,false,function(data,textStatus){
+                        zdalert('系统提示','下单成功');
+                        location.href='/adm/order';
+                    },function(errno,errmsg){
+                        alert(errmsg);
+                    });
+                }
+            });
         }
+    });
 
+    $('#file').change(function(){
+        fileUpload($('form[name=uploadForm]')[0]);
     });
 });
 
+//购物车列表
 function goodsList(){
     var info={rows:20,page:1};
     ajaxAction("get",'/api/car'+ passParam(info),"",true,function(data,textStatus){
@@ -47,12 +62,12 @@ function goodsList(){
 
             }
         });
-
-
     },function(errno,errmsg){
         alert(errmsg);
     });
 }
+
+//商品添加数量
 function add(obj,id) {
     var number=$(obj).parent().parent().find('#number').html();
     var price=$(obj).parent().parent().find('#price').html();
@@ -68,6 +83,8 @@ function add(obj,id) {
         alert(errmsg);
     });
 }
+
+//商品减少数量
 function sub(obj,id) {
     var number=$(obj).parent().parent().find('#number').html();
     var price=$(obj).parent().parent().find('#price').html();
@@ -99,6 +116,7 @@ function sub(obj,id) {
     }
 }
 
+//全选
 function choiceAll(obj) {
     if($(obj).attr('checked')=='checked'){
         $('input[name=carChoice]').attr('checked','true');

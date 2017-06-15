@@ -13,23 +13,35 @@
             $.alerts._show(title, message, null, 'confirm', function(result) {  
                 if( callback ) callback(result);  
             });  
-        },  
-               
-          
+        },
+
+        comment: function(title, message, callback) {
+            if( title == null ) title = 'Comment';
+            $.alerts._show(title, message, null, 'comment', function(result,msg) {
+                if( callback ) callback(result,msg);
+            });
+        },
+
+
         _show: function(title, msg, value, type, callback) {  
             
                     var _html = "";  
    
-                    _html += '<div id="mb_box"></div><div id="mb_con"><span id="mb_tit">' + title + '</span>';  
-                    _html += '<div id="mb_msg">' + msg + '</div><div id="mb_btnbox">';  
-                      if (type == "alert") {  
+                    _html += '<div id="mb_box"></div><div id="mb_con"><span id="mb_tit">' + title + '</span>';
+                    if(type=="comment"){
+                        _html += '<div id="mb_msg"><textarea id="message" cols="60" rows="10" placeholder="'+msg+'"></textarea></div><div id="mb_btnbox">';
+                    }else{
+                        _html += '<div id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
+                    }
+
+                      if (type == "alert") {
                       _html += '<input id="mb_btn_ok" type="button" value="确定" />';  
                     }  
-                    if (type == "confirm") {  
+                    if (type == "confirm"||type =="comment") {
                       _html += '<input id="mb_btn_ok" type="button" value="确定" />';  
                       _html += '<input id="mb_btn_no" type="button" value="取消" />';  
-                    }  
-                    _html += '</div></div>';  
+                    }
+                    _html += '</div></div>';
                    
                     //必须先将_html添加到body，再设置Css样式  
                     $("body").append(_html); GenerateCss();  
@@ -49,7 +61,7 @@
                      
                     $("#mb_btn_ok").click( function() {  
                         $.alerts._hide();  
-                        if( callback ) callback(true);  
+                        if( callback ) callback(true);
                     });  
                     $("#mb_btn_no").click( function() {  
                         $.alerts._hide();  
@@ -60,9 +72,26 @@
                         if( e.keyCode == 13 ) $("#mb_btn_ok").trigger('click');  
                         if( e.keyCode == 27 ) $("#mb_btn_no").trigger('click');  
                     });  
-                break;  
-                
-                 
+                break;
+                case 'comment':
+
+                    $("#mb_btn_ok").click( function() {
+                        var message=$('#message').val();
+                        $.alerts._hide();
+                        if( callback ) callback(true,message);
+                    });
+                    $("#mb_btn_no").click( function() {
+                        var message=$('#message').val();
+                        $.alerts._hide();
+                        if( callback ) callback(false,message);
+                    });
+                    $("#mb_btn_no").focus();
+                    $("#mb_btn_ok, #mb_btn_no").keypress( function(e) {
+                        if( e.keyCode == 13 ) $("#mb_btn_ok").trigger('click');
+                        if( e.keyCode == 27 ) $("#mb_btn_no").trigger('click');
+                    });
+                    break;
+
             }  
         },  
         _hide: function() {  
@@ -76,12 +105,15 @@
        
     zdconfirm = function(title, message, callback) {  
         $.alerts.confirm(title, message, callback);  
-    };  
-           
-   
-      
-      
-      //生成Css  
+    };
+
+    zdcomment = function(title, message, callback) {
+        $.alerts.comment(title, message, callback);
+    };
+
+
+
+    //生成Css
   var GenerateCss = function () {  
    
     $("#mb_box").css({ width: '100%', height: '100%', zIndex: '99999', position: 'fixed',  

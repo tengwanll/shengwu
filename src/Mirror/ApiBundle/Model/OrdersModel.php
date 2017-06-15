@@ -10,6 +10,9 @@ namespace Mirror\ApiBundle\Model;
 
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use JMS\DiExtraBundle\Annotation as DI;
+use Mirror\ApiBundle\Common\Constant;
+use Mirror\ApiBundle\Entity\Orders;
+use Mirror\ApiBundle\Util\OrderHelper;
 use Mirror\ApiBundle\Util\QueryHelper;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -67,5 +70,29 @@ class OrdersModel extends BaseModel
         }
         $query->setParameters($arguments);
         return new Paginator($query);
+    }
+
+    /**
+     * @param $price
+     * @param $userId
+     * @param $message
+     * @return Orders
+     */
+    public function add($price,$userId,$message){
+        $orderNo=OrderHelper::generateTradeNo($userId);
+        $date=new \DateTime();
+        $order=new Orders();
+        $order->setPrice($price);
+        $order->setMessage($message);
+        $order->setOrderNo($orderNo);
+        $order->setUserId($userId);
+        $order->setStatus(Constant::$status_normal);
+        $order->setUpdateTime($date);
+        $order->setCreateTime($date);
+        if($this->save($order)){
+           return $order;
+        }else{
+            return false;
+        }
     }
 }

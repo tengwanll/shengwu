@@ -30,4 +30,26 @@ class GoodsModel extends BaseModel
         $sql='select name,sort_id,price,image,description,buy_num,status,create_time,update_time,column_json(attr) as attrs from goods where id='.$id;
         return $conn->fetchAssoc($sql);
     }
+
+    /**
+     * @param $name
+     * @param $sortId
+     * @param $price
+     * @param $description
+     * @param $attrs
+     * @param $conn
+     * @return mixed
+     */
+    public function add($name,$sortId,$price,$description,$attrs,$conn){
+        $date=date("y-m-d H:i:s");
+        $attrs=explode(',',$attrs);
+        $str='';
+        foreach ($attrs as $attr){
+            $str.="'".$attr."',";
+        }
+        $str=trim($str,',');
+        $sql="insert into goods(`name`,`sort_id`,`price`,`description`,`attr`,`status`,`create_time`,`update_time`) VALUES('$name',$sortId,$price,'$description',column_create($str),1,'$date','$date')";
+        $conn->exec($sql);
+        return $conn->fetchAssoc('SELECT LAST_INSERT_ID() as goodsId');
+    }
 }
