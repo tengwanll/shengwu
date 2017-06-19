@@ -4,7 +4,7 @@ $(function(){
 function userInfo(userId){
 
     ajaxAction("get","/api/user/"+userId,"",false,function(data,textStatus){
-        var infoHtml='<dl><dt>ID：</dt><dd>'+ data.userId +'</dd><dt>头像：</dt><dd><a href="javascript:void(0)"><img src="'+data.image+'" /></a></dd><dt>手机号：</dt><dd>'+data.mobile+'</dd><dt>用户名：</dt><dd>'+data.username+'</dd><dt>注册时间：</dt><dd>'+data.createTime+'</dd></dl>';
+        var infoHtml='<dl><dt>ID：</dt><dd>'+ data.userId +'</dd><dt>头像：</dt><dd><a href="javascript:void(0)"><img height="80px" width="80px" src="'+data.image+'" /></a></dd><dt>手机号：</dt><dd>'+data.mobile+'</dd><dt>用户名：</dt><dd>'+data.username+'</dd><dt>注册时间：</dt><dd>'+data.createTime+'</dd></dl>';
 
         $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
@@ -42,19 +42,21 @@ function orderList(userId){
                     var html = '';
                     $.each(data.list,function(index,value){
                         var deal=[];
-                        if(value.status==-1){
-                            value.status="未通过";
-                        }else if(value.status==0){
-                            value.status="待审核";
-                        }else if(value.status==1){
-                            value.status="代发货";
-                        }else if(value.status==3){
-                            value.status="已发货";
-                        }else if(value.status==4){
-                            value.status="已完成";
+                        if(value.status=='-1'){
+                            value.status='未通过';
+                        }else if(value.status=='0'){
+                            value.status='无效订单';
+                        }else if(value.status=='1'){
+                            value.status='待审核';
+                        }else if(value.status=='2'){
+                            value.status='订购中';
+                        }else if(value.status=='3'){
+                            value.status='已到货';
+                        }else if(value.status=='4'){
+                            value.status='已反馈';
                         }
                         html='';
-                        html+=' <tr><td>'+value.number+'</td><td>'+value.createTime+'</td><td>'+value.price+'</td><td>'+value.status+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a></td></tr>';
+                        html+=' <tr><td>'+value.number+'</td><td>'+value.createTime+'</td><td>'+value.price+'</td><td id="status">'+value.status+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a> <a href="javascript:void(0)" class="infoColor" onclick="replyOrder(this,'+value.id+')">订单反馈</a></td></tr>';
 
 
                     });
@@ -73,4 +75,19 @@ function orderList(userId){
 
 
 
+}
+function replyOrder(obj,orderId) {
+    var info={};
+    zdcomment('订单反馈','请输入反馈信息',function(r,message){
+        if(r){
+            info.orderId=orderId;
+            info.message=message;
+            info.status=4;
+            ajaxAction("put",'/api/order/manage',info,false,function(data,textStatus){
+                $(obj).parent().parent().find('#status').html('已反馈');
+            },function(errno,errmsg){
+                alert(errmsg);
+            });
+        }
+    });
 }

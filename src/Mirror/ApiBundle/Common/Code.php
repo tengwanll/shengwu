@@ -29,4 +29,5 @@ class Code {
     public static $file_name_null=20112;
     public static $file_sort_not_exist=20113;
     public static $file_price_null=20114;
+    public static $mobile_already_exist=20115;
 }

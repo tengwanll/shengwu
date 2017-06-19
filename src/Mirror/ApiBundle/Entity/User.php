@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="mobile", columns={"mobile"})}, indexes={@ORM\Index(name="role", columns={"role"}), @ORM\Index(name="status", columns={"status"})})
  * @ORM\Entity
  */
 class User

@@ -2,6 +2,7 @@
 
 namespace Mirror\AdmBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,8 +21,9 @@ class UserController extends Controller
      * @Template
      * @return array
      */
-    public function userListAction(){
-        return array();
+    public function userListAction(Request $request){
+        $role=$request->getSession()->get('role',1);
+        return array('role'=>$role);
     }
     /**
      * 添加用户
@@ -44,5 +46,16 @@ class UserController extends Controller
     public function infoUserAction($id)
     {
         return array('id'=>$id);
+    }
+
+    /**
+     * @Route("/edit")
+     * @Template()
+     * @param Request $request
+     * @return array
+     */
+    public function editUserAction(Request $request){
+        $userId=$request->getSession()->get('userId',0);
+        return array('userId'=>$userId);
     }
 }

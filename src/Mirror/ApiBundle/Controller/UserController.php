@@ -42,6 +42,7 @@ class UserController extends BaseController
             $this->sessionSet($request,'userId',$rr->result['userId']);
             $this->sessionSet($request,'username',$rr->result['username']);
             $this->sessionSet($request,'telephone',$rr->result['telephone']);
+            $this->sessionSet($request,'role',$rr->result['role']);
             $this->sessionSet($request,Constant::$login_entity,1);
         }
         return $this->buildResponse($rr);
@@ -58,8 +59,9 @@ class UserController extends BaseController
     public function logout(Request $request){
         $this->sessionSet($request,'userId',null);
         $this->sessionSet($request,Constant::$login_entity,null);
-        $this->sessionSet($request,'identification',null);
+        $this->sessionSet($request,'username',null);
         $this->sessionSet($request,'telephone',null);
+        $this->sessionSet($request,'role',null);
         return $this->buildResponse(new ReturnResult());
     }
 
@@ -72,21 +74,8 @@ class UserController extends BaseController
      */
     public function create(Request $request){
         $user=$this->serializerByJson($request,'User');
-        $json=$this->getJson($request);
-        $code=$json->get('code','');
-        if($this->get('telephone_code_service')->validateCode($user->getTelephone(),$code)){
-            $this->get('telephone_code_service')->completeValid($user->getTelephone(), $code);
-        }else{
-            return $this->buildResponse(new ReturnResult(Code::$code_error));
-        }
         /**@var $user \Mirror\ApiBundle\Entity\User*/
         $rr=$this->get('user_service')->create($user);
-        if($rr->errno==0){
-            $this->sessionSet($request,'userId',$rr->result['userId']);
-            $this->sessionSet($request,'telephone',$rr->result['telephone']);
-            $this->sessionSet($request,'identification',$rr->result['identification']);
-            $this->sessionSet($request,Constant::$login_entity,1);
-        }
         return $this->buildResponse($rr);
     }
 
@@ -112,6 +101,18 @@ class UserController extends BaseController
      */
     public function detail($id){
         $rr=$this->get('user_service')->detail($id);
+        return $this->buildResponse($rr);
+    }
+
+    /**
+     * @Route("/detail")
+     * @Method("GET")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getDetail(Request $request){
+        $userId=$this->sessionGet($request,'userId',0);
+        $rr=$this->get('user_service')->detail($userId);
         return $this->buildResponse($rr);
     }
 
@@ -162,7 +163,50 @@ class UserController extends BaseController
         return $this->buildResponse($rr);
     }
 
+    /**
+     * @Route("/manage")
+     * @Method("PUT")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function updateStatus(Request $request){
+        $json=$this->getJson($request);
+        $userId=$json->get('userId',0);
+        $status=$json->get('status',1);
+        $rr=$this->get('user_service')->updateStatus($userId,$status);
+        return $this->buildResponse($rr);
+    }
 
+    /**
+     * @Route("/reset")
+     * @Method("PUT")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function resetPwd(Request $request){
+        $json=$this->getJson($request);
+        $userId=$json->get('userId',0);
+        $rr=$this->get('user_service')->resetPwd($userId);
+        return $this->buildResponse($rr);
+    }
+
+    /**
+     * @Route("")
+     * @Method("PUT")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function update(Request $request){
+        $userId=$this->sessionGet($request,'userId',0);
+        $json=$this->getJson($request);
+        $mobile=$json->get('mobile','');
+        $username=$json->get('username','');
+        $oldPassword=$json->get('oldPassword','');
+        $newPassword=$json->get('newPassword','');
+        $image=$json->get('image',0);
+        $rr=$this->get('user_service')->update($userId,$mobile,$username,$oldPassword,$newPassword,$image);
+        return $this->buildResponse($rr);
+    }
 
     /**
      * @Route("/test")

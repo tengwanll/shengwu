@@ -11,6 +11,7 @@ namespace Mirror\ApiBundle\Service;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\Model\CarModel;
 use Mirror\ApiBundle\Model\GoodsModel;
 use Mirror\ApiBundle\Model\SortAttrModel;
 use Mirror\ApiBundle\Model\SortModel;
@@ -31,6 +32,7 @@ class GoodsService
     private $fileService;
     private $systemSettingModel;
     private $sortAttrModel;
+    private $carModel;
 
     /**
      * @InjectParams({
@@ -38,7 +40,8 @@ class GoodsService
      *     "goodsModel"=@Inject("goods_model"),
      *     "fileService"=@Inject("file_service"),
      *     "systemSettingModel"=@Inject("system_setting_model"),
-     *     "sortAttrModel"=@Inject("sort_attr_model")
+     *     "sortAttrModel"=@Inject("sort_attr_model"),
+     *     "carModel"=@Inject("car_model")
      * })
      * GoodsService constructor.
      * @param SortModel $sortModel
@@ -46,32 +49,40 @@ class GoodsService
      * @param FileService $fileService
      * @param SystemSettingModel $systemSettingModel
      */
-    public function __construct(SortModel $sortModel,GoodsModel $goodsModel,FileService $fileService,SystemSettingModel $systemSettingModel,SortAttrModel $sortAttrModel)
+    public function __construct(SortModel $sortModel,GoodsModel $goodsModel,FileService $fileService,SystemSettingModel $systemSettingModel,SortAttrModel $sortAttrModel,CarModel $carModel)
     {
         $this->goodsModel=$goodsModel;
         $this->sortModel=$sortModel;
         $this->fileService=$fileService;
         $this->systemSettingModel=$systemSettingModel;
         $this->sortAttrModel=$sortAttrModel;
+        $this->carModel=$carModel;
     }
 
     /**
      * @param $name
-     * @param $sort
+     * @param $sortName
      * @param $bigPrice
      * @param $smallPrice
      * @param $pageable
      * @return ReturnResult
      */
-    public function getList($name,$sort,$bigPrice,$smallPrice,$pageable){
-        //TODO 没有按照分类查询
+    public function getList($name,$sortName,$bigPrice,$smallPrice,$pageable){
         $rr=new ReturnResult();
         $arguments=array();
         if($name){
             $arguments['like']=array('name'=>'%'.$name.'%');
         }
-        if($sort!==null){
-            
+        $left=0;
+        $right=0;
+        if($sortName){
+            $sort=$this->sortModel->getOneByProperty('name',$sortName);
+            if(!$sort){
+                $rr->errno=Code::$sort_not_exist;
+                return $rr;
+            }
+            $left=$sort->getLeftR();
+            $right=$sort->getRightR();
         }
         if($bigPrice){
             $arguments['<']=array('price'=>$bigPrice);
@@ -79,7 +90,7 @@ class GoodsService
         if($smallPrice){
             $arguments['>']=array('price'=>$smallPrice);
         }
-        $list=$this->goodsModel->getByParams($arguments,$pageable,'createTime');
+        $list=$this->goodsModel->getList($arguments,$pageable,'createTime',$left,$right);
         $arr=array();
         foreach($list->getIterator() as $goods){
             /**@var $goods \Mirror\ApiBundle\Entity\Goods*/
@@ -129,6 +140,30 @@ class GoodsService
             'createTime'=>$goods['create_time']
         );
         $rr->result=$arr;
+        return $rr;
+    }
+
+    /**
+     * @param $goodsId
+     * @param $userId
+     * @return ReturnResult
+     */
+    public function addToCar($goodsId,$userId){
+        $rr=new ReturnResult();
+        $goods=$this->goodsModel->getById($goodsId);
+        if(!$goods){
+            $rr->errno=Code::$goods_not_exist;
+            return $rr;
+        }
+        $price=$goods->getPrice();
+        $carGoods=$this->carModel->getOneByCriteria(array('goodsId'=>$goodsId,'userId'=>$userId,'status'=>1));
+        if($carGoods){
+            $carGoods->setNumber($carGoods->getNumber()+1);
+            $carGoods->setPrice($carGoods->getPrice()+$price);
+            $this->carModel->save($carGoods);
+        }else{
+            $this->carModel->add($userId,$goodsId,1,$price);
+        }
         return $rr;
     }
 

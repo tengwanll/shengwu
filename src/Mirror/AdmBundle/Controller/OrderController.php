@@ -5,6 +5,8 @@ namespace Mirror\AdmBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * @Route("/order")
  * Class OrderController
@@ -17,9 +19,10 @@ class OrderController extends Controller
      * @Template
      * @return array
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
-        return array();
+        $role=$request->getSession()->get('role',1);
+        return array('role'=>$role);
     }
 
     /**

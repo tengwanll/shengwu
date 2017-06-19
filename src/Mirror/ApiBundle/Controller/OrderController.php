@@ -75,4 +75,19 @@ class OrderController extends BaseController
         $rr=$this->get('order_service')->create($carId,$price,$userId,$message);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("/manage")
+     * @Method("PUT")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function changeStatus(Request $request){
+        $json=$this->getJson($request);
+        $orderId=$json->get('orderId',0);
+        $status=$json->get('status',1);
+        $message=$json->get('message','');
+        $rr=$this->get('order_service')->changeStatus($orderId,$status,$message);
+        return $this->buildResponse($rr);
+    }
 }

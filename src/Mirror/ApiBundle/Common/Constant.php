@@ -24,11 +24,10 @@ class Constant {
     public static $login_type_user=1;//前台用户
 
     //云之讯
-    public static $UCPASS_ACCOUNT_SID='9132275cfdbaf5a449673bd6aa2389d1';
-    public static $UCPASS_AUTH_TOKEN='1c0f888f3002051bcf6f495455ce99b5';
-    public static $UCPAAS_APP_ID='e30ea705c35b43fdb14062b7fab92b32';
-    public static $UCPAAS_TEMPLATE_ID='27678';
-    public static $UCPAAS_RESETPWD_TEMPLATE_ID='30036';
+    public static $UCPASS_ACCOUNT_SID='f87397ba589a9e33a8d9e2085a0e9705';
+    public static $UCPASS_AUTH_TOKEN='987bd0296fa2bcde02b429fcd47733d2';
+    public static $UCPAAS_APP_ID='dcd2fd41e1bf40d596c6fbc72cf472f7';
+    public static $UCPAAS_TEMPLATE_ID='72741';
 
     //收藏类型
     public static $collection_credit=1;

@@ -10,9 +10,7 @@ namespace Mirror\ApiBundle\Service;
 
 use Mirror\ApiBundle\Common\Code;
 use Mirror\ApiBundle\Common\Constant;
-use Mirror\ApiBundle\Entity\Orders;
 use Mirror\ApiBundle\Model\LogLoginModel;
-use Mirror\ApiBundle\Model\FileModel;
 use Mirror\ApiBundle\Model\OrdersModel;
 use Mirror\ApiBundle\Model\UserModel;
 use Mirror\ApiBundle\ViewModel\Pageable;
@@ -31,7 +29,7 @@ class UserService
 {
     private $userModel;
     private $logLoginModel;
-    private $fileModel;
+    private $fileService;
     private $telephoneCodeService;
     private $ordersModel;
 
@@ -39,22 +37,22 @@ class UserService
      * @InjectParams({
      *      "userModel" = @Inject("user_model"),
      *     "logLoginModel"=@Inject("log_login_model"),
-     *     "fileModel"=@Inject("file_model"),
+     *     "fileService"=@Inject("file_service"),
      *     "orderModel"=@Inject("orders_model")
      * })
      * UserService constructor.
      * @param UserModel $userModel
      * @param LogLoginModel $logLoginModel
-     * @param FileModel $fileModel
+     * @param FileService $fileService
      * @param TelephoneCodeService $telephoneCodeService
      * @param OrdersModel $ordersModel
      */
-    public function __construct(UserModel $userModel,LogLoginModel $logLoginModel,TelephoneCodeService $telephoneCodeService,FileModel $fileModel,OrdersModel $ordersModel)
+    public function __construct(UserModel $userModel,LogLoginModel $logLoginModel,TelephoneCodeService $telephoneCodeService,FileService $fileService,OrdersModel $ordersModel)
     {
         $this->userModel=$userModel;
         $this->logLoginModel=$logLoginModel;
         $this->telephoneCodeService=$telephoneCodeService;
-        $this->fileModel=$fileModel;
+        $this->fileService=$fileService;
         $this->ordersModel=$ordersModel;
     }
 
@@ -70,7 +68,7 @@ class UserService
      */
     public function login($telephone,$password,$ipAddress){
         $rr=new ReturnResult();
-        $user=$this->userModel->getOneByCriteria(array('mobile'=>$telephone,'status'=>1));
+        $user=$this->userModel->getOneByCriteria(array('mobile'=>$telephone,'status'=>Constant::$status_normal));
         if(!$user){
             $rr->errno=Code::$user_not_exist;
             return $rr;
@@ -90,7 +88,8 @@ class UserService
         $data=array(
             'userId'=>$user->getId(),
             'username'=>$user->getUsername(),
-            'telephone'=>$user->getMobile()
+            'telephone'=>$user->getMobile(),
+            'role'=>$user->getRole()
         );
         $rr->result=$data;
         return $rr;
@@ -110,7 +109,7 @@ class UserService
        foreach($list->getIterator() as $user){
            /**@var $user \Mirror\ApiBundle\Entity\User*/
            $imageId=$user->getImage();
-           $image=$this->fileModel->getById($imageId);
+           $image=$this->fileService->getFullUrlById($imageId);
            $userId=$user->getId();
            $pageable=new Pageable(1,1);
            $userLoginLog=$this->logLoginModel->getByPages(array('entityId'=>$userId),$pageable,'createTime desc');
@@ -118,7 +117,7 @@ class UserService
                 'id'=>$userId,
                 'username'=>$user->getUsername(),
                 'mobile'=>$user->getMobile(),
-                'image'=>$image?$image->getUrl():'',
+                'image'=>$image,
                 'role'=>$user->getRole(),
                 'status'=>$user->getStatus(),
                 'createTime'=>$user->getCreateTime()->format('y-m-d'),
@@ -140,12 +139,12 @@ class UserService
         $rr=new ReturnResult();
         $user=$this->userModel->getById($userId);
         $imageId=$user->getImage();
-        $image=$this->fileModel->getById($imageId);
+        $image=$this->fileService->getFullUrlById($imageId);
         $arr=array(
             'userId'=>$user->getId(),
             'username'=>$user->getUsername(),
             'mobile'=>$user->getMobile(),
-            'image'=>$image?$image->getUrl():'',
+            'image'=>$image,
             'role'=>$user->getRole(),
             'status'=>$user->getStatus(),
             'createTime'=>$user->getCreateTime()->format('y-m-d'),
@@ -171,13 +170,102 @@ class UserService
             /**@var $order \Mirror\ApiBundle\Entity\Orders*/
             $arr[]=array(
                 'id'=>$order->getId(),
-                'number'=>$order->getNumber(),
+                'number'=>$order->getOrderNo(),
                 'createTime'=>$order->getCreateTime()->format('Y-m-d H:i:s'),
                 'price'=>$order->getPrice(),
                 'status'=>$order->getStatus()
             );
         }
         $rr->result=array('list'=>$arr,'total'=>$list->count());
+        return $rr;
+    }
+
+    /**
+     * @param $userId
+     * @param $status
+     * @return ReturnResult
+     */
+    public function updateStatus($userId,$status){
+        $rr=new ReturnResult();
+        $user=$this->userModel->getById($userId);
+        /**@var $user \Mirror\ApiBundle\Entity\User*/
+        if(!$user){
+            $rr->errno=Code::$user_not_exist;
+            return $rr;
+        }
+        $user->setStatus($status);
+        $this->userModel->save($user);
+        return $rr;
+    }
+
+    /**
+     * @param $userId
+     * @return ReturnResult
+     */
+    public function resetPwd($userId){
+        $rr=new ReturnResult();
+        $user=$this->userModel->getById($userId);
+        /**@var $user \Mirror\ApiBundle\Entity\User*/
+        if(!$user){
+            $rr->errno=Code::$user_not_exist;
+            return $rr;
+        }
+        $password=md5('a123456');
+        $user->setPassword($password);
+        $this->userModel->save($user);
+        return $rr;
+    }
+
+    /**
+     * @param $user
+     * @return ReturnResult
+     */
+    public function create($user){
+        $rr=new ReturnResult();
+        $data=$this->userModel->getOneByCriteria(array('mobile'=>$user->getMobile()));
+        if($data){
+            $rr->errno=Code::$mobile_already_exist;
+            return $rr;
+        }
+        $this->userModel->add($user);
+        return $rr;
+    }
+
+    /**
+     * @param $userId
+     * @param $mobile
+     * @param $username
+     * @param $oldPassword
+     * @param $newPassword
+     * @param $image
+     * @return ReturnResult
+     */
+    public function update($userId,$mobile,$username,$oldPassword,$newPassword,$image){
+        $rr=new ReturnResult();
+        $user=$this->userModel->getById($userId);
+        /**@var $user \Mirror\ApiBundle\Entity\User*/
+        if(!$user){
+            $rr->errno=Code::$user_not_exist;
+            return $rr;
+        }
+        if($newPassword){
+            if(md5($oldPassword)==$user->getPassword()){
+                $user->setPassword(md5($newPassword));
+            }else{
+                $rr->errno=Code::$password_not_right;
+                return $rr;
+            }
+        }
+        if($mobile){
+            $user->setMobile($mobile);
+        }
+        if($username){
+            $user->setUsername($username);
+        }
+        if($image){
+            $user->setImage($image);
+        }
+        $this->userModel->save($user);
         return $rr;
     }
 }

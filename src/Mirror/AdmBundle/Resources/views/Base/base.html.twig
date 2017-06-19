@@ -51,18 +51,16 @@
                                 <div class="row">
                                     <div class="col-md-6 text-center userBorder">
                                         <div class="adminPhoto">
-                                            <img src="{{ asset('/bundles/mirroradm/images/touxiang.png') }}" alt="">
+                                            <img width="80px" height="80px" src="{{ asset('/bundles/mirroradm/images/touxiang.png') }}" alt="">
                                         </div>
                                         <!-- /.adminPhoto -->
                                         <div class="adminUserName">
-                                            {{app.session.get('roleName')}}
-                                            <br>
-                                            {{app.session.get('adminTelephone')}}
+                                            {{app.session.get('username')}}
                                         </div>
                                         <!-- /.adminUserName -->
                                     </div>
                                     <!-- /.col-md-6 -->
-                                    <div class="col-md-3 text-center"><a href="javascript:void(0); " class="setCenter"><img src="{{ asset('/bundles/mirroradm/images/set.png') }}"
+                                    <div class="col-md-3 text-center"><a href="/adm/user/edit " class="setCenter"><img src="{{ asset('/bundles/mirroradm/images/set.png') }}"
                                                                                                                 alt=""></a></div>
                                     <!-- /.col-md-3 -->
                                     <div class="col-md-3 text-center"><a href="javascript:void(0); " class="outUser"><img src="{{ asset('/bundles/mirroradm/images/outUser.png') }}"
@@ -140,7 +138,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 text-center copyright">
-                        <p>公司名称</p>
+                        <p>公司名称：爱默基因（厦门）生物科技有限公司</p>
                     </div>
                     <!-- /.col-md-12 text-center -->
                 </div>
@@ -151,137 +149,27 @@
         <!-- /.row -->
     </div>
     <!-- /.container-fluid -->
-    {% block otherJs %}
-        <script>
-            $(function(){
-                $('.outUser').click(function(){
-
+    <script>
+        $(function(){
+            ajaxAction("get",'/api/user/detail',"",true,function(data,textStatus){
+                if(data.image){
+                    $('.adminPhoto img').attr('src',data.image);
+                }
+            },function(errno,errmsg){
+                alert(errmsg);
+            });
+            $('.outUser').click(function(){
+                ajaxAction("post",'/api/user/logout',"",true,function(data,textStatus){
+                    location.href='/adm/login/index';
+                },function(errno,errmsg){
+                    alert(errmsg);
                 });
             });
-        </script>
+        });
+    </script>
+    {% block otherJs %}
+
     {% endblock %}
 </div>
-<!-- /#container -->
-<div id="screen"></div>
-<div value="" class="deletePopup">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="popupTit">删除</div>
-                <!-- /.popupTit -->
-            </div>
-            <!-- /.col-md-12 -->
-            <div class="col-md-12 text-center">
-                <div class="popupContent">
-                    确认删除该条信息？
-                </div>
-                <!-- /.popupContent -->
-            </div>
-            <!-- /.col-md-12 text-center -->
-            <div class="col-md-6 text-center">
-                <div class="popupCancel">取消</div>
-                <!-- /.popupCancel -->
-            </div>
-            <!-- /.col-md-6 -->
-            <div class="col-md-6 text-center">
-                <div class="popupConfirm">确定</div>
-                <!-- /.popupConfirm -->
-            </div>
-            <!-- /.col-md-6 -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-</div>
-<div class="deletePopup jinyong">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="popupTit">禁用</div>
-                <!-- /.popupTit -->
-            </div>
-            <!-- /.col-md-12 -->
-            <div class="col-md-12 text-center">
-                <div class="popupContent">
-                    确认禁用该用户？
-                </div>
-                <!-- /.popupContent -->
-            </div>
-            <!-- /.col-md-12 text-center -->
-            <div class="col-md-6 text-center">
-                <div class="popupCancel">取消</div>
-                <!-- /.popupCancel -->
-            </div>
-            <!-- /.col-md-6 -->
-            <div  class="col-md-6 text-center">
-                <div value="" class="popupConfirm">确定</div>
-                <!-- /.popupConfirm -->
-            </div>
-            <!-- /.col-md-6 -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-</div>
-<!-- /.deletePopup -->
-<div class="rejectPopup">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="popupTit">驳回</div>
-                <!-- /.popupTit -->
-            </div>
-            <!-- /.col-md-12 -->
-            <div class="col-md-12 text-center">
-                <div class="popupContent">
-                    确认驳回该申请？
-                </div>
-                <!-- /.popupContent -->
-            </div>
-            <!-- /.col-md-12 text-center -->
-            <div class="col-md-6 text-center">
-                <div class="popupCancel">取消</div>
-                <!-- /.popupCancel -->
-            </div>
-            <!-- /.col-md-6 -->
-            <div class="col-md-6 text-center">
-                <div class="popupConfirm">确定</div>
-                <!-- /.popupConfirm -->
-            </div>
-            <!-- /.col-md-6 -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-</div>
-<!-- /.deletePopup -->
-<div class="rejectReasonPopup" value="">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="popupTit">驳回理由</div>
-                <!-- /.popupTit -->
-            </div>
-            <!-- /.col-md-12 -->
-            <div class="col-md-12 text-center">
-                    <textarea class="form-control rejectReasonContent" rows="3"></textarea>
-            </div>
-            <!-- /.col-md-12 text-center -->
-            <div class="col-md-6 text-center">
-                <div class="ReasonCancel">取消</div>
-                <!-- /.popupCancel -->
-            </div>
-            <!-- /.col-md-6 -->
-            <div class="col-md-6 text-center">
-                <div class="ReasonConfirm" id="aaa" value="">提交</div>
-                <!-- /.popupConfirm -->
-            </div>
-            <!-- /.col-md-6 -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-</div>
-<!-- /.deletePopup -->
 </body>
 </html>

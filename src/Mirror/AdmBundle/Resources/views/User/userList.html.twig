@@ -3,8 +3,7 @@
     <script src="{{ asset('/bundles/mirroradm/js/user.js') }}"></script>
 {% endblock %}
 {% block typeForm %}
-    <form class="form-horizontal" role="form" name="select_addr" style="margin-top: 50px;">
-
+    <div class="form-horizontal" style="margin-top: 50px;">
         <div class="form-group col-md-8">
             <div class="row">
                 <label for="mobile" class="col-md-1 control-label text-right userNameScreen">手机：</label>
@@ -17,7 +16,7 @@
                 </div>
             </div>
             <!-- /.row -->
-            <div class="row margin_top">
+            <div class="row margin_top" {% if role < 3 %} style="display:none" {% endif %}>
                 <label for="add" class="col-md-1 control-label text-right">操作：</label>
                 <div class="col-md-3">
                     <button class="btn btn-default resetButton userAdd" id="add">+添加</button>
@@ -42,7 +41,7 @@
 
         </div>
         <!-- /.form-group col-md-5 -->
-    </form>
+    </div>
 
 {% endblock %}
 {% block thead %}
@@ -76,6 +75,9 @@
             $('#search').click(function(){
                 userSearch();
             });
+            $('#add').click(function () {
+                location.href='/adm/user/add';
+            });
             $('.stop').click(function(){
 
                 if($(this).text()=='禁用'){
@@ -103,8 +105,8 @@
                 var params={};
                 params.userId=id;
                 params.status=status;
-                ajaxAction("PUT", '/api/admin/user/manage',params, true, function (data, textStatus) {
-                    //window.location.href="/adm/info/creditor";
+                ajaxAction("PUT", '/api/user/manage',params, true, function (data, textStatus) {
+
                 },function(errno,errmsg){
                     alert(errmsg);
                 });
@@ -114,21 +116,65 @@
             function resetPwd(id,status){
                 var params={};
                 params.userId=id;
-                ajaxAction("PUT", '/api/admin/user/resetpwd',params, true, function (data, textStatus) {
-                    //window.location.href="/adm/info/creditor";
+                ajaxAction("PUT", '/api/user/reset',params, true, function (data, textStatus) {
+                    zdalert('系统提示','重置密码成功');
                 },function(errno,errmsg){
                     alert(errmsg);
                 });
-
             }
-
-
-
-
-
-
-
         });
+        function userList(){
+            // 用户列表
+            var role={{ role }};
+            var info={};
+            info.rows=20;
+            info.page=1;
+            info.username=$('#username').val();
+            info.mobile=$('#mobile').val();
+            ajaxAction("get",'/api/user'+ passParam(info),"",false,function(data,textStatus){
+                var count=Math.ceil(data.total/20);
+                var htmlTab="";
+                if(!count){
+                    $('tbody').html(htmlTab);
+                    return;
+                }
+                $.jqPaginator('#pagination', {
+                    totalPages: count,
+                    visiblePages: 6,
+                    currentPage: 1,
+                    activeClass: 'on',
+                    prev: '<span class="prev_page">上一页</span>',
+                    next: '<span class="next_page">下一页</span>',
+                    page: '<li>{{page}}</li>',
+                    onPageChange: function (num, type) {
+                        info.page=num;
+                        ajaxAction("get",'/api/user'+ passParam(info),"",false,function(data,textStatus){
+                            var thead='<tr class="tableTit"><td>ID</td><td>用户名</td><td>手机号</td><td>上次登陆时间</td><td>注册时间</td><td colspan="3" width="18%">操作</td></tr>';
+                            htmlTab = '';
+                            $.each(data.list,function(index,value){
+                                if(role==3){
+                                    htmlTab+='<tr><td class="id">'+value.id+'</td><td>'+value.username+'</td><td>'+value.mobile+'</td><td>'+value.lastTime+'</td><td>'+value.createTime+'</td><td><a href="/adm/user/'+value.id+'" class="infoColor">查看详情</a></td><td><a href="javascript:void(0)" class="deleteColor stop">禁用</a></td> <td><a href="javascript:void(0)" class="resetpassword infoColor">重置密码</a></td></tr>';
+                                }else{
+                                    htmlTab+='<tr><td class="id">'+value.id+'</td><td>'+value.username+'</td><td>'+value.mobile+'</td><td>'+value.lastTime+'</td><td>'+value.createTime+'</td><td><a href="/adm/user/'+value.id+'" class="infoColor">查看详情</a></td></tr>';
+                                }
+                            });
+
+                            $('thead').html(thead);
+                            $('tbody').html(htmlTab);
+
+                        },function(errno,errmsg){
+                            alert(errmsg);
+                        });
+
+                    }
+                });
+
+
+            },function(errno,errmsg){
+                alert(errmsg);
+            });
+
+        }
     </script>
 
 {% endblock %}

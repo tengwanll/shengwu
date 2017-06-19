@@ -2,19 +2,10 @@
 {% block javascript %}
     <script src="{{ asset('/bundles/mirroradm/js/selectCity.js') }}"></script>
 {% endblock %}
-{% block typeTabTit %}
-    <div class="typeTabTit">
-        <ul>
-            <li><div class="auditName on">用户管理</div></li>
-        </ul>
-        <div class="cls"></div>
-    </div>
-    <!-- /.typeTabTit -->
-{% endblock %}
 {% block typeForm %}
     <div class="addUser">
         <div class="addUserTit">
-            <h3>用户管理-<span style="color: #ff8400; font-size:18px;">添加用户</span></h3>
+            <h3>用户管理-<span style="color: #ff8400; font-size:18px;">修改信息</span></h3>
         </div>
         <!-- /.addUserTit -->
         <div class="addUserForm form-horizontal">
@@ -33,32 +24,28 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="col-md-3 control-label text-right">密码：</label>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" id="password">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="role_list" class="col-md-3 control-label text-right">角色：</label>
-                    <div class="col-md-3">
-                        <select class="form-control" id="role_list">
-                            <option value="1">普通用户</option>
-                            <option value="2">管理员</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label for="number" class="col-md-3 control-label text-right">图片：</label>
                     <div class="col-md-3 imageUpload">
                         <form action="" name="uploadForm">
-                            <img src="{{ asset('/bundles/mirroradm/images/default.jpg') }}" alt="">
+                            <img src="{{ asset('/bundles/mirroradm/images/default.jpg') }}" alt="" width="100px" height="100px">
                             <input type="file" id="imageUpload" name="file">
                             <input type="hidden" id="imageValue">
                         </form>
                     </div>
+                </div>
 
+                <div class="form-group">
+                    <label for="oldPassword" class="col-md-3 control-label text-right">旧密码：</label>
+                    <div class="col-md-3">
+                        <input type="password" class="form-control" id="oldPassword">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="newPassword" class="col-md-3 control-label text-right">新密码：</label>
+                    <div class="col-md-3">
+                        <input type="password" class="form-control" id="newPassword">
+                    </div>
                 </div>
 
                 <div class="form-group margin_top">
@@ -80,6 +67,14 @@
     <script>
         $(function(){
             adminTabNav($('.adminLeftNav .users'));
+            var userId={{ userId }};
+            ajaxAction("get",'/api/user/'+userId,"",true,function(data,textStatus){
+                $('#username').val(data.username);
+                $('#telephone').val(data.mobile);
+                $('.imageUpload').find('img').attr('src',data.image);
+            },function(errno,errmsg){
+                alert(errmsg);
+            });
 
             $('#imageUpload').change(function () {
                 if(!/image\/\w+/.test(this.files[0].type)){
@@ -97,9 +92,9 @@
             $('#ensure').click(function(){
                 var info={};
                 info.mobile=$('#telephone').val();
-                info.role=$('#role_list').val();
+                info.oldPassword=$('#oldPassword').val();
                 info.username=$('#username').val();
-                info.password=$('#password').val();
+                info.newPassword=$('#newPassword').val();
                 info.image=$('#imageValue').val();
                 if(!check_phone($('#telephone'))){
                     zdalert('系统提示','用户电话规则不对');
@@ -109,13 +104,13 @@
                     zdalert('系统提示','用户名不能为空');
                     return;
                 }
-                if(!check_password(info.password)){
+                if(info.newPassword&&!check_password(info.newPassword)){
                     zdalert('系统提示','密码必须由6-20位字母和数字组成！！');
                     return;
                 }
 
-                ajaxAction("post",'/api/user',info,true,function(data,textStatus){
-                    zdalert('系统提示','添加成功');
+                ajaxAction("put",'/api/user',info,true,function(data,textStatus){
+                    zdalert('系统提示','修改成功');
                    location.href='/adm/user';
                 },function(errno,errmsg){
                     alert(errmsg);

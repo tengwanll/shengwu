@@ -12,6 +12,12 @@ $(function(){
     $('button[type=reset]').click(function(){
         goodsList();
     });
+
+    ajaxAction("get",'/api/sort',"",false,function(data,textStatus){
+
+    },function(errno,errmsg){
+        alert(errmsg);
+    });
 });
 
 function goodsList(object){
@@ -39,7 +45,7 @@ function goodsList(object){
                 ajaxAction("get",'/api/goods'+ passParam(info),"",true,function(data,textStatus){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
-                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img src="'+value.image+'"></td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看详情</a></td>';
+                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img src="'+value.image+'"></td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看详情</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar('+value.id+')">加入购物车</a></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -65,7 +71,17 @@ function goodsInfo(goodsId){
         }
         $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
+    });
+}
+
+function addToCar(id) {
+    var info={};
+    info.id=id;
+    ajaxAction("post","/api/goods/car",info,true,function(data,textStatus){
+        zdalert('系统提示','加入购物车成功');
+    },function(errno,errmsg){
+        zdalert('系统提示',errmsg);
     });
 }
 

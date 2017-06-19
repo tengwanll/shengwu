@@ -52,4 +52,50 @@ class GoodsModel extends BaseModel
         $conn->exec($sql);
         return $conn->fetchAssoc('SELECT LAST_INSERT_ID() as goodsId');
     }
+
+    /**
+     * @param $parameters
+     * @param $pageable
+     * @param $sort
+     * @param $left
+     * @param $right
+     * @return Paginator
+     */
+    public function getList($parameters,$pageable,$sort,$left,$right){
+        $dql="select u from ".$this->getRepositoryName()." u join MirrorApiBundle:Sort s where u.sortId = s.id";
+        $where = array();
+        $arguments=array();
+        $index=1;
+        foreach ($parameters as $key => $equals) {
+            if (is_array($equals)) {
+                foreach ($equals as $k => $value) {
+                    $indexValue='value'.$index;
+                    $where[] = ' u.'.$k.' '.$key.' :'.$indexValue;
+                    $arguments[$indexValue] = $value;
+                    $index++;
+                }
+            } else {
+                $indexValue='value'.$index;
+                $where[] = ' u.'.$key.' = :'.$indexValue;
+                $arguments[$indexValue] = $equals;
+                $index++;
+            }
+        }
+        $dql = QueryHelper::makeQueryString($dql, $where);
+        if($left&&$right){
+            $dql.=' and s.rightR<= '.$right.' and s.leftR>= '.$left;
+        }
+        // 拼接sort语句
+        if ($sort) {
+            $dql .= ' order by u.'.$sort;
+        }
+        $query = $this->getEntityManager()->createQuery($dql);
+        if ($arguments && !empty($arguments)) {
+            $query->setParameters($arguments);
+        }
+        if ($pageable) {
+            $query = QueryHelper::setPageInfo($query, $pageable);
+        }
+        return new Paginator($query);
+    }
 }

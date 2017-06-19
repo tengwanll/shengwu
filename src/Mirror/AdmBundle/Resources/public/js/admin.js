@@ -73,11 +73,11 @@ var passwordPatten = new RegExp(/^(?=.*[a-zA-Z])(?=.*[0-7])[a-zA-Z0-9]{6,20}$/);
 function checkPassword(value,msg){
     if(!checkNull(value,msg)) return false;
     if(!passwordPatten.test(value)){
-        myAlert('密码必须由6-20位字母和数字组成！！');
+        zdalert('系统提示','密码必须由6-20位字母和数字组成！！');
         return false;
     }
     if(value.length < 6 || value.length > 20){
-        myAlert('密码必须由6-20位字母和数字组成！');
+        zdalert('系统提示','密码必须由6-20位字母和数字组成！');
         return false;
     }
 

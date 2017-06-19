@@ -211,18 +211,22 @@ class CarService
             $goods=$this->goodsModel->getOneByCriteria(array('name'=>$name,'status'=>Constant::$status_normal));
             /**@var $goods \Mirror\ApiBundle\Entity\Goods*/
             if($goods){
+                //如果已经存在商品
                 $goodsId=$goods->getId();
                 $carGoods=$this->carModel->getOneByCriteria(array('userId'=>$userId,'goodsId'=>$goodsId,'status'=>Constant::$status_normal));
                 /**@var $carGoods \Mirror\ApiBundle\Entity\GoodsCar*/
                 if($carGoods){
+                    //购物车中已经有该商品,直接在购物车中添加数量和价格
                     $numberAll=$carGoods->getNumber()+$val['number'];
                     $carGoods->setNumber($numberAll);
                     $carGoods->setPrice($carGoods->getPrice()+($carGoods->getPrice()/$carGoods->getNumber())*$numberAll);
                     $this->carModel->save($carGoods);
                 }else{
+                    //购物车中没有该商品,添加进购物车
                     $this->carModel->add($userId,$goodsId,$val['number'],$val['price']);
                 }
             }else{
+                //没有该商品,添加到商品表中,然后添加到购物车
                 $goods=$this->goodsModel->add($name,$val['sort'],$val['price'],$val['description'],$val['attrs'],$conn);
                 $goodsId=$goods['goodsId'];
                 $this->carModel->add($userId,$goodsId,$val['number'],$val['price']);

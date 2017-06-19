@@ -1,6 +1,17 @@
 User:
     type: entity
     table: user
+    indexes:
+        role:
+            columns:
+                - role
+        status:
+            columns:
+                - status
+    uniqueConstraints:
+        mobile:
+            columns:
+                - mobile
     id:
         id:
             type: integer

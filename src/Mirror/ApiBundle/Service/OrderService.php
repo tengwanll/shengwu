@@ -11,6 +11,7 @@ namespace Mirror\ApiBundle\Service;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\Common\Constant;
 use Mirror\ApiBundle\Model\CarModel;
 use Mirror\ApiBundle\Model\GoodsModel;
 use Mirror\ApiBundle\Model\OrderGoodsModel;
@@ -18,6 +19,7 @@ use Mirror\ApiBundle\Model\OrdersModel;
 use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Mirror\ApiBundle\Model\UserModel;
+use Mirror\ApiBundle\Util\Ucpaas;
 use Mirror\ApiBundle\ViewModel\ReturnResult;
 use Think\Exception;
 
@@ -180,5 +182,60 @@ class OrderService
             return $rr;
         }
         return $rr;
+    }
+
+    /**
+     * @param $orderId
+     * @param $status
+     * @return ReturnResult
+     */
+    public function changeStatus($orderId,$status,$message){
+        $rr=new ReturnResult();
+        $order=$this->ordersModel->getById($orderId);
+        /**@var $order \Mirror\ApiBundle\Entity\Orders*/
+        if(!$order){
+            $rr->errno=Code::$order_not_exist;
+            return $rr;
+        }
+        if($message){
+            $order->setMessage($message);
+        }
+        $order->setStatus($status);
+        $this->ordersModel->save($order);
+        if($status=='-1'){
+            $status='未通过';
+        }else if($status=='0'){
+            $status='无效订单';
+        }else if($status=='1'){
+            $status='待审核';
+        }else if($status=='2'){
+            $status='待发货';
+        }else if($status=='3'){
+            $status='已发货';
+        }else if($status=='4'){
+            $status='已完成';
+        }
+        $userId=$order->getUserId();
+        $user=$this->userModel->getById($userId);
+        $result=$this->ucpassSendMessage($user->getMobile(),$order->getOrderNo(),$status);
+        return $rr;
+    }
+
+    /**
+     * @param $telephone
+     * @param $orderNo
+     * @param $status
+     * @return mixed|string
+     * @throws \Mirror\ApiBundle\Util\Exception
+     */
+    public function ucpassSendMessage($telephone,$orderNo, $status) {
+        $options['accountsid'] = Constant::$UCPASS_ACCOUNT_SID;
+        $options['token'] = Constant::$UCPASS_AUTH_TOKEN;
+        $ucpass = new Ucpaas($options);
+        $appId = Constant::$UCPAAS_APP_ID;
+        $to = $telephone;
+        $templateId = Constant::$UCPAAS_TEMPLATE_ID;
+        $param = $orderNo.','.$status;
+        return $ucpass->templateSMS($appId, $to, $templateId, $param);
     }
 }
