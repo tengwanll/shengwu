@@ -97,7 +97,7 @@ class UserService
 
    public function getList($pageable,$username,$mobile){
        $rr=new ReturnResult();
-       $arguments=array('status'=>1);
+       $arguments=array('status'=>1,'<>'=>array('role'=>3));
        if($username){
            $arguments['like']=array('username'=>'%'.$username.'%');
        }
