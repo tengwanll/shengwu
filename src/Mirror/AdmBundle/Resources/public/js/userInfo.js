@@ -4,7 +4,12 @@ $(function(){
 function userInfo(userId){
 
     ajaxAction("get","/api/user/"+userId,"",false,function(data,textStatus){
-        var infoHtml='<dl><dt>ID：</dt><dd>'+ data.userId +'</dd><dt>头像：</dt><dd><a href="javascript:void(0)"><img height="80px" width="80px" src="'+data.image+'" /></a></dd><dt>手机号：</dt><dd>'+data.mobile+'</dd><dt>用户名：</dt><dd>'+data.username+'</dd><dt>注册时间：</dt><dd>'+data.createTime+'</dd></dl>';
+        if(data.role==1){
+            data.role='普通用户';
+        }else{
+            data.role='平台管理员';
+        }
+        var infoHtml='<dl><dt>ID：</dt><dd>'+ data.userId +'</dd><dt>用户角色：</dt><dd>'+ data.role +'</dd><dt>头像：</dt><dd><a href="javascript:void(0)"><img height="80px" width="80px" src="'+data.image+'" /></a></dd><dt>手机号：</dt><dd>'+data.mobile+'</dd><dt>用户名：</dt><dd>'+data.username+'</dd><dt>注册时间：</dt><dd>'+data.createTime+'</dd></dl>';
 
         $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
