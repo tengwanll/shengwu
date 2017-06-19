@@ -1,0 +1,14 @@
+
+mirror_api:
+    resource: "@MirrorApiBundle/Controller/"
+    type:     annotation
+    prefix:   /api
+
+mirror_adm:
+    resource: "@MirrorAdmBundle/Controller/"
+    type:     annotation
+    prefix:   /adm
+
+mirror_index:
+    pattern:  /
+    defaults: { _controller: MirrorApiBundle:Login:index }
