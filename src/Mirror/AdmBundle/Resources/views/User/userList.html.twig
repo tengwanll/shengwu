@@ -73,7 +73,7 @@
             adminTabNav($('.adminLeftNav .users'));
             userList();
             $('#search').click(function(){
-                userSearch();
+                userList();
             });
             $('#add').click(function () {
                 location.href='/adm/user/add';
@@ -101,28 +101,28 @@
             });
 
 
-            function stop(id,status){
-                var params={};
-                params.userId=id;
-                params.status=status;
-                ajaxAction("PUT", '/api/user/manage',params, true, function (data, textStatus) {
 
-                },function(errno,errmsg){
-                    alert(errmsg);
-                });
-
-            }
-
-            function resetPwd(id,status){
-                var params={};
-                params.userId=id;
-                ajaxAction("PUT", '/api/user/reset',params, true, function (data, textStatus) {
-                    zdalert('系统提示','重置密码成功');
-                },function(errno,errmsg){
-                    alert(errmsg);
-                });
-            }
         });
+        function stop(id,status){
+            var params={};
+            params.userId=id;
+            params.status=status;
+            ajaxAction("PUT", '/api/user/manage',params, true, function (data, textStatus) {
+
+            },function(errno,errmsg){
+                alert(errmsg);
+            });
+
+        }
+        function resetPwd(id,status){
+            var params={};
+            params.userId=id;
+            ajaxAction("PUT", '/api/user/reset',params, true, function (data, textStatus) {
+                zdalert('系统提示','重置密码成功');
+            },function(errno,errmsg){
+                alert(errmsg);
+            });
+        }
         function userList(){
             // 用户列表
             var role={{ role }};
