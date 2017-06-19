@@ -39,7 +39,7 @@ class OrdersModel extends BaseModel
      * @return Paginator
      */
     public function getList($pageable,$number,$beginTime,$endTime,$username,$status){
-        $dql=" select o,u.username from MirrorApiBundle:orders o join MirrorApiBundle:user u ";
+        $dql=" select o,u.username from MirrorApiBundle:Orders o join MirrorApiBundle:User u ";
         $where=array();
         $arguments=array();
         $where[]=' o.userId=u.id ';
