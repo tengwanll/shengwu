@@ -8,6 +8,7 @@
 
 namespace Mirror\ApiBundle\Controller;
 
+use Mirror\ApiBundle\Annotation\OAuth;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CarController extends BaseController
 {
     /**
+     * @OAuth()
      * @Route("")
      * @Method("GET")
      * @param Request $request
@@ -33,6 +35,7 @@ class CarController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/number/{id}",requirements={"id":"\d+"})
      * @Method("POST")
      * @param $id
@@ -44,6 +47,7 @@ class CarController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/number/{id}",requirements={"id":"\d+"})
      * @Method("DELETE")
      * @param $id
@@ -55,6 +59,7 @@ class CarController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("")
      * @Method("DELETE")
      * @param Request $request

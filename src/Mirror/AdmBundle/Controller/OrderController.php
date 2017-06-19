@@ -2,6 +2,7 @@
 
 namespace Mirror\AdmBundle\Controller;
 
+use Mirror\ApiBundle\Annotation\OAuth;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class OrderController extends Controller
 {
     /**
+     * @OAuth()
      * @Route("")
      * @Template
      * @return array
@@ -26,6 +28,7 @@ class OrderController extends Controller
     }
 
     /**
+     * @OAuth()
      * @Route("/{id}",requirements={"id":"\d+"})
      * @Template
      * @param $id

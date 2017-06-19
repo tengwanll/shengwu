@@ -8,6 +8,9 @@
 
 namespace Mirror\ApiBundle\Controller;
 
+use Mirror\ApiBundle\Annotation\OAuth;
+use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\ViewModel\ReturnResult;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 class OrderController extends BaseController
 {
     /**
+     * @OAuth()
      * @Route()
      * @Method("GET")
      * @param Request $request
@@ -37,6 +41,7 @@ class OrderController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/{id}",requirements={"id":"\d+"})
      * @Method("GET")
      * @param $id
@@ -48,6 +53,7 @@ class OrderController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/{id}/goods",requirements={"id":"\d+"})
      * @Method("GET")
      * @param Request $request
@@ -61,6 +67,7 @@ class OrderController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("")
      * @Method("POST")
      * @param Request $request
@@ -77,12 +84,19 @@ class OrderController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/manage")
      * @Method("PUT")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function changeStatus(Request $request){
+        $role=$this->sessionGet($request,'role',1);
+        if($role<1){
+            $rr=new ReturnResult();
+            $rr->errno=Code::$permission_reject;
+            return $this->buildResponse($rr);
+        }
         $json=$this->getJson($request);
         $orderId=$json->get('orderId',0);
         $status=$json->get('status',1);

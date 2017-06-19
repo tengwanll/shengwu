@@ -2,6 +2,7 @@
 
 namespace Mirror\AdmBundle\Controller;
 
+use Mirror\ApiBundle\Annotation\OAuth;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
     /**
+     * @OAuth()
      * 用户列表
      * @Route("")
      * @Template
@@ -26,6 +28,7 @@ class UserController extends Controller
         return array('role'=>$role);
     }
     /**
+     * @OAuth()
      * 添加用户
      * @Route("/add")
      * @Template
@@ -38,6 +41,7 @@ class UserController extends Controller
 
     /**
      * 用户详情
+     * @OAuth()
      * @Route("/{id}",requirements={"id":"\d+"})
      * @Template
      * @param $id
@@ -49,6 +53,7 @@ class UserController extends Controller
     }
 
     /**
+     * @OAuth()
      * @Route("/edit")
      * @Template()
      * @param Request $request

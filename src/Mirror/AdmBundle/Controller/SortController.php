@@ -8,6 +8,7 @@
 
 namespace Mirror\AdmBundle\Controller;
 
+use Mirror\ApiBundle\Annotation\OAuth;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -19,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class SortController extends BaseController
 {
     /**
+     * @OAuth()
      * @Route("")
      * @Template()
      * @return array
@@ -28,6 +30,7 @@ class SortController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/{id}",requirements={"id":"\d+"})
      * @Template()
      * @return array
@@ -37,6 +40,7 @@ class SortController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/{id}/add/{name}",requirements={"id":"\d+"})
      * @Template()
      * @param $id
@@ -48,6 +52,7 @@ class SortController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/{id}/edit",requirements={"id":"\d+"})
      * @Template()
      * @param $id

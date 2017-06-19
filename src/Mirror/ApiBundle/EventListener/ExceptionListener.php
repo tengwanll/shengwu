@@ -23,12 +23,8 @@ class ExceptionListener {
         $request=$event->getRequest();
         $response = new Response ();
         if ($exception instanceof LogicException) {
-            if($request->headers->get('X-Requested-With')!='XMLHttpRequest'&&$exception->getErrno()=='20403'){
-                if($request->getSession()->get('adminId','')){
-                    $url=isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'http://'.$_SERVER['HTTP_HOST'].'/adm/admin/login';
-                }else{
-                    $url='http://'.$_SERVER['HTTP_HOST'].'/adm/login/index';
-                }
+            if($request->headers->get('X-Requested-With')!='XMLHttpRequest'&&$exception->getErrno()=='20116'){
+                $url='http://'.$_SERVER['HTTP_HOST'].'/adm/login/index';
                 $response=new AccessResponse($url);
             }else{
                 $jsonStr = $exception->toString();
@@ -51,14 +47,7 @@ class ExceptionListener {
                 );
                 $response->headers->set('Content-Type', 'application/json;charset=UTF-8');
                 $response->setContent(json_encode($json_r, JSON_UNESCAPED_UNICODE));
-            }else if($exception instanceof AccessDeniedHttpException){
-                $json_r = array(
-                    'errno' => 20403,
-                    'errmsg' => '权限拒绝',
-                );
-                $response->headers->set('Content-Type', 'application/json;charset=UTF-8');
-                $response->setContent(json_encode($json_r, JSON_UNESCAPED_UNICODE));
-            } else {
+            }else {
                 if ($exception instanceof CustomException) {
                     $json_r = array(
                         'errno' => $exception->getCode(),
@@ -80,7 +69,6 @@ class ExceptionListener {
             }
         }
         $response->headers->set('X-Status-Code', 200);
-        // $response->setStatusCode(201);
         $event->setResponse($response);
     }
 }

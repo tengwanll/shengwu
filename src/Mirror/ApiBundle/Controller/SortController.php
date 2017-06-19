@@ -9,6 +9,7 @@
 namespace Mirror\ApiBundle\Controller;
 
 
+use Mirror\ApiBundle\Annotation\OAuth;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 class SortController extends BaseController
 {
     /**
+     * @OAuth()
      * @Route("")
      * @Method("GET")
      * @param Request $request
@@ -32,6 +34,7 @@ class SortController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("")
      * @Method("POST")
      * @param Request $request
@@ -48,6 +51,7 @@ class SortController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/{id}",requirements={"id":"\d+"})
      * @Method("GET")
      * @param $id
@@ -59,6 +63,7 @@ class SortController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("")
      * @Method("PUT")
      * @param Request $request

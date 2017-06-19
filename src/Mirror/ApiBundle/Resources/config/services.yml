@@ -2,6 +2,11 @@ parameters:
 services:
     json_parse:
         class: Mirror\ApiBundle\Util\JsonParser
+    mirror_api.event_listener.oauth_listener:
+            class: Mirror\ApiBundle\EventListener\OAuthListener
+            arguments: [@annotations.reader]
+            tags:
+                - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
     mirror_api.event_listener.calltrace_listener:
         class: Mirror\ApiBundle\EventListener\CallTraceListener
         arguments: [@system_setting_service,@calltrace_service]

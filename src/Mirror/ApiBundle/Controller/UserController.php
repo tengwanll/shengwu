@@ -67,12 +67,19 @@ class UserController extends BaseController
 
     /**
      * 注册
+     * @OAuth()
      * @Route("")
      * @Method("POST")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function create(Request $request){
+        $role=$this->sessionGet($request,'role',1);
+        if($role<2){
+            $rr=new ReturnResult();
+            $rr->errno=Code::$permission_reject;
+            return $this->buildResponse($rr);
+        }
         $user=$this->serializerByJson($request,'User');
         /**@var $user \Mirror\ApiBundle\Entity\User*/
         $rr=$this->get('user_service')->create($user);
@@ -80,6 +87,7 @@ class UserController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("")
      * @Method("GET")
      * @param Request $request
@@ -94,6 +102,7 @@ class UserController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/{id}",requirements={"id":"\d+"})
      * @Method("GET")
      * @param $id
@@ -105,6 +114,7 @@ class UserController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/detail")
      * @Method("GET")
      * @param Request $request
@@ -117,6 +127,7 @@ class UserController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/order")
      * @Method("GET")
      * @param Request $request
@@ -131,6 +142,7 @@ class UserController extends BaseController
 
     /**
      * 判断用户是否注册
+     * @OAuth()
      * @Route("/checktelephone")
      * @Method("POST")
      * @param Request $request
@@ -164,12 +176,19 @@ class UserController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/manage")
      * @Method("PUT")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function updateStatus(Request $request){
+        $role=$this->sessionGet($request,'role',1);
+        if($role<2){
+            $rr=new ReturnResult();
+            $rr->errno=Code::$permission_reject;
+            return $this->buildResponse($rr);
+        }
         $json=$this->getJson($request);
         $userId=$json->get('userId',0);
         $status=$json->get('status',1);
@@ -178,12 +197,19 @@ class UserController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("/reset")
      * @Method("PUT")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function resetPwd(Request $request){
+        $role=$this->sessionGet($request,'role',1);
+        if($role<2){
+            $rr=new ReturnResult();
+            $rr->errno=Code::$permission_reject;
+            return $this->buildResponse($rr);
+        }
         $json=$this->getJson($request);
         $userId=$json->get('userId',0);
         $rr=$this->get('user_service')->resetPwd($userId);
@@ -191,6 +217,7 @@ class UserController extends BaseController
     }
 
     /**
+     * @OAuth()
      * @Route("")
      * @Method("PUT")
      * @param Request $request

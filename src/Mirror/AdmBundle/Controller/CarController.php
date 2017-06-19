@@ -8,6 +8,7 @@
 
 namespace Mirror\AdmBundle\Controller;
 
+use Mirror\ApiBundle\Annotation\OAuth;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class CarController extends Controller
 {
     /**
+     * @OAuth()
      * @Route("")
      * @Template()
      * @return array

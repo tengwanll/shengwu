@@ -30,4 +30,6 @@ class Code {
     public static $file_sort_not_exist=20113;
     public static $file_price_null=20114;
     public static $mobile_already_exist=20115;
+    public static $user_not_login=20116;
+    public static $permission_reject=20117;
 }
