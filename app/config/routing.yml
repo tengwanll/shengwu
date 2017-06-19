@@ -11,4 +11,4 @@ mirror_adm:
 
 mirror_index:
     pattern:  /
-    defaults: { _controller: MirrorApiBundle:Login:index }
+    defaults: { _controller: MirrorAdmBundle:Login:index }
