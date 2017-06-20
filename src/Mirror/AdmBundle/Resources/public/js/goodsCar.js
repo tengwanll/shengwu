@@ -70,6 +70,7 @@ function changePrice(obj) {
     var price=$(obj).parent().parent().find('#price').html();
     var totalPrice=$('#totalPrice').html();
     totalPrice=parseFloat(totalPrice);
+    price=parseFloat(price);
     if($(obj).attr('checked')=='checked'){
         $('#totalPrice').html(totalPrice+price);
     }else{
