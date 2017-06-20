@@ -69,6 +69,7 @@ function goodsList(){
 function changePrice(obj) {
     var price=$(obj).parent().parent().find('#price').html();
     var totalPrice=$('#totalPrice').html();
+    totalPrice=parseFloat(totalPrice);
     if($(obj).attr('checked')=='checked'){
         $('#totalPrice').html(totalPrice+price);
     }else{
@@ -136,7 +137,7 @@ function choiceAll(obj) {
     var totalPrice=0;
     if($(obj).attr('checked')=='checked'){
         $('.price').each(function(index,val){
-            totalPrice=totalPrice+$(val).html();
+            totalPrice=totalPrice+parseFloat($(val).html());
         });
         $('input[name=carChoice]').attr('checked','true');
     }else{
