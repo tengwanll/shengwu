@@ -70,12 +70,10 @@ class CarService
         $rr=new ReturnResult();
         $car=$this->carModel->getByParams(array('status'=>1,'userId'=>$userId),$pageable,'createTime');
         $arr=array();
-        $totalPrice=0;
         foreach($car->getIterator() as $goodsCar){
             /**@var $goodsCar \Mirror\ApiBundle\Entity\GoodsCar*/
             $goodsId=$goodsCar->getGoodsId();
             $goods=$this->goodsModel->getById($goodsId);
-            $totalPrice=$totalPrice+$goodsCar->getPrice();
             $arr[]=array(
                 'id'=>$goodsCar->getId(),
                 'goodsName'=>$goods?$goods->getName():'',
@@ -84,7 +82,7 @@ class CarService
                 'goodsId'=>$goodsCar->getGoodsId()
             );
         }
-        $rr->result=array('list'=>$arr,'total'=>$car->count(),'totalPrice'=>$totalPrice);
+        $rr->result=array('list'=>$arr,'total'=>$car->count());
         return $rr;
     }
 

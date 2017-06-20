@@ -163,7 +163,7 @@ function pubImgUpload(formTagName,filePosition){
 /*excel导入*/
 function fileUpload(formTagName){
     imgUpload(formTagName,'/api/file/import','post',function(){},function(data,textStatus){
-        // location.href='/adm/car';
+        location.href='/adm/car';
     },function(errno,errmsg){
         alert(errmsg);
     });

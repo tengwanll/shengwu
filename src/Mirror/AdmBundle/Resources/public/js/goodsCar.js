@@ -52,10 +52,9 @@ function goodsList(){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
                         index=index+1;
-                        htmlTab+='<tr><td><input type="checkbox" name="carChoice" carId="'+value.id+'"></td><td>'+index+'</td><td>'+value.goodsName+'</td><td id="number">'+value.number+'</td><td id="price">'+value.price+'</td><td><a href="/adm/goods/'+value.goodsId+'" class="infoColor">查看详情</a><a href="javascript:void(0)" class="infoColor" onclick="add(this,'+value.id+')"><span style="font-size: 25px"> + </span></a><a href="javascript:void(0)" class="infoColor" onclick="sub(this,'+value.id+')"><span style="font-size: 35px"> -</span></a></td>';
+                        htmlTab+='<tr><td><input type="checkbox" onclick="changePrice(this)" name="carChoice" carId="'+value.id+'"></td><td>'+index+'</td><td>'+value.goodsName+'</td><td id="number">'+value.number+'</td><td id="price" class="price">'+value.price+'</td><td><a href="/adm/goods/'+value.goodsId+'" class="infoColor">查看详情</a><a href="javascript:void(0)" class="infoColor" onclick="add(this,'+value.id+')"><span style="font-size: 25px"> + </span></a><a href="javascript:void(0)" class="infoColor" onclick="sub(this,'+value.id+')"><span style="font-size: 35px"> -</span></a></td>';
                         $('tbody').html(htmlTab);
                     });
-                    $('#totalPrice').html(data.totalPrice);
                 },function(errno,errmsg){
                     alert(errmsg);
                 });
@@ -67,6 +66,16 @@ function goodsList(){
     });
 }
 
+function changePrice(obj) {
+    var price=$(obj).parent().parent().find('#price').html();
+    var totalPrice=$('#totalPrice').html();
+    if($(obj).attr('checked')=='checked'){
+        $('#totalPrice').html(totalPrice+price);
+    }else{
+        $('#totalPrice').html(totalPrice-price);
+    }
+}
+
 //商品添加数量
 function add(obj,id) {
     var number=$(obj).parent().parent().find('#number').html();
@@ -76,9 +85,11 @@ function add(obj,id) {
     price=parseFloat(price);
     totalPrice=parseFloat(totalPrice);
     ajaxAction("post",'/api/car/number/'+ id,"",false,function(data,textStatus){
+        if($(obj).parent().parent().find('input[name=carChoice]').attr('checked')=='checked'){
+            $('#totalPrice').html(totalPrice+price/number);
+        }
         $(obj).parent().parent().find('#number').html(number+1);
         $(obj).parent().parent().find('#price').html(price+price/number);
-        $('#totalPrice').html(totalPrice+price/number);
     },function(errno,errmsg){
         alert(errmsg);
     });
@@ -99,7 +110,9 @@ function sub(obj,id) {
                 info.carId=id;
                 ajaxAction("delete",'/api/car',info,false,function(data,textStatus){
                     $(obj).parent().parent().remove();
-                    $('#totalPrice').html(totalPrice-price);
+                    if($(obj).parent().parent().find('input[name=carChoice]').attr('checked')=='checked'){
+                        $('#totalPrice').html(totalPrice-price);
+                    }
                 },function(errno,errmsg){
                     alert(errmsg);
                 });
@@ -109,7 +122,9 @@ function sub(obj,id) {
         ajaxAction("delete",'/api/car/number/'+ id,"",false,function(data,textStatus){
             $(obj).parent().parent().find('#number').html(number-1);
             $(obj).parent().parent().find('#price').html(price-price/number);
-            $('#totalPrice').html(totalPrice-price/number);
+            if($(obj).parent().parent().find('input[name=carChoice]').attr('checked')=='checked'){
+                $('#totalPrice').html(totalPrice-price/number);
+            }
         },function(errno,errmsg){
             alert(errmsg);
         });
@@ -118,9 +133,14 @@ function sub(obj,id) {
 
 //全选
 function choiceAll(obj) {
+    var totalPrice=0;
     if($(obj).attr('checked')=='checked'){
+        $('.price').each(function(index,val){
+            totalPrice=totalPrice+$(val).html();
+        });
         $('input[name=carChoice]').attr('checked','true');
     }else{
         $('input[name=carChoice]').removeAttr('checked');
     }
+    $('#totalPrice').html(totalPrice);
 }
