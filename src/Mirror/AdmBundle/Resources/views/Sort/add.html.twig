@@ -68,6 +68,9 @@
                 banner_upload(this,$('.imageUpload'));
                 pubImgUpload($('form[name=uploadForm]')[0],$('#imageValue'));
             });
+            $('#cancel').click(function () {
+                location.href='/adm/sort';
+            });
             $('#ensure').click(function(){
                 var info={};
                 info.parentId={{ id }};

@@ -102,6 +102,9 @@
                     alert(errmsg);
                 });
             });
+            $('#cancel').click(function () {
+                location.href='/adm/sort';
+            });
         });
         function addInput(obj) {
             $(obj).before('<input type="text" name="sortAttr" style="line-height: 30px">');

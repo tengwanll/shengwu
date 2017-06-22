@@ -64,4 +64,17 @@ class GoodsController extends  BaseController
         $rr=$this->get('goods_service')->addToCar($goodsId,$userId);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function addGoods(Request $request){
+        $goods=$this->serializerByJson($request,'Goods');
+        $conn=$this->get('database_connection');
+        $rr=$this->get('goods_service')->create($goods,$conn);
+        return $this->buildResponse($rr);
+    }
 }

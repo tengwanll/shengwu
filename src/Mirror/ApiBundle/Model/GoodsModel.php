@@ -38,17 +38,20 @@ class GoodsModel extends BaseModel
      * @param $description
      * @param $attrs
      * @param $conn
+     * @param $image
      * @return mixed
      */
-    public function add($name,$sortId,$price,$description,$attrs,$conn){
+    public function add($name,$sortId,$price,$description,$attrs,$conn,$image=0){
         $date=date("y-m-d H:i:s");
-        $attrs=explode(',',$attrs);
-        $str='';
-        foreach ($attrs as $attr){
-            $str.="'".$attr."',";
+        $str='null';
+        if($attrs){
+            $attrs=explode(',',$attrs);
+            foreach ($attrs as $attr){
+                $str.="'".$attr."',";
+            }
+            $str='column_create('.trim($str,',').')';
         }
-        $str=trim($str,',');
-        $sql="insert into goods(`name`,`sort_id`,`price`,`description`,`attr`,`status`,`create_time`,`update_time`) VALUES('$name',$sortId,$price,'$description',column_create($str),1,'$date','$date')";
+        $sql="insert into goods(`name`,`sort_id`,`price`,`image`,`description`,`attr`,`status`,`create_time`,`update_time`) VALUES('$name',$sortId,$price,$image,'$description',$str,1,'$date','$date')";
         $conn->exec($sql);
         return $conn->fetchAssoc('SELECT LAST_INSERT_ID() as goodsId');
     }

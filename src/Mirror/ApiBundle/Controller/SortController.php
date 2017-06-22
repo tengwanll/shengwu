@@ -78,4 +78,14 @@ class SortController extends BaseController
         $rr=$this->get('sort_service')->edit($name,$id,$image,$attr);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("/leaf")
+     * @Method("GET")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getLeaf(){
+        $rr=$this->get('sort_service')->getLeaf();
+        return $this->buildResponse($rr);
+    }
 }

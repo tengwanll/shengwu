@@ -45,7 +45,13 @@ function goodsList(object){
                 ajaxAction("get",'/api/goods'+ passParam(info),"",true,function(data,textStatus){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
-                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img src="'+value.image+'"></td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看详情</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar('+value.id+')">加入购物车</a></td>';
+                        var option;
+                        if(value.status==1){
+                            option='<option value="1" selected>上架</option><option value="0">下架</option>';
+                        }else{
+                            option='<option value="1">上架</option><option value="0" selected>下架</option>';
+                        }
+                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img style="height: 40px;width: 40px" src="'+value.image+'"></td><td><a href="/adm/goods/'+value.id+'" class="infoColor">修改</a> <a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar('+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -62,7 +68,7 @@ function goodsList(object){
 }
 function goodsInfo(goodsId){
     ajaxAction("get","/api/goods/"+goodsId,"",false,function(data,textStatus){
-        var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>商品分类：</dt><dd>'+data.sort+'</dd><dt>商品价格：</dt><dd>'+data.price+'</dd><dt>图片：</dt><dd><a href="javascript:void(0)"><img src="'+data.image+'" /></a></dd><dt>订购次数：</dt><dd>'+data.buyNum+'</dd><dt>商品描述：</dt><dd>'+data.description+'</dd>';
+        var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>商品分类：</dt><dd>'+data.sort+'</dd><dt>商品价格：</dt><dd>'+data.price+'</dd><dt>图片：</dt><dd><a href="javascript:void(0)"><img style="max-height: 300px;max-width: 300px" src="'+data.image+'" /></a></dd><dt>订购次数：</dt><dd>'+data.buyNum+'</dd><dt>商品描述：</dt><dd>'+data.description+'</dd>';
         if(data.attr){
             $.each(data.attr,function(index,value){
                 infoHtml+='<dt>'+index+'：</dt><dd>'+value+'</dd>';

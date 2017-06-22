@@ -71,4 +71,10 @@ class SortModel extends BaseModel
         $sort->setUpdateTime($date);
         return $this->save($sort);
     }
+
+    public function getLeaf(){
+        $dql = "select u from ".$this->getRepositoryName()." u where u.leftR+1=u.rightR";
+        $query = $this->getEntityManager()->createQuery($dql);
+        return $query->getResult();
+    }
 }

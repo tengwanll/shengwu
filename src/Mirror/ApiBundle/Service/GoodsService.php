@@ -11,6 +11,7 @@ namespace Mirror\ApiBundle\Service;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\Entity\Goods;
 use Mirror\ApiBundle\Model\CarModel;
 use Mirror\ApiBundle\Model\GoodsModel;
 use Mirror\ApiBundle\Model\SortAttrModel;
@@ -137,7 +138,8 @@ class GoodsService
             'description'=>$goods['description'],
             'buyNum'=>$goods['buy_num'],
             'attr'=>json_decode($goods['attrs']),
-            'createTime'=>$goods['create_time']
+            'createTime'=>$goods['create_time'],
+            'status'=>$goods['status']
         );
         $rr->result=$arr;
         return $rr;
@@ -164,6 +166,17 @@ class GoodsService
         }else{
             $this->carModel->add($userId,$goodsId,1,$price);
         }
+        return $rr;
+    }
+
+    /**
+     * @param Goods $goods
+     * @param $conn
+     * @return ReturnResult
+     */
+    public function create(Goods $goods,$conn){
+        $rr=new ReturnResult();
+        $this->goodsModel->add($goods->getName(),$goods->getSortId(),$goods->getPrice(),$goods->getDescription(),$goods->getAttr(),$conn,$goods->getImage());
         return $rr;
     }
 

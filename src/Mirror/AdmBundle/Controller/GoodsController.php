@@ -33,4 +33,14 @@ class GoodsController extends Controller
     public function infoAction($id){
         return array('id'=>$id);
     }
+
+    /**
+     * @OAuth()
+     * @Route("/add")
+     * @Template
+     * @return array
+     */
+    public function addAction(){
+        return array();
+    }
 }

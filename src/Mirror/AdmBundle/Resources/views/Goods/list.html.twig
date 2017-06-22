@@ -3,7 +3,6 @@
     <script src="{{ asset('/bundles/mirroradm/js/goods.js') }}"></script>
 {% endblock %}
 {% block typeForm %}
-    <form class="form-horizontal" role="form">
         <div class="form-group col-md-8">
             <!-- /.row -->
             <div class="row margin_top">
@@ -24,7 +23,9 @@
                 <div class="col-md-2">
                     <input type="text" class="form-control" id="bigPrice">
                 </div>
-
+                <div class="col-md-3" style="margin-left: 50px;">
+                    <button class="btn btn-default resetButton" id="add">+添加</button>
+                </div>
             </div>
             <!-- /.row -->
 
@@ -44,7 +45,6 @@
             <!-- /.row -->
 
         </div>
-    </form>
 {% endblock %}
 {% block thead %}
     <tr class="tableTit">
@@ -80,6 +80,9 @@
     <script>
         $(function(){
             adminTabNav($('.adminLeftNav .goods'));
+            $('#add').unbind().click(function () {
+                location.href='/adm/goods/add';
+            });
             goodsList();
         });
     </script>
