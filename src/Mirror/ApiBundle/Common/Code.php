@@ -32,4 +32,6 @@ class Code {
     public static $mobile_already_exist=20115;
     public static $user_not_login=20116;
     public static $permission_reject=20117;
+    public static $goods_had_exist=20118;
+    public static $goods_had_on=20119;
 }

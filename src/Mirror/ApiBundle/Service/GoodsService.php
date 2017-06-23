@@ -11,6 +11,7 @@ namespace Mirror\ApiBundle\Service;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\Common\Constant;
 use Mirror\ApiBundle\Entity\Goods;
 use Mirror\ApiBundle\Model\CarModel;
 use Mirror\ApiBundle\Model\GoodsModel;
@@ -105,6 +106,7 @@ class GoodsService
                 'sort'=>$sort?$sort->getName():'',
                 'price'=>$goods->getPrice(),
                 'image'=>$image,
+                'status'=>$goods->getStatus()
             );
         }
         $rr->result=array(
@@ -176,7 +178,38 @@ class GoodsService
      */
     public function create(Goods $goods,$conn){
         $rr=new ReturnResult();
+        $data=$this->goodsModel->getOneByCriteria(array('name'=>$goods->getName(),'status'=>Constant::$status_normal));
+        if($data){
+            $rr->errno=Code::$goods_had_exist;
+            return $rr;
+        }
         $this->goodsModel->add($goods->getName(),$goods->getSortId(),$goods->getPrice(),$goods->getDescription(),$goods->getAttr(),$conn,$goods->getImage());
+        return $rr;
+    }
+
+    /**
+     * @param $goodsId
+     * @param $status
+     * @return ReturnResult
+     */
+    public function changeStatus($goodsId,$status){
+        $rr=new ReturnResult();
+        $goods=$this->goodsModel->getById($goodsId);
+        if(!$goods){
+            $rr->errno=Code::$goods_not_exist;
+            return $rr;
+        }
+        if($status){
+            $exist=$this->goodsModel->getOneByCriteria(array('name'=>$goods->getName(),'status'=>Constant::$status_normal));
+            if($exist){
+                $rr->errno=Code::$goods_had_on;
+                return $rr;
+            }
+        }
+        if($status!==null){
+            $goods->setStatus($status);
+            $this->goodsModel->save($goods);
+        }
         return $rr;
     }
 

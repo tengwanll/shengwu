@@ -43,4 +43,14 @@ class GoodsController extends Controller
     public function addAction(){
         return array();
     }
+
+    /**
+     * @OAuth()
+     * @Route("/edit/{id}",requirements={"id":"\d+"})
+     * @Template
+     * @return array
+     */
+    public function editAction($id){
+        return array();
+    }
 }

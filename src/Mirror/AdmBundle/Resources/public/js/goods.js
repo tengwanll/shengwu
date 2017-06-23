@@ -51,7 +51,7 @@ function goodsList(object){
                         }else{
                             option='<option value="1">上架</option><option value="0" selected>下架</option>';
                         }
-                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img style="height: 40px;width: 40px" src="'+value.image+'"></td><td><a href="/adm/goods/'+value.id+'" class="infoColor">修改</a> <a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar('+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
+                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img style="height: 40px;width: 40px" src="'+value.image+'"></td><td><a href="/adm/goods/'+value.id+'" class="infoColor">修改</a> <a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -81,12 +81,29 @@ function goodsInfo(goodsId){
     });
 }
 
-function addToCar(id) {
+function addToCar(obj,id) {
+    var status=$(obj).parent().find('#changeStatus').val();
+    if(status==0){
+        zdalert('系统提示','该商品已下架,无法加入购物车');
+        return;
+    }
     var info={};
     info.id=id;
     ajaxAction("post","/api/goods/car",info,true,function(data,textStatus){
         zdalert('系统提示','加入购物车成功');
     },function(errno,errmsg){
+        zdalert('系统提示',errmsg);
+    });
+}
+
+function changeStatus(obj,id) {
+    var info={};
+    info.status=$(obj).val();
+    info.goodsId=id;
+    ajaxAction("put","/api/goods/manage",info,true,function(data,textStatus){
+        zdalert('系统提示','修改成功');
+    },function(errno,errmsg){
+        $(obj).val(0);
         zdalert('系统提示',errmsg);
     });
 }
