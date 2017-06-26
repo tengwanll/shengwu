@@ -43,7 +43,7 @@ class GoodsModel extends BaseModel
      */
     public function add($name,$sortId,$price,$description,$attrs,$conn,$image=0){
         $date=date("y-m-d H:i:s");
-        $str=null;
+        $str='null';
         if($attrs){
             $attrs=explode(',',$attrs);
             foreach ($attrs as $attr){
@@ -103,7 +103,7 @@ class GoodsModel extends BaseModel
     }
 
     public function update($id,$name,$sortId,$price,$description,$attrs,$conn,$image=0){
-        $str=null;
+        $str='null';
         if($attrs){
             $attrs=explode(',',$attrs);
             foreach ($attrs as $attr){
@@ -112,9 +112,9 @@ class GoodsModel extends BaseModel
             $str='column_create('.trim($str,',').')';
         }
         if($image){
-            $image=' and image='.$image;
+            $image=',image='.$image;
         }
-        $sql="update goods set name='$name' and sort_id=$sortId and price=$price and description='$description' and attr=$str".$image." where id=$id";
+        $sql="update goods set name='$name',sort_id=$sortId,price=$price,description='$description',attr=$str".$image." where id=$id";
         return $conn->exec($sql);
     }
 }
