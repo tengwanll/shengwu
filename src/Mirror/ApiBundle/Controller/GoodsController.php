@@ -91,4 +91,19 @@ class GoodsController extends  BaseController
         $rr=$this->get('goods_service')->changeStatus($goodsId,$status);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("")
+     * @Method("PUT")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function update(Request $request){
+        $goods=$this->serializerByJson($request,'Goods');
+        $json=$this->getJson($request);
+        $id=$json->get('id',0);
+        $conn=$this->get('database_connection');
+        $rr=$this->get('goods_service')->update($goods,$conn,$id);
+        return $this->buildResponse($rr);
+    }
 }

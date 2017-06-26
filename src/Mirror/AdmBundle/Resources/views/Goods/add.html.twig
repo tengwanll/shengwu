@@ -90,13 +90,12 @@
                 $('#sort').val($(this).html());
                 var sortId=$.trim( $('#sortId').find('option[value="'+$(this).html()+'"]').attr('sortId') );
                 var html='';
+                $('.sortClass').remove();
                 if(sortId in attr){
                     $.each(attr[sortId],function (index,val) {
                         html+='<div class="form-group sortClass"><label for="attr'+index+'" class="col-md-3 control-label text-right">'+val+'：</label><div class="col-md-3"><input type="text" class="form-control" id="attr'+index+'" name="attr" sortName="'+val+'"></div></div>';
                     });
                     $('#picture').after(html);
-                }else{
-                    $('.sortClass').remove();
                 }
                 $('#sortId').hide();
             });
@@ -120,13 +119,12 @@
                 var comName=$.trim( $(this).val() );
                 var sortId=$.trim( $('#sortId').find('option[value="'+comName+'"]').attr('sortId') );
                 var html='';
+                $('.sortClass').remove();
                 if(sortId in attr){
                     $.each(attr[sortId],function (index,val) {
                         html+='<div class="form-group sortClass"><label for="attr'+index+'" class="col-md-3 control-label text-right">'+val+'：</label><div class="col-md-3"><input type="text" class="form-control" id="attr'+index+'" name="attr" sortName="'+val+'"></div></div>';
                     });
                     $('#picture').after(html);
-                }else{
-                    $('.sortClass').remove();
                 }
             });
             $('#imageUpload').change(function () {

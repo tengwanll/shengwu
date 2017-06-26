@@ -72,6 +72,25 @@
     <script>
         $(function(){
             adminTabNav($('.adminLeftNav .sort'));
+            var id={{ id }};
+            ajaxAction("get",'/api/goods/'+id,"",false,function(data,textStatus){
+                $('#name').val(data.name);
+                $('#sort').val(data.sort);
+                $('#price').val(data.price);
+                $('#description').val(data.description);
+                if(data.image){
+                    $('.imageUpload').find('img').attr('src',data.image);
+                }
+                var html='';
+                for(var index in data.attr) {
+                    if (data.attr.hasOwnProperty(index)) {
+                        html+='<div class="form-group sortClass"><label for="attr'+index+'" class="col-md-3 control-label text-right">'+index+'：</label><div class="col-md-3"><input type="text" class="form-control" id="attr'+index+'" name="attr" sortName="'+index+'" value="'+data.attr[index]+'"></div></div>';
+                    }
+                }
+                $('#picture').after(html);
+            },function(errno,errmsg){
+                alert(errmsg);
+            });
             var option='';
             var attr;
             ajaxAction("get",'/api/sort/leaf',"",false,function(data,textStatus){
@@ -90,13 +109,12 @@
                 $('#sort').val($(this).html());
                 var sortId=$.trim( $('#sortId').find('option[value="'+$(this).html()+'"]').attr('sortId') );
                 var html='';
+                $('.sortClass').remove();
                 if(sortId in attr){
                     $.each(attr[sortId],function (index,val) {
                         html+='<div class="form-group sortClass"><label for="attr'+index+'" class="col-md-3 control-label text-right">'+val+'：</label><div class="col-md-3"><input type="text" class="form-control" id="attr'+index+'" name="attr" sortName="'+val+'"></div></div>';
                     });
                     $('#picture').after(html);
-                }else{
-                    $('.sortClass').remove();
                 }
                 $('#sortId').hide();
             });
@@ -120,13 +138,12 @@
                 var comName=$.trim( $(this).val() );
                 var sortId=$.trim( $('#sortId').find('option[value="'+comName+'"]').attr('sortId') );
                 var html='';
+                $('.sortClass').remove();
                 if(sortId in attr){
                     $.each(attr[sortId],function (index,val) {
-                        html+='<div class="form-group sortClass"><label for="attr'+index+'" class="col-md-3 control-label text-right">'+val+'：</label><div class="col-md-3"><input type="text" class="form-control" id="attr'+index+'" name="attr" sortName="'+val+'"></div></div>';
+                        html+='<label for="attr'+index+'" class="col-md-3 control-label text-right">'+val+'：</label><div class="col-md-3"><input type="text" class="form-control" id="attr'+index+'" name="attr" sortName="'+val+'"></div></div>';
                     });
                     $('#picture').after(html);
-                }else{
-                    $('.sortClass').remove();
                 }
             });
             $('#imageUpload').change(function () {
@@ -140,7 +157,7 @@
             $('#ensure').click(function(){
                 var info={};
                 var status=1;
-
+                info.id=id;
                 var comName=$.trim( $('#sort').val() );
                 info.name=$('#name').val();
                 if(!info.name){
@@ -177,11 +194,11 @@
 
                 info.image=$('#imageValue').val();
 
-                ajaxAction("post",'/api/goods',info,false,function(data,textStatus){
-                    alert('添加成功');
+                ajaxAction("put",'/api/goods',info,false,function(data,textStatus){
+                    zdalert('系统提示','修改成功');
                    location.href='/adm/goods';
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
             });
         });

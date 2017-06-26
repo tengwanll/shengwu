@@ -51,7 +51,7 @@ function goodsList(object){
                         }else{
                             option='<option value="1">上架</option><option value="0" selected>下架</option>';
                         }
-                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img style="height: 40px;width: 40px" src="'+value.image+'"></td><td><a href="/adm/goods/'+value.id+'" class="infoColor">修改</a> <a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
+                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img style="height: 40px;width: 40px" src="'+value.image+'"></td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){

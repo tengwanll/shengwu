@@ -213,4 +213,10 @@ class GoodsService
         return $rr;
     }
 
+    public function update(Goods $goods,$conn,$id){
+        $rr=new ReturnResult();
+        $this->goodsModel->update($id,$goods->getName(),$goods->getSortId(),$goods->getPrice(),$goods->getDescription(),$goods->getAttr(),$conn,$goods->getImage());
+        return $rr;
+    }
+
 }

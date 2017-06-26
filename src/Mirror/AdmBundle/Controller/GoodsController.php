@@ -51,6 +51,6 @@ class GoodsController extends Controller
      * @return array
      */
     public function editAction($id){
-        return array();
+        return array('id'=>$id);
     }
 }
