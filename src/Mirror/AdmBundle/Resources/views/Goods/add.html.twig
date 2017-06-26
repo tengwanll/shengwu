@@ -129,7 +129,7 @@
             });
             $('#imageUpload').change(function () {
                 if(!/image\/\w+/.test(this.files[0].type)){
-                    alert("文件必须为图片！");
+                    zdalert('系统提示',"文件必须为图片！");
                     return false;
                 }
                 banner_upload(this,$('.imageUpload'));
@@ -176,10 +176,10 @@
                 info.image=$('#imageValue').val();
 
                 ajaxAction("post",'/api/goods',info,false,function(data,textStatus){
-                    alert('添加成功');
+                    zdalert('系统提示','添加成功');
                    location.href='/adm/goods';
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
             });
         });

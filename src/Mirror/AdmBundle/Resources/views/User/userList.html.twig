@@ -116,7 +116,7 @@
             ajaxAction("PUT", '/api/user/manage',params, true, function (data, textStatus) {
 
             },function(errno,errmsg){
-                alert(errmsg);
+                zdalert('系统提示',errmsg);
             });
 
         }
@@ -126,7 +126,7 @@
             ajaxAction("PUT", '/api/user/reset',params, true, function (data, textStatus) {
                 zdalert('系统提示','重置密码成功');
             },function(errno,errmsg){
-                alert(errmsg);
+                zdalert('系统提示',errmsg);
             });
         }
 

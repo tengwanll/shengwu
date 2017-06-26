@@ -29,7 +29,7 @@ function changeStatus(obj,orderId){
                     $(obj).parent().parent().find('#status').html(status);
 
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
             }
         });
@@ -37,7 +37,7 @@ function changeStatus(obj,orderId){
         ajaxAction("put",'/api/order/manage',info,true,function(data,textStatus){
             $(obj).parent().parent().find('#status').html(status);
         },function(errno,errmsg){
-            alert(errmsg);
+            zdalert('系统提示',errmsg);
         });
     }
 }
@@ -87,7 +87,7 @@ function orderList(role,object){
                     });
                     $('tbody').html(htmlTab);
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
 
             }
@@ -95,7 +95,7 @@ function orderList(role,object){
 
 
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 
 }

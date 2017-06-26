@@ -156,7 +156,7 @@ function pubImgUpload(formTagName,filePosition){
     imgUpload(formTagName,'/api/file/upload','post',function(){},function(data,textStatus){
         filePosition.val(data.result.fileId);
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 }
 
@@ -165,7 +165,7 @@ function fileUpload(formTagName){
     imgUpload(formTagName,'/api/file/import','post',function(){},function(data,textStatus){
         location.href='/adm/car';
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 }
 

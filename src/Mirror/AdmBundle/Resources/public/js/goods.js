@@ -16,7 +16,7 @@ $(function(){
     ajaxAction("get",'/api/sort',"",false,function(data,textStatus){
 
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 });
 
@@ -55,7 +55,7 @@ function goodsList(object){
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
 
             }
@@ -63,7 +63,7 @@ function goodsList(object){
 
 
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 }
 function goodsInfo(goodsId){

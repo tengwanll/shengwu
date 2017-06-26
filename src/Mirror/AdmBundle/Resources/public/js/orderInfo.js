@@ -19,7 +19,7 @@ function orderInfo(orderId){
 
         $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 
 
@@ -56,7 +56,7 @@ function orderGoodsList(orderId){
                     });
                     $('tbody').html(html);
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
 
             }
@@ -64,7 +64,7 @@ function orderGoodsList(orderId){
 
 
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 
 

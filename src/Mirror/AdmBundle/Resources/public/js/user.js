@@ -42,7 +42,7 @@ function userList(role){
                     $('tbody').html(htmlTab);
 
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
 
             }
@@ -50,7 +50,7 @@ function userList(role){
 
 
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 
 }

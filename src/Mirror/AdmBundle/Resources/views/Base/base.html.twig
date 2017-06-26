@@ -12,10 +12,11 @@
     <link href="{{ asset('/bundles/mirroradm/css/bootstrap-datepicker.css') }}" rel="stylesheet">
     <link href="{{ asset('/bundles/mirroradm/css/bootstrap.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/bundles/mirroradm/css/adm.css') }}">
+    <script src="{{ asset('/bundles/mirroradm/js/comfirm.js') }}"></script>
     <script src="{{ asset('/bundles/mirroradm/js/admin.js') }}"></script>
     <script src="{{ asset('/bundles/mirroradm/js/admPublic.js') }}"></script>
     <script src="{{ asset('/bundles/mirroradm/js/jquery.json.js') }}"></script>
-    <script src="{{ asset('/bundles/mirroradm/js/comfirm.js') }}"></script>
+
     {% block javascript %} {% endblock %}
     {% block css %} {% endblock %}
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -156,13 +157,13 @@
                     $('.adminPhoto img').attr('src',data.image);
                 }
             },function(errno,errmsg){
-                alert(errmsg);
+                zdalert('系统提示',errmsg);
             });
             $('.outUser').click(function(){
                 ajaxAction("post",'/api/user/logout',"",true,function(data,textStatus){
                     location.href='/adm/login/index';
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
             });
         });

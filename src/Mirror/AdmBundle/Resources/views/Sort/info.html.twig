@@ -60,7 +60,7 @@
                 $('#imageUpload img').attr('src',data.image);
                 $('#sortAttr').html(data.attr);
             }, function (errno, errmsg) {
-                alert(errmsg);
+                zdalert('系统提示',errmsg);
             });
         })
     </script>

@@ -13,7 +13,7 @@ function userInfo(userId){
 
         $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 
 
@@ -67,7 +67,7 @@ function orderList(userId){
                     });
                     $('tbody').html(html);
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
 
             }
@@ -75,7 +75,7 @@ function orderList(userId){
 
 
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 
 
@@ -91,7 +91,7 @@ function replyOrder(obj,orderId) {
             ajaxAction("put",'/api/order/manage',info,false,function(data,textStatus){
                 $(obj).parent().parent().find('#status').html('已反馈');
             },function(errno,errmsg){
-                alert(errmsg);
+                zdalert('系统提示',errmsg);
             });
         }
     });

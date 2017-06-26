@@ -46,7 +46,7 @@
             adminTabNav($('.adminLeftNav .sort'));
             $('#imageUpload').change(function () {
                 if(!/image\/\w+/.test(this.files[0].type)){
-                    alert("文件必须为图片！");
+                    zdalert('系统提示',"文件必须为图片！");
                     return false;
                 }
                 banner_upload(this,$('.imageUpload'));
@@ -64,14 +64,15 @@
                     }
                 });
                 if(info.name==''){
-                    alert('分类名不能为空');
+                    zdalert('系统提示','分类名不能为空');
+
                     return;
                 }
                 ajaxAction("post",'/api/sort',info,false,function(data,textStatus){
-                    alert('添加成功');
+                    zdalert('系统提示','添加成功');
                     location.href='/adm/sort';
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
             });
         });

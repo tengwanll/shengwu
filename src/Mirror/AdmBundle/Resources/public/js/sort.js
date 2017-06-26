@@ -7,7 +7,7 @@ function sortList(){
         var htmlTab=jointSorts(data.list);
         $('tbody').html(htmlTab);
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 }
 
@@ -37,9 +37,9 @@ function delSort(id) {
     var info={};
     info.sortId=id;
     ajaxAction("delete",'/api/sort',info,false,function(data,textStatus){
-        alert('删除成功');
+        zdalert('系统提示','删除成功');
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 }
 
@@ -54,7 +54,7 @@ function goodsInfo(goodsId){
         }
         $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 }
 

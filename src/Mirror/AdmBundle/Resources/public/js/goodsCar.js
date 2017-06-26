@@ -16,7 +16,7 @@ $(function(){
                         zdalert('系统提示','下单成功');
                         location.href='/adm/order';
                     },function(errno,errmsg){
-                        alert(errmsg);
+                        zdalert('系统提示',errmsg);
                     });
                 }
             });
@@ -56,13 +56,13 @@ function goodsList(){
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
 
             }
         });
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 }
 
@@ -93,7 +93,7 @@ function add(obj,id) {
         $(obj).parent().parent().find('#number').html(number+1);
         $(obj).parent().parent().find('#price').html(price+price/number);
     },function(errno,errmsg){
-        alert(errmsg);
+        zdalert('系统提示',errmsg);
     });
 }
 
@@ -116,7 +116,7 @@ function sub(obj,id) {
                         $('#totalPrice').html(totalPrice-price);
                     }
                 },function(errno,errmsg){
-                    alert(errmsg);
+                    zdalert('系统提示',errmsg);
                 });
             }
         });
@@ -128,7 +128,7 @@ function sub(obj,id) {
                 $('#totalPrice').html(totalPrice-price/number);
             }
         },function(errno,errmsg){
-            alert(errmsg);
+            zdalert('系统提示',errmsg);
         });
     }
 }
