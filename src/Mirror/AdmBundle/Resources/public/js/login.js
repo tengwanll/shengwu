@@ -1,5 +1,5 @@
 $(function(){
-
+    $('.loginLogo').css('line-height',$(window).height()+'px');
     $('.changeIp').hide();
 
     $('.loginSubmit').click(function(){
