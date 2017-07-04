@@ -23,11 +23,12 @@ function userInfo(userId){
 //用户订单列表
 function orderList(userId){
     var info={};
-    info.rows=20;
+    info.rows=10;
     info.page=1;
     info.userId=userId;
     ajaxAction("get",'/api/user/order'+ passParam(info),"",false,function(data,textStatus){
-        var count=Math.ceil(data.total/20);
+        $('#countNumber').html(data.total);
+        var count=Math.ceil(data.total/10);
         html="";
         if(!count){
             $('.tab_content').html(html);

@@ -6,12 +6,13 @@ $(function(){
 function userList(role){
     // 用户列表
     var info={};
-    info.rows=20;
+    info.rows=10;
     info.page=1;
     info.username=$('#username').val();
     info.mobile=$('#mobile').val();
     ajaxAction("get",'/api/user'+ passParam(info),"",false,function(data,textStatus){
-        var count=Math.ceil(data.total/20);
+        $('#countNumber').html(data.total);
+        var count=Math.ceil(data.total/10);
         var htmlTab="";
         if(!count){
             $('tbody').html(htmlTab);

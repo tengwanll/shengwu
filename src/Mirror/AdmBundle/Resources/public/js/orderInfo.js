@@ -30,10 +30,11 @@ function orderInfo(orderId){
 function orderGoodsList(orderId){
 
     var info={};
-    info.rows=20;
+    info.rows=10;
     info.page=1;
     ajaxAction("get",'/api/order/'+orderId+'/goods'+ passParam(info),"",false,function(data,textStatus){
-        var count=Math.ceil(data.total/20);
+        $('#countNumber').html(data.total);
+        var count=Math.ceil(data.total/10);
         html="";
         if(!count){
             $('.tab_content').html(html);

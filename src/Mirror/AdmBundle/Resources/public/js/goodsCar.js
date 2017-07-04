@@ -30,9 +30,10 @@ $(function(){
 
 //购物车列表
 function goodsList(){
-    var info={rows:20,page:1};
+    var info={rows:10,page:1};
     ajaxAction("get",'/api/car'+ passParam(info),"",true,function(data,textStatus){
-        var count=Math.ceil(data.total/20);
+        $('#countNumber').html(data.total);
+        var count=Math.ceil(data.total/10);
         var htmlTab="";
         if(!count){
             $('tbody').html(htmlTab);
