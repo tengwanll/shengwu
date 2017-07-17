@@ -71,7 +71,7 @@
 {% block otherJs %}
     <script>
         $(function(){
-            adminTabNav($('.adminLeftNav .sort'));
+            adminTabNav($('.adminLeftNav .goods'));
             var id={{ id }};
             ajaxAction("get",'/api/goods/'+id,"",false,function(data,textStatus){
                 $('#name').val(data.name);

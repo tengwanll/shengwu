@@ -45,6 +45,7 @@ class GoodsModel extends BaseModel
         $date=date("y-m-d H:i:s");
         $str='null';
         if($attrs){
+            $str='';
             $attrs=explode(',',$attrs);
             foreach ($attrs as $attr){
                 $str.="'".$attr."',";
@@ -62,49 +63,86 @@ class GoodsModel extends BaseModel
      * @param $sort
      * @param $left
      * @param $right
-     * @return Paginator
+     * @param $attr
+     * @param $conn
+     * @return mixed
      */
-    public function getList($parameters,$pageable,$sort,$left,$right){
-        $dql="select u from ".$this->getRepositoryName()." u join MirrorApiBundle:Sort s where u.sortId = s.id";
+    public function getList($parameters,$pageable,$sort,$left,$right,$attr,$name,$conn){
+        if($attr){
+            $dql="select u.id,u.name,u.price,u.image,u.sort_id,u.status,s.name as sortName,column_get(u.attr,'$attr' as char) as myAttr from goods u join sort s  ";
+        }else{
+            $dql="select u.id,u.name,u.price,u.image,u.sort_id,u.status,s.name as sortName from goods u join sort s  ";
+        }
         $where = array();
-        $arguments=array();
-        $index=1;
+        $where[]='u.sort_id = s.id';
+        if($name){
+            $where[]="u.name like '%$name%'";
+        }
         foreach ($parameters as $key => $equals) {
             if (is_array($equals)) {
                 foreach ($equals as $k => $value) {
-                    $indexValue='value'.$index;
-                    $where[] = ' u.'.$k.' '.$key.' :'.$indexValue;
-                    $arguments[$indexValue] = $value;
-                    $index++;
+                    $where[] = ' u.'.$k.' '.$key.' '.$value;
                 }
-            } else {
-                $indexValue='value'.$index;
-                $where[] = ' u.'.$key.' = :'.$indexValue;
-                $arguments[$indexValue] = $equals;
-                $index++;
             }
         }
         $dql = QueryHelper::makeQueryString($dql, $where);
         if($left&&$right){
-            $dql.=' and s.rightR<= '.$right.' and s.leftR>= '.$left;
+            $dql.=' and s.right_r<= '.$right.' and s.left_r>= '.$left;
+        }
+        if($attr){
+            $dql.=" and COLUMN_EXISTS(u.attr,'$attr') " ;
         }
         // 拼接sort语句
         if ($sort) {
             $dql .= ' order by u.'.$sort;
         }
-        $query = $this->getEntityManager()->createQuery($dql);
-        if ($arguments && !empty($arguments)) {
-            $query->setParameters($arguments);
-        }
         if ($pageable) {
-            $query = QueryHelper::setPageInfo($query, $pageable);
+            $page=$pageable->getPage();
+            $rows=$pageable->getRows();
+            $start=($page-1)*$rows;
+            $dql.= " limit $start,$rows ";
         }
-        return new Paginator($query);
+        return $conn->fetchAll($dql);
+    }
+
+    /**
+     * @param $parameters
+     * @param $pageable
+     * @param $sort
+     * @param $left
+     * @param $right
+     * @param $attr
+     * @param $conn
+     * @return mixed
+     */
+    public function getCount($parameters,$pageable,$sort,$left,$right,$attr,$name,$conn){
+        $dql="select count(u.id) as total from goods u join sort s ";
+        $where = array();
+        $where[]='u.sort_id = s.id ';
+        if($name){
+            $where[]="u.name like '%$name%'";
+        }
+        foreach ($parameters as $key => $equals) {
+            if (is_array($equals)) {
+                foreach ($equals as $k => $value) {
+                    $where[] = ' u.'.$k.' '.$key.' '.$value;
+                }
+            }
+        }
+        $dql = QueryHelper::makeQueryString($dql, $where);
+        if($left&&$right){
+            $dql.=' and s.right_r<= '.$right.' and s.left_r>= '.$left;
+        }
+        if($attr){
+            $dql.=" and COLUMN_EXISTS(u.attr,'$attr') " ;
+        }
+        return $conn->fetchAll($dql);
     }
 
     public function update($id,$name,$sortId,$price,$description,$attrs,$conn,$image=0){
         $str='null';
         if($attrs){
+            $str='';
             $attrs=explode(',',$attrs);
             foreach ($attrs as $attr){
                 $str.="'".$attr."',";

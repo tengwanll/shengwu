@@ -71,12 +71,12 @@
     <script>
         $(function(){
             adminTabNav($('.adminLeftNav .users'));
+            var role={{ role }};
             $('#reset').click(function(){
                 $('#mobile').val('');
                 $('#username').val('');
                 userList(role);
             });
-            var role={{ role }};
             userList(role);
             $('#search').click(function(){
                 userList(role);
@@ -104,6 +104,18 @@
                 var id=$(this).parent().siblings('.id').text();
                 resetPwd(id);
 
+            });
+
+            $('.delete').click(function(){
+                var id=$(this).parent().siblings('.id').text();
+                var info={};
+                info.userId=id;
+                ajaxAction("delete", '/api/user',info, true, function (data, textStatus) {
+                    zdalert('系统提示','删除成功');
+                    userList(role);
+                },function(errno,errmsg){
+                    zdalert('系统提示',errmsg);
+                });
             });
 
 

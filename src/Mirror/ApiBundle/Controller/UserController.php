@@ -236,6 +236,26 @@ class UserController extends BaseController
     }
 
     /**
+     * @OAuth()
+     * @Route("")
+     * @Method("DELETE")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function deleteAction(Request $request){
+        $role=$this->sessionGet($request,'role',1);
+        if($role<2){
+            $rr=new ReturnResult();
+            $rr->errno=Code::$permission_reject;
+            return $this->buildResponse($rr);
+        }
+        $json=$this->getJson($request);
+        $userId=$json->get('userId',0);
+        $rr=$this->get('user_service')->delete($userId);
+        return $this->buildResponse($rr);
+    }
+
+    /**
      * @Route("/test")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse

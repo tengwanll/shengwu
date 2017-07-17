@@ -60,6 +60,21 @@ class CarController extends BaseController
 
     /**
      * @OAuth()
+     * @Route("/number")
+     * @Method("PUT")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function updateNumber(Request $request){
+        $json=$this->getJson($request);
+        $carId=$json->get('carId',0);
+        $number=$json->get('number',0);
+        $rr=$this->get('car_service')->updateNumber($carId,$number);
+        return $this->buildResponse($rr);
+    }
+
+    /**
+     * @OAuth()
      * @Route("")
      * @Method("DELETE")
      * @param Request $request

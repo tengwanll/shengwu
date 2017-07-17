@@ -31,20 +31,30 @@ class SortModel extends BaseModel
 
     /**
      * @param $right
+     * @param $sign
      * @return array
      */
-    public function moveSortLeft($right){
-        $dql='update '.$this->repositoryName.' u set u.leftR=u.leftR+2 where u.leftR >'.$right;
+    public function moveSortLeft($right,$sign='add'){
+        if($sign=='add'){
+            $dql='update '.$this->repositoryName.' u set u.leftR=u.leftR+2 where u.leftR >'.$right;
+        }else{
+            $dql='update '.$this->repositoryName.' u set u.leftR=u.leftR-2 where u.leftR >'.$right;
+        }
         $query = $this->getEntityManager()->createQuery($dql);
         return $query->getResult();
     }
 
     /**
      * @param $right
+     * @param $sign
      * @return array
      */
-    public function moveSortRight($right){
-        $dql='update '.$this->repositoryName.' u set u.rightR=u.rightR+2 where u.rightR >='.$right;
+    public function moveSortRight($right,$sign='add'){
+        if($sign=='add'){
+            $dql='update '.$this->repositoryName.' u set u.rightR=u.rightR+2 where u.rightR >='.$right;
+        }else{
+            $dql='update '.$this->repositoryName.' u set u.rightR=u.rightR-2 where u.rightR >='.$right;
+        }
         $query = $this->getEntityManager()->createQuery($dql);
         return $query->getResult();
     }

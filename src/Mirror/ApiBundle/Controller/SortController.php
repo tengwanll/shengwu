@@ -88,4 +88,18 @@ class SortController extends BaseController
         $rr=$this->get('sort_service')->getLeaf();
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @OAuth()
+     * @Route("")
+     * @Method("DELETE")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function delete(Request $request){
+        $json=$this->getJson($request);
+        $id=$json->get('sortId',0);
+        $rr=$this->get('sort_service')->delete($id);
+        return $this->buildResponse($rr);
+    }
 }

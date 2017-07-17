@@ -268,4 +268,19 @@ class UserService
         $this->userModel->save($user);
         return $rr;
     }
+
+    /**
+     * @param $userId
+     * @return ReturnResult
+     */
+    public function delete($userId){
+        $rr=new ReturnResult();
+        $user=$this->userModel->getById($userId);
+        if(!$user){
+            $rr->errno=Code::$user_not_exist;
+            return $rr;
+        }
+        $this->userModel->delete($user);
+        return $rr;
+    }
 }

@@ -69,12 +69,9 @@ class GoodsService
      * @param $pageable
      * @return ReturnResult
      */
-    public function getList($name,$sortName,$bigPrice,$smallPrice,$pageable){
+    public function getList($name,$sortName,$bigPrice,$smallPrice,$pageable,$attr,$conn){
         $rr=new ReturnResult();
         $arguments=array();
-        if($name){
-            $arguments['like']=array('name'=>'%'.$name.'%');
-        }
         $left=0;
         $right=0;
         if($sortName){
@@ -92,26 +89,25 @@ class GoodsService
         if($smallPrice){
             $arguments['>']=array('price'=>$smallPrice);
         }
-        $list=$this->goodsModel->getList($arguments,$pageable,'createTime',$left,$right);
+        $list=$this->goodsModel->getList($arguments,$pageable,'create_time',$left,$right,$attr,$name,$conn);
+        $count=$this->goodsModel->getCount($arguments,$pageable,'create_time',$left,$right,$attr,$name,$conn);
         $arr=array();
-        foreach($list->getIterator() as $goods){
-            /**@var $goods \Mirror\ApiBundle\Entity\Goods*/
-            $sortId=$goods->getSortId();
-            $sort=$this->sortModel->getById($sortId);
-            $imageId=$goods->getImage();
+        foreach($list as $goods){
+            $imageId=$goods['image'];
             $image=$this->fileService->getFullUrlById($imageId);
             $arr[]=array(
-                'id'=>$goods->getId(),
-                'name'=>$goods->getName(),
-                'sort'=>$sort?$sort->getName():'',
-                'price'=>$goods->getPrice(),
+                'id'=>$goods['id'],
+                'name'=>$goods['name'],
+                'sort'=>$goods['sortName'],
+                'price'=>$goods['price'],
                 'image'=>$image,
-                'status'=>$goods->getStatus()
+                'status'=>$goods['status'],
+                'attr'=>isset($goods['myAttr'])?$goods['myAttr']:''
             );
         }
         $rr->result=array(
             'list'=>$arr,
-            'total'=>$list->count()
+            'total'=>$count[0]['total']
         );
         return $rr;
     }

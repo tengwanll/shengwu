@@ -33,7 +33,9 @@ class GoodsController extends  BaseController
         $sort=$request->get('sort',null);
         $bigPrice=$request->get('bigPrice',null);
         $smallPrice=$request->get('smallPrice',null);
-        $rr=$this->get('goods_service')->getList($name,$sort,$bigPrice,$smallPrice,$pageable);
+        $attr=$request->get('attr','');
+        $conn=$this->get('database_connection');
+        $rr=$this->get('goods_service')->getList($name,$sort,$bigPrice,$smallPrice,$pageable,$attr,$conn);
         return $this->buildResponse($rr);
     }
 

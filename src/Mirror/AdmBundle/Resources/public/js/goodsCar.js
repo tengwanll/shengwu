@@ -53,7 +53,7 @@ function goodsList(){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
                         index=index+1;
-                        htmlTab+='<tr><td><input type="checkbox" onclick="changePrice(this)" name="carChoice" carId="'+value.id+'"></td><td>'+index+'</td><td>'+value.goodsName+'</td><td id="number">'+value.number+'</td><td id="price" class="price">'+value.price+'</td><td><a href="/adm/goods/'+value.goodsId+'" class="infoColor">查看详情</a><a href="javascript:void(0)" class="infoColor" onclick="add(this,'+value.id+')"><span style="font-size: 25px"> + </span></a><a href="javascript:void(0)" class="infoColor" onclick="sub(this,'+value.id+')"><span style="font-size: 35px"> -</span></a></td>';
+                        htmlTab+='<tr><td><input type="checkbox" onclick="changePrice(this)" name="carChoice" carId="'+value.id+'"></td><td>'+index+'</td><td>'+value.goodsName+'</td><td id="number" ondblclick="changeNumber(this,'+value.number+')">'+value.number+'</td><td id="price" class="price">'+value.price+'</td><td><a href="/adm/goods/'+value.goodsId+'" class="infoColor">查看详情</a><a href="javascript:void(0)" class="infoColor" onclick="add(this,'+value.id+')"><span style="font-size: 25px"> + </span></a><a href="javascript:void(0)" class="infoColor" onclick="sub(this,'+value.id+')"><span style="font-size: 35px"> -</span></a> <a href="javascript:void(0)" class="infoColor" onclick="deleteCarGoods(this,'+value.id+')">删除</a></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -67,6 +67,39 @@ function goodsList(){
     });
 }
 
+function changeNumber(obj) {
+    var number=$(obj).html();
+    var html='<input type="text" onblur="setNumber(this,'+number+')">';
+    $(obj).html(html);
+    $(obj).find('input').focus().val(number);
+}
+
+function setNumber(obj,oldNumber) {
+    var number=$(obj).val();
+    var carId=$(obj).parent().parent().find('input[name=carChoice]').attr('carId');
+    var price=$(obj).parent().parent().find('#price').html();
+    var totalPrice=$('#totalPrice').html();
+    number=parseInt(number);
+    price=parseFloat(price);
+    totalPrice=parseFloat(totalPrice);
+    oldNumber=parseInt(oldNumber);
+    var info={};
+    info.number=number;
+    info.carId=carId;
+    ajaxAction("put",'/api/car/number',info,true,function(data,textStatus){
+        if($(obj).parent().parent().find('input[name=carChoice]').attr('checked')=='checked'){
+            $('#totalPrice').html(totalPrice-price+price/oldNumber*number);
+        }
+        $(obj).parent().parent().find('#price').html(price/oldNumber*number);
+        $(obj).parent().html(number);
+    },function(errno,errmsg){
+        zdalert('系统提示',errmsg,function(){
+            $(obj).focus();
+        });
+    });
+
+}
+
 function changePrice(obj) {
     var price=$(obj).parent().parent().find('#price').html();
     var totalPrice=$('#totalPrice').html();
@@ -77,6 +110,23 @@ function changePrice(obj) {
     }else{
         $('#totalPrice').html(totalPrice-price);
     }
+}
+
+function deleteCarGoods(obj,id) {
+    var price=$(obj).parent().parent().find('#price').html();
+    var totalPrice=$('#totalPrice').html();
+    price=parseFloat(price);
+    totalPrice=parseFloat(totalPrice);
+    var info={};
+    info.carId=id;
+    ajaxAction("delete",'/api/car',info,true,function(data,textStatus){
+        if($(obj).parent().parent().find('input[name=carChoice]').attr('checked')=='checked'){
+            $('#totalPrice').html(totalPrice-price);
+        }
+        $(obj).parent().parent().remove();
+    },function(errno,errmsg){
+        zdalert('系统提示',errmsg);
+    });
 }
 
 //商品添加数量
@@ -112,10 +162,10 @@ function sub(obj,id) {
                 var info={};
                 info.carId=id;
                 ajaxAction("delete",'/api/car',info,false,function(data,textStatus){
-                    $(obj).parent().parent().remove();
                     if($(obj).parent().parent().find('input[name=carChoice]').attr('checked')=='checked'){
                         $('#totalPrice').html(totalPrice-price);
                     }
+                    $(obj).parent().parent().remove();
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);
                 });

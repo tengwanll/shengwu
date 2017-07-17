@@ -34,4 +34,7 @@ class Code {
     public static $permission_reject=20117;
     public static $goods_had_exist=20118;
     public static $goods_had_on=20119;
+    public static $sort_has_goods=20120;
+    public static $sort_has_children_sort=20121;
+    public static $sort_delete_fail=20122;
 }

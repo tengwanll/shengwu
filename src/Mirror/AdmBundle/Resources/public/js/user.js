@@ -33,7 +33,7 @@ function userList(role){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
                         if(role==3){
-                            htmlTab+='<tr><td class="id">'+value.id+'</td><td>'+value.username+'</td><td>'+value.mobile+'</td><td>'+value.lastTime+'</td><td>'+value.createTime+'</td><td><a href="/adm/user/'+value.id+'" class="infoColor">查看详情</a></td><td><a href="javascript:void(0)" class="deleteColor stop">禁用</a></td> <td><a href="javascript:void(0)" class="resetpassword infoColor">重置密码</a></td></tr>';
+                            htmlTab+='<tr><td class="id">'+value.id+'</td><td>'+value.username+'</td><td>'+value.mobile+'</td><td>'+value.lastTime+'</td><td>'+value.createTime+'</td><td><a href="/adm/user/'+value.id+'" class="infoColor">查看详情</a> <a href="javascript:void(0)" class="deleteColor stop">禁用</a> <a href="javascript:void(0)" class="resetpassword infoColor">重置密码</a> <a href="javascript:void(0)" class="delete infoColor">删除</a></td></tr>';
                         }else{
                             htmlTab+='<tr><td class="id">'+value.id+'</td><td>'+value.username+'</td><td>'+value.mobile+'</td><td>'+value.lastTime+'</td><td>'+value.createTime+'</td><td><a href="/adm/user/'+value.id+'" class="infoColor">查看详情</a></td></tr>';
                         }

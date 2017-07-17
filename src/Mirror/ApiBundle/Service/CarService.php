@@ -68,7 +68,7 @@ class CarService
      */
     public function getList($pageable,$userId){
         $rr=new ReturnResult();
-        $car=$this->carModel->getByParams(array('status'=>1,'userId'=>$userId),$pageable,'createTime');
+        $car=$this->carModel->getByParams(array('status'=>1,'userId'=>$userId),$pageable,'createTime desc');
         $arr=array();
         foreach($car->getIterator() as $goodsCar){
             /**@var $goodsCar \Mirror\ApiBundle\Entity\GoodsCar*/
@@ -230,6 +230,26 @@ class CarService
                 $this->carModel->add($userId,$goodsId,$val['number'],$val['price']);
             }
         }
+        return $rr;
+    }
+
+    public function updateNumber($carId,$number){
+        $rr=new ReturnResult();
+        $car=$this->carModel->getById($carId);
+        /**@var $car \Mirror\ApiBundle\Entity\GoodsCar*/
+        if(!$car){
+            $rr->errno=Code::$car_not_exist;
+            return $rr;
+        }
+        if($number<=0){
+            $rr->errno=Code::$number_not_right;
+            return $rr;
+        }
+        $oldNumber=$car->getNumber();
+        $price=$car->getPrice();
+        $car->setNumber($number);
+        $car->setPrice($price/$oldNumber*$number);
+        $this->carModel->save($car);
         return $rr;
     }
 }

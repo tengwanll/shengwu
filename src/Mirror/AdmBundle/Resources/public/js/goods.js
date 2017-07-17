@@ -5,6 +5,7 @@ $(function(){
         info.sort=$('#sort').val();
         info.smallPrice=$('#smallPrice').val();
         info.bigPrice=$('#bigPrice').val();
+        info.attr=$('#attrName').val();
         goodsList(info);
         return false;
     });
@@ -21,13 +22,13 @@ $(function(){
 });
 
 function goodsList(object){
-    var info={rows:10,page:1};
+    var info={rows:3,page:1};
     if(object != undefined){
         info=$.extend(info,object);
     }
     ajaxAction("get",'/api/goods'+ passParam(info),"",false,function(data,textStatus){
         $('#countNumber').html(data.total);
-        var count=Math.ceil(data.total/10);
+        var count=Math.ceil(data.total/3);
         var htmlTab="";
         if(!count){
             $('tbody').html(htmlTab);
@@ -52,7 +53,7 @@ function goodsList(object){
                         }else{
                             option='<option value="1">上架</option><option value="0" selected>下架</option>';
                         }
-                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img style="height: 40px;width: 40px" src="'+value.image+'"></td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
+                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img style="height: 40px;width: 40px" src="'+value.image+'"></td><td>'+value.attr+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){

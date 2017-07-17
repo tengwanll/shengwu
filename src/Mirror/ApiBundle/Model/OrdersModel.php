@@ -64,6 +64,7 @@ class OrdersModel extends BaseModel
             $arguments['status']=$status;
         }
         $dql=QueryHelper::makeQueryString($dql,$where);
+        $dql.=' order by o.createTime desc ';
         $query=$this->getEntityManager()->createQuery($dql);
         if($pageable){
             $query=QueryHelper::setPageInfo($query,$pageable);

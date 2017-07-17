@@ -27,9 +27,7 @@ class OrderHelper {
         } else {
             $userId = substr($userId, -8);
         }
-        $randCode = sprintf('%010s', mt_rand(1, 9999999999));
-        $tradeNo = $tradeNo.$userId.$randCode;
-
+        $tradeNo = $tradeNo.$userId;
         return $tradeNo;
     }
 

@@ -71,7 +71,7 @@
 {% block otherJs %}
     <script>
         $(function(){
-            adminTabNav($('.adminLeftNav .sort'));
+            adminTabNav($('.adminLeftNav .goods'));
             var option='';
             var attr;
             ajaxAction("get",'/api/sort/leaf',"",false,function(data,textStatus){

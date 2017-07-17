@@ -11,6 +11,8 @@ namespace Mirror\ApiBundle\Service;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\Common\Constant;
+use Mirror\ApiBundle\Model\GoodsModel;
 use Mirror\ApiBundle\Model\SortAttrModel;
 use Mirror\ApiBundle\Model\SortModel;
 use JMS\DiExtraBundle\Annotation\Inject;
@@ -27,6 +29,7 @@ class SortService
     private $sortModel;
     private $sortAttrModel;
     private $fileService;
+    private $goodsModel;
 
     /**
      * @InjectParams({
@@ -34,18 +37,20 @@ class SortService
      *     "sortAttrModel"=@Inject("sort_attr_model"),
      *     "fileService"=@Inject("file_service"),
      *     "systemSettingModel"=@Inject("system_setting_model"),
-     *     "sortAttrModel"=@Inject("sort_attr_model")
+     *     "sortAttrModel"=@Inject("sort_attr_model"),
+     *     "goodsModel"=@Inject("goods_model")
      * })
      * SortService constructor.
      * @param SortModel $sortModel
      * @param SortAttrModel $sortAttrModel
      * @param FileService $fileService
      */
-    public function __construct(SortModel $sortModel,SortAttrModel $sortAttrModel,FileService $fileService)
+    public function __construct(SortModel $sortModel,SortAttrModel $sortAttrModel,FileService $fileService,GoodsModel $goodsModel)
     {
         $this->sortModel=$sortModel;
         $this->sortAttrModel=$sortAttrModel;
         $this->fileService=$fileService;
+        $this->goodsModel=$goodsModel;
     }
 
     /**
@@ -212,6 +217,43 @@ class SortService
             'list'=>$arr,
             'attr'=>$attr
         );
+        return $rr;
+    }
+
+    /**
+     * @param $id
+     * @return ReturnResult
+     */
+    public function delete($id){
+        $rr=new ReturnResult();
+        $sort=$this->sortModel->getById($id);
+        /**@var $sort \Mirror\ApiBundle\Entity\Sort*/
+        if(!$sort){
+            $rr->errno=Code::$sort_not_exist;
+            return $rr;
+        }
+        $goods=$this->goodsModel->getOneByCriteria(array('sortId'=>$id,'status'=>Constant::$status_normal));
+        if($goods){
+            $rr->errno=Code::$sort_has_goods;
+            return $rr;
+        }
+        if($sort->getRightR()-$sort->getLeftR()>1){
+            $rr->errno=Code::$sort_has_children_sort;
+            return $rr;
+        }
+        $right=$sort->getRightR();
+        try {
+            $this->sortModel->getEntityManager()->beginTransaction();
+            $this->sortModel->moveSortLeft($right,'sub');
+            $this->sortModel->moveSortRight($right,'sub');
+            $this->sortModel->delete($sort);
+            $this->sortModel->getEntityManager()->commit();
+        } catch (\Exception $e) {
+            $this->sortModel->getEntityManager()->rollback();
+            $rr->errno = Code::$sort_delete_fail;
+            return $rr;
+        }
+
         return $rr;
     }
 }
