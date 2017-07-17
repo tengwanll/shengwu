@@ -6,7 +6,7 @@ function changeStatus(obj,orderId){
     var info={};
     info.orderId=orderId;
     info.status= $(obj).val();
-    var status=1;
+    var status='待审核';
     if(info.status=='-1'){
         status='未通过';
     }else if(info.status=='0'){
@@ -14,11 +14,11 @@ function changeStatus(obj,orderId){
     }else if(info.status=='1'){
         status='待审核';
     }else if(info.status=='2'){
-        status='待发货';
+        status='订购中';
     }else if(info.status=='3'){
-        status='已发货';
+        status='已到货';
     }else if(info.status=='4'){
-        status='已完成';
+        status='已反馈';
     }
     if(info.status==-1){
         zdcomment('备注信息','输入备注信息更方便您之后查看',function(r,message){
@@ -81,7 +81,7 @@ function orderList(role,object){
                             value.status='已反馈';
                         }
                         if(role>1){
-                            htmlTab+='<tr><td>'+value.number+'</td><td>'+value.createTime+'</td><td>'+value.username+'</td><td>'+value.price+'</td><td id="status">'+value.status+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')"><option value="1">初始</option><option value="2">通过</option><option value="3">到货</option><option value="-1">驳回</option></select></td>';
+                            htmlTab+='<tr><td>'+value.number+'</td><td>'+value.goods+'</td><td>'+value.createTime+'</td><td>'+value.username+'</td><td>'+value.price+'</td><td id="status">'+value.status+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')"><option value="1">初始</option><option value="2">通过</option><option value="3">到货</option><option value="-1">驳回</option></select></td>';
                         }else{
                             htmlTab+='<tr><td>'+value.number+'</td><td>'+value.createTime+'</td><td>'+value.username+'</td><td>'+value.price+'</td><td>'+value.status+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a></td>';
                         }

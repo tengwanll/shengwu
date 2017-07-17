@@ -74,15 +74,25 @@ class OrderService
         $list=$this->ordersModel->getList($pageable,$number,$beginTime,$endTime,$username,$status);
         $arr=array();
         foreach($list->getIterator() as $orderVal){
+
             $order=$orderVal[0];
             /**@var $order \Mirror\ApiBundle\Entity\Orders*/
+            $orderId=$order->getId();
+            $orderGoods=$this->orderGoodsModel->getOneByCriteria(array('orderId'=>$orderId,'status'=>Constant::$status_normal));
+            if($orderGoods){
+                $goodId=$orderGoods->getGoodsId();
+                $goods=$this->goodsModel->getById($goodId);
+            }else{
+                $goods='';
+            }
             $arr[]=array(
-                'id'=>$order->getId(),
+                'id'=>$orderId,
                 'number'=>$order->getOrderNo(),
                 'createTime'=>$order->getCreateTime()->format('Y-m-d H:i:s'),
                 'username'=>$orderVal['username'],
                 'price'=>$order->getPrice(),
                 'status'=>$order->getStatus(),
+                'goods'=>$goods?$goods->getName():''
             );
         }
         $rr->result=array(
@@ -160,7 +170,7 @@ class OrderService
         $rr=new ReturnResult();
         try{
             $this->ordersModel->getEntityManager()->beginTransaction();
-            $order=$this->ordersModel->add($price,$userId,$message);
+            //每个商品形成一个订单
             foreach ($carId as $id){
                 $goods=$this->carModel->getById($id);
                 if(!$goods){
@@ -172,6 +182,7 @@ class OrderService
                 $goodsNumber=$goods->getNumber();
                 $goodsId=$goods->getGoodsId();
                 $goodsPrice=$goods->getPrice();
+                $order=$this->ordersModel->add($goodsPrice,$userId,$message);
                 $this->orderGoodsModel->add($order->getId(),$goodsNumber,$goodsId,$goodsPrice);
                 $this->carModel->delete($goods);
             }

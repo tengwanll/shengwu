@@ -80,7 +80,7 @@ class OrdersModel extends BaseModel
      * @return Orders
      */
     public function add($price,$userId,$message){
-        $orderNo=OrderHelper::generateTradeNo($userId);
+        $orderNo=OrderHelper::generateTradeNo();
         $date=new \DateTime();
         $order=new Orders();
         $order->setPrice($price);

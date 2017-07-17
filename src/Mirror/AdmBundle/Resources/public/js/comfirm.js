@@ -2,26 +2,32 @@
        
     $.alerts = {         
         alert: function(title, message, callback) {  
-            if( title == null ) title = 'Alert';  
+            if( title == null ) title = '系统提示';
             $.alerts._show(title, message, null, 'alert', function(result) {  
                 if( callback ) callback(result);  
             });  
         },  
            
         confirm: function(title, message, callback) {  
-            if( title == null ) title = 'Confirm';  
+            if( title == null ) title = '系统提示';
             $.alerts._show(title, message, null, 'confirm', function(result) {  
                 if( callback ) callback(result);  
             });  
         },
 
         comment: function(title, message, callback) {
-            if( title == null ) title = 'Comment';
+            if( title == null ) title = '备注';
             $.alerts._show(title, message, null, 'comment', function(result,msg) {
                 if( callback ) callback(result,msg);
             });
         },
 
+        photo: function(title, url, callback) {
+            if( title == null ) title = '图片';
+            $.alerts._show(title, url, null, 'photo', function(result,msg) {
+                if( callback ) callback(result,msg);
+            });
+        },
 
         _show: function(title, msg, value, type, callback) {  
             
@@ -30,11 +36,14 @@
                     _html += '<div id="mb_box"></div><div id="mb_con"><span id="mb_tit">' + title + '</span>';
                     if(type=="comment"){
                         _html += '<div id="mb_msg"><textarea id="message" cols="60" rows="10" placeholder="'+msg+'"></textarea></div><div id="mb_btnbox">';
+                    }else if(type=="photo"){
+                        _html += '<div id="mb_msg"><img src="'+msg+'" alt=""></div><div id="mb_btnbox">';
                     }else{
-                        _html += '<div id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
+                _html += '<div id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
                     }
 
-                      if (type == "alert") {
+
+                    if (type == "alert"||type =="photo") {
                       _html += '<input id="mb_btn_ok" type="button" value="确定" />';  
                     }  
                     if (type == "confirm"||type =="comment") {
@@ -91,7 +100,16 @@
                         if( e.keyCode == 27 ) $("#mb_btn_no").trigger('click');
                     });
                     break;
-
+                case 'photo':
+                    $("#mb_btn_ok").click( function() {
+                        var message=$('#message').val();
+                        $.alerts._hide();
+                        if( callback ) callback(true,message);
+                    });
+                    $("#mb_btn_ok, #mb_btn_no").keypress( function(e) {
+                        if( e.keyCode == 13 ) $("#mb_btn_ok").trigger('click');
+                    });
+                    break;
             }  
         },  
         _hide: function() {  
@@ -109,6 +127,10 @@
 
     zdcomment = function(title, message, callback) {
         $.alerts.comment(title, message, callback);
+    };
+
+    zdphoto = function(title, url, callback) {
+        $.alerts.photo(title, url, callback);
     };
 
 

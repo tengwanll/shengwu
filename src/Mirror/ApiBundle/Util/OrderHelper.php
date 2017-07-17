@@ -17,17 +17,12 @@ class OrderHelper {
 
     /**
      * 生成订单号
-     * @param $userId
      * @return string
      */
-    public static function generateTradeNo($userId) {
+    public static function generateTradeNo() {
         $tradeNo = date('YmdHis');
-        if ($userId < 100000000) {
-            $userId = sprintf('%08s', $userId);
-        } else {
-            $userId = substr($userId, -8);
-        }
-        $tradeNo = $tradeNo.$userId;
+        $randCode = sprintf('%08s', mt_rand(1, 99999999));
+        $tradeNo = $tradeNo.$randCode;
         return $tradeNo;
     }
 
