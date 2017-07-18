@@ -37,7 +37,7 @@
                     if(type=="comment"){
                         _html += '<div id="mb_msg"><textarea id="message" cols="60" rows="10" placeholder="'+msg+'"></textarea></div><div id="mb_btnbox">';
                     }else if(type=="photo"){
-                        _html += '<div id="mb_msg"><img src="'+msg+'" alt="" style="max-width: 700px"></div><div id="mb_btnbox">';
+                        _html += '<div id="mb_msg"><img src="'+msg+'" alt="" style="max-width: 100%"></div><div id="mb_btnbox">';
                     }else{
                 _html += '<div id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
                     }
