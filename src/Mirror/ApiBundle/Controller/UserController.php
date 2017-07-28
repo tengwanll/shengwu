@@ -43,6 +43,7 @@ class UserController extends BaseController
             $this->sessionSet($request,'username',$rr->result['username']);
             $this->sessionSet($request,'telephone',$rr->result['telephone']);
             $this->sessionSet($request,'role',$rr->result['role']);
+            $this->sessionSet($request,'photo',$rr->result['photo']);
             $this->sessionSet($request,Constant::$login_entity,1);
         }
         return $this->buildResponse($rr);
@@ -62,6 +63,7 @@ class UserController extends BaseController
         $this->sessionSet($request,'username',null);
         $this->sessionSet($request,'telephone',null);
         $this->sessionSet($request,'role',null);
+        $this->sessionSet($request,'photo',null);
         return $this->buildResponse(new ReturnResult());
     }
 
@@ -232,8 +234,13 @@ class UserController extends BaseController
         $newPassword=$json->get('newPassword','');
         $image=$json->get('image',0);
         $rr=$this->get('user_service')->update($userId,$mobile,$username,$oldPassword,$newPassword,$image);
-        if($rr->errno==0&&$username){
-            $this->sessionSet($request,'username',$username);
+        if($rr->errno==0){
+            if($username){
+                $this->sessionSet($request,'username',$username);
+            }
+            if($image){
+                $this->sessionSet($request,'photo',$rr->result['photo']);
+            }
         }
         return $this->buildResponse($rr);
     }

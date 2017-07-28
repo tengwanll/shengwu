@@ -82,14 +82,15 @@ class UserService
             $rr->errno=Code::$password_not_right;
             return $rr;
         }
-
+        $photo=$this->fileService->getFullUrlById($user->getImage());
         //生成日志
         $this->logLoginModel->saveLogin($user->getId(),Constant::$login_type_admin,$ipAddress);
         $data=array(
             'userId'=>$user->getId(),
             'username'=>$user->getUsername(),
             'telephone'=>$user->getMobile(),
-            'role'=>$user->getRole()
+            'role'=>$user->getRole(),
+            'photo'=>$photo
         );
         $rr->result=$data;
         return $rr;
@@ -264,8 +265,12 @@ class UserService
         }
         if($image){
             $user->setImage($image);
+            $photo=$this->fileService->getFullUrlById($image);
+        }else{
+            $photo='';
         }
         $this->userModel->save($user);
+        $rr->result=array('photo'=>$photo);
         return $rr;
     }
 
