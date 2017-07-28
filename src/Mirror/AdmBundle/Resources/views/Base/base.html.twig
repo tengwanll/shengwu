@@ -156,13 +156,6 @@
     <!-- /.container-fluid -->
     <script>
         $(function(){
-            ajaxAction("get",'/api/user/detail',"",true,function(data,textStatus){
-                if(data.image){
-                    $('.adminPhoto img').attr('src',data.image);
-                }
-            },function(errno,errmsg){
-                zdalert('系统提示',errmsg);
-            });
             $('.outUser').click(function(){
                 ajaxAction("post",'/api/user/logout',"",true,function(data,textStatus){
                     location.href='/adm/login/index';
