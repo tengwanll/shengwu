@@ -232,6 +232,9 @@ class UserController extends BaseController
         $newPassword=$json->get('newPassword','');
         $image=$json->get('image',0);
         $rr=$this->get('user_service')->update($userId,$mobile,$username,$oldPassword,$newPassword,$image);
+        if($rr->errno==0&&$username){
+            $this->sessionSet($request,'username',$username);
+        }
         return $this->buildResponse($rr);
     }
 
