@@ -163,6 +163,20 @@
                     zdalert('系统提示',errmsg);
                 });
             });
+            var ws = new WebSocket("ws://127.0.0.1:9501");
+            ws.onopen = function(event) {
+            };
+            ws.onmessage = function(event) {
+                var data = event.data;
+
+            };
+            ws.onclose = function(event) {
+                console.log('Client has closed.\n');
+            };
+
+            function send() {
+                ws.send();
+            }
         });
     </script>
     {% block otherJs %}
