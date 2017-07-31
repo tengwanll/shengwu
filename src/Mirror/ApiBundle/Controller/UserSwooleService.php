@@ -1,14 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: 31726
- * Date: 2017/7/31
- * Time: 15:48
- */
-
-namespace Mirror\ApiBundle\Controller;
-
-
 class UserSwooleService
 {
     private $_serv;
