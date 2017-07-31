@@ -163,20 +163,19 @@
                     zdalert('系统提示',errmsg);
                 });
             });
-            var ws = new WebSocket("ws://127.0.0.1:9501");
+            var ws = new WebSocket('ws://127.0.0.1:9501');
             ws.onopen = function(event) {
+                // 发送消息
+                ws.send('This is websocket client.');
             };
-            ws.onmessage = function(event) {
-                var data = event.data;
 
+// 监听消息
+            ws.onmessage = function(event) {
+                console.log('Client received a message: ', event.data);
             };
             ws.onclose = function(event) {
-                console.log('Client has closed.\n');
+                console.log('Client has closed.\n', event);
             };
-
-            function send() {
-                ws.send();
-            }
         });
     </script>
     {% block otherJs %}
