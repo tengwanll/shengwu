@@ -42,4 +42,10 @@ class UserSwooleService
 
     }
 
+    public function start()
+    {
+        $this->_serv->start();
+    }
 }
+$server=new UserSwooleService();
+$server->start();
