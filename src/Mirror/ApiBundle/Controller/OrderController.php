@@ -102,6 +102,7 @@ class OrderController extends BaseController
         $status=$json->get('status',1);
         $message=$json->get('message','');
         $rr=$this->get('order_service')->changeStatus($orderId,$status,$message);
+        $rr->result=array('userId',$this->sessionGet($request,'userId'));
         return $this->buildResponse($rr);
     }
 }

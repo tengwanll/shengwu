@@ -20,14 +20,18 @@ function changeStatus(obj,orderId){
     }else if(info.status=='4'){
         status='已反馈';
     }
+
     if(info.status==-1){
         zdcomment('备注信息','输入备注信息更方便您之后查看',function(r,message){
             if(r){
                 info.message=message;
                 ajaxAction("put",'/api/order/manage',info,false,function(data,textStatus){
-
                     $(obj).parent().parent().find('#status').html(status);
-
+                    var msg={};
+                    msg.event='status';
+                    msg.msg=status;
+                    msg.userId=data.userId;
+                    ws.send($.toJSON(msg));
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);
                 });
@@ -36,6 +40,11 @@ function changeStatus(obj,orderId){
     }else{
         ajaxAction("put",'/api/order/manage',info,true,function(data,textStatus){
             $(obj).parent().parent().find('#status').html(status);
+            var msg={};
+            msg.event='status';
+            msg.msg=status;
+            msg.userId=data.userId;
+            ws.send($.toJSON(msg));
         },function(errno,errmsg){
             zdalert('系统提示',errmsg);
         });
