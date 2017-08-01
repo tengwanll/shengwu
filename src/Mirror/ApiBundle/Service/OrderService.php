@@ -229,6 +229,7 @@ class OrderService
         $userId=$order->getUserId();
         $user=$this->userModel->getById($userId);
         $result=$this->ucpassSendMessage($user->getMobile(),$order->getOrderNo(),$status);
+        $rr->result=array('userId'=>$userId);
         return $rr;
     }
 
