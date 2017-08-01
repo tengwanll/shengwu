@@ -163,7 +163,6 @@ class UserService
         $rr=new ReturnResult();
         $argument=array(
             'userId'=>$userId,
-            'status'=>1
         );
         $list=$this->ordersModel->getByParams($argument,$pageable);
         $arr=array();
