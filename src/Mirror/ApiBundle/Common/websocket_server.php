@@ -10,8 +10,8 @@ class WebSocketServer
         $this->_serv = new swoole_websocket_server("120.27.5.26", 9501);
         $this->_serv->set([
             'worker_num' => 1,
-            'heartbeat_check_interval' => 30,
-            'heartbeat_idle_time' => 62,
+            'heartbeat_check_interval' => 600,
+            'heartbeat_idle_time' => 1800,
         ]);
         $this->_serv->on('open', [$this, 'onOpen']);
         $this->_serv->on('message', [$this, 'onMessage']);
@@ -56,7 +56,8 @@ class WebSocketServer
     }
     public function onClose($serv, $fd)
     {
-        echo "client {$fd} closed.\n";
+        $key=array_search($fd,$this->userFd);
+        unset($this->userFd[$key]);
     }
 
     public function start()
