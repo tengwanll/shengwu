@@ -24,7 +24,7 @@ class WebSocketServer
      */
     public function onOpen($serv, $request)
     {
-        $userId=isset($_SESSION['userId'])?$_SESSION['userId']:0;
+        $userId=$request->get['userId']?$request->get['userId']:0;
         $fd=$request->fd;
         if($userId){
             if(isset($this->userFd[$userId])){

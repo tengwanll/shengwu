@@ -164,7 +164,7 @@
                 });
             });
         });
-        var ws = new WebSocket('ws://120.27.5.26:9501');
+        var ws = new WebSocket('ws://120.27.5.26:9501?userId='+{% app.session.get('userId') %});
         ws.onopen = function(event) {
             // 发送消息
             ws.send('This is websocket client.');
