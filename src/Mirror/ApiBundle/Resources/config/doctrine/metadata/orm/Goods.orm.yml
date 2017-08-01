@@ -5,6 +5,14 @@ Goods:
         sort:
             columns:
                 - sort_id
+        price:
+            columns:
+                - price
+    uniqueConstraints:
+        name:
+            columns:
+                - name
+                - status
     id:
         id:
             type: integer

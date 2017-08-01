@@ -59,6 +59,13 @@ class User
     /**
      * @var integer
      *
+     * @ORM\Column(name="online", type="integer", nullable=false)
+     */
+    private $online = '0';
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="status", type="integer", nullable=false)
      */
     private $status;
@@ -207,6 +214,30 @@ class User
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * Set online
+     *
+     * @param integer $online
+     *
+     * @return User
+     */
+    public function setOnline($online)
+    {
+        $this->online = $online;
+
+        return $this;
+    }
+
+    /**
+     * Get online
+     *
+     * @return integer
+     */
+    public function getOnline()
+    {
+        return $this->online;
     }
 
     /**

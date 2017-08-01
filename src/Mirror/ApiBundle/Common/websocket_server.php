@@ -3,12 +3,15 @@
 class WebSocketServer
 {
     private $_serv;
+    private $userFd=array();
 
     public function __construct()
     {
         $this->_serv = new swoole_websocket_server("120.27.5.26", 9501);
         $this->_serv->set([
             'worker_num' => 1,
+            'heartbeat_check_interval' => 30,
+            'heartbeat_idle_time' => 62,
         ]);
         $this->_serv->on('open', [$this, 'onOpen']);
         $this->_serv->on('message', [$this, 'onMessage']);
@@ -21,7 +24,17 @@ class WebSocketServer
      */
     public function onOpen($serv, $request)
     {
-        echo "server: handshake success with fd{$request->fd}.\n";
+        $userId=isset($_SESSION['userId'])?$_SESSION['userId']:0;
+        $fd=$request->fd;
+        if($userId){
+            if(isset($this->userFd[$userId])){
+                $oldFd=$this->userFd[$userId];
+                $this->_serv->close($oldFd);
+            }
+            $this->userFd[$userId]=$fd;
+        }else{
+            $this->_serv->close($fd);
+        }
     }
 
     /**
@@ -30,7 +43,16 @@ class WebSocketServer
      */
     public function onMessage($serv, $frame)
     {
-        $serv->push($frame->fd, "server received data :{$frame->data}");
+        $data=json_decode($frame->data,true);
+        switch ($data['event']){
+            case 'status':
+                $message=$data['msg'];
+                $userId=$data['userId'];
+                if(isset($this->userFd[$userId])){
+                    $serv->push($this->userFd[$userId], "您有订单状态更改为".$message);
+                }
+                break;
+        }
     }
     public function onClose($serv, $fd)
     {

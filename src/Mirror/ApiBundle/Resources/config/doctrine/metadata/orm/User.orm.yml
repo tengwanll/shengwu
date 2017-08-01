@@ -50,6 +50,12 @@ User:
             nullable: false
             options:
                 unsigned: false
+        online:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                default: '0'
         status:
             type: integer
             nullable: false
