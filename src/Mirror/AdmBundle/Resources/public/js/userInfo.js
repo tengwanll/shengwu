@@ -61,10 +61,7 @@ function orderList(userId){
                         }else if(value.status=='4'){
                             value.status='已反馈';
                         }
-                        html='';
                         html+=' <tr><td>'+value.number+'</td><td>'+value.createTime+'</td><td>'+value.price+'</td><td id="status">'+value.status+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a> <a href="javascript:void(0)" class="infoColor" onclick="replyOrder(this,'+value.id+')">订单反馈</a></td></tr>';
-
-
                     });
                     $('tbody').html(html);
                 },function(errno,errmsg){
