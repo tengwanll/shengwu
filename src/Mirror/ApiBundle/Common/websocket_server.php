@@ -10,6 +10,7 @@ class WebSocketServer
         $this->_serv = new swoole_websocket_server("120.27.5.26", 9501);
         $this->_serv->set([
             'worker_num' => 1,
+            'daemonize'=>true,
             'heartbeat_check_interval' => 600,
             'heartbeat_idle_time' => 1800,
         ]);
