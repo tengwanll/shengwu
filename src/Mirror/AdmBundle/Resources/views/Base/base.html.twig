@@ -172,7 +172,7 @@
 
         // 监听消息
         ws.onmessage = function(event) {
-            zdalert(event.data);
+            zdalert('系统提示',event.data);
         };
         ws.onclose = function(event) {
             console.log('Client has closed.\n', event);
