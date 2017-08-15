@@ -104,4 +104,24 @@ class OrderController extends BaseController
         $rr=$this->get('order_service')->changeStatus($orderId,$status,$message);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("/price")
+     * @Method("PUT")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function changePrice(Request $request){
+        $role=$this->sessionGet($request,'role',1);
+        if($role<1){
+            $rr=new ReturnResult();
+            $rr->errno=Code::$permission_reject;
+            return $this->buildResponse($rr);
+        }
+        $json=$this->getJson($request);
+        $orderId=$json->get('id',0);
+        $price=$json->get('price',1);
+        $rr=$this->get('order_service')->changePrice($orderId,$price);
+        return $this->buildResponse($rr);
+    }
 }

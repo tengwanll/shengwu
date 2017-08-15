@@ -79,8 +79,8 @@ class OrdersModel extends BaseModel
      * @param $message
      * @return Orders
      */
-    public function add($price,$userId,$message){
-        $orderNo=OrderHelper::generateTradeNo();
+    public function add($price,$userId,$message,$orderNumber){
+        $orderNo=OrderHelper::generateTradeNo($orderNumber);
         $date=new \DateTime();
         $order=new Orders();
         $order->setPrice($price);

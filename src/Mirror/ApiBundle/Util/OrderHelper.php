@@ -19,9 +19,9 @@ class OrderHelper {
      * 生成订单号
      * @return string
      */
-    public static function generateTradeNo() {
+    public static function generateTradeNo($orderNumber) {
         $tradeNo = date('YmdHis');
-        $randCode = sprintf('%08s', mt_rand(1, 99999999));
+        $randCode = sprintf('%04s', $orderNumber);
         $tradeNo = $tradeNo.$randCode;
         return $tradeNo;
     }

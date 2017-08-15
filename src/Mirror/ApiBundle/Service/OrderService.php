@@ -85,6 +85,7 @@ class OrderService
             }else{
                 $goods='';
             }
+            /**@var $goods \Mirror\ApiBundle\Entity\Goods*/
             $arr[]=array(
                 'id'=>$orderId,
                 'number'=>$order->getOrderNo(),
@@ -92,7 +93,10 @@ class OrderService
                 'username'=>$orderVal['username'],
                 'price'=>$order->getPrice(),
                 'status'=>$order->getStatus(),
-                'goods'=>$goods?$goods->getName():''
+                'goods'=>$goods?$goods->getName():'',
+                'count'=>$orderGoods->getNumber(),
+                'goodsNumber'=>$goods?$goods->getGoodsNumber():'',
+                'totalPrice'=>$order->getPrice()*$orderGoods->getNumber()
             );
         }
         $rr->result=array(
@@ -170,8 +174,9 @@ class OrderService
         $rr=new ReturnResult();
         try{
             $this->ordersModel->getEntityManager()->beginTransaction();
+            $orderNumber=$this->ordersModel->getCountBy(array('<'=>array('createTime'=>date('Y-m-d').' 23:59:59'),'>'=>array('createTime'=>date('Y-m-d').' 00:00:00')));
             //每个商品形成一个订单
-            foreach ($carId as $id){
+            foreach ($carId as $key=>$id){
                 $goods=$this->carModel->getById($id);
                 if(!$goods){
                     $this->ordersModel->getEntityManager()->rollback();
@@ -182,7 +187,7 @@ class OrderService
                 $goodsNumber=$goods->getNumber();
                 $goodsId=$goods->getGoodsId();
                 $goodsPrice=$goods->getPrice();
-                $order=$this->ordersModel->add($goodsPrice,$userId,$message);
+                $order=$this->ordersModel->add($goodsPrice,$userId,$message,$orderNumber+$key+1);
                 $this->orderGoodsModel->add($order->getId(),$goodsNumber,$goodsId,$goodsPrice);
                 $this->carModel->delete($goods);
             }
@@ -249,5 +254,22 @@ class OrderService
         $templateId = Constant::$UCPAAS_TEMPLATE_ID;
         $param = $orderNo.','.$status;
         return $ucpass->templateSMS($appId, $to, $templateId, $param);
+    }
+
+    /**
+     * @param $orderId
+     * @param $price
+     * @return ReturnResult
+     */
+    public function changePrice($orderId,$price){
+        $rr=new ReturnResult();
+        $order=$this->ordersModel->getById($orderId);
+        if($order){
+            $order->setPrice($price);
+            $this->ordersModel->save($order);
+        }else{
+            $rr->errno=Code::$order_not_exist;
+        }
+        return $rr;
     }
 }
