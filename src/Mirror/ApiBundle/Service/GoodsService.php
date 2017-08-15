@@ -89,8 +89,8 @@ class GoodsService
         if($smallPrice){
             $arguments['>']=array('price'=>$smallPrice);
         }
-        $list=$this->goodsModel->getList($arguments,$pageable,'create_time',$left,$right,$attr,$name,$conn);
-        $count=$this->goodsModel->getCount($arguments,$pageable,'create_time',$left,$right,$attr,$name,$conn);
+        $list=$this->goodsModel->getList($arguments,$pageable,'create_time desc',$left,$right,$attr,$name,$conn);
+        $count=$this->goodsModel->getCount($arguments,$left,$right,$attr,$name,$conn);
         $arr=array();
         foreach($list as $goods){
             $imageId=$goods['image'];
@@ -102,6 +102,10 @@ class GoodsService
                 'price'=>$goods['price'],
                 'image'=>$image,
                 'status'=>$goods['status'],
+                'goodsNumber'=>$goods['goods_number'],
+                'unit'=>$goods['unit'],
+                'standard'=>$goods['standard'],
+                'vender'=>$goods['vender'],
                 'attr'=>isset($goods['myAttr'])?$goods['myAttr']:''
             );
         }
@@ -135,6 +139,10 @@ class GoodsService
             'image'=>$image,
             'description'=>$goods['description'],
             'buyNum'=>$goods['buy_num'],
+            'goodsNumber'=>$goods['goods_number'],
+            'unit'=>$goods['unit'],
+            'standard'=>$goods['standard'],
+            'vender'=>$goods['vender'],
             'attr'=>json_decode($goods['attrs']),
             'createTime'=>$goods['create_time'],
             'status'=>$goods['status']
@@ -179,7 +187,7 @@ class GoodsService
             $rr->errno=Code::$goods_had_exist;
             return $rr;
         }
-        $this->goodsModel->add($goods->getName(),$goods->getSortId(),$goods->getPrice(),$goods->getDescription(),$goods->getAttr(),$conn,$goods->getImage());
+        $this->goodsModel->add($goods->getName(),$goods->getSortId(),$goods->getPrice(),$goods->getDescription(),$goods->getAttr(),$conn,$goods->getImage(),$goods->getGoodsNumber(),$goods->getUnit(),$goods->getStandard(),$goods->getVender());
         return $rr;
     }
 
@@ -211,7 +219,7 @@ class GoodsService
 
     public function update(Goods $goods,$conn,$id){
         $rr=new ReturnResult();
-        $this->goodsModel->update($id,$goods->getName(),$goods->getSortId(),$goods->getPrice(),$goods->getDescription(),$goods->getAttr(),$conn,$goods->getImage());
+        $this->goodsModel->update($id,$goods->getName(),$goods->getSortId(),$goods->getPrice(),$goods->getDescription(),$goods->getAttr(),$conn,$goods->getImage(),$goods->getGoodsNumber(),$goods->getUnit(),$goods->getStandard(),$goods->getVender());
         return $rr;
     }
 

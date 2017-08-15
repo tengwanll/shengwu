@@ -53,7 +53,8 @@ function goodsList(object){
                         }else{
                             option='<option value="1">上架</option><option value="0" selected>下架</option>';
                         }
-                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.price+'</td><td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.image+'" onclick="zdphoto(\'图片显示\',\''+value.image+'\')"></td><td>'+value.attr+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
+                        //<td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.image+'" onclick="zdphoto(\'图片显示\',\''+value.image+'\')"></td>
+                        htmlTab+='<tr><td>'+value.goodsNumber+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.unit+'</td><td>'+value.price+'</td><td>'+value.standard+'</td><td>'+value.vender+'</td><td>'+value.attr+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -70,7 +71,7 @@ function goodsList(object){
 }
 function goodsInfo(goodsId){
     ajaxAction("get","/api/goods/"+goodsId,"",false,function(data,textStatus){
-        var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>商品分类：</dt><dd>'+data.sort+'</dd><dt>商品价格：</dt><dd>'+data.price+'</dd><dt>图片：</dt><dd><a href="javascript:void(0)"><img style="max-height: 300px;max-width: 300px" src="'+data.image+'" /></a></dd><dt>订购次数：</dt><dd>'+data.buyNum+'</dd><dt>商品描述：</dt><dd>'+data.description+'</dd>';
+        var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>商品分类：</dt><dd>'+data.sort+'</dd><dt>商品价格：</dt><dd>'+data.price+'</dd><dt>图片：</dt><dd><a href="javascript:void(0)"><img style="max-height: 300px;max-width: 300px" src="'+data.image+'" /></a></dd><dt>订购次数：</dt><dd>'+data.buyNum+'</dd><dt>商品备注：</dt><dd>'+data.description+'</dd><dt>商品货号：</dt><dd>'+data.goodsNumber+'</dd><dt>商品单位：</dt><dd>'+data.unit+'</dd><dt>商品规格：</dt><dd>'+data.standard+'</dd><dt>商品厂家：</dt><dd>'+data.vender+'</dd>';
         if(data.attr){
             $.each(data.attr,function(index,value){
                 infoHtml+='<dt>'+index+'：</dt><dd>'+value+'</dd>';

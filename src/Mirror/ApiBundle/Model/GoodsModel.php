@@ -27,7 +27,7 @@ class GoodsModel extends BaseModel
     }
 
     public function getDetail($id,$conn){
-        $sql='select name,sort_id,price,image,description,buy_num,status,create_time,update_time,column_json(attr) as attrs from goods where id='.$id;
+        $sql='select name,sort_id,price,image,description,buy_num,status,create_time,update_time,column_json(attr) as attrs,goods_number,unit,standard,vender from goods where id='.$id;
         return $conn->fetchAssoc($sql);
     }
 
@@ -41,7 +41,7 @@ class GoodsModel extends BaseModel
      * @param $image
      * @return mixed
      */
-    public function add($name,$sortId,$price,$description,$attrs,$conn,$image=0){
+    public function add($name,$sortId,$price,$description,$attrs,$conn,$image,$goodsNumber,$unit,$standard,$vender){
         $date=date("y-m-d H:i:s");
         $str='null';
         if($attrs){
@@ -52,7 +52,10 @@ class GoodsModel extends BaseModel
             }
             $str='column_create('.trim($str,',').')';
         }
-        $sql="insert into goods(`name`,`sort_id`,`price`,`image`,`description`,`attr`,`status`,`create_time`,`update_time`) VALUES('$name',$sortId,$price,$image,'$description',$str,1,'$date','$date')";
+        if(!$image){
+            $image=0;
+        }
+        $sql="insert into goods(`name`,`sort_id`,`price`,`image`,`description`,`attr`,`goods_number`,`unit`,`standard`,`vender`,`status`,`create_time`,`update_time`) VALUES('$name',$sortId,$price,$image,'$description',$str,'$goodsNumber','$unit','$standard','$vender',1,'$date','$date')";
         $conn->exec($sql);
         return $conn->fetchAssoc('SELECT LAST_INSERT_ID() as goodsId');
     }
@@ -69,9 +72,9 @@ class GoodsModel extends BaseModel
      */
     public function getList($parameters,$pageable,$sort,$left,$right,$attr,$name,$conn){
         if($attr){
-            $dql="select u.id,u.name,u.price,u.image,u.sort_id,u.status,s.name as sortName,column_get(u.attr,'$attr' as char) as myAttr from goods u join sort s  ";
+            $dql="select u.id,u.name,u.price,u.image,u.sort_id,u.status,s.name as sortName,column_get(u.attr,'$attr' as char) as myAttr,u.goods_number,u.unit,u.standard,u.vender from goods u join sort s  ";
         }else{
-            $dql="select u.id,u.name,u.price,u.image,u.sort_id,u.status,s.name as sortName from goods u join sort s  ";
+            $dql="select u.id,u.name,u.price,u.image,u.sort_id,u.status,s.name as sortName ,u.goods_number,u.unit,u.standard,u.vender from goods u join sort s  ";
         }
         $where = array();
         $where[]='u.sort_id = s.id';
@@ -115,7 +118,7 @@ class GoodsModel extends BaseModel
      * @param $conn
      * @return mixed
      */
-    public function getCount($parameters,$pageable,$sort,$left,$right,$attr,$name,$conn){
+    public function getCount($parameters,$left,$right,$attr,$name,$conn){
         $dql="select count(u.id) as total from goods u join sort s ";
         $where = array();
         $where[]='u.sort_id = s.id ';
@@ -139,7 +142,7 @@ class GoodsModel extends BaseModel
         return $conn->fetchAll($dql);
     }
 
-    public function update($id,$name,$sortId,$price,$description,$attrs,$conn,$image=0){
+    public function update($id,$name,$sortId,$price,$description,$attrs,$conn,$image=0,$goodsNumber,$unit,$standard,$vender){
         $str='null';
         if($attrs){
             $str='';
@@ -152,7 +155,7 @@ class GoodsModel extends BaseModel
         if($image){
             $image=',image='.$image;
         }
-        $sql="update goods set name='$name',sort_id=$sortId,price=$price,description='$description',attr=$str".$image." where id=$id";
+        $sql="update goods set name='$name',sort_id=$sortId,price=$price,description='$description',goods_number='$goodsNumber',unit='$unit',standard='$standard',vender='$vender',attr=$str".$image." where id=$id";
         return $conn->exec($sql);
     }
 }

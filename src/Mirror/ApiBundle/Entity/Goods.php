@@ -71,6 +71,34 @@ class Goods
     private $attr;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="goods_number", type="string", length=255, nullable=false)
+     */
+    private $goodsNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="unit", type="string", length=100, nullable=false)
+     */
+    private $unit;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="standard", type="string", length=100, nullable=false)
+     */
+    private $standard;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="vender", type="string", length=100, nullable=false)
+     */
+    private $vender;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="status", type="integer", nullable=false)
@@ -269,6 +297,102 @@ class Goods
     public function getAttr()
     {
         return $this->attr;
+    }
+
+    /**
+     * Set goodsNumber
+     *
+     * @param string $goodsNumber
+     *
+     * @return Goods
+     */
+    public function setGoodsNumber($goodsNumber)
+    {
+        $this->goodsNumber = $goodsNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get goodsNumber
+     *
+     * @return string
+     */
+    public function getGoodsNumber()
+    {
+        return $this->goodsNumber;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param string $unit
+     *
+     * @return Goods
+     */
+    public function setUnit($unit)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return string
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Set standard
+     *
+     * @param string $standard
+     *
+     * @return Goods
+     */
+    public function setStandard($standard)
+    {
+        $this->standard = $standard;
+
+        return $this;
+    }
+
+    /**
+     * Get standard
+     *
+     * @return string
+     */
+    public function getStandard()
+    {
+        return $this->standard;
+    }
+
+    /**
+     * Set vender
+     *
+     * @param string $vender
+     *
+     * @return Goods
+     */
+    public function setVender($vender)
+    {
+        $this->vender = $vender;
+
+        return $this;
+    }
+
+    /**
+     * Get vender
+     *
+     * @return string
+     */
+    public function getVender()
+    {
+        return $this->vender;
     }
 
     /**

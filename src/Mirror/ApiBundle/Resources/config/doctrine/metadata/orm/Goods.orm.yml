@@ -72,6 +72,35 @@ Goods:
             options:
                 fixed: false
                 comment: 专有属性
+        goodsNumber:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+                comment: 货号
+            column: goods_number
+        unit:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+                comment: 单位
+        standard:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+                comment: 规格
+        vender:
+            type: string
+            nullable: false
+            length: 100
+            options:
+                fixed: false
+                comment: 厂家
         status:
             type: integer
             nullable: false
