@@ -59,6 +59,8 @@
 {% endblock %}
 {% block thead %}
     <tr class="tableTit">
+        <td><select title="批量修改状态" name="" id="changeStatus" onchange="changeAllStatus(this)" style="color:black"><option value="1">初始</option><option value="2">通过</option><option value="3">到货</option><option value="-1">驳回</option></select><input
+                    type="checkbox" id="checkAll" title="全选" onclick="changeAll(this)"></td>
         <td>订单编号</td>
         <td>商品货号</td>
         <td>商品名称</td>

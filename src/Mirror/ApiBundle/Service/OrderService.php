@@ -272,4 +272,41 @@ class OrderService
         }
         return $rr;
     }
+
+    public function changeStatusAll($orderIds,$status,$message){
+        $rr=new ReturnResult();
+        $userIds=array();
+        foreach ($orderIds as $orderId){
+            $order=$this->ordersModel->getById($orderId);
+            /**@var $order \Mirror\ApiBundle\Entity\Orders*/
+            if(!$order){
+                continue;
+            }
+            if($message){
+                $order->setMessage($message);
+            }
+            $order->setStatus($status);
+            $this->ordersModel->save($order);
+            if($status=='-1'){
+                $statusM='未通过';
+            }else if($status=='0'){
+                $statusM='无效订单';
+            }else if($status=='1'){
+                $statusM='待审核';
+            }else if($status=='2'){
+                $statusM='订购中';
+            }else if($status=='3'){
+                $statusM='已到货';
+            }else if($status=='4'){
+                $statusM='已反馈';
+            }
+            $userId=$order->getUserId();
+            $userIds[]=$userId;
+            $user=$this->userModel->getById($userId);
+            $result=$this->ucpassSendMessage($user->getMobile(),$order->getOrderNo(),$statusM);
+        }
+        $userIds=array_unique($userIds);
+        $rr->result=array('userId'=>$userIds);
+        return $rr;
+    }
 }
