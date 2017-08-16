@@ -160,6 +160,10 @@ class CarService
         define('PHPEXCEL', dirname(__FILE__) . '/../Util/');
         require(PHPEXCEL . 'Import.php');
         $result=array();
+        if(($highestColumnIndex-9)%2==1){
+            $rr->errno=Code::$attr_not_right;
+            return $rr;
+        }
         for ($row = 2;$row <= $highestRow;$row++)
         {
             //注意highestColumnIndex的列数索引从0开始
@@ -183,7 +187,7 @@ class CarService
                 );
                 return $rr;
             }
-            $price=$sortName=$objWorksheet->getCellByColumnAndRow(2, $row)->getValue();
+            $price=$objWorksheet->getCellByColumnAndRow(2, $row)->getValue();
             if(!$price){
                 $rr->errno=Code::$file_price_null;
                 $rr->result=array(
@@ -192,16 +196,59 @@ class CarService
                 );
                 return $rr;
             }
-            $description=$sortName=$objWorksheet->getCellByColumnAndRow(3, $row)->getValue();
-            $number=$sortName=$objWorksheet->getCellByColumnAndRow(4, $row)->getValue();
-            $attrs=$sortName=$objWorksheet->getCellByColumnAndRow(5, $row)->getValue();
+            $description=$objWorksheet->getCellByColumnAndRow(3, $row)->getValue();
+            $number=$objWorksheet->getCellByColumnAndRow(4, $row)->getValue();
+            $goodsNumber=$objWorksheet->getCellByColumnAndRow(5, $row)->getValue();
+            if(!$goodsNumber){
+                $rr->errno=Code::$file_goods_number_null;
+                $rr->result=array(
+                    'rows'=>$row,
+                    'col'=>6
+                );
+                return $rr;
+            }
+            $unit=$objWorksheet->getCellByColumnAndRow(6, $row)->getValue();
+            if(!$unit){
+                $rr->errno=Code::$file_unit_null;
+                $rr->result=array(
+                    'rows'=>$row,
+                    'col'=>7
+                );
+                return $rr;
+            }
+            $standard=$objWorksheet->getCellByColumnAndRow(7, $row)->getValue();
+            if(!$standard){
+                $rr->errno=Code::$file_standard_null;
+                $rr->result=array(
+                    'rows'=>$row,
+                    'col'=>8
+                );
+                return $rr;
+            }
+            $vender=$objWorksheet->getCellByColumnAndRow(8, $row)->getValue();
+            if(!$vender){
+                $rr->errno=Code::$file_vender_null;
+                $rr->result=array(
+                    'rows'=>$row,
+                    'col'=>9
+                );
+                return $rr;
+            }
+            $attrs='';
+            for($i=9;$i<$highestColumnIndex;$i++){
+                $attrs.=$objWorksheet->getCellByColumnAndRow($i, $row)->getValue().',';
+            }
             $result[]=array(
                 'name'=>$name,
                 'sort'=>$sort->getId(),
                 'price'=>$price,
                 'number'=>$number?$number:1,
                 'description'=>$description,
-                'attrs'=>$attrs
+                'goodsNumber'=>$goodsNumber,
+                'unit'=>$unit,
+                'standard'=>$standard,
+                'vender'=>$vender,
+                'attrs'=>rtrim(',',$attrs)
             );
         }
         foreach ($result as $val){
@@ -225,7 +272,7 @@ class CarService
                 }
             }else{
                 //没有该商品,添加到商品表中,然后添加到购物车
-                $goods=$this->goodsModel->add($name,$val['sort'],$val['price'],$val['description'],$val['attrs'],$conn);
+                $goods=$this->goodsModel->add($name,$val['sort'],$val['price'],$val['description'],$val['attrs'],$conn,0,$val['goodsNumber'],$val['unit'],$val['standard'],$val['vender']);
                 $goodsId=$goods['goodsId'];
                 $this->carModel->add($userId,$goodsId,$val['number'],$val['price']);
             }

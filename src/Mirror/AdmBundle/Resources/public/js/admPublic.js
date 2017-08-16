@@ -488,6 +488,9 @@ function imgUpload(formTag,url,method,beforeFn,success_func,error_func){
 			if (errno==0){
 				success_func(resp, textStatus);
 			}else{
+				if(resp.rows&&resp.col){
+					errmsg+=',第'+resp.rows+'行'+resp.col+'列';
+				}
 				error_func(errno, errmsg);
 			}
 		},

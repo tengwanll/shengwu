@@ -37,4 +37,9 @@ class Code {
     public static $sort_has_goods=20120;
     public static $sort_has_children_sort=20121;
     public static $sort_delete_fail=20122;
+    public static $attr_not_right=20123;
+    public static $file_goods_number_null=20124;
+    public static $file_unit_null=20125;
+    public static $file_standard_null=20126;
+    public static $file_vender_null=20127;
 }
