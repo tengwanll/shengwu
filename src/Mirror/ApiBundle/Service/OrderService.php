@@ -69,39 +69,28 @@ class OrderService
      * @param $status
      * @return ReturnResult
      */
-    public function getList($pageable,$number,$beginTime,$endTime,$username,$status){
+    public function getList($pageable,$number,$beginTime,$endTime,$username,$status,$attr,$conn){
         $rr=new ReturnResult();
-        $list=$this->ordersModel->getList($pageable,$number,$beginTime,$endTime,$username,$status);
+        $list=$this->ordersModel->getList($pageable,$number,$beginTime,$endTime,$username,$status,$attr,$conn);
+        $total=$this->ordersModel->getCount($number,$beginTime,$endTime,$username,$status,$attr,$conn);
         $arr=array();
-        foreach($list->getIterator() as $orderVal){
-
-            $order=$orderVal[0];
-            /**@var $order \Mirror\ApiBundle\Entity\Orders*/
-            $orderId=$order->getId();
-            $orderGoods=$this->orderGoodsModel->getOneByCriteria(array('orderId'=>$orderId,'status'=>Constant::$status_normal));
-            if($orderGoods){
-                $goodId=$orderGoods->getGoodsId();
-                $goods=$this->goodsModel->getById($goodId);
-            }else{
-                $goods='';
-            }
-            /**@var $goods \Mirror\ApiBundle\Entity\Goods*/
+        foreach($list as $order){
             $arr[]=array(
-                'id'=>$orderId,
-                'number'=>$order->getOrderNo(),
-                'createTime'=>$order->getCreateTime()->format('Y-m-d H:i:s'),
-                'username'=>$orderVal['username'],
-                'price'=>$order->getPrice(),
-                'status'=>$order->getStatus(),
-                'goods'=>$goods?$goods->getName():'',
-                'count'=>$orderGoods->getNumber(),
-                'goodsNumber'=>$goods?$goods->getGoodsNumber():'',
-                'totalPrice'=>$order->getPrice()*$orderGoods->getNumber()
+                'id'=>$order['id'],
+                'number'=>$order['order_no'],
+                'username'=>$order['username'],
+                'price'=>$order['price'],
+                'status'=>$order['status'],
+                'goods'=>$order['name'],
+                'count'=>$order['number'],
+                'goodsNumber'=>$order['goods_number'],
+                'totalPrice'=>$order['price']*$order['number'],
+                'attr'=>isset($order['myAttr'])?$order['myAttr']:''
             );
         }
         $rr->result=array(
             'list'=>$arr,
-            'total'=>$list->count()
+            'total'=>$total[0]['total']
         );
         return $rr;
     }

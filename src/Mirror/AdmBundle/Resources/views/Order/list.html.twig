@@ -27,13 +27,17 @@
                     <input type="text" class="form-control" id="username">
                 </div>
                 <div style="clear:both"></div>
-                <label for="beginTime" class="col-md-2 control-label addressLabel">起始时间：</label>
+                <label for="beginTime" class="col-md-1 control-label addressLabel">起始：</label>
                 <div class="col-md-2">
                     <input type="text" class="form-control" id="beginTime">
                 </div>
-                <label for="endTime" class="col-md-2 control-label addressLabel">结束时间：</label>
+                <label for="endTime" class="col-md-1 control-label addressLabel">结束：</label>
                 <div class="col-md-2">
                     <input type="text" class="form-control" id="endTime">
+                </div>
+                <label for="attr" class="col-md-1 control-label addressLabel">属性：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="attr">
                 </div>
 
             </div>
@@ -69,6 +73,7 @@
         <td>下单人</td>
         <td>价格</td>
         <td>订单状态</td>
+        <td>属性值</td>
         <td colspan="3" width="18%">操作</td>
     </tr>
 {% endblock %}
@@ -105,6 +110,7 @@
                 info.username=$('#username').val();
                 info.beginTime=$('#beginTime').val();
                 info.endTime=$('#endTime').val();
+                info.attr=$('#attr').val();
                 orderList(role,info);
                 return false;
             });

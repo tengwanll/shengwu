@@ -38,39 +38,68 @@ class OrdersModel extends BaseModel
      * @param $status
      * @return Paginator
      */
-    public function getList($pageable,$number,$beginTime,$endTime,$username,$status){
-        $dql=" select o,u.username from MirrorApiBundle:Orders o join MirrorApiBundle:User u ";
+    public function getList($pageable,$number,$beginTime,$endTime,$username,$status,$attr,$conn){
+        if($attr){
+            $dql="select o.id,o.order_no,u.username,o.price,o.status,g.name,og.number,goods_number,column_get(g.attr,'$attr' as char) as myAttr from orders o,user u,order_goods og,goods g ";
+        }else{
+            $dql="select o.id,o.order_no,u.username,o.price,o.status,g.name,og.number,goods_number from orders o,user u,order_goods og,goods g ";
+        }
         $where=array();
-        $arguments=array();
-        $where[]=' o.userId=u.id ';
+        $where[]=' o.user_id=u.id and og.order_id=o.id and og.goods_id=g.id ';
         if($number){
-            $where[]=" o.orderNo like :orderNo ";
-            $arguments['orderNo']='%'.$number.'%';
+            $where[]=" o.order_no like '%$number%' ";
         }
         if($beginTime){
-            $where[]=" o.createTime > :beginTime ";
-            $arguments['beginTime']=new \DateTime($beginTime);
+            $where[]=" o.create_time > '$beginTime' ";
         }
         if($endTime){
-            $where[]=" o.createTime < :endTime ";
-            $arguments['endTime']=new \DateTime($endTime);
+            $where[]=" o.create_time < '$endTime' ";
         }
         if($username){
-            $where[]=" u.username like :username ";
-            $arguments['username']='%'.$username.'%';
+            $where[]=" u.username like '%$username%' ";
         }
         if($status!='all'){
-            $where[]=" o.status = :status ";
-            $arguments['status']=$status;
+            $where[]=" o.status = $status ";
+        }
+        if($attr){
+            $where[]="COLUMN_EXISTS(g.attr,'$attr')";
         }
         $dql=QueryHelper::makeQueryString($dql,$where);
-        $dql.=' order by o.createTime desc ';
-        $query=$this->getEntityManager()->createQuery($dql);
+        $dql.=' order by o.create_time desc ';
+
         if($pageable){
-            $query=QueryHelper::setPageInfo($query,$pageable);
+            $page=$pageable->getPage();
+            $rows=$pageable->getRows();
+            $start=($page-1)*$rows;
+            $dql.= " limit $start,$rows ";
         }
-        $query->setParameters($arguments);
-        return new Paginator($query);
+        return $conn->fetchAll($dql);
+    }
+
+    public function getCount($number,$beginTime,$endTime,$username,$status,$attr,$conn){
+        $dql="select count(o.id) as total from orders o,user u,order_goods og,goods g ";
+        $where=array();
+        $where[]=' o.user_id=u.id and og.order_id=o.id and og.goods_id=g.id ';
+        if($number){
+            $where[]=" o.order_no like '%$number%' ";
+        }
+        if($beginTime){
+            $where[]=" o.create_time > '$beginTime' ";
+        }
+        if($endTime){
+            $where[]=" o.create_time < '$endTime' ";
+        }
+        if($username){
+            $where[]=" u.username like '%$username%' ";
+        }
+        if($status!='all'){
+            $where[]=" o.status = $status ";
+        }
+        if($attr){
+            $where[]="COLUMN_EXISTS(g.attr,'$attr')";
+        }
+        $dql=QueryHelper::makeQueryString($dql,$where);
+        return $conn->fetchAll($dql);
     }
 
     /**
