@@ -13,6 +13,12 @@ $(function(){
                 if(r){
                     info.message=message;
                     ajaxAction("post",'/api/order',info,false,function(data,textStatus){
+                        $.each(data.userId,function (index,val) {
+                            var msg={};
+                            msg.event='order';
+                            msg.userId=val;
+                            ws.send($.toJSON(msg));
+                        });
                         zdalert('系统提示','下单成功');
                         location.href='/adm/order';
                     },function(errno,errmsg){

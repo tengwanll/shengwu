@@ -186,6 +186,12 @@ class OrderService
             $rr->errno=Code::$create_order_fail;
             return $rr;
         }
+        $admins=$this->userModel->getByParams(array('>'=>array('role'=>1)));
+        $userId=array();
+        foreach($admins->getIterator() as $user){
+            $userId[]=$user->getId();
+        }
+        $rr->result=array('userId'=>$userId);
         return $rr;
     }
 

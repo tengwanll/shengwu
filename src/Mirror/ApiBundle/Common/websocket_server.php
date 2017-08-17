@@ -53,6 +53,12 @@ class WebSocketServer
                     $serv->push($this->userFd[$userId], "您有订单状态更改为".$message);
                 }
                 break;
+            case 'order':
+                $userId=$data['userId'];
+                if(isset($this->userFd[$userId])){
+                    $serv->push($this->userFd[$userId], "有一个订单需要您审核");
+                }
+                break;
         }
     }
     public function onClose($serv, $fd)
