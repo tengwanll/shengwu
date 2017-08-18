@@ -13,6 +13,7 @@ class WebSocketServer
             'daemonize'=>true,
             'heartbeat_check_interval' => 600,
             'heartbeat_idle_time' => 1800,
+            'log_file'=>__DIR__.'/server.log'
         ]);
         $this->_serv->on('open', [$this, 'onOpen']);
         $this->_serv->on('message', [$this, 'onMessage']);
@@ -51,14 +52,14 @@ class WebSocketServer
                 $userId=$data['userId'];
                 if(isset($this->userFd[$userId])){
                     $serv->push($this->userFd[$userId], "您有订单状态更改为".$message);
-                    error_log("您有订单状态更改为".$message."\r\n",'3','swoole.log');
-                }
+                    echo date('Y-m-d H:i:s')."-您有订单状态更改为".$message."\r\n";            
+		}
                 break;
             case 'order':
                 $userId=$data['userId'];
                 if(isset($this->userFd[$userId])){
                     $serv->push($this->userFd[$userId], "有一个订单需要您审核");
-                    error_log("有一个订单需要您审核\r\n",'3','swoole.log');
+		    echo date('Y-m-d H:i:s')."-有一个订单需要您审核\r\n";
                 }
                 break;
         }
