@@ -33,12 +33,11 @@ class OrderController extends BaseController
         $pageable=$this->getPage($request);
         $number=$request->get('number','');
         $beginTime=$request->get('beginTime','');
-        $endTime=$request->get('endTime','');
         $username=$request->get('username','');
         $status=$request->get('status','all');
         $conn=$this->get('database_connection');
         $attr=$request->get('attr','');
-        $rr=$this->get('order_service')->getList($pageable,$number,$beginTime,$endTime,$username,$status,$attr,$conn);
+        $rr=$this->get('order_service')->getList($pageable,$number,$beginTime,$username,$status,$attr,$conn);
         return $this->buildResponse($rr);
     }
 

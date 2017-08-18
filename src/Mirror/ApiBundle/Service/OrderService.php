@@ -69,8 +69,16 @@ class OrderService
      * @param $status
      * @return ReturnResult
      */
-    public function getList($pageable,$number,$beginTime,$endTime,$username,$status,$attr,$conn){
+    public function getList($pageable,$number,$time,$username,$status,$attr,$conn){
         $rr=new ReturnResult();
+        if($time){
+            $times=explode('~',$time);
+            $beginTime=$times[0]?$times[0].' 00:00:00':'';
+            $endTime=$times[1]?$times[1].' 23:59:59':'';
+        }else{
+            $beginTime='';
+            $endTime='';
+        }
         $list=$this->ordersModel->getList($pageable,$number,$beginTime,$endTime,$username,$status,$attr,$conn);
         $total=$this->ordersModel->getCount($number,$beginTime,$endTime,$username,$status,$attr,$conn);
         $arr=array();
