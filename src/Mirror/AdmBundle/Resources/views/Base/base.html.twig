@@ -94,7 +94,7 @@
                     <ul>
                         {% block leftNav %}
                         <li><a href="/adm/user" class="users">用户管理</a></li>
-                        <li><a href="/adm/order" class="order">订单管理</a></li>
+                        <li><a href="/adm/order" class="order">订单管理<sup id="number"></sup></a></li>
                         <li><a href="/adm/goods" class="goods">商品管理</a></li>
                         <li><a href="/adm/sort" class="sort">分类管理</a></li>
                         <li><a href="/adm/car" class="car">购物车</a></li>
@@ -156,6 +156,13 @@
     <!-- /.container-fluid -->
     <script>
         $(function(){
+            ajaxAction("get",'/api/order/number',"",true,function(data,textStatus){
+                if(data.number>0){
+                    $('#number').html(data.number);
+                }
+            },function(errno,errmsg){
+                zdalert('系统提示',errmsg);
+            });
             $('.outUser').click(function(){
                 ajaxAction("post",'/api/user/logout',"",true,function(data,textStatus){
                     location.href='/adm/login/index';

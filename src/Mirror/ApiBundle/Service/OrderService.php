@@ -328,4 +328,16 @@ class OrderService
         }
         return $rr;
     }
+
+    /**
+     * @return ReturnResult
+     */
+    public function getOriginOrderNum(){
+        $rr=new ReturnResult();
+        $number=$this->ordersModel->getCountBy(array('status'=>1));
+        $rr->result=array(
+            'number'=>$number
+        );
+        return $rr;
+    }
 }

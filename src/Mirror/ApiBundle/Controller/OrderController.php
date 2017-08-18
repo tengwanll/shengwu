@@ -159,4 +159,14 @@ class OrderController extends BaseController
         $rr=$this->get('order_service')->delete($orderId);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("/number")
+     * @Method("GET")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getOriginOrderNum(){
+        $rr=$this->get('order_service')->getOriginOrderNum();
+        return $this->buildResponse($rr);
+    }
 }
