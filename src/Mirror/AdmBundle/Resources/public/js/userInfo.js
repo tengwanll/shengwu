@@ -47,6 +47,10 @@ function orderList(userId){
                 ajaxAction("get",'/api/user/order'+ passParam(info),"",true,function(data,textStatus){
                     var html = '';
                     $.each(data.list,function(index,value){
+                        var del='';
+                        if(value.status=='1'){
+                            del='<a href="javascript:void(0)" class="infoColor" onclick="cancelOrder('+value.id+','+userId+')">取消订单</a> ';
+                        }
                         var deal=[];
                         if(value.status=='-1'){
                             value.status='未通过';
@@ -61,7 +65,7 @@ function orderList(userId){
                         }else if(value.status=='4'){
                             value.status='已反馈';
                         }
-                        html+=' <tr><td>'+value.number+'</td><td>'+value.createTime+'</td><td>'+value.price+'</td><td id="status">'+value.status+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a> <a href="javascript:void(0)" class="infoColor" onclick="replyOrder(this,'+value.id+')">订单反馈</a></td></tr>';
+                        html+=' <tr><td>'+value.number+'</td><td>'+value.createTime+'</td><td>'+value.price+'</td><td id="status">'+value.status+'</td><td>'+del+'<a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a> <a href="javascript:void(0)" class="infoColor" onclick="replyOrder(this,'+value.id+')">订单反馈</a></td></tr>';
                     });
                     $('tbody').html(html);
                 },function(errno,errmsg){
@@ -93,4 +97,18 @@ function replyOrder(obj,orderId) {
             });
         }
     });
+}
+
+function cancelOrder(orderId,userId) {
+    var info={};
+    zdconfirm('取消订单','是否要取消订单',function (r,message) {
+        if(r){
+            info.orderId=orderId;
+            ajaxAction("delete",'/api/order',info,false,function(data,textStatus){
+                orderList(userId);
+            },function(errno,errmsg){
+                zdalert('系统提示',errmsg);
+            });
+        }
+    })
 }

@@ -312,4 +312,20 @@ class OrderService
         $rr->result=array('userId'=>$userIds);
         return $rr;
     }
+
+    /**
+     * @param $orderId
+     * @return ReturnResult
+     */
+    public function delete($orderId){
+        $rr=new ReturnResult();
+        $order=$this->ordersModel->getById($orderId);
+        if($order){
+            $this->ordersModel->delete($order);
+        }else{
+            $rr->errno=Code::$order_not_exist;
+            return $rr;
+        }
+        return $rr;
+    }
 }

@@ -146,4 +146,17 @@ class OrderController extends BaseController
         $rr=$this->get('order_service')->changeStatusAll($orderId,$status,$message);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("")
+     * @Method("DELETE")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function delete(Request $request){
+        $json=$this->getJson($request);
+        $orderId=$json->get('orderId',0);
+        $rr=$this->get('order_service')->delete($orderId);
+        return $this->buildResponse($rr);
+    }
 }
