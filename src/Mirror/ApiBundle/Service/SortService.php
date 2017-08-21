@@ -256,4 +256,51 @@ class SortService
 
         return $rr;
     }
+
+    /**
+     * @param $id
+     * @return ReturnResult
+     */
+    public function getDetailList($id){
+        $rr=new ReturnResult();
+        $sort=$this->sortModel->getById($id);
+        /**@var $sort \Mirror\ApiBundle\Entity\Sort*/
+        if(!$sort){
+            $rr->errno=Code::$sort_not_exist;
+            return $rr;
+        }
+        $level=$sort->getLevel();
+        $left=$sort->getLeftR();
+        $right=$sort->getRightR();
+        if($right-$left<=1){
+            return $rr;
+        }
+        $list=$this->sortModel->getByParams(array('>'=>array('leftR'=>$left),'<'=>array('rightR'=>$right),'level'=>$level+1));
+        $arr=array();
+        foreach ($list as $sort){
+            /**@var $sort \Mirror\ApiBundle\Entity\Sort*/
+            $image=$sort->getImage();
+            $level=$sort->getLevel();
+            $left=$sort->getLeftR();
+            $right=$sort->getRightR();
+            if($right-$left>1){
+                $count=$this->sortModel->getCountBy(array('>'=>array('leftR'=>$left),'<'=>array('rightR'=>$right),'level'=>$level+1));
+            }else{
+                $count=0;
+            }
+            $image=$this->fileService->getFullUrlById($image);
+            $arr[]=array(
+                'id'=>$sort->getId(),
+                'name'=>$sort->getName(),
+                'image'=>$image,
+                'level'=>$sort->getLevel(),
+                'count'=>$count
+            );
+        }
+        $rr->result=array(
+            'list'=>$arr
+        );
+        return $rr;
+    }
+
 }

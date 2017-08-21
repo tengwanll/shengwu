@@ -2,35 +2,23 @@ $(function(){
 
 });
 
-function sortList(){
-    ajaxAction("get",'/api/sort',"",false,function(data,textStatus){
-        var htmlTab=jointSorts(data.list);
-        $('tbody').html(htmlTab);
+function sortList(sortId){
+    if(!sortId){
+        sortId=1;
+    }
+    ajaxAction("get",'/api/sort/list/'+sortId,"",false,function(data,textStatus){
+        var html='';
+        $.each(data.list,function (index,value) {
+            var child='';
+            if(value.count>0){
+                child='onclick="sortList('+value.id+')';
+            }
+            html+='<tr style="cursor: pointer" '+child+'"><td>'+value.id+'</td><td>'+value.name+'</td><td><img src="'+value.image+'" width="60px" height="60px"></td><td>'+value.count+'</td><td>'+value.level+'</td><td><a href="/adm/sort/'+value.id+'" class="infoColor">查看 </a><a href="/adm/sort/'+value.id+'/add/'+value.name+'" class="infoColor"> 添加 </a><a href="/adm/sort/'+value.id+'/edit" class="infoColor"> 修改 </a><a href="javascript:void(0)" class="infoColor" onclick="delSort('+value.id+')"> 删除</a></td>';
+        });
+        $('tbody').html(html);
     },function(errno,errmsg){
         zdalert('系统提示',errmsg);
     });
-}
-
-function jointSorts(list,parentId){
-    var html='';
-    $.each(list,function(index,value){
-        var hidden='';
-        if(value.level>1){
-            hidden=';display: none';
-        }
-        var colorTo=255-value.level*10;
-        html+='<tr style="background-color: rgb('+colorTo+','+colorTo+','+colorTo+');cursor: pointer'+hidden+'" class="sortTr'+parentId+'" onclick="showChild('+value.id+')"><td>'+value.id+'</td><td>'+value.name+'</td><td><img src="'+value.image+'" width="60px" height="60px"></td><td>'+value.child.length+'</td><td>'+value.level+'</td><td><a href="/adm/sort/'+value.id+'" class="infoColor">查看 </a><a href="/adm/sort/'+value.id+'/add/'+value.name+'" class="infoColor"> 添加 </a><a href="/adm/sort/'+value.id+'/edit" class="infoColor"> 修改 </a><a href="javascript:void(0)" class="infoColor" onclick="delSort('+value.id+')"> 删除</a></td>';
-        if(value.child.length>0){
-            html+=jointSorts(value.child,value.id);
-        }
-    });
-    return html;
-}
-
-
-
-function showChild(id) {
-    $('.sortTr'+id).toggle();
 }
 
 function delSort(id) {

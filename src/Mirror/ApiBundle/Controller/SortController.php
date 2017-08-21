@@ -102,4 +102,15 @@ class SortController extends BaseController
         $rr=$this->get('sort_service')->delete($id);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("/list/{sortId}",requirements={"sortId":"\d+"})
+     * @Method("GET")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getDetailList(Request $request,$sortId){
+        $rr=$this->get('sort_service')->getDetailList($sortId);
+        return $this->buildResponse($rr);
+    }
 }
