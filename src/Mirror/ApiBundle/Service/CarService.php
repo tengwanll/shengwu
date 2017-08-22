@@ -248,7 +248,7 @@ class CarService
                 'unit'=>$unit,
                 'standard'=>$standard,
                 'vender'=>$vender,
-                'attrs'=>rtrim(',',$attrs)
+                'attrs'=>rtrim($attrs,',')
             );
         }
         foreach ($result as $val){

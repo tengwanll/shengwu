@@ -31,7 +31,7 @@ function orderList(userId){
         var count=Math.ceil(data.total/10);
         html="";
         if(!count){
-            $('.tab_content').html(html);
+            $('.userTableBody').html(html);
             return;
         }
         $.jqPaginator('#pagination', {
@@ -67,7 +67,7 @@ function orderList(userId){
                         }
                         html+=' <tr><td>'+value.number+'</td><td>'+value.createTime+'</td><td>'+value.price+'</td><td id="status">'+value.status+'</td><td>'+del+'<a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a> <a href="javascript:void(0)" class="infoColor" onclick="replyOrder(this,'+value.id+')">订单反馈</a></td></tr>';
                     });
-                    $('tbody').html(html);
+                    $('.userTableBody').html(html);
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);
                 });
