@@ -7,6 +7,15 @@ function sortList(sortId){
         sortId=1;
     }
     ajaxAction("get",'/api/sort/list/'+sortId,"",false,function(data,textStatus){
+        var li='';
+        $.each(data.parentArr,function (index,value) {
+            if(index){
+                li+='<li style="float: left;cursor: pointer;padding: 5px 2px;" onclick="sortList('+value.id+')"> >  '+value.name+'</li>'
+            }else{
+                li+='<li style="float: left;cursor: pointer;padding: 5px 2px" onclick="sortList('+value.id+')">'+value.name+'</li>'
+            }
+        });
+        $('.navigation').html(li);
         var html='';
         $.each(data.list,function (index,value) {
             var child='';

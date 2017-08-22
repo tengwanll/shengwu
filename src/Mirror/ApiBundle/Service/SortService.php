@@ -270,8 +270,25 @@ class SortService
             return $rr;
         }
         $level=$sort->getLevel();
+        $levelBack=$level;
         $left=$sort->getLeftR();
         $right=$sort->getRightR();
+        $name=$sort->getName();
+        $parentId=$sort->getParentId();
+        $parentArr=array();
+        $parentArr[]=array(
+            'name'=>$name,
+            'id'=>$id
+        );
+        while($levelBack>0){
+            $parent=$this->sortModel->getById($parentId);
+            $parentArr[]=array(
+                'name'=>$parent->getName(),
+                'id'=>$parentId
+            );
+            $parentId=$parent->getParentId();
+            $levelBack=$parent->getLevel();
+        }
         if($right-$left<=1){
             return $rr;
         }
@@ -298,7 +315,8 @@ class SortService
             );
         }
         $rr->result=array(
-            'list'=>$arr
+            'list'=>$arr,
+            'parentArr'=>array_reverse($parentArr)
         );
         return $rr;
     }
