@@ -92,7 +92,7 @@ function orderList(role,object){
                         if(role>1){
                             htmlTab+='<tr><td><input type="checkbox" name="orderChoice" orderId="'+value.id+'"></td><td>'+value.number+'</td><td>'+value.goodsNumber+'</td><td>'+value.goods+'</td><td ondblclick="changePrice(this,'+value.id+')">'+value.price+'</td><td class="count">'+value.count+'</td><td>'+value.username+'</td><td class="totalPrice">'+value.totalPrice+'</td><td id="status">'+value.status+'</td><td>'+value.attr+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')"><option value="1">初始</option><option value="2">通过</option><option value="3">到货</option><option value="-1">驳回</option></select></td>';
                         }else{
-                            htmlTab+='<tr><td>'+value.number+'</td><td>'+value.goodsNumber+'</td><td>'+value.goods+'</td><td>'+value.price+'</td><td>'+value.count+'</td><td>'+value.username+'</td><td>'+value.totalPrice+'</td><td id="status">'+value.status+'</td><td>'+value.attr+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a></td>';
+                            htmlTab+='<tr><td><input type="checkbox" name="orderChoice" orderId="'+value.id+'"></td><td>'+value.number+'</td><td>'+value.goodsNumber+'</td><td>'+value.goods+'</td><td ondblclick="changePrice(this,'+value.id+')">'+value.price+'</td><td class="count">'+value.count+'</td><td>'+value.username+'</td><td class="totalPrice">'+value.totalPrice+'</td><td id="status">'+value.status+'</td><td>'+value.attr+'</td><td><a href="/adm/order/'+value.id+'" class="infoColor">查看详情</a></td>';
                         }
                     });
                     $('tbody').html(htmlTab);
