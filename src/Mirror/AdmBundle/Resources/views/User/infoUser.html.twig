@@ -78,7 +78,7 @@
                 if($(this).text()=='订单记录'){
                     $('.infoUserCon').hide();
                     $('.orderInfo').show();
-                    thead+=' <tr class="tableCreditInfo"><td>订单编号</td><td>下单时间</td><td>价格</td><td>订单状态</td><td>操作</td></tr>';
+                    thead+=' <tr class="tableCreditInfo"><td>订单编号</td><td>商品货号</td><td>商品名称</td><td>单价</td><td>数量</td><td>价格</td><td>订单状态</td><td>操作</td></tr>';
                     orderList(userId);
                     $('thead.userTableHead').html(thead);
                 }

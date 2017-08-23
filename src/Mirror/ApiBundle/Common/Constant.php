@@ -27,7 +27,8 @@ class Constant {
     public static $UCPASS_ACCOUNT_SID='f87397ba589a9e33a8d9e2085a0e9705';
     public static $UCPASS_AUTH_TOKEN='987bd0296fa2bcde02b429fcd47733d2';
     public static $UCPAAS_APP_ID='dcd2fd41e1bf40d596c6fbc72cf472f7';
-    public static $UCPAAS_TEMPLATE_ID='72741';
+    public static $UCPAAS_TEMPLATE_ID_1='72741';//其他状态修改
+    public static $UCPAAS_TEMPLATE_ID_2='127201';//被驳回
 
     //收藏类型
     public static $collection_credit=1;

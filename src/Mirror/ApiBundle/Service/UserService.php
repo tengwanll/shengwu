@@ -10,7 +10,9 @@ namespace Mirror\ApiBundle\Service;
 
 use Mirror\ApiBundle\Common\Code;
 use Mirror\ApiBundle\Common\Constant;
+use Mirror\ApiBundle\Model\GoodsModel;
 use Mirror\ApiBundle\Model\LogLoginModel;
+use Mirror\ApiBundle\Model\OrderGoodsModel;
 use Mirror\ApiBundle\Model\OrdersModel;
 use Mirror\ApiBundle\Model\UserModel;
 use Mirror\ApiBundle\ViewModel\Pageable;
@@ -32,13 +34,16 @@ class UserService
     private $fileService;
     private $telephoneCodeService;
     private $ordersModel;
-
+    private $goodsModel;
+    private $orderGoodsModel;
     /**
      * @InjectParams({
      *      "userModel" = @Inject("user_model"),
      *     "logLoginModel"=@Inject("log_login_model"),
      *     "fileService"=@Inject("file_service"),
-     *     "orderModel"=@Inject("orders_model")
+     *     "orderModel"=@Inject("orders_model"),
+     *     "goodsModel"=@Inject("goods_model"),
+     *     "orderGoodsModel"=@Inject("order_goods_model")
      * })
      * UserService constructor.
      * @param UserModel $userModel
@@ -46,14 +51,18 @@ class UserService
      * @param FileService $fileService
      * @param TelephoneCodeService $telephoneCodeService
      * @param OrdersModel $ordersModel
+     * @param GoodsModel $goodsModel
+     * @param OrderGoodsModel $orderGoodsModel
      */
-    public function __construct(UserModel $userModel,LogLoginModel $logLoginModel,TelephoneCodeService $telephoneCodeService,FileService $fileService,OrdersModel $ordersModel)
+    public function __construct(UserModel $userModel,LogLoginModel $logLoginModel,TelephoneCodeService $telephoneCodeService,FileService $fileService,OrdersModel $ordersModel,GoodsModel $goodsModel,OrderGoodsModel $orderGoodsModel)
     {
         $this->userModel=$userModel;
         $this->logLoginModel=$logLoginModel;
         $this->telephoneCodeService=$telephoneCodeService;
         $this->fileService=$fileService;
         $this->ordersModel=$ordersModel;
+        $this->goodsModel=$goodsModel;
+        $this->orderGoodsModel=$orderGoodsModel;
     }
 
     /**
@@ -168,12 +177,31 @@ class UserService
         $arr=array();
         foreach($list->getIterator() as $order){
             /**@var $order \Mirror\ApiBundle\Entity\Orders*/
+            $orderId=$order->getId();
+            $orderGoods=$this->orderGoodsModel->getOneByProperty('orderId',$orderId);
+            /**@var $orderGoods \Mirror\ApiBundle\Entity\OrderGoods*/
+            $goodsName='';
+            $goodsNumber='';
+            $count=0;
+            if($orderGoods){
+                $goodsId=$orderGoods->getGoodsId();
+                $goods=$this->goodsModel->getById($goodsId);
+                /**@var $goods \Mirror\ApiBundle\Entity\Goods*/
+                if($goods){
+                    $goodsName=$goods->getName();
+                    $goodsNumber=$goods->getGoodsNumber();
+                }
+                $count=$orderGoods->getNumber();
+            }
             $arr[]=array(
-                'id'=>$order->getId(),
+                'id'=>$orderId,
                 'number'=>$order->getOrderNo(),
-                'createTime'=>$order->getCreateTime()->format('Y-m-d H:i:s'),
                 'price'=>$order->getPrice(),
-                'status'=>$order->getStatus()
+                'status'=>$order->getStatus(),
+                'goods'=>$goodsName,
+                'count'=>$count,
+                'goodsNumber'=>$goodsNumber,
+                'totalPrice'=>$order->getPrice()*$count,
             );
         }
         $rr->result=array('list'=>$arr,'total'=>$list->count());

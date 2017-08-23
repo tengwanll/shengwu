@@ -74,11 +74,15 @@ class CarService
             /**@var $goodsCar \Mirror\ApiBundle\Entity\GoodsCar*/
             $goodsId=$goodsCar->getGoodsId();
             $goods=$this->goodsModel->getById($goodsId);
+            /**@var $goods \Mirror\ApiBundle\Entity\Goods*/
             $arr[]=array(
                 'id'=>$goodsCar->getId(),
                 'goodsName'=>$goods?$goods->getName():'',
                 'number'=>$goodsCar->getNumber(),
                 'price'=>$goodsCar->getPrice(),
+                'goodsNumber'=>$goods->getGoodsNumber(),
+                'standard'=>$goods->getStandard(),
+                'vender'=>$goods->getVender(),
                 'goodsId'=>$goodsCar->getGoodsId()
             );
         }

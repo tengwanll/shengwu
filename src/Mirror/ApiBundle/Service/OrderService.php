@@ -219,6 +219,9 @@ class OrderService
         if($message){
             $order->setMessage($message);
         }
+        $orderGoods=$this->orderGoodsModel->getOneByProperty('orderId',$orderId);
+        $goods=$this->goodsModel->getById($orderGoods->getGoodsId());
+        $name=$goods->getName();
         $order->setStatus($status);
         $this->ordersModel->save($order);
         if($status=='-1'){
@@ -228,15 +231,15 @@ class OrderService
         }else if($status=='1'){
             $status='待审核';
         }else if($status=='2'){
-            $status='待发货';
+            $status='订购中';
         }else if($status=='3'){
-            $status='已发货';
+            $status='已到货';
         }else if($status=='4'){
-            $status='已完成';
+            $status='已反馈';
         }
         $userId=$order->getUserId();
         $user=$this->userModel->getById($userId);
-        $result=$this->ucpassSendMessage($user->getMobile(),$order->getOrderNo(),$status);
+        $result=$this->ucpassSendMessage($user->getMobile(),$order->getOrderNo(),$status,$message,$name);
         $rr->result=array('userId'=>$userId);
         return $rr;
     }
@@ -248,14 +251,19 @@ class OrderService
      * @return mixed|string
      * @throws \Mirror\ApiBundle\Util\Exception
      */
-    public function ucpassSendMessage($telephone,$orderNo, $status) {
+    public function ucpassSendMessage($telephone,$orderNo, $status,$message,$name) {
         $options['accountsid'] = Constant::$UCPASS_ACCOUNT_SID;
         $options['token'] = Constant::$UCPASS_AUTH_TOKEN;
         $ucpass = new Ucpaas($options);
         $appId = Constant::$UCPAAS_APP_ID;
         $to = $telephone;
-        $templateId = Constant::$UCPAAS_TEMPLATE_ID;
-        $param = $orderNo.','.$status;
+        if($status=='未通过'){
+            $templateId = Constant::$UCPAAS_TEMPLATE_ID_2;
+            $param = $orderNo.','.$name.','.$message;
+        }else{
+            $templateId = Constant::$UCPAAS_TEMPLATE_ID_1;
+            $param = $orderNo.','.$name.','.$status;
+        }
         return $ucpass->templateSMS($appId, $to, $templateId, $param);
     }
 
@@ -288,6 +296,9 @@ class OrderService
             if($message){
                 $order->setMessage($message);
             }
+            $orderGoods=$this->orderGoodsModel->getOneByProperty('orderId',$orderId);
+            $goods=$this->goodsModel->getById($orderGoods->getGoodsId());
+            $name=$goods->getName();
             $order->setStatus($status);
             $this->ordersModel->save($order);
             if($status=='-1'){
@@ -306,7 +317,7 @@ class OrderService
             $userId=$order->getUserId();
             $userIds[]=$userId;
             $user=$this->userModel->getById($userId);
-            $result=$this->ucpassSendMessage($user->getMobile(),$order->getOrderNo(),$statusM);
+            $result=$this->ucpassSendMessage($user->getMobile(),$order->getOrderNo(),$statusM,$message,$name);
         }
         $userIds=array_unique($userIds);
         $rr->result=array('userId'=>$userIds);
