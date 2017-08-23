@@ -251,15 +251,24 @@ abstract class BaseModel {
         $dql = "select u from ".$this->getRepositoryName()." u";
         $where = array();
         $arguments = array();
+        $index=1;
         foreach ($parameters as $key => $equals) {
             if (is_array($equals)) {
                 foreach ($equals as $k => $value) {
-                    $where[] = ' u.'.$k.' '.$key.' :'.$k;
-                    $arguments[$k] = $value;
+                    if($key=='in'){
+                        $where[] = ' u.'.$k.' in('.$value.')';
+                    }else{
+                        $indexValue='value'.$index;
+                        $where[] = ' u.'.$k.' '.$key.' :'.$indexValue;
+                        $arguments[$indexValue] = $value;
+                        $index++;
+                    }
                 }
             } else {
-                $where[] = ' u.'.$key.' = :'.$key;
-                $arguments[$key] = $equals;
+                $indexValue='value'.$index;
+                $where[] = ' u.'.$key.' = :'.$indexValue;
+                $arguments[$indexValue] = $equals;
+                $index++;
             }
         }
         $dql = QueryHelper::makeQueryString($dql, $where);
@@ -287,15 +296,24 @@ abstract class BaseModel {
         $dql = "select count(u) from ".$this->getRepositoryName()." u";
         $where = array();
         $arguments = array();
+        $index=1;
         foreach ($parameters as $key => $equals) {
             if (is_array($equals)) {
                 foreach ($equals as $k => $value) {
-                    $where[] = ' u.'.$k.' '.$key.' :'.$k;
-                    $arguments[$k] = $value;
+                    if($key=='in'){
+                        $where[] = ' u.'.$k.' in('.$value.')';
+                    }else{
+                        $indexValue='value'.$index;
+                        $where[] = ' u.'.$k.' '.$key.' :'.$indexValue;
+                        $arguments[$indexValue] = $value;
+                        $index++;
+                    }
                 }
             } else {
-                $where[] = ' u.'.$key.' = :'.$key;
-                $arguments[$key] = $equals;
+                $indexValue='value'.$index;
+                $where[] = ' u.'.$key.' = :'.$indexValue;
+                $arguments[$indexValue] = $equals;
+                $index++;
             }
         }
         $dql = QueryHelper::makeQueryString($dql, $where);
