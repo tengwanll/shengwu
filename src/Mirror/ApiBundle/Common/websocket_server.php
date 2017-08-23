@@ -18,6 +18,20 @@ class WebSocketServer
         $this->_serv->on('open', [$this, 'onOpen']);
         $this->_serv->on('message', [$this, 'onMessage']);
         $this->_serv->on('close', [$this, 'onClose']);
+        $this->_serv->on("start", function ($serv){
+            swoole_set_process_name('server-process: master');
+        });
+        // 以下回调发生在Manager进程
+        $this->_serv->on('ManagerStart', function ($serv){
+            swoole_set_process_name('server-process: manager');
+        });
+        $this->_serv->on('WorkerStart', function ($serv, $workerId){
+            if($workerId >= $serv->setting['worker_num']) {
+                swoole_set_process_name("server-process: task");
+            } else {
+                swoole_set_process_name("server-process: worker");
+            }
+        });
     }
 
     /**
