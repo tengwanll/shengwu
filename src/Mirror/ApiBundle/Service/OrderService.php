@@ -233,6 +233,9 @@ class OrderService
         }else if($status=='2'){
             $status='订购中';
         }else if($status=='3'){
+            $buyTimes=$goods->getBuyNum();
+            $goods->setBuyNum($buyTimes+1);
+            $this->goodsModel->save($goods);
             $status='已到货';
         }else if($status=='4'){
             $status='已反馈';
@@ -310,6 +313,9 @@ class OrderService
             }else if($status=='2'){
                 $statusM='订购中';
             }else if($status=='3'){
+                $buyTimes=$goods->getBuyNum();
+                $goods->setBuyNum($buyTimes+1);
+                $this->goodsModel->save($goods);
                 $statusM='已到货';
             }else if($status=='4'){
                 $statusM='已反馈';
