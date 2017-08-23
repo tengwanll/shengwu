@@ -172,6 +172,12 @@
             });
         });
         var ws = new WebSocket('ws://120.27.5.26:9501?userId='+{{ app.session.get('userId') }} );
+        setInterval(function () {
+            var msg={};
+            msg.event='heart';
+            msg.msg='keep_heart';
+            ws.send($.toJSON(msg));
+        },150000);//定时器每150秒发一条消息维持心跳
         ws.onopen = function(event) {
             // 发送消息
 
