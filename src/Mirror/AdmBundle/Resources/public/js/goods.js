@@ -1,5 +1,5 @@
 $(function(){
-    $('.for_search').onkeydown(function (event) {
+    $('.for_search').keydown(function (event) {
         if (event.keyCode == 13) {
             var info={};
             info.name=$('#name').val();
