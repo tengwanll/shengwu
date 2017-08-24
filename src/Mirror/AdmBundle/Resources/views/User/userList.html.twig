@@ -8,11 +8,11 @@
             <div class="row">
                 <label for="mobile" class="col-md-1 control-label text-right userNameScreen">手机：</label>
                 <div class="col-md-3">
-                    <input type="text" class="form-control" id="mobile">
+                    <input type="text" class="form-control for_search" id="mobile">
                 </div>
                 <label for="username" class="col-md-1 control-label text-right userNameScreen">用户名：</label>
                 <div class="col-md-3">
-                    <input type="text" class="form-control" id="username">
+                    <input type="text" class="form-control for_search" id="username">
                 </div>
             </div>
             <!-- /.row -->
@@ -76,6 +76,11 @@
                 $('#mobile').val('');
                 $('#username').val('');
                 userList(role);
+            });
+            $('.for_search').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    userList(role);
+                }
             });
             userList(role);
             $('#search').click(function(){
