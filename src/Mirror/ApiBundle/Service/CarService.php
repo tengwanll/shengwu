@@ -256,8 +256,8 @@ class CarService
             );
         }
         foreach ($result as $val){
-            $name=$val['name'];
-            $goods=$this->goodsModel->getOneByCriteria(array('name'=>$name,'status'=>Constant::$status_normal));
+            $goodsNumber=$val['goodsNumber'];
+            $goods=$this->goodsModel->getOneByCriteria(array('goodsNumber'=>$goodsNumber,'status'=>Constant::$status_normal));
             /**@var $goods \Mirror\ApiBundle\Entity\Goods*/
             if($goods){
                 //如果已经存在商品

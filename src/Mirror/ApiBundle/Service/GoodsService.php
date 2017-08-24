@@ -182,7 +182,7 @@ class GoodsService
      */
     public function create(Goods $goods,$conn){
         $rr=new ReturnResult();
-        $data=$this->goodsModel->getOneByCriteria(array('name'=>$goods->getName(),'status'=>Constant::$status_normal));
+        $data=$this->goodsModel->getOneByCriteria(array('goodsNumber'=>$goods->getGoodsNumber(),'status'=>Constant::$status_normal));
         if($data){
             $rr->errno=Code::$goods_had_exist;
             return $rr;
@@ -204,7 +204,7 @@ class GoodsService
             return $rr;
         }
         if($status){
-            $exist=$this->goodsModel->getOneByCriteria(array('name'=>$goods->getName(),'status'=>Constant::$status_normal));
+            $exist=$this->goodsModel->getOneByCriteria(array('goodsNumber'=>$goods->getGoodsNumber(),'status'=>Constant::$status_normal));
             if($exist){
                 $rr->errno=Code::$goods_had_on;
                 return $rr;
@@ -219,6 +219,11 @@ class GoodsService
 
     public function update(Goods $goods,$conn,$id){
         $rr=new ReturnResult();
+        $exist=$this->goodsModel->getOneByCriteria(array('goodsNumber'=>$goods->getGoodsNumber(),'status'=>Constant::$status_normal));
+        if($exist){
+            $rr->errno=Code::$goods_had_exist;
+            return $rr;
+        }
         $this->goodsModel->update($id,$goods->getName(),$goods->getSortId(),$goods->getPrice(),$goods->getDescription(),$goods->getAttr(),$conn,$goods->getImage(),$goods->getGoodsNumber(),$goods->getUnit(),$goods->getStandard(),$goods->getVender());
         return $rr;
     }
