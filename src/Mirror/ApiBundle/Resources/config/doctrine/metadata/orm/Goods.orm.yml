@@ -8,10 +8,13 @@ Goods:
         price:
             columns:
                 - price
-    uniqueConstraints:
         name:
             columns:
                 - name
+    uniqueConstraints:
+        goodsNumber:
+            columns:
+                - goods_number
                 - status
     id:
         id:
