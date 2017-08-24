@@ -164,7 +164,7 @@ class CarService
         define('PHPEXCEL', dirname(__FILE__) . '/../Util/');
         require(PHPEXCEL . 'Import.php');
         $result=array();
-        if(($highestColumnIndex-9)%2==1){
+        if(($highestColumnIndex-8)%2==1){
             $rr->errno=Code::$attr_not_right;
             return $rr;
         }
@@ -191,55 +191,55 @@ class CarService
                 );
                 return $rr;
             }
-            $price=$objWorksheet->getCellByColumnAndRow(2, $row)->getValue();
+            $price=$objWorksheet->getCellByColumnAndRow(4, $row)->getValue();
             if(!$price){
                 $rr->errno=Code::$file_price_null;
+                $rr->result=array(
+                    'rows'=>$row,
+                    'col'=>5
+                );
+                return $rr;
+            }
+            $description='';
+            $number=$objWorksheet->getCellByColumnAndRow(5, $row)->getValue();
+            $goodsNumber=$objWorksheet->getCellByColumnAndRow(2, $row)->getValue();
+            if(!$goodsNumber){
+                $rr->errno=Code::$file_goods_number_null;
                 $rr->result=array(
                     'rows'=>$row,
                     'col'=>3
                 );
                 return $rr;
             }
-            $description=$objWorksheet->getCellByColumnAndRow(3, $row)->getValue();
-            $number=$objWorksheet->getCellByColumnAndRow(4, $row)->getValue();
-            $goodsNumber=$objWorksheet->getCellByColumnAndRow(5, $row)->getValue();
-            if(!$goodsNumber){
-                $rr->errno=Code::$file_goods_number_null;
+            $unit=$objWorksheet->getCellByColumnAndRow(3, $row)->getValue();
+            if(!$unit){
+                $rr->errno=Code::$file_unit_null;
                 $rr->result=array(
                     'rows'=>$row,
-                    'col'=>6
+                    'col'=>4
                 );
                 return $rr;
             }
-            $unit=$objWorksheet->getCellByColumnAndRow(6, $row)->getValue();
-            if(!$unit){
-                $rr->errno=Code::$file_unit_null;
+            $standard=$objWorksheet->getCellByColumnAndRow(6, $row)->getValue();
+            if(!$standard){
+                $rr->errno=Code::$file_standard_null;
                 $rr->result=array(
                     'rows'=>$row,
                     'col'=>7
                 );
                 return $rr;
             }
-            $standard=$objWorksheet->getCellByColumnAndRow(7, $row)->getValue();
-            if(!$standard){
-                $rr->errno=Code::$file_standard_null;
+            $vender=$objWorksheet->getCellByColumnAndRow(7, $row)->getValue();
+            if(!$vender){
+                $rr->errno=Code::$file_vender_null;
                 $rr->result=array(
                     'rows'=>$row,
                     'col'=>8
                 );
                 return $rr;
             }
-            $vender=$objWorksheet->getCellByColumnAndRow(8, $row)->getValue();
-            if(!$vender){
-                $rr->errno=Code::$file_vender_null;
-                $rr->result=array(
-                    'rows'=>$row,
-                    'col'=>9
-                );
-                return $rr;
-            }
             $attrs='';
-            for($i=9;$i<$highestColumnIndex;$i++){
+            for($i=8;$i<$highestColumnIndex;$i++){
                 $attrs.=$objWorksheet->getCellByColumnAndRow($i, $row)->getValue().',';
             }
             $result[]=array(
