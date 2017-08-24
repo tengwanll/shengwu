@@ -53,8 +53,7 @@ function goodsList(object){
                         }else{
                             option='<option value="1">上架</option><option value="0" selected>下架</option>';
                         }
-                        //<td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.image+'" onclick="zdphoto(\'图片显示\',\''+value.image+'\')"></td>
-                        htmlTab+='<tr><td>'+value.goodsNumber+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.unit+'</td><td>'+value.price+'</td><td>'+value.standard+'</td><td>'+value.vender+'</td><td>'+value.attr+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
+                        htmlTab+='<tr><td>'+value.goodsNumber+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.unit+'</td><td>'+value.price+'</td><td>'+value.standard+'</td><td>'+value.vender+'</td><td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.image+'" onclick="zdphoto(\'图片显示\',\''+value.image+'\')"></td><td>'+value.attr+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
