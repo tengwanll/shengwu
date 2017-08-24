@@ -1,4 +1,16 @@
 $(function(){
+    $('.for_search').onkeydown(function (event) {
+        if (event.keyCode == 13) {
+            var info={};
+            info.name=$('#name').val();
+            info.sort=$('#sort').val();
+            info.smallPrice=$('#smallPrice').val();
+            info.bigPrice=$('#bigPrice').val();
+            info.attr=$('#attrName').val();
+            goodsList(info);
+        }
+    });
+
     $('#search').click(function(){
         var info={};
         info.name=$('#name').val();
