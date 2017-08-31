@@ -276,7 +276,7 @@ class CarService
                 }
             }else{
                 //没有该商品,添加到商品表中,然后添加到购物车
-                $goods=$this->goodsModel->add($name,$val['sort'],$val['price'],$val['description'],$val['attrs'],$conn,0,$val['goodsNumber'],$val['unit'],$val['standard'],$val['vender']);
+                $goods=$this->goodsModel->add($val['name'],$val['sort'],$val['price'],$val['description'],$val['attrs'],$conn,0,$val['goodsNumber'],$val['unit'],$val['standard'],$val['vender']);
                 $goodsId=$goods['goodsId'];
                 $this->carModel->add($userId,$goodsId,$val['number'],$val['price']);
             }
