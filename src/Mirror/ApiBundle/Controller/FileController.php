@@ -77,4 +77,15 @@ class FileController extends BaseController {
         $rr=$this->get('car_service')->import($url,$userId,$conn);
         return $this->buildResponse($rr);
     }
+
+    public function BImport(Request $request){
+        $file = $request->files->get('file', '');
+        $file = $this->get('file_service')->saveFile($request,$file);
+        if (!$file) {
+            return $this->buildResponse(new ReturnResult(Code::$file_not_exist));
+        }
+        $url='./'.$file->getUrl();
+        $rr=$this->get('biology_service')->BImport($url);
+        return $this->buildResponse($rr);
+    }
 }
