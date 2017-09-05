@@ -45,9 +45,9 @@ class OrderGoods
     /**
      * @var string
      *
-     * @ORM\Column(name="price", type="decimal", precision=2, scale=0, nullable=false)
+     * @ORM\Column(name="price", type="decimal", precision=11, scale=2, nullable=false)
      */
-    private $price = '0';
+    private $price = '0.00';
 
     /**
      * @var integer

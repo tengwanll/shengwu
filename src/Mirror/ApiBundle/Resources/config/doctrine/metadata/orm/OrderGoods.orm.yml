@@ -38,10 +38,10 @@ OrderGoods:
         price:
             type: decimal
             nullable: false
-            precision: 2
-            scale: 0
+            precision: 11
+            scale: 2
             options:
-                default: '0'
+                default: '0.00'
         status:
             type: integer
             nullable: false
