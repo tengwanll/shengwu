@@ -184,7 +184,7 @@ class OrderService
                 $goodsNumber=$goods->getNumber();
                 $goodsId=$goods->getGoodsId();
                 $goodsPrice=$goods->getPrice();
-                $order=$this->ordersModel->add($goodsPrice,$userId,$message,$orderNumber+$key+1);
+                $order=$this->ordersModel->add($goodsPrice/$goodsNumber,$userId,$message,$orderNumber+$key+1);
                 $this->orderGoodsModel->add($order->getId(),$goodsNumber,$goodsId,$goodsPrice);
                 $this->carModel->delete($goods);
             }
