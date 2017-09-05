@@ -42,4 +42,5 @@ class Code {
     public static $file_unit_null=20125;
     public static $file_standard_null=20126;
     public static $file_vender_null=20127;
+    public static $biology_not_exist=20128;
 }

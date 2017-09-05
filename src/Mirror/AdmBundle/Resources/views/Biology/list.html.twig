@@ -6,13 +6,15 @@
         <div class="form-group col-md-8">
             <!-- /.row -->
             <div class="row margin_top">
-                <label  class="col-md-2 control-label">总价：</label>
-                <label id="totalPrice" class="control-label">0</label> 元
+                <label for="name" class="col-md-1 control-label">名称：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="name">
+                </div>
             </div>
             <!-- /.row -->
             <div class="row margin_top">
                 <div class="col-md-3">
-                    <a class="btn btn-default resetButton userAdd" href="/test.xlsx">下载导入模板</a>
+                    <a class="btn btn-default resetButton userAdd" href="/biology.xlsx">下载导入模板</a>
                 </div>
             </div>
 
@@ -38,7 +40,6 @@
 {% endblock %}
 {% block thead %}
     <tr class="tableTit">
-        <td><label for="choice">选项</label><input id="choice" type="checkbox" onclick="choiceAll(this)"></td>
         <td>编号</td>
         <td>拉丁名称</td>
         <td>中文名称</td>
@@ -74,8 +75,8 @@
 {% block otherJs %}
     <script>
         $(function(){
-            adminTabNav($('.adminLeftNav .car'));
-            goodsList();
+            adminTabNav($('.adminLeftNav .biology'));
+            biologyList();
         });
     </script>
 

@@ -10,6 +10,7 @@ namespace Mirror\ApiBundle\Model;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Mirror\ApiBundle\Entity\Biology;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @DI\Service("biology_model",parent="base_model")
@@ -31,6 +32,7 @@ class BiologyModel extends BaseModel
         $arr=array();
         foreach ($result as $biology){
             $bi=new Biology();
+            $date=new \DateTime();
             $bi->setName($biology['name']);
             $bi->setEnglishName($biology['englishName']);
             $bi->setCheckGene($biology['checkGene']);
@@ -42,6 +44,9 @@ class BiologyModel extends BaseModel
             $bi->setLiterature($biology['literature']);
             $bi->setOtherGene($biology['otherGene']);
             $bi->setSort($biology['sort']);
+            $bi->setStatus(1);
+            $bi->setUpdateTime($date);
+            $bi->setCreateTime($date);
             $arr[]=$bi;
         }
         $this->saveArray($arr);

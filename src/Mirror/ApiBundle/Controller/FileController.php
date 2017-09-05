@@ -78,6 +78,12 @@ class FileController extends BaseController {
         return $this->buildResponse($rr);
     }
 
+    /**
+     * @Route("/BImport")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
     public function BImport(Request $request){
         $file = $request->files->get('file', '');
         $file = $this->get('file_service')->saveFile($request,$file);

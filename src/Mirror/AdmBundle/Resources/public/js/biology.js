@@ -9,9 +9,9 @@ $(function(){
 });
 
 //生物列表
-function goodsList(){
+function biologyList(){
     var info={rows:10,page:1};
-    ajaxAction("get",'/api/car'+ passParam(info),"",true,function(data,textStatus){
+    ajaxAction("get",'/api/biology'+ passParam(info),"",true,function(data,textStatus){
         $('#countNumber').html(data.total);
         var count=Math.ceil(data.total/10);
         var htmlTab="";
@@ -29,11 +29,10 @@ function goodsList(){
             page: '<li>{{page}}</li>',
             onPageChange: function (num, type) {
                 info.page=num;
-                ajaxAction("get",'/api/car'+ passParam(info),"",true,function(data,textStatus){
+                ajaxAction("get",'/api/biology'+ passParam(info),"",true,function(data,textStatus){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
-                        index=index+1;
-                        htmlTab+='<tr><td><input type="checkbox" onclick="changePrice(this)" name="carChoice" carId="'+value.id+'"></td><td>'+index+'</td><td>'+value.goodsName+'</td><td>'+value.goodsNumber+'</td><td id="number" ondblclick="changeNumber(this,'+value.number+')">'+value.number+'</td><td id="price" class="price">'+value.price+'</td><td>'+value.standard+'</td><td>'+value.vender+'</td><td><a href="/adm/goods/'+value.goodsId+'" class="infoColor">查看详情</a><a href="javascript:void(0)" class="infoColor" onclick="add(this,'+value.id+')"><span style="font-size: 25px"> + </span></a><a href="javascript:void(0)" class="infoColor" onclick="sub(this,'+value.id+')"><span style="font-size: 35px"> -</span></a> <a href="javascript:void(0)" class="infoColor" onclick="deleteCarGoods(this,'+value.id+')">删除</a></td>';
+                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.englishName+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.kind+'</td><td >'+value.checkGene+'</td><td>'+value.otherGene+'</td><td>'+value.literature+'</td><td>'+value.desease+'</td><td><a href="/adm/biology/'+value.id+'" class="infoColor">查看详情</a> <a href="/adm/biology/'+value.id+'/edit" class="infoColor">查看详情</a> <a href="javascript:void(0)" class="infoColor" onclick="deleteCarGoods('+value.id+')">删除</a></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -46,18 +45,11 @@ function goodsList(){
         zdalert('系统提示',errmsg);
     });
 }
-function deleteCarGoods(obj,id) {
-    var price=$(obj).parent().parent().find('#price').html();
-    var totalPrice=$('#totalPrice').html();
-    price=parseFloat(price);
-    totalPrice=parseFloat(totalPrice);
+function deleteCarGoods(id) {
     var info={};
-    info.carId=id;
-    ajaxAction("delete",'/api/car',info,true,function(data,textStatus){
-        if($(obj).parent().parent().find('input[name=carChoice]').attr('checked')=='checked'){
-            $('#totalPrice').html(totalPrice-price);
-        }
-        $(obj).parent().parent().remove();
+    info.id=id;
+    ajaxAction("delete",'/api/biology',info,true,function(data,textStatus){
+        location.href='/adm/biology';
     },function(errno,errmsg){
         zdalert('系统提示',errmsg);
     });

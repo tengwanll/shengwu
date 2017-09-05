@@ -9,6 +9,7 @@
 namespace Mirror\AdmBundle\Controller;
 
 
+use Mirror\ApiBundle\Annotation\OAuth;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -20,29 +21,42 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class BiologyController
 {
     /**
+     * @OAuth()
      * @Route("")
      * @return array
      * @Template
      */
-    public function getList(){
+    public function listAction(){
         return array();
     }
 
     /**
+     * @OAuth()
      * @Route("/add")
      * @return array
      * @Template
      */
-    public function add(){
+    public function addAction(){
         return array();
     }
 
     /**
+     * @OAuth()
      * @Route("/edit")
      * @return array
      * @Template
      */
-    public function edit(){
+    public function editAction(){
         return array();
+    }
+
+    /**
+     * @OAuth()
+     * @Route("/{id}",requirements={"id":"\d+"})
+     * @return array
+     * @Template
+     */
+    public function detailAction($id){
+        return array('id'=>$id);
     }
 }

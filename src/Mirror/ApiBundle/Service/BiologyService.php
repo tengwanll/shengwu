@@ -13,6 +13,7 @@ use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Mirror\ApiBundle\Common\Code;
 use Mirror\ApiBundle\Model\BiologyModel;
+use Mirror\ApiBundle\ViewModel\ReturnResult;
 
 /**
  * @DI\Service("biology_service")
@@ -79,6 +80,55 @@ class BiologyService
             );
         }
         $this->biologyModel->addArray($result);
+        return $rr;
     }
 
+    /**
+     * @param $name
+     * @param $pageable
+     * @return ReturnResult
+     */
+    public function getList($name,$pageable){
+        $rr=new ReturnResult();
+        $arguments=array('status'=>1);
+        if($name){
+            $arguments['like']=array('name'=>'%'.$name.'%');
+        }
+        $list=$this->biologyModel->getByParams($arguments,$pageable,'createTime desc');
+        $arr=array();
+        foreach($list->getIterator() as $biology){
+            /**@var $biology \Mirror\ApiBundle\Entity\Biology*/
+            $arr[]=array(
+                'id'=>$biology->getId(),
+                'name'=>$biology->getName(),
+                'englishName'=>$biology->getEnglishName(),
+                'sort'=>$biology->getSort(),
+                'kind'=>$biology->getKind(),
+                'checkGene'=>$biology->getCheckGene(),
+                'otherGene'=>$biology->getOtherGene(),
+                'literature'=>$biology->getLiterature(),
+                'disease'=>$biology->getDisease()
+            );
+        }
+        $rr->result=array(
+            'list'=>$arr,
+            'total'=>$list->count()
+        );
+        return $rr;
+    }
+
+    /**
+     * @param $id
+     * @return ReturnResult
+     */
+    public function delete($id){
+        $rr=new ReturnResult();
+        $biology=$this->biologyModel->getById($id);
+        if(!$biology){
+            $rr->errno=Code::$biology_not_exist;
+            return $rr;
+        }
+        $this->biologyModel->delete($biology);
+        return $rr;
+    }
 }
