@@ -11,25 +11,25 @@ class WebSocketServer
         $this->_serv->set([
             'worker_num' => 1,
             'daemonize'=>true,
-            'heartbeat_check_interval' => 600,
-            'heartbeat_idle_time' => 1800,
+            'heartbeat_check_interval' => 120,
+            'heartbeat_idle_time' => 242,
             'log_file'=>__DIR__.'/server.log'
         ]);
         $this->_serv->on('open', [$this, 'onOpen']);
         $this->_serv->on('message', [$this, 'onMessage']);
         $this->_serv->on('close', [$this, 'onClose']);
         $this->_serv->on("start", function ($serv){
-            swoole_set_process_name('server-process: master');
+            swoole_set_process_name('websocket_server: master');
         });
         // 以下回调发生在Manager进程
         $this->_serv->on('ManagerStart', function ($serv){
-            swoole_set_process_name('server-process: manager');
+            swoole_set_process_name('websocket_server: manager');
         });
         $this->_serv->on('WorkerStart', function ($serv, $workerId){
             if($workerId >= $serv->setting['worker_num']) {
-                swoole_set_process_name("server-process: task");
+                swoole_set_process_name("websocket_server: task");
             } else {
-                swoole_set_process_name("server-process: worker");
+                swoole_set_process_name("websocket_server: worker");
             }
         });
     }
@@ -76,6 +76,10 @@ class WebSocketServer
 		    echo date('Y-m-d H:i:s')."-有一个订单需要您审核\r\n";
                 }
                 break;
+	    case 'heart':
+		break;
+	    default:
+		echo date('Y-m-d H:i:s').'-'.$data['event'].'-'.$data['msg']."\r\n";
         }
     }
     public function onClose($serv, $fd)
