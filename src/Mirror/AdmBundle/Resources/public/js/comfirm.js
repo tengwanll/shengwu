@@ -29,7 +29,7 @@
             });
         },
         _show: function(title, msg, value, type, callback) {
-                var height=$(window).height()-50;
+                var height=$(window).height()-150;
                 var _html = "";
    
                     _html += '<div id="mb_box"></div><div id="mb_con"><span id="mb_tit">' + title + '</span>';
