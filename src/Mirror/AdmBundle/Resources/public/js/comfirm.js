@@ -28,16 +28,15 @@
                 if( callback ) callback(result,msg);
             });
         },
-
-        _show: function(title, msg, value, type, callback) {  
-            
-                    var _html = "";  
+        _show: function(title, msg, value, type, callback) {
+                var height=$(window).height()-50;
+                var _html = "";
    
                     _html += '<div id="mb_box"></div><div id="mb_con"><span id="mb_tit">' + title + '</span>';
                     if(type=="comment"){
                         _html += '<div id="mb_msg"><textarea id="message" cols="60" rows="10" placeholder="'+msg+'"></textarea></div><div id="mb_btnbox">';
                     }else if(type=="photo"){
-                        _html += '<div id="mb_msg"><img src="'+msg+'" alt="" style="max-width: 100%;max-height:1000px "></div><div id="mb_btnbox">';
+                        _html += '<div id="mb_msg"><img src="'+msg+'" alt="" style="max-width: 100%;max-height:'+height+'px "></div><div id="mb_btnbox">';
                     }else{
                 _html += '<div id="mb_msg">' + msg + '</div><div id="mb_btnbox">';
                     }
