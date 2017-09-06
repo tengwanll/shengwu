@@ -48,4 +48,43 @@ class BiologyController extends BaseController
         $rr=$this->get('biology_service')->delete($id);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("/{id}",requirements={"id":"\d+"})
+     * @Method("GET")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getInfo($id){
+        $rr=$this->get('biology_service')->getInfo($id);
+        return $this->buildResponse($rr);
+    }
+
+    /**
+     * @OAuth()
+     * @Route("")
+     * @Method("PUT")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function update(Request $request){
+        $json=$this->getJson($request);
+        $id=$json->get('id',0);
+        $biology=$this->serializerByJson($request,'Biology');
+        $rr=$this->get('biology_service')->update($id,$biology);
+        return $this->buildResponse($rr);
+    }
+
+    /**
+     * @OAuth()
+     * @Route("")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function create(Request $request){
+        $biology=$this->serializerByJson($request,'Biology');
+        $rr=$this->get('biology_service')->create($biology);
+        return $this->buildResponse($rr);
+    }
 }

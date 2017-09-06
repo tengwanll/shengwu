@@ -6,11 +6,20 @@ $(function(){
             zdalert('系统提示',errmsg);
         });
     });
+    $('#search').click(function(){
+        biologyList();
+    });
+    $('.for_search').keydown(function (event) {
+        if (event.keyCode == 13) {
+            biologyList();
+        }
+    });
 });
 
 //生物列表
 function biologyList(){
     var info={rows:10,page:1};
+    info.name=$('#name').val();
     ajaxAction("get",'/api/biology'+ passParam(info),"",true,function(data,textStatus){
         $('#countNumber').html(data.total);
         var count=Math.ceil(data.total/10);
@@ -32,7 +41,7 @@ function biologyList(){
                 ajaxAction("get",'/api/biology'+ passParam(info),"",true,function(data,textStatus){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
-                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.englishName+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.kind+'</td><td >'+value.checkGene+'</td><td>'+value.otherGene+'</td><td>'+value.literature+'</td><td>'+value.desease+'</td><td><a href="/adm/biology/'+value.id+'" class="infoColor">查看详情</a> <a href="/adm/biology/'+value.id+'/edit" class="infoColor">查看详情</a> <a href="javascript:void(0)" class="infoColor" onclick="deleteCarGoods('+value.id+')">删除</a></td>';
+                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.englishName+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.kind+'</td><td >'+value.checkGene+'</td><td>'+value.otherGene+'</td><td>'+value.literature+'</td><td>'+value.disease+'</td><td><a href="/adm/biology/'+value.id+'" class="infoColor">查看</a> <a href="/adm/biology/'+value.id+'/edit" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="deleteCarGoods('+value.id+')">删除</a></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -50,6 +59,15 @@ function deleteCarGoods(id) {
     info.id=id;
     ajaxAction("delete",'/api/biology',info,true,function(data,textStatus){
         location.href='/adm/biology';
+    },function(errno,errmsg){
+        zdalert('系统提示',errmsg);
+    });
+}
+
+function biologyInfo(biologyId){
+    ajaxAction("get","/api/biology/"+biologyId,"",false,function(data,textStatus){
+        var infoHtml='<dl><dt>中文名称：</dt><dd>'+ data.name +'</dd><dt>拉丁名称：</dt><dd>'+data.englishName+'</dd><dt>微生物类别：</dt><dd>'+data.sort+'</dd><dt>菌种种类：</dt><dd>'+data.kind+'</dd><dt>检测基金：</dt><dd>'+data.checkGene+'</dd><dt>毒力基因：</dt><dd>'+data.otherGene+'</dd><dt>文献：</dt><dd>'+data.literature+'</dd><dt>引发病症：</dt><dd>'+data.disease+'</dd><dt>关键字：</dt><dd>'+data.keyword+'</dd><dt>是否常见：</dt><dd>'+data.isUsual+'</dd><dt>备注：</dt><dd>'+data.comment+'</dd></dl>';
+        $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
         zdalert('系统提示',errmsg);
     });

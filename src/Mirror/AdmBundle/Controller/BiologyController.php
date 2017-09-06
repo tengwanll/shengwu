@@ -42,12 +42,12 @@ class BiologyController
 
     /**
      * @OAuth()
-     * @Route("/edit")
+     * @Route("/{id}/edit",requirements={"id":"\d+"})
      * @return array
      * @Template
      */
-    public function editAction(){
-        return array();
+    public function editAction($id){
+        return array('id'=>$id);
     }
 
     /**
@@ -56,7 +56,7 @@ class BiologyController
      * @return array
      * @Template
      */
-    public function detailAction($id){
+    public function infoAction($id){
         return array('id'=>$id);
     }
 }

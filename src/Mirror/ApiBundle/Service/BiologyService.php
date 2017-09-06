@@ -12,8 +12,10 @@ use JMS\DiExtraBundle\Annotation as DI;
 use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
 use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\Entity\Biology;
 use Mirror\ApiBundle\Model\BiologyModel;
 use Mirror\ApiBundle\ViewModel\ReturnResult;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @DI\Service("biology_service")
@@ -94,20 +96,20 @@ class BiologyService
         if($name){
             $arguments['like']=array('name'=>'%'.$name.'%');
         }
-        $list=$this->biologyModel->getByParams($arguments,$pageable,'createTime desc');
+        $list=$this->biologyModel->getByParams($arguments,$pageable);
         $arr=array();
         foreach($list->getIterator() as $biology){
             /**@var $biology \Mirror\ApiBundle\Entity\Biology*/
             $arr[]=array(
                 'id'=>$biology->getId(),
                 'name'=>$biology->getName(),
-                'englishName'=>$biology->getEnglishName(),
-                'sort'=>$biology->getSort(),
-                'kind'=>$biology->getKind(),
-                'checkGene'=>$biology->getCheckGene(),
-                'otherGene'=>$biology->getOtherGene(),
-                'literature'=>$biology->getLiterature(),
-                'disease'=>$biology->getDisease()
+                'englishName'=>$biology->getEnglishName()?$biology->getEnglishName():'',
+                'sort'=>$biology->getSort()?$biology->getSort():'',
+                'kind'=>$biology->getKind()?$biology->getKind():'',
+                'checkGene'=>$biology->getCheckGene()?$biology->getCheckGene():'',
+                'otherGene'=>$biology->getOtherGene()?$biology->getOtherGene():'',
+                'literature'=>$biology->getLiterature()?$biology->getLiterature():'',
+                'disease'=>$biology->getDisease()?$biology->getDisease():''
             );
         }
         $rr->result=array(
@@ -129,6 +131,74 @@ class BiologyService
             return $rr;
         }
         $this->biologyModel->delete($biology);
+        return $rr;
+    }
+
+    /**
+     * @param $id
+     * @return ReturnResult
+     */
+    public function getInfo($id){
+        $rr=new ReturnResult();
+        $biology=$this->biologyModel->getById($id);
+        if(!$biology){
+            $rr->errno=Code::$biology_not_exist;
+            return $rr;
+        }
+        /**@var $biology \Mirror\ApiBundle\Entity\Biology*/
+        $arr=array(
+            'id'=>$biology->getId(),
+            'name'=>$biology->getName(),
+            'englishName'=>$biology->getEnglishName()?$biology->getEnglishName():'',
+            'sort'=>$biology->getSort()?$biology->getSort():'',
+            'kind'=>$biology->getKind()?$biology->getKind():'',
+            'checkGene'=>$biology->getCheckGene()?$biology->getCheckGene():'',
+            'otherGene'=>$biology->getOtherGene()?$biology->getOtherGene():'',
+            'literature'=>$biology->getLiterature()?$biology->getLiterature():'',
+            'disease'=>$biology->getDisease()?$biology->getDisease():'',
+            'keyword'=>$biology->getKeyword()?$biology->getKeyword():'',
+            'isUsual'=>$biology->getIsUsual()?$biology->getIsUsual():'',
+            'comment'=>$biology->getComment()?$biology->getComment():''
+        );
+        $rr->result=$arr;
+        return $rr;
+    }
+
+    /**
+     * @param $id
+     * @param Biology $biology
+     * @return ReturnResult
+     */
+    public function update($id,Biology $biology){
+        $rr=new ReturnResult();
+        $biologyData=$this->biologyModel->getById($id);
+        /**@var $biologyData \Mirror\ApiBundle\Entity\Biology*/
+        $biologyData->setName($biology->getName());
+        $biologyData->setEnglishName($biology->getEnglishName());
+        $biologyData->setSort($biology->getSort());
+        $biologyData->setKind($biology->getKind());
+        $biologyData->setCheckGene($biology->getCheckGene());
+        $biologyData->setLiterature($biology->getLiterature());
+        $biologyData->setDisease($biology->getDisease());
+        $biologyData->setIsUsual($biology->getIsUsual());
+        $biologyData->setComment($biology->getComment());
+        $biologyData->setOtherGene($biology->getOtherGene());
+        $biologyData->setKeyword($biology->getKeyword());
+        $this->biologyModel->save($biologyData);
+        return $rr;
+    }
+
+    /**
+     * @param Biology $biology
+     * @return ReturnResult
+     */
+    public function create(Biology $biology){
+        $rr=new ReturnResult();
+        $date=new \DateTime();
+        $biology->setStatus(1);
+        $biology->setCreateTime($date);
+        $biology->setUpdateTime($date);
+        $this->biologyModel->save($biology);
         return $rr;
     }
 }

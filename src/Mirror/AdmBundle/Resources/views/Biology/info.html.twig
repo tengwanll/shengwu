@@ -1,0 +1,39 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('/bundles/mirroradm/js/biology.js') }}"></script>
+{% endblock %}
+{% block typeForm %}
+    <div class="addUser">
+        <div class="addUserTit">
+            <h3><span>微生物详情</span></h3>
+        </div>
+        <!-- /.addUserTit -->
+        <div class="infoUser">
+            <div class="infoUserTitle">
+                <ul>
+                    <li class="on">基本信息</li>
+                </ul>
+                <div class="cls"></div>
+            </div>
+            <div class="infoUserCon">
+                {#详情内容区域#}
+            </div>
+
+        </div>
+    </div>
+    <!-- /.addUser -->
+
+{% endblock %}
+{% block otherJs %}
+    <script>
+        var biologyId={{ id }};
+        biologyInfo(biologyId);
+        $(function(){
+            adminTabNav($('.adminLeftNav .biology'));
+
+        });
+
+            //用户详情
+    </script>
+
+{% endblock %}

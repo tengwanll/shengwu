@@ -1,0 +1,157 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block typeForm %}
+    <div class="addUser">
+        <div class="addUserTit">
+            <h3>微生物管理-<span style="color: #ff8400; font-size:18px;">修改</span></h3>
+        </div>
+        <!-- /.addUserTit -->
+        <div class="addUserForm form-horizontal">
+
+                <div class="form-group">
+                    <label for="name" class="col-md-3 control-label text-right">中文名称：</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="englishName" class="col-md-3 control-label text-right">拉丁名称：</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="englishName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sort" class="col-md-3 control-label text-right">微生物类别：</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="sort">
+                    </div>
+                </div>
+
+            <div class="form-group">
+                <label for="kind" class="col-md-3 control-label text-right">菌种类别：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="kind">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="checkGene" class="col-md-3 control-label text-right">检测基因：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="checkGene">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="otherGene" class="col-md-3 control-label text-right">毒力基因：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="otherGene">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="literature" class="col-md-3 control-label text-right">文献：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="literature">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="disease" class="col-md-3 control-label text-right">引发症状：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="disease">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="keyword" class="col-md-3 control-label text-right">关键字：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="keyword">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="isUsual" class="col-md-3 control-label text-right">是否常见：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="isUsual">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="comment" class="col-md-3 control-label text-right">备注：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="comment">
+                </div>
+            </div>
+
+                <div class="form-group margin_top">
+                    <div class="col-md-2 col-md-offset-3 userSubmit margin_top">
+                        <button class="btn btn-default resetButton" id="cancel">取消</button>
+                    </div>
+                    <div class="col-md-2 margin_top">
+                        <button class="btn btn-default resetButton" id="ensure">确定</button>
+                    </div>
+                </div>
+
+        </div>
+        <!-- /.addUserForm -->
+    </div>
+    <!-- /.addUser -->
+
+{% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .goods'));
+            var id={{ id }};
+            ajaxAction("get",'/api/biology/'+id,"",false,function(data,textStatus){
+                $('#name').val(data.name);
+                $('#englishName').val(data.englishName);
+                $('#sort').val(data.sort);
+                $('#kind').val(data.kind);
+                $('#checkGene').val(data.checkGene);
+                $('#otherGene').val(data.otherGene);
+                $('#literature').val(data.literature);
+                $('#disease').val(data.disease);
+                $('#keyword').val(data.keyword);
+                $('#isUsual').val(data.isUsual);
+                $('#comment').val(data.comment);
+            },function(errno,errmsg){
+                alert(errmsg);
+            });
+            $('#cancel').click(function () {
+                location.href='/adm/biology';
+            });
+            $('#ensure').click(function(){
+                var info={};
+                info.id=id;
+                info.name=$('#name').val();
+                if(!info.name){
+                    zdalert('系统提示','商品名称不能为空');
+                    return;
+                }
+                info.englishName=$('#englishName').val();
+                info.sort=$('#sort').val();
+                info.kind=$('#kind').val();
+                info.checkGene=$('#checkGene').val();
+                info.otherGene=$('#otherGene').val();
+                info.literature=$('#literature').val();
+                info.disease=$('#disease').val();
+                info.keyword=$('#keyword').val();
+                info.isUsual=$('#isUsual').val();
+                info.comment=$('#comment').val();
+
+                ajaxAction("put",'/api/biology',info,false,function(data,textStatus){
+                    zdalert('系统提示','修改成功',function () {
+                        location.href='/adm/biology';
+                    });
+                },function(errno,errmsg){
+                    zdalert('系统提示',errmsg);
+                });
+            });
+        });
+
+    </script>
+
+{% endblock %}
