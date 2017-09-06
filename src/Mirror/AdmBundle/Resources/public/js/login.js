@@ -3,6 +3,14 @@ $(function(){
     $('.changeIp').hide();
 
     $('.loginSubmit').click(function(){
+        login();
+    });
+    $('.for_submit').keydown(function (event) {
+        if (event.keyCode == 13) {
+            login();
+        }
+    });
+    function login(){
         if(!checkPhone($('.user-name').val(),'手机号不可为空！',true)){
             return false;
         }
@@ -13,9 +21,6 @@ $(function(){
         var info={};
         info.telephone=$('.user-name').val();
         info.password=$('.user-pwd').val();
-        if($('.codeLoginInput').val()!=''){
-            info.code=$('.codeLoginInput').val();
-        }
 
         ajaxAction("post","/api/user/login",info,true,function(data,textStatus){
             window.location.href="/adm/user";
@@ -25,10 +30,5 @@ $(function(){
                 $('.changeIp').show();
             }
         });
-
-    });
-
-    acquireCode($('.codeLogin'),$('.user-name'));
-
-
+    }
 });
