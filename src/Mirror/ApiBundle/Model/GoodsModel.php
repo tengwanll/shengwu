@@ -70,7 +70,7 @@ class GoodsModel extends BaseModel
      * @param $conn
      * @return mixed
      */
-    public function getList($parameters,$pageable,$sort,$left,$right,$attr,$name,$conn){
+    public function getList($parameters,$pageable,$sort,$left,$right,$attr,$name,$conn,$goodNumber){
         if($attr){
             $dql="select u.id,u.name,u.price,u.image,u.sort_id,u.status,s.name as sortName,column_get(u.attr,'$attr' as char) as myAttr,u.goods_number,u.unit,u.standard,u.vender from goods u join sort s  ";
         }else{
@@ -80,6 +80,9 @@ class GoodsModel extends BaseModel
         $where[]='u.sort_id = s.id';
         if($name){
             $where[]="u.name like '%$name%'";
+        }
+        if($goodNumber){
+            $where[]="u.goods_number like '%$goodNumber%'";
         }
         foreach ($parameters as $key => $equals) {
             if (is_array($equals)) {
@@ -118,12 +121,15 @@ class GoodsModel extends BaseModel
      * @param $conn
      * @return mixed
      */
-    public function getCount($parameters,$left,$right,$attr,$name,$conn){
+    public function getCount($parameters,$left,$right,$attr,$name,$conn,$goodNumber){
         $dql="select count(u.id) as total from goods u join sort s ";
         $where = array();
         $where[]='u.sort_id = s.id ';
         if($name){
             $where[]="u.name like '%$name%'";
+        }
+        if($goodNumber){
+            $where[]="u.goods_number like '%$goodNumber%'";
         }
         foreach ($parameters as $key => $equals) {
             if (is_array($equals)) {

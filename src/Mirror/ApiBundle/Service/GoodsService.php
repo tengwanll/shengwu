@@ -64,12 +64,11 @@ class GoodsService
     /**
      * @param $name
      * @param $sortName
-     * @param $bigPrice
-     * @param $smallPrice
+     * @param $goodNumber
      * @param $pageable
      * @return ReturnResult
      */
-    public function getList($name,$sortName,$bigPrice,$smallPrice,$pageable,$attr,$conn){
+    public function getList($name,$sortName,$goodNumber,$pageable,$attr,$conn){
         $rr=new ReturnResult();
         $arguments=array();
         $left=0;
@@ -83,14 +82,8 @@ class GoodsService
             $left=$sort->getLeftR();
             $right=$sort->getRightR();
         }
-        if($bigPrice){
-            $arguments['<']=array('price'=>$bigPrice);
-        }
-        if($smallPrice){
-            $arguments['>']=array('price'=>$smallPrice);
-        }
-        $list=$this->goodsModel->getList($arguments,$pageable,'create_time desc',$left,$right,$attr,$name,$conn);
-        $count=$this->goodsModel->getCount($arguments,$left,$right,$attr,$name,$conn);
+        $list=$this->goodsModel->getList($arguments,$pageable,'create_time desc',$left,$right,$attr,$name,$conn,$goodNumber);
+        $count=$this->goodsModel->getCount($arguments,$left,$right,$attr,$name,$conn,$goodNumber);
         $arr=array();
         foreach($list as $goods){
             $imageId=$goods['image'];

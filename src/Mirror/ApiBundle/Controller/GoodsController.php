@@ -31,11 +31,10 @@ class GoodsController extends  BaseController
         $pageable=$this->getPage($request);
         $name=$request->get('name','');
         $sort=$request->get('sort',null);
-        $bigPrice=$request->get('bigPrice',null);
-        $smallPrice=$request->get('smallPrice',null);
+        $goodNumber=$request->get('goodNumber','');
         $attr=$request->get('attr','');
         $conn=$this->get('database_connection');
-        $rr=$this->get('goods_service')->getList($name,$sort,$bigPrice,$smallPrice,$pageable,$attr,$conn);
+        $rr=$this->get('goods_service')->getList($name,$sort,$goodNumber,$pageable,$attr,$conn);
         return $this->buildResponse($rr);
     }
 

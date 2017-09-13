@@ -4,8 +4,7 @@ $(function(){
             var info={};
             info.name=$('#name').val();
             info.sort=$('#sort').val();
-            info.smallPrice=$('#smallPrice').val();
-            info.bigPrice=$('#bigPrice').val();
+            info.goodNumber=$('#goodNumber').val();
             info.attr=$('#attrName').val();
             goodsList(info);
         }
@@ -15,8 +14,7 @@ $(function(){
         var info={};
         info.name=$('#name').val();
         info.sort=$('#sort').val();
-        info.smallPrice=$('#smallPrice').val();
-        info.bigPrice=$('#bigPrice').val();
+        info.goodNumber=$('#goodNumber').val();
         info.attr=$('#attrName').val();
         goodsList(info);
         return false;
