@@ -247,9 +247,8 @@
                 info.image=$('#imageValue').val();
 
                 ajaxAction("put",'/api/goods',info,false,function(data,textStatus){
-                    zdalert('系统提示','修改成功',function () {
-                        location.href='/adm/goods';
-                    });
+                    zdalert('系统提示','修改成功');
+
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);
                 });

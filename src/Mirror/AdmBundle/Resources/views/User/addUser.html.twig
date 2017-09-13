@@ -115,8 +115,11 @@
                 }
 
                 ajaxAction("post",'/api/user',info,true,function(data,textStatus){
-                    zdalert('系统提示','添加成功');
-                   location.href='/adm/user';
+                    zdalert('系统提示','添加成功',function($r){
+                        if($r){
+                            location.href='/adm/user/add';
+                        }
+                    });
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);
                 });

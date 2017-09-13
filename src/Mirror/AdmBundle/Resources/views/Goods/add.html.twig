@@ -224,8 +224,11 @@
                 info.image=$('#imageValue').val();
 
                 ajaxAction("post",'/api/goods',info,false,function(data,textStatus){
-                    zdalert('系统提示','添加成功');
-                   location.href='/adm/goods';
+                    zdalert('系统提示','添加成功',function($r) {
+                        if ($r) {
+                            location.href = '/adm/goods/add';
+                        }
+                    });
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);
                 });
