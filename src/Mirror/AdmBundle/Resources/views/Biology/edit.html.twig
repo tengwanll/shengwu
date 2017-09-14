@@ -50,11 +50,17 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="literature" class="col-md-3 control-label text-right">文献：</label>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" id="literature">
+            <div class="form-group" id="files">
+                <label for="photo" class="col-md-3 control-label text-right">文献上传：</label>
+                <div class="col-md-3 imageUpload">
+                    <form action="" name="uploadForm">
+                        <input type="file" name="file[]">
+                    </form>
+                    <div>
+                        <button class="btn btn-default resetButton" id="addFile">添加</button>
+                    </div>
                 </div>
+
             </div>
 
             <div class="form-group">
@@ -103,7 +109,10 @@
 {% block otherJs %}
     <script>
         $(function(){
-            adminTabNav($('.adminLeftNav .goods'));
+            $('#addFile').click(function(){
+                $('form[name=uploadForm]').append('<input type="file" name="file[]">');
+            });
+            adminTabNav($('.adminLeftNav .biology'));
             var id={{ id }};
             ajaxAction("get",'/api/biology/'+id,"",false,function(data,textStatus){
                 $('#name').val(data.name);
@@ -124,27 +133,35 @@
                 location.href='/adm/biology';
             });
             $('#ensure').click(function(){
-                var info={};
-                info.id=id;
-                info.name=$('#name').val();
-                if(!info.name){
-                    zdalert('系统提示','商品名称不能为空');
-                    return;
-                }
-                info.englishName=$('#englishName').val();
-                info.sort=$('#sort').val();
-                info.kind=$('#kind').val();
-                info.checkGene=$('#checkGene').val();
-                info.otherGene=$('#otherGene').val();
-                info.literature=$('#literature').val();
-                info.disease=$('#disease').val();
-                info.keyword=$('#keyword').val();
-                info.isUsual=$('#isUsual').val();
-                info.comment=$('#comment').val();
+                imgUpload($('form[name=uploadForm]')[0],'/api/file/upload','post',function(){},function(data,textStatus){
+                    var info={};
+                    info.literature=[];
+                    $.each(data.result,function(index,val){
+                        info.literature.push(val.fileId);
+                    });
 
-                ajaxAction("put",'/api/biology',info,false,function(data,textStatus){
-                    zdalert('系统提示','修改成功',function () {
-                        location.href='/adm/biology';
+                    info.id=id;
+                    info.name=$('#name').val();
+                    if(!info.name){
+                        zdalert('系统提示','商品名称不能为空');
+                        return;
+                    }
+                    info.englishName=$('#englishName').val();
+                    info.sort=$('#sort').val();
+                    info.kind=$('#kind').val();
+                    info.checkGene=$('#checkGene').val();
+                    info.otherGene=$('#otherGene').val();
+                    info.disease=$('#disease').val();
+                    info.keyword=$('#keyword').val();
+                    info.isUsual=$('#isUsual').val();
+                    info.comment=$('#comment').val();
+
+                    ajaxAction("put",'/api/biology',info,false,function(data,textStatus){
+                        zdalert('系统提示','修改成功',function () {
+
+                        });
+                    },function(errno,errmsg){
+                        zdalert('系统提示',errmsg);
                     });
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);

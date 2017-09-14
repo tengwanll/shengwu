@@ -41,7 +41,17 @@ function biologyList(){
                 ajaxAction("get",'/api/biology'+ passParam(info),"",true,function(data,textStatus){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
-                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.englishName+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.kind+'</td><td >'+value.checkGene+'</td><td>'+value.otherGene+'</td><td>'+value.literature+'</td><td>'+value.disease+'</td><td><a href="/adm/biology/'+value.id+'" class="infoColor">查看</a> <a href="/adm/biology/'+value.id+'/edit" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="deleteCarGoods('+value.id+')">删除</a></td>';
+                        var literature='';
+                        $.each(value.literature,function (ind,val) {
+                            if(val){
+                                if(ind){
+                                    literature+=' , <a href="'+val.url+'">'+val.name+'</a> ';
+                                }else{
+                                    literature+='<a href="'+val.url+'">'+val.name+'</a> ';
+                                }
+                            }
+                        });
+                        htmlTab+='<tr><td>'+value.id+'</td><td>'+value.englishName+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.kind+'</td><td >'+value.checkGene+'</td><td>'+value.otherGene+'</td><td>'+literature+'</td><td>'+value.disease+'</td><td><a href="/adm/biology/'+value.id+'" class="infoColor">查看</a> <a href="/adm/biology/'+value.id+'/edit" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="deleteCarGoods('+value.id+')">删除</a></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){

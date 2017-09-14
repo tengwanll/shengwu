@@ -31,7 +31,8 @@ class BiologyController extends BaseController
     public function getList(Request $request){
         $pageable=$this->getPage($request);
         $name=$request->get('name','');
-        $rr=$this->get('biology_service')->getList($name,$pageable);
+        $englishName=$request->get('englishName','');
+        $rr=$this->get('biology_service')->getList($name,$englishName,$pageable);
         return $this->buildResponse($rr);
     }
 

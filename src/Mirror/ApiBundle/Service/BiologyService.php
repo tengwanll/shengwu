@@ -25,16 +25,19 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class BiologyService
 {
     private $biologyModel;
+    private $fileService;
     /**
      * @InjectParams({
      *     "biologyModel"=@Inject("biology_model")
      * })
      * @param BiologyModel $biologyModel
+     * @param FileService $fileService
      * BiologyService constructor.
      */
-    public function __construct(BiologyModel $biologyModel)
+    public function __construct(BiologyModel $biologyModel,FileService $fileService)
     {
         $this->biologyModel=$biologyModel;
+        $this->fileService=$fileService;
     }
 
     /**
@@ -62,7 +65,6 @@ class BiologyService
             $kind=$objWorksheet->getCellByColumnAndRow(3, $row)->getValue();
             $checkGene=$objWorksheet->getCellByColumnAndRow(4, $row)->getValue();
             $otherGene=$objWorksheet->getCellByColumnAndRow(5, $row)->getValue();
-            $literature=$objWorksheet->getCellByColumnAndRow(6, $row)->getValue();
             $disease=$objWorksheet->getCellByColumnAndRow(7, $row)->getValue();
             $keyword=$objWorksheet->getCellByColumnAndRow(8, $row)->getValue();
             $isUsual=$objWorksheet->getCellByColumnAndRow(9, $row)->getValue();
@@ -74,7 +76,7 @@ class BiologyService
                 'kind'=>$kind,
                 'checkGene'=>$checkGene,
                 'otherGene'=>$otherGene,
-                'literature'=>$literature,
+                'literature'=>'',
                 'disease'=>$disease,
                 'keyword'=>$keyword,
                 'isUsual'=>$isUsual,
@@ -88,18 +90,28 @@ class BiologyService
     /**
      * @param $name
      * @param $pageable
+     * @param $englishName
      * @return ReturnResult
      */
-    public function getList($name,$pageable){
+    public function getList($name,$englishName,$pageable){
         $rr=new ReturnResult();
         $arguments=array('status'=>1);
         if($name){
             $arguments['like']=array('name'=>'%'.$name.'%');
         }
+        if($englishName){
+            $arguments['like']=array('englishName'=>'%'.$englishName.'%');
+        }
         $list=$this->biologyModel->getByParams($arguments,$pageable);
         $arr=array();
         foreach($list->getIterator() as $biology){
             /**@var $biology \Mirror\ApiBundle\Entity\Biology*/
+            $literatureIds=explode(',',$biology->getLiterature());
+            $literatureArr=array();
+            foreach ($literatureIds as $literatureId){
+                $literatureArr[]=$this->fileService->getUrlAndName($literatureId);
+
+            }
             $arr[]=array(
                 'id'=>$biology->getId(),
                 'name'=>$biology->getName(),
@@ -108,8 +120,8 @@ class BiologyService
                 'kind'=>$biology->getKind()?$biology->getKind():'',
                 'checkGene'=>$biology->getCheckGene()?$biology->getCheckGene():'',
                 'otherGene'=>$biology->getOtherGene()?$biology->getOtherGene():'',
-                'literature'=>$biology->getLiterature()?$biology->getLiterature():'',
-                'disease'=>$biology->getDisease()?$biology->getDisease():''
+                'literature'=>$literatureArr,
+                'disease'=>$biology->getDisease()?$biology->getDisease():'',
             );
         }
         $rr->result=array(
@@ -178,7 +190,7 @@ class BiologyService
         $biologyData->setSort($biology->getSort());
         $biologyData->setKind($biology->getKind());
         $biologyData->setCheckGene($biology->getCheckGene());
-        $biologyData->setLiterature($biology->getLiterature());
+        $biologyData->setLiterature(implode(',',$biology->getLiterature()));
         $biologyData->setDisease($biology->getDisease());
         $biologyData->setIsUsual($biology->getIsUsual());
         $biologyData->setComment($biology->getComment());

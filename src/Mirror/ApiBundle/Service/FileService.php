@@ -125,6 +125,25 @@ class FileService {
         return $downLoadBaseUrl.$file->getUrl();
     }
 
+    /**
+     * @param $id
+     * @return array|string
+     */
+    public function getUrlAndName($id){
+        if (!$id) {
+            return '';
+        }
+
+        $file = $this->fileModel->getById($id);
+        if (!$file) {
+            return '';
+        }
+        $downLoadBaseUrl = $this->systemSettingModel->getDownLoadBaseUrl();
+        $name=$file->getFileName();
+        $names=explode('.',$name);
+        return array('url'=>$downLoadBaseUrl.$file->getUrl(),'name'=>$names[0]);
+    }
+
     function getExtension($file) {
         return substr(strrchr($file, '.'), 1);
     }
