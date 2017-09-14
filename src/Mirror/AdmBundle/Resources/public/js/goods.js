@@ -1,28 +1,5 @@
 $(function(){
-    $('.for_search').keydown(function (event) {
-        if (event.keyCode == 13) {
-            var info={};
-            info.name=$('#name').val();
-            info.sort=$('#sort').val();
-            info.goodNumber=$('#goodNumber').val();
-            info.attr=$('#attrName').val();
-            goodsList(info);
-        }
-    });
 
-    $('#search').click(function(){
-        var info={};
-        info.name=$('#name').val();
-        info.sort=$('#sort').val();
-        info.goodNumber=$('#goodNumber').val();
-        info.attr=$('#attrName').val();
-        goodsList(info);
-        return false;
-    });
-
-    $('button[type=reset]').click(function(){
-        goodsList();
-    });
 
     ajaxAction("get",'/api/sort',"",false,function(data,textStatus){
 
@@ -31,7 +8,7 @@ $(function(){
     });
 });
 
-function goodsList(object){
+function goodsList(role,object){
     var info={rows:10,page:1};
     if(object != undefined){
         info=$.extend(info,object);
@@ -57,13 +34,17 @@ function goodsList(object){
                 ajaxAction("get",'/api/goods'+ passParam(info),"",true,function(data,textStatus){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
-                        var option;
+                        var option='';
+                        var select='';
                         if(value.status==1){
                             option='<option value="1" selected>上架</option><option value="0">下架</option>';
                         }else{
                             option='<option value="1">上架</option><option value="0" selected>下架</option>';
                         }
-                        htmlTab+='<tr><td>'+value.goodsNumber+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.unit+'</td><td>'+value.price+'</td><td>'+value.standard+'</td><td>'+value.vender+'</td><td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.image+'" onclick="zdphoto(\'图片显示\',\''+value.image+'\')"></td><td>'+value.attr+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a><select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select></td>';
+                        if(role>1){
+                            select='<select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select>';
+                        }
+                        htmlTab+='<tr><td>'+value.goodsNumber+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.unit+'</td><td>'+value.price+'</td><td>'+value.standard+'</td><td>'+value.vender+'</td><td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.image+'" onclick="zdphoto(\'图片显示\',\''+value.image+'\')"></td><td>'+value.attr+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a>'+select+'</td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
