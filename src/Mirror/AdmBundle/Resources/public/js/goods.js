@@ -94,7 +94,7 @@ function changeStatus(obj,id) {
     info.status=$(obj).val();
     info.goodsId=id;
     ajaxAction("put","/api/goods/manage",info,true,function(data,textStatus){
-        zdalert('系统提示','修改成功');
+        
     },function(errno,errmsg){
         $(obj).val(0);
         zdalert('系统提示',errmsg);
