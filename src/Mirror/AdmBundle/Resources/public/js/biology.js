@@ -77,7 +77,17 @@ function deleteCarGoods(id) {
 
 function biologyInfo(biologyId){
     ajaxAction("get","/api/biology/"+biologyId,"",false,function(data,textStatus){
-        var infoHtml='<dl><dt>中文名称：</dt><dd>'+ data.name +'</dd><dt>拉丁名称：</dt><dd>'+data.englishName+'</dd><dt>微生物类别：</dt><dd>'+data.sort+'</dd><dt>菌种种类：</dt><dd>'+data.kind+'</dd><dt>检测基金：</dt><dd>'+data.checkGene+'</dd><dt>毒力基因：</dt><dd>'+data.otherGene+'</dd><dt>文献：</dt><dd>'+data.literature+'</dd><dt>引发病症：</dt><dd>'+data.disease+'</dd><dt>关键字：</dt><dd>'+data.keyword+'</dd><dt>是否常见：</dt><dd>'+data.isUsual+'</dd><dt>备注：</dt><dd>'+data.comment+'</dd></dl>';
+        var literature='';
+        $.each(data.literature,function (ind,val) {
+            if(val){
+                if(ind){
+                    literature+=' , <a href="'+val.url+'">'+val.name+'</a> ';
+                }else{
+                    literature+='<a href="'+val.url+'">'+val.name+'</a> ';
+                }
+            }
+        });
+        var infoHtml='<dl><dt>中文名称：</dt><dd>'+ data.name +'</dd><dt>拉丁名称：</dt><dd>'+data.englishName+'</dd><dt>微生物类别：</dt><dd>'+data.sort+'</dd><dt>菌种种类：</dt><dd>'+data.kind+'</dd><dt>检测基金：</dt><dd>'+data.checkGene+'</dd><dt>毒力基因：</dt><dd>'+data.otherGene+'</dd><dt>文献：</dt><dd>'+literature+'</dd><dt>引发病症：</dt><dd>'+data.disease+'</dd><dt>关键字：</dt><dd>'+data.keyword+'</dd><dt>是否常见：</dt><dd>'+data.isUsual+'</dd><dt>备注：</dt><dd>'+data.comment+'</dd></dl>';
         $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
         zdalert('系统提示',errmsg);

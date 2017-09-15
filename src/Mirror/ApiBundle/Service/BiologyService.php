@@ -157,6 +157,12 @@ class BiologyService
             $rr->errno=Code::$biology_not_exist;
             return $rr;
         }
+        $literatureIds=explode(',',$biology->getLiterature());
+        $literatureArr=array();
+        foreach ($literatureIds as $literatureId){
+            $literatureArr[]=$this->fileService->getUrlAndName($literatureId);
+
+        }
         /**@var $biology \Mirror\ApiBundle\Entity\Biology*/
         $arr=array(
             'id'=>$biology->getId(),
@@ -166,7 +172,7 @@ class BiologyService
             'kind'=>$biology->getKind()?$biology->getKind():'',
             'checkGene'=>$biology->getCheckGene()?$biology->getCheckGene():'',
             'otherGene'=>$biology->getOtherGene()?$biology->getOtherGene():'',
-            'literature'=>$biology->getLiterature()?$biology->getLiterature():'',
+            'literature'=>$literatureArr,
             'disease'=>$biology->getDisease()?$biology->getDisease():'',
             'keyword'=>$biology->getKeyword()?$biology->getKeyword():'',
             'isUsual'=>$biology->getIsUsual()?$biology->getIsUsual():'',
