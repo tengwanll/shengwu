@@ -69,7 +69,7 @@
                 pubImgUpload($('form[name=uploadForm]')[0],$('#imageValue'));
             });
             $('#cancel').click(function () {
-                location.href='/adm/sort';
+                location.href='/adm/sort?sortId='+{{ sortId }};
             });
             $('#ensure').click(function(){
                 var info={};
