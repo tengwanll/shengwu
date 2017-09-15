@@ -23,6 +23,9 @@ body {
 ol, ul {
     list-style: none;
 }
+input[type="checkbox"] {
+    zoom:150%
+}
 blockquote, q {
     quotes: none;
 }
