@@ -212,7 +212,7 @@ class GoodsService
 
     public function update(Goods $goods,$conn,$id){
         $rr=new ReturnResult();
-        $exist=$this->goodsModel->getOneByCriteria(array('goodsNumber'=>$goods->getGoodsNumber(),'status'=>Constant::$status_normal));
+        $exist=$this->goodsModel->getByPages(array('goodsNumber'=>$goods->getGoodsNumber(),'status'=>Constant::$status_normal,'<>'=>array('id'=>$id)));
         if($exist){
             $rr->errno=Code::$goods_had_exist;
             return $rr;
