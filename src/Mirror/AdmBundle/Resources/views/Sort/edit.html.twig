@@ -97,8 +97,11 @@
                     return;
                 }
                 ajaxAction("put",'/api/sort',info,false,function(data,textStatus){
-                    zdalert('系统提示','修改成功');
-                   location.href='/adm/sort?sortId='+{{ sortId }};
+                    zdalert('系统提示','修改成功',function($r){
+                        if($r){
+                            location.href='/adm/sort?sortId='+{{ sortId }};
+                        }
+                    });
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);
                 });
