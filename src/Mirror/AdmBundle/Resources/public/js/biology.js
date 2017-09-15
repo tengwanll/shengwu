@@ -20,6 +20,7 @@ $(function(){
 function biologyList(){
     var info={rows:10,page:1};
     info.name=$('#name').val();
+    info.englishName=$('#englishName').val();
     ajaxAction("get",'/api/biology'+ passParam(info),"",true,function(data,textStatus){
         $('#countNumber').html(data.total);
         var count=Math.ceil(data.total/10);

@@ -71,13 +71,6 @@ class Biology
     private $literature;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="literature_file", type="integer", nullable=true)
-     */
-    private $literatureFile;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="disease", type="text", length=65535, nullable=true)
@@ -304,30 +297,6 @@ class Biology
     public function getLiterature()
     {
         return $this->literature;
-    }
-
-    /**
-     * Set literatureFile
-     *
-     * @param integer $literatureFile
-     *
-     * @return Biology
-     */
-    public function setLiteratureFile($literatureFile)
-    {
-        $this->literatureFile = $literatureFile;
-
-        return $this;
-    }
-
-    /**
-     * Get literatureFile
-     *
-     * @return integer
-     */
-    public function getLiteratureFile()
-    {
-        return $this->literatureFile;
     }
 
     /**
