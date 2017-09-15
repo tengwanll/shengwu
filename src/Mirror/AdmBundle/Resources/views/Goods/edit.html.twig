@@ -101,6 +101,7 @@
         $(function(){
             adminTabNav($('.adminLeftNav .goods'));
             var id={{ id }};
+            var page={{ page }};
             ajaxAction("get",'/api/goods/'+id,"",false,function(data,textStatus){
                 $('#name').val(data.name);
                 $('#sort').val(data.sort);
@@ -247,7 +248,11 @@
                 info.image=$('#imageValue').val();
 
                 ajaxAction("put",'/api/goods',info,false,function(data,textStatus){
-                    zdalert('系统提示','修改成功');
+                    zdalert('系统提示','修改成功',function ($r) {
+                        if($r){
+                            location.href="/adm/goods?page="+page;
+                        }
+                    });
 
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);

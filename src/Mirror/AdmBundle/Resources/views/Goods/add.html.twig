@@ -102,6 +102,7 @@
             adminTabNav($('.adminLeftNav .goods'));
             var option='';
             var attr;
+            var page={{ page }};
             ajaxAction("get",'/api/sort/leaf',"",false,function(data,textStatus){
                 attr=data.attr;
                 $.each(data.list,function(index,v){
@@ -226,7 +227,7 @@
                 ajaxAction("post",'/api/goods',info,false,function(data,textStatus){
                     zdalert('系统提示','添加成功',function($r) {
                         if ($r) {
-                            location.href = '/adm/goods/add';
+                            location.href = '/adm/goods?page='+page;
                         }
                     });
                 },function(errno,errmsg){

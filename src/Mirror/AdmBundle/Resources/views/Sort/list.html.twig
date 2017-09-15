@@ -26,8 +26,9 @@
 {% block otherJs %}
     <script>
         $(function(){
+            var sortId={{ sortId }};
             adminTabNav($('.adminLeftNav .sort'));
-            sortList();
+            sortList(sortId);
         });
     </script>
 

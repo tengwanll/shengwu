@@ -11,6 +11,7 @@ namespace Mirror\AdmBundle\Controller;
 use Mirror\ApiBundle\Annotation\OAuth;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("/sort")
@@ -25,8 +26,9 @@ class SortController extends BaseController
      * @Template()
      * @return array
      */
-    public function listAction(){
-        return array();
+    public function listAction(Request $request){
+        $sortId=$request->get('sortId',1);
+        return array('sortId'=>$sortId);
     }
 
     /**
@@ -41,24 +43,24 @@ class SortController extends BaseController
 
     /**
      * @OAuth()
-     * @Route("/{id}/add/{name}",requirements={"id":"\d+"})
+     * @Route("/{id}/add/{sortId}",requirements={"id":"\d+"})
      * @Template()
      * @param $id
      * @param $name
      * @return array
      */
-    public function addAction($id,$name){
-        return array('id'=>$id,'name'=>$name);
+    public function addAction($id,$sortId){
+        return array('id'=>$id,'sortId'=>$sortId);
     }
 
     /**
      * @OAuth()
-     * @Route("/{id}/edit",requirements={"id":"\d+"})
+     * @Route("/{id}/edit/{sortId}",requirements={"id":"\d+"})
      * @Template()
      * @param $id
      * @return array
      */
-    public function editAction($id){
-        return array('id'=>$id);
+    public function editAction($id,$sortId){
+        return array('id'=>$id,'sortId'=>$sortId);
     }
 }

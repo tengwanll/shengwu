@@ -61,6 +61,7 @@
         $(function(){
             adminTabNav($('.adminLeftNav .sort'));
             var id={{ id }};
+            var sortId={{ sortId }};
             ajaxAction("get", '/api/sort/'+id, '', true, function (data, textStatus) {
                 $('#sortParent').val(data.parentName);
                 $('#sortName').val(data.name);
@@ -97,13 +98,13 @@
                 }
                 ajaxAction("put",'/api/sort',info,false,function(data,textStatus){
                     zdalert('系统提示','修改成功');
-//                   location.href='/adm/sort';
+                   location.href='/adm/sort?sortId='+{{ sortId }};
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);
                 });
             });
             $('#cancel').click(function () {
-                location.href='/adm/sort';
+                location.href='/adm/sort?sortId='+{{ sortId }};
             });
         });
         function addInput(obj) {

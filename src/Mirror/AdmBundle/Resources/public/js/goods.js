@@ -8,9 +8,9 @@ $(function(){
     });
 });
 
-function goodsList(role,object){
+function goodsList(role,nowPage,object){
     var info={rows:10,page:1};
-    if(object != undefined){
+    if(object&&object != undefined){
         info=$.extend(info,object);
     }
     ajaxAction("get",'/api/goods'+ passParam(info),"",false,function(data,textStatus){
@@ -24,13 +24,16 @@ function goodsList(role,object){
         $.jqPaginator('#pagination', {
             totalPages: count,
             visiblePages: 6,
-            currentPage: 1,
+            currentPage: nowPage,
             activeClass: 'on',
             prev: '<span class="prev_page">上一页</span>',
             next: '<span class="next_page">下一页</span>',
             page: '<li>{{page}}</li>',
             onPageChange: function (num, type) {
-                info.page=num;
+                    info.page=num;
+                    $('#add').unbind().click(function () {
+                        location.href='/adm/goods/add?page='+info.page;
+                    });
                 ajaxAction("get",'/api/goods'+ passParam(info),"",true,function(data,textStatus){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
@@ -44,7 +47,7 @@ function goodsList(role,object){
                         if(role>1){
                             select='<select name="" id="changeStatus" onchange="changeStatus(this,'+value.id+')">'+option+'</select>';
                         }
-                        htmlTab+='<tr><td>'+value.goodsNumber+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.unit+'</td><td>'+value.price+'</td><td>'+value.standard+'</td><td>'+value.vender+'</td><td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.image+'" onclick="zdphoto(\'图片显示\',\''+value.image+'\')"></td><td>'+value.attr+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a>'+select+'</td>';
+                        htmlTab+='<tr><td>'+value.goodsNumber+'</td><td>'+value.name+'</td><td>'+value.sort+'</td><td>'+value.unit+'</td><td>'+value.price+'</td><td>'+value.standard+'</td><td>'+value.vender+'</td><td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.image+'" onclick="zdphoto(\'图片显示\',\''+value.image+'\')"></td><td>'+value.attr+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <a href="/adm/goods/edit/'+value.id+'/'+info.page+'" class="infoColor">修改</a> <a href="javascript:void(0)" class="infoColor" onclick="addToCar(this,'+value.id+')">加入购物车</a>'+select+'</td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -94,7 +97,7 @@ function changeStatus(obj,id) {
     info.status=$(obj).val();
     info.goodsId=id;
     ajaxAction("put","/api/goods/manage",info,true,function(data,textStatus){
-        
+
     },function(errno,errmsg){
         $(obj).val(0);
         zdalert('系统提示',errmsg);

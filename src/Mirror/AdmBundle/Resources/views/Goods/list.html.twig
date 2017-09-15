@@ -85,9 +85,8 @@
         $(function(){
             adminTabNav($('.adminLeftNav .goods'));
             var role={{ role }};
-            $('#add').unbind().click(function () {
-                location.href='/adm/goods/add';
-            });
+            var page={{ page }};
+
             $('.for_search').keydown(function (event) {
                 if (event.keyCode == 13) {
                     var info={};
@@ -95,7 +94,7 @@
                     info.sort=$('#sort').val();
                     info.goodNumber=$('#goodNumber').val();
                     info.attr=$('#attrName').val();
-                    goodsList(role,info);
+                    goodsList(role,page,info);
                 }
             });
 
@@ -105,14 +104,14 @@
                 info.sort=$('#sort').val();
                 info.goodNumber=$('#goodNumber').val();
                 info.attr=$('#attrName').val();
-                goodsList(role,info);
+                goodsList(role,page,info);
                 return false;
             });
 
             $('button[type=reset]').click(function(){
-                goodsList(role);
+                goodsList(role,page);
             });
-            goodsList(role);
+            goodsList(role,page);
         });
     </script>
 

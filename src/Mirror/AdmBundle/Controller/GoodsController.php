@@ -24,7 +24,8 @@ class GoodsController extends Controller
     public function listAction(Request $request)
     {
         $role=$request->getSession()->get('role',1);
-        return array('role'=>$role);
+        $page=$request->get('page',1);
+        return array('role'=>$role,'page'=>$page);
     }
 
     /**
@@ -43,17 +44,18 @@ class GoodsController extends Controller
      * @Template
      * @return array
      */
-    public function addAction(){
-        return array();
+    public function addAction(Request $request){
+        $page=$request->get('page',1);
+        return array('page'=>$page);
     }
 
     /**
      * @OAuth()
-     * @Route("/edit/{id}",requirements={"id":"\d+"})
+     * @Route("/edit/{id}/{page}",requirements={"id":"\d+"})
      * @Template
      * @return array
      */
-    public function editAction($id){
-        return array('id'=>$id);
+    public function editAction($id,$page){
+        return array('id'=>$id,'page'=>$page);
     }
 }

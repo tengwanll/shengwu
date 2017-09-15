@@ -74,7 +74,6 @@
             $('#ensure').click(function(){
                 var info={};
                 info.parentId={{ id }};
-                parentName='{{ name }}';
                 info.name=$('#sortName').val();
                 info.image=$('#imageValue').val();
                 info.attr=[];
@@ -90,7 +89,7 @@
                 ajaxAction("post",'/api/sort',info,false,function(data,textStatus){
                     zdalert('系统提示','添加成功',function($r){
                         if($r){
-                            location.href='/adm/sort/'+info.parentId+'/add/'+parentName;
+                            location.href='/adm/sort?sortId='+{{ sortId }};
                         }
                     });
                 },function(errno,errmsg){
