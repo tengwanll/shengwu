@@ -22,7 +22,7 @@ function sortList(sortId){
             if(value.count>0){
                 child='onclick="sortList('+value.id+')';
             }
-            html+='<tr style="cursor: pointer" '+child+'"><td>'+value.id+'</td><td>'+value.name+'</td><td><img src="'+value.image+'" width="60px" height="60px"></td><td>'+value.count+'</td><td>'+value.level+'</td><td><a href="/adm/sort/'+value.id+'" class="infoColor">查看 </a><a href="/adm/sort/'+value.id+'/add/'+sortId+'" class="infoColor"> 添加 </a><a href="/adm/sort/'+value.id+'/edit/'+sortId+'" class="infoColor"> 修改 </a><a href="javascript:void(0)" class="infoColor" onclick="delSort('+value.id+')"> 删除</a></td>';
+            html+='<tr style="cursor: pointer" '+child+'"><td>'+value.id+'</td><td>'+value.name+'</td><td><img src="'+value.image+'" width="60px" height="60px"></td><td>'+value.count+'</td><td>'+value.level+'</td><td><a href="/adm/sort/'+value.id+'" class="infoColor">查看 </a><a href="javascript:void(0)" onclick="addSort('+value.id+','+sortId+',event)" class="infoColor"> 添加 </a><a href="javascript:void(0)" onclick="editSort('+value.id+','+sortId+',event)" class="infoColor"> 修改 </a><a href="javascript:void(0)" class="infoColor" onclick="delSort('+value.id+',event)"> 删除</a></td>';
         });
         $('tbody').html(html);
     },function(errno,errmsg){
@@ -30,7 +30,18 @@ function sortList(sortId){
     });
 }
 
+function editSort(id,sortId,event) {
+    event.stopPropagation();
+    location.href='/adm/sort/'+id+'/edit/'+sortId;
+}
+
+function addSort(id,sortId,event) {
+    event.stopPropagation();
+    location.href='/adm/sort/'+id+'/add/'+sortId;
+}
+
 function delSort(id) {
+    event.stopPropagation();
     var info={};
     info.sortId=id;
     ajaxAction("delete",'/api/sort',info,false,function(data,textStatus){
