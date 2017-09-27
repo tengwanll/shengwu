@@ -36,7 +36,7 @@ class SwooleService
     }
 
     public function _prepare(){
-        $this->_serv=new \Swoole_Server('120.27.5.26',9503);
+        $this->_serv=new \Swoole\Server('120.27.5.26',9503);
         $this->_serv->set([
             'worker_num' => 1,
             'daemonize'=>false,
