@@ -10,6 +10,8 @@ namespace Mirror\ApiBundle\Service;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Mirror\ApiBundle\Model\GoodsModel;
+use JMS\DiExtraBundle\Annotation\Inject;
+use JMS\DiExtraBundle\Annotation\InjectParams;
 
 /**
  * @DI\Service("swoole_service")
@@ -20,6 +22,14 @@ class SwooleService
 {
     private $_serv;
     public $goodsModel;
+
+    /**
+     * @InjectParams({
+     *      "goodsModel"=@Inject("goods_model")
+     * })
+     * SwooleService constructor.
+     * @param GoodsModel $goodsModel
+     */
     public function __construct(GoodsModel $goodsModel)
     {
        $this->goodsModel=$goodsModel;
