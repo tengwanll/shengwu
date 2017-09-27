@@ -32,10 +32,7 @@ class SwooleService
      */
     public function __construct(GoodsModel $goodsModel)
     {
-       $this->goodsModel=$goodsModel;
-    }
-
-    public function _prepare(){
+        $this->goodsModel=$goodsModel;
         $this->_serv=new \Swoole\Server('120.27.5.26',9503);
         $this->_serv->set([
             'worker_num' => 1,
