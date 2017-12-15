@@ -286,6 +286,20 @@ textarea.rejectReasonContent {
     border-left: 5px solid #ff5a00;
     background-image:url("../images/operation_ico_on.png");
 }
+.hpv{background-image:url("../images/hpv.png");}
+.hpv.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/hpv_on.png");
+}
+.face{background-image:url("../images/face.png");}
+.face.on{
+    background-color: #f8f3f0;
+    color: #ff5a00;
+    border-left: 5px solid #ff5a00;
+    background-image:url("../images/face_on.png");
+}
 .typeTabTit {
     margin-left: 30px;
     margin-bottom: 10px;
