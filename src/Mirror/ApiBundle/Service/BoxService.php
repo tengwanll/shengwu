@@ -12,7 +12,6 @@ namespace Mirror\ApiBundle\Service;
 use JMS\DiExtraBundle\Annotation as DI;
 use Mirror\ApiBundle\Common\Code;
 use Mirror\ApiBundle\Model\BoxModel;
-use Mirror\ApiBundle\Util\AESMcrypt;
 use Mirror\ApiBundle\Util\Helper;
 use Mirror\ApiBundle\ViewModel\ReturnResult;
 use JMS\DiExtraBundle\Annotation\Inject;
@@ -83,8 +82,7 @@ class BoxService
         for($i=0;$i<$num;$i++){
             $start++;
             $uniqueId=sprintf('%09s', $start);
-            $AES = new AESMcrypt('128', $key = 'WbdxyuUM8aiSDnU7', $iv = ' ', 'ecb');
-            $url=Helper::createQrCode('http://weixin.amogene.com/web/face/'.$AES->encrypt($uniqueId),$uniqueId);
+            $url=Helper::createQrCode('http://weixin.amogene.com/web/face/'.base64_encode($uniqueId),$uniqueId);
             if($i){
                 $string.=",('$uniqueId','$url','',1,'$date','$date')";
             }else{
