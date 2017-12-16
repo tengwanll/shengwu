@@ -78,7 +78,7 @@ class BoxService
         $rr=new ReturnResult();
         $string='';
         $date=date('Y-m-d H:i:s');
-        $start=Helper::getNumByFile();
+        $start=(int)Helper::getNumByFile();
         for($i=0;$i<$num;$i++){
             $start++;
             $uniqueId=sprintf('%09s', $start);
