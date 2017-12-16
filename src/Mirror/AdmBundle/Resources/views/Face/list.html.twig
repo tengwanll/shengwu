@@ -94,8 +94,8 @@
 
             $('#add').click(function(){
                 var num=parseInt($('#addNumber').val());
-                if(num==0){
-                    zdalert('系统提示','值不能为0');
+                if(num==0||isNaN(num)){
+                    zdalert('系统提示','值不能为0或空');
                     return;
                 }
                 if(num>500){
