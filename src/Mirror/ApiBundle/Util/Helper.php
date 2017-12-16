@@ -242,7 +242,7 @@ class Helper {
         \QRcode::png($code_url, 'qrcode.png', $errorCorrectionLevel, $matrixPointSize, 2);
         $QR = 'qrcode.png';
         $QR = imagecreatefromstring(file_get_contents($QR)); //这个不能缺少
-        $imgName = './upload/qrcode/'.date('Ymd').'_'.$boxNo.'.png';
+        $imgName = './upload/qrcode/'.$boxNo.'.png';
         imagepng($QR,$imgName);
         $serverName = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'weixin.amogene.com';
         return  'http://'.$serverName.'/'.$imgName;
