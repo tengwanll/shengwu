@@ -43,4 +43,5 @@ class Code {
     public static $file_standard_null=20126;
     public static $file_vender_null=20127;
     public static $biology_not_exist=20128;
+    public static $box_add_fail=20129;
 }

@@ -1,0 +1,112 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('/bundles/mirroradm/js/face.js') }}"></script>
+{% endblock %}
+{% block typeForm %}
+        <div class="form-group col-md-8">
+            <!-- /.row -->
+            <div class="row margin_top">
+                <label for="uniqueId" class="col-md-1 control-label" style="width: 10%">盒子号：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control for_search" id="uniqueId">
+                </div>
+            </div>
+
+            <div class="row margin_top">
+                <label for="addNumber" class="col-md-1 control-label" style="width: 10%">添加数量：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control" id="addNumber" onkeypress="return event.keyCode>=48&&event.keyCode<=57" onkeyup="value=value.replace(/[^\d]/g,'') ">
+                </div>
+                <button class="btn btn-default resetButton" id="add">+添加</button>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9">
+                    <button type="reset" class="btn btn-default resetButton">重置</button>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9 margin_top">
+                    <button id="search" class="btn btn-default resetButton">搜索</button>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+{% endblock %}
+{% block thead %}
+    <tr class="tableTit">
+        <td>盒子号</td>
+        <td>二维码</td>
+        <td>报表</td>
+        <td>状态</td>
+        <td>生成时间</td>
+        <td colspan="3" width="18%">操作</td>
+    </tr>
+{% endblock %}
+ {% block tbody %}
+     {#表格内容区#}
+ {% endblock %}
+ {% block page %}
+     <div class="row">
+         <div class="col-md-11 col-md-offset-1">
+             <p class="listInfo">显示第 1-10项结果，共<span id="countNumber">0</span> 项</p>
+         </div>
+         <!-- /.col-md-5 col-md-offset-1 -->
+         <div class="col-md-6 col-md-offset-3 text-center">
+             <div class="page_list">
+                 <ul id="pagination">
+                     <span class="prev_page">上一页</span><li class="on">1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><span class="next_page">下一页</span>
+                 </ul>
+             </div>
+         </div>
+         <!-- /.col-md-6 col-md-offset-3 -->
+     </div>
+     <!-- /.row -->
+ {% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .face'));
+            var page={{ page }};
+
+            $('.for_search').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    var info={};
+                    info.uniqueId=$('#uniqueId').val();
+                    goodsList(page,info);
+                }
+            });
+
+            $('#search').click(function(){
+                var info={};
+                info.uniqueId=$('#uniqueId').val();
+                goodsList(page,info);
+                return false;
+            });
+
+            $('button[type=reset]').click(function(){
+                goodsList(page);
+            });
+            goodsList(page);
+
+            $('#add').click(function(){
+                var num=parseInt($('#addNumber').val());
+                if(num==0){
+                    zdalert('系统提示','值不能为0');
+                    return;
+                }
+                if(num>500){
+                    zdalert('系统提示','每次最多生成500条,请分批生成');
+                    return;
+                }
+                var info={};
+                info.num=num;
+                add(info);
+            });
+        });
+    </script>
+
+{% endblock %}

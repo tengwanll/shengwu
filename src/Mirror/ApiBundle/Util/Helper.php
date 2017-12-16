@@ -226,4 +226,50 @@ class Helper {
         }
         return false;
     }
+
+    /**
+     * 生成二维码
+     * @param $code_url
+     * @param $boxNo
+     * @return string
+     */
+    public static function createQrCode($code_url,$boxNo){
+        include_once self::getConfigPath().'phpqrcode.php';
+        /* 生成二维码图片  */
+        $errorCorrectionLevel = 'L';//容错级别
+        $matrixPointSize = 9;//生成图片大小
+        //生成二维码图片
+        \QRcode::png($code_url, 'qrcode.png', $errorCorrectionLevel, $matrixPointSize, 2);
+        $QR = 'qrcode.png';
+        $QR = imagecreatefromstring(file_get_contents($QR)); //这个不能缺少
+        $imgName = './upload/qrcode/'.date('Ymd').'_'.$boxNo.'.png';
+        imagepng($QR,$imgName);
+        $serverName = isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'weixin.amogene.com';
+        return  'http://'.$serverName.'/'.$imgName;
+    }
+
+    /**
+     * 获取当前路径
+     * @return string
+     */
+    public static function getConfigPath() {
+        $dir = __DIR__;
+        $os = php_uname('s');
+        $os = strtoupper($os);
+        $split = "/";
+        if (strpos($os, 'WINDOWS')) {
+            $split = "\\";
+        }
+        return $dir.$split;
+    }
+
+    public static function getNumByFile(){
+        $file=self::getConfigPath().'number';
+        return file_get_contents($file);
+    }
+
+    public static function setNumByFile($num){
+        $file=self::getConfigPath().'number';
+        file_put_contents($file,$num);
+    }
 }

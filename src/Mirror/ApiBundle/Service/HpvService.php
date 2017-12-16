@@ -26,7 +26,7 @@ class HpvService
 
     /**
      * @InjectParams({
-     *     "sortModel"=@Inject("sort_model")
+     *
      * })
      * HpvService constructor.
      * @param HpvModel $hpvModel

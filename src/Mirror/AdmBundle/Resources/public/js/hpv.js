@@ -44,7 +44,6 @@ function goodsList(nowPage,object){
                             isMarried='未设置';
                         }
                         htmlTab+='<tr><td>'+value.order_no+'</td><td>'+value.name+'</td><td>'+value.telephone+'</td><td>'+value.price+'</td><td>'+value.number+'</td><td>'+formatter(value.pay_time*1000,'YYYY MM DD')+'</td><td>'+value.user_name+'</td><td>'+value.user_age+'</td><td>'+isMarried+'</td><td>'+status+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> </td>';
-                        console.log(htmlTab);
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
