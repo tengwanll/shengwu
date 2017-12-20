@@ -11,6 +11,7 @@ namespace Mirror\ApiBundle\Service;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\Common\Constant;
 use Mirror\ApiBundle\Model\BoxModel;
 use Mirror\ApiBundle\Util\Helper;
 use Mirror\ApiBundle\ViewModel\ReturnResult;
@@ -127,13 +128,26 @@ class BoxService
             );
             $boxInfo=$this->boxModel->getBoxInfoDetail($box['unique_id'],$conn);
             if(isset($boxInfo[0])&&$boxInfo[0]){
+                if($boxInfo[0]['gender']){
+                    $gender='男性';
+                }else{
+                    $gender='女性';
+                }
+                $ability=json_decode($boxInfo[0]['ability'],true);
+                $abilityStr=array();
+                if($ability){
+                    $abilities=Constant::$abilities;
+                    foreach ($ability as $item){
+                        $abilityStr[]=$abilities[$item];
+                    }
+                }
                 $arr['boxInfo']=array(
                     'name'=>$boxInfo[0]['name'],
                     'age'=>$boxInfo[0]['age'],
-                    'gender'=>$boxInfo[0]['gender'],
+                    'gender'=>$gender,
                     'email'=>$boxInfo[0]['email'],
                     'telephone'=>$boxInfo[0]['telephone'],
-                    'ability'=>json_decode($boxInfo[0]['ability'])
+                    'ability'=>implode(',',$abilityStr)
                 );
             }
             $boxGene=$this->boxModel->getBoxGeneDetail($box['unique_id'],$conn);

@@ -61,4 +61,14 @@ class Constant {
 
     //20170516创建
     public static $download_server = 'DOWNLOAD_SERVER';
+
+    //美容
+    public static $abilities=array(
+        '1'=>'皮肤抗紫外线能力',
+        '2'=>'皮肤抗敏感能力',
+        '3'=>'皮肤抗氧化能力',
+        '4'=>'皮肤锁水能力',
+        '5'=>'皮肤色斑风险',
+        '6'=>'皮肤弹性'
+    );
 }
