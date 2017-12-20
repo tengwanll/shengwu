@@ -1,0 +1,39 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('/bundles/mirroradm/js/face.js') }}"></script>
+{% endblock %}
+{% block typeForm %}
+    <div class="addUser">
+        <div class="addUserTit">
+            <h3><span>盒子详情</span></h3>
+        </div>
+        <!-- /.addUserTit -->
+        <div class="infoUser">
+            <div class="infoUserTitle">
+                <ul>
+                    <li class="on">基本信息</li>
+                </ul>
+                <div class="cls"></div>
+            </div>
+            <div class="infoUserCon">
+                {#详情内容区域#}
+            </div>
+
+        </div>
+    </div>
+    <!-- /.addUser -->
+
+{% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .face'));
+            var boxId={{ id }};
+            boxInfo(boxId);
+
+        });
+
+            //用户详情
+    </script>
+
+{% endblock %}

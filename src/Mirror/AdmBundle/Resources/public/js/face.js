@@ -63,6 +63,14 @@ function add(info) {
     });
 }
 
+function boxInfo(id) {
+    ajaxAction("get","/api/box/"+id,'',true,function(data,textStatus){
+        
+    },function(errno,errmsg){
+        zdalert('系统提示',errmsg);
+    });
+}
+
 
 
 

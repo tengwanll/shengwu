@@ -47,4 +47,15 @@ class BoxController extends BaseController
         $rr=$this->get('box_service')->add($num,$conn);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Method("")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getInfo($id){
+        $conn=$this->get('database_connection');
+        $rr=$this->get('box_service')->getInfo($id,$conn);
+        return $this->buildResponse($rr);
+    }
 }

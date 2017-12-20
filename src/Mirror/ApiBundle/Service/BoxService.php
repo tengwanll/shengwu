@@ -101,4 +101,47 @@ class BoxService
         }
         return $rr;
     }
+
+    public function getInfo($id,$conn){
+        $rr=new ReturnResult();
+        $box=$this->boxModel->getBoxDetail($id,$conn);
+        $arr=array();
+        if(isset($box[0])&&$box[0]){
+            $status=$box[0]['status'];
+            if($status==1){
+                $status='盒子初始生成';
+            }elseif($status==2){
+                $status='用户已经填写';
+            }elseif($status==3){
+                $status='检测结果已出';
+            }else{
+                $status='报表已经上传';
+            }
+            $arr=array(
+                'uniqueId'=>$box[0]['unique_id'],
+                'codeUrl'=>$box[0]['code_url'],
+                'status'=>$status,
+                'createTime'=>$box[0]['create_time'],
+                'boxInfo'=>array(),
+                'boxGene'=>array()
+            );
+            $boxInfo=$this->boxModel->getBoxInfoDetail($box['unique_id'],$conn);
+            if(isset($boxInfo[0])&&$boxInfo[0]){
+                $arr['boxInfo']=array(
+                    'name'=>$boxInfo[0]['name'],
+                    'age'=>$boxInfo[0]['age'],
+                    'gender'=>$boxInfo[0]['gender'],
+                    'email'=>$boxInfo[0]['email'],
+                    'telephone'=>$boxInfo[0]['telephone'],
+                    'ability'=>json_decode($boxInfo[0]['ability'])
+                );
+            }
+            $boxGene=$this->boxModel->getBoxGeneDetail($box['unique_id'],$conn);
+            if(isset($boxGene[0])&&$boxGene[0]){
+                $arr['boxGene']=$boxGene[0];
+            }
+        }
+        $rr->result=$arr;
+        return $rr;
+    }
 }

@@ -34,4 +34,16 @@ class FaceController extends Controller
         $page=$request->get('page',1);
         return array('role'=>$role,'page'=>$page);
     }
+
+    /**
+     * @Template()
+     * @OAuth()
+     * @Route("/{id}/{page}",requirements={"id":"\d+","page":"\d+"})
+     * @param $page
+     * @param $id
+     * @return array
+     */
+    public function infoAction($id){
+        return array('id'=>$id);
+    }
 }

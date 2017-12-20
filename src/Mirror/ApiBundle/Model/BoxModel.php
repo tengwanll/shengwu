@@ -45,4 +45,19 @@ class BoxModel
         $sql=Helper::makeQueryString($sql,$where);
         return $conn->fetchAll($sql);
     }
+
+    public function getBoxDetail($id,$conn){
+        $sql="select * from weixin.box where id=$id ";
+        return $conn->fetchAll($sql);
+    }
+
+    public function getBoxInfoDetail($uniqueId,$conn){
+        $sql="select * from weixin.box_info where box_id=$uniqueId ";
+        return $conn->fetchAll($sql);
+    }
+
+    public function getBoxGeneDetail($uniqueId,$conn){
+        $sql="select * from weixin.box_gene where box_id=$uniqueId ";
+        return $conn->fetchAll($sql);
+    }
 }
