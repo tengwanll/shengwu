@@ -66,10 +66,10 @@ function add(info) {
 function boxInfo(id) {
     ajaxAction("get","/api/box/"+id,'',true,function(data,textStatus){
         var infoHtml='<dl><dt>盒子编号：</dt><dd>'+ data.uniqueId +'</dd><dt>二维码：</dt><dd><a href="javascript:void(0)"><img style="max-height: 100px;max-width: 100px" src="'+data.codeUrl+'" /></a></dd><dt>盒子状态：</dt><dd>'+data.status+'</dd><dt>创建时间：</dt><dd>'+data.createTime+'</dd>';
-        if(!isEmptyObject(data.boxInfo)){
+        if(typeof data.boxInfo=='object'){
             infoHtml+='<dt>用户姓名：</dt><dd>'+ data.boxInfo.name +'</dd><dt>年龄：</dt><dd>'+data.boxInfo.age+'</dd><dt>用户性别：</dt><dd>'+data.boxInfo.gender+'</dd><dt>用户email：</dt><dd>'+data.boxInfo.email+'</dd><dt>用户电话：</dt><dd>'+data.boxInfo.telephone+'</dd><dt>用户检查项：</dt><dd>'+data.boxInfo.ability+'</dd>';
         }
-        if(!isEmptyObject(data.boxGene)){
+        if(typeof data.boxInfo=='object'){
             $.each(data.boxGene,function(index,value){
                 infoHtml+='<dt>'+index+'：</dt><dd>'+value+'</dd>';
             });
