@@ -69,7 +69,7 @@ function boxInfo(id) {
         if(typeof(data.boxInfo)=='object'){
             infoHtml+='<dt>用户姓名：</dt><dd>'+ data.boxInfo.name +'</dd><dt>年龄：</dt><dd>'+data.boxInfo.age+'</dd><dt>用户性别：</dt><dd>'+data.boxInfo.gender+'</dd><dt>用户email：</dt><dd>'+data.boxInfo.email+'</dd><dt>用户电话：</dt><dd>'+data.boxInfo.telephone+'</dd><dt>用户检查项：</dt><dd>'+data.boxInfo.ability+'</dd>';
         }
-        if(typeof(data.boxInfo)=='object'){
+        if(typeof(data.boxGene)=='object'){
             $.each(data.boxGene,function(index,value){
                 infoHtml+='<dt>'+index+'：</dt><dd>'+value+'</dd>';
             });
