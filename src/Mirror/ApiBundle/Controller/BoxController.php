@@ -49,7 +49,8 @@ class BoxController extends BaseController
     }
 
     /**
-     * @Method("")
+     * @Route("/{id}",requirements={"id":"\d+"})
+     * @Method("Get")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
