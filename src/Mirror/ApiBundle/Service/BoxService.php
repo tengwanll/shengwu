@@ -126,7 +126,7 @@ class BoxService
                 'boxInfo'=>array(),
                 'boxGene'=>array()
             );
-            $boxInfo=$this->boxModel->getBoxInfoDetail($box['unique_id'],$conn);
+            $boxInfo=$this->boxModel->getBoxInfoDetail($box[0]['unique_id'],$conn);
             if(isset($boxInfo[0])&&$boxInfo[0]){
                 if($boxInfo[0]['gender']){
                     $gender='男性';
@@ -150,7 +150,7 @@ class BoxService
                     'ability'=>implode(',',$abilityStr)
                 );
             }
-            $boxGene=$this->boxModel->getBoxGeneDetail($box['unique_id'],$conn);
+            $boxGene=$this->boxModel->getBoxGeneDetail($box[0]['unique_id'],$conn);
             if(isset($boxGene[0])&&$boxGene[0]){
                 $arr['boxGene']=$boxGene[0];
             }
