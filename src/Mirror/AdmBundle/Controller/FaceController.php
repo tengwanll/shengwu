@@ -38,7 +38,7 @@ class FaceController extends Controller
     /**
      * @Template()
      * @OAuth()
-     * @Route("/{id}/{page}",requirements={"id":"\d+","page":"\d+"})
+     * @Route("/{id}",requirements={"id":"\d+"})
      * @param $page
      * @param $id
      * @return array
