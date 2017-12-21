@@ -64,7 +64,7 @@ function goodsList(role,nowPage,object){
 }
 function goodsInfo(goodsId){
     ajaxAction("get","/api/goods/"+goodsId,"",false,function(data,textStatus){
-        var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>商品分类：</dt><dd>'+data.sort+'</dd><dt>商品价格：</dt><dd>'+data.price+'</dd><dt>图片：</dt><dd><a href="javascript:void(0)"><img style="max-height: 300px;max-width: 300px" src="'+data.image+'" /></a></dd><dt>订购次数：</dt><dd>'+data.buyNum+'</dd><dt>商品备注：</dt><dd>'+data.description+'</dd><dt>商品货号：</dt><dd>'+data.goodsNumber+'</dd><dt>商品单位：</dt><dd>'+data.unit+'</dd><dt>商品规格：</dt><dd>'+data.standard+'</dd><dt>商品厂家：</dt><dd>'+data.vender+'</dd>';
+        var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>商品分类：</dt><dd>'+data.sort+'</dd><dt>商品价格：</dt><dd>'+data.price+'</dd><dt>图片：</dt><dd><a href="javascript:void(0)"><img style="max-height: 50px;max-width: 50px" src="'+data.image+'" /></a></dd><dt>订购次数：</dt><dd>'+data.buyNum+'</dd><dt>商品备注：</dt><dd>'+data.description+'</dd><dt>商品货号：</dt><dd>'+data.goodsNumber+'</dd><dt>商品单位：</dt><dd>'+data.unit+'</dd><dt>商品规格：</dt><dd>'+data.standard+'</dd><dt>商品厂家：</dt><dd>'+data.vender+'</dd>';
         if(data.attr){
             $.each(data.attr,function(index,value){
                 infoHtml+='<dt>'+index+'：</dt><dd>'+value+'</dd>';
