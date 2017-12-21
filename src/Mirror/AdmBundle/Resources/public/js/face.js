@@ -67,14 +67,14 @@ function boxInfo(id) {
     ajaxAction("get","/api/box/"+id,'',true,function(data,textStatus){
         var infoHtml='<dl><dt>盒子编号：</dt><dd>'+ data.uniqueId +'</dd><dt>二维码：</dt><dd><a href="javascript:void(0)"><img style="max-height: 300px;max-width: 300px" src="'+data.codeUrl+'" /></a></dd><dt>盒子状态：</dt><dd>'+data.status+'</dd><dt>创建时间：</dt><dd>'+data.createTime+'</dd>';
         if(data.boxInfo.length>0){
-            infoHtml+='<dt>用户姓名：</dt><dd>'+ data.name +'</dd><dt>年龄：</dt><dd>'+data.age+'</dd><dt>用户性别：</dt><dd>'+data.gender+'</dd><dt>用户email：</dt><dd>'+data.email+'</dd><dt>用户电话：</dt><dd>'+data.telephone+'</dd>';
+            infoHtml+='<dt>用户姓名：</dt><dd>'+ data.name +'</dd><dt>年龄：</dt><dd>'+data.age+'</dd><dt>用户性别：</dt><dd>'+data.gender+'</dd><dt>用户email：</dt><dd>'+data.email+'</dd><dt>用户电话：</dt><dd>'+data.telephone+'</dd><dt>用户检查项：</dt><dd>'+data.ability+'</dd>';
         }
-        if(data.attr){
-            $.each(data.attr,function(index,value){
+        if(data.boxGene.length>0){
+            $.each(data.boxGene,function(index,value){
                 infoHtml+='<dt>'+index+'：</dt><dd>'+value+'</dd>';
             });
-            infoHtml+='</dl>';
         }
+        infoHtml+='</dl>';
         $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
         zdalert('系统提示',errmsg);

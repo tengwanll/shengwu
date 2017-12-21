@@ -57,7 +57,7 @@ class BoxModel
     }
 
     public function getBoxGeneDetail($uniqueId,$conn){
-        $sql="select * from weixin.box_gene where box_id=$uniqueId ";
+        $sql="select IL6,HLA-C,ZNF365,MMP1,AQP3,NQO1,SOD2,NFE2L2,CAT,MC1R,GSTP1,IRF4 from weixin.box_gene where box_id=$uniqueId ";
         return $conn->fetchAll($sql);
     }
 }
