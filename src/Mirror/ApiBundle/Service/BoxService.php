@@ -84,14 +84,15 @@ class BoxService
             $start++;
             $uniqueId=sprintf('%09s', $start);
             $url=Helper::createQrCode('http://weixin.amogene.com/web/face/'.base64_encode($uniqueId),$uniqueId);
+            $address='http://weixin.amogene.com/web/face/'.base64_encode($uniqueId);
             if($i){
-                $string.=",('$uniqueId','$url','',1,'$date','$date')";
+                $string.=",('$uniqueId','$url','',1,'$date','$date','$address')";
             }else{
-                $string.="('$uniqueId','$url','',1,'$date','$date')";
+                $string.="('$uniqueId','$url','',1,'$date','$date','$address')";
             }
         }
         Helper::setNumByFile($start);
-        $sql='insert into weixin.box(unique_id,code_url,report,status,update_time,create_time) value'.$string;
+        $sql='insert into weixin.box(unique_id,code_url,report,status,update_time,create_time,address) value'.$string;
         $conn->beginTransaction();
         $res=$conn->exec($sql);
         if($res){
@@ -156,6 +157,19 @@ class BoxService
             }
         }
         $rr->result=$arr;
+        return $rr;
+    }
+
+    public function getBoxGene($unique_id,$conn){
+        $rr=new ReturnResult();
+        $boxGene=$this->boxModel->getBoxGeneDetail($unique_id,$conn);
+        $arr=array();
+        if(isset($boxGene[0])&&$boxGene[0]){
+            $arr=$boxGene[0];
+        }
+        $rr->result=array(
+            'boxGene'=>$arr
+        );
         return $rr;
     }
 }

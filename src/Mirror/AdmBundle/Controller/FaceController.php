@@ -46,4 +46,14 @@ class FaceController extends Controller
     public function infoAction($id){
         return array('id'=>$id);
     }
+
+    /**
+     * @Route("/{id}/{page}",requirements={"\id":"\d+","page":"\d+"})
+     * @param $id
+     * @param $page
+     * @return array
+     */
+    public function editAction($id,$page){
+        return array('id'=>$id,'page'=>$page);
+    }
 }

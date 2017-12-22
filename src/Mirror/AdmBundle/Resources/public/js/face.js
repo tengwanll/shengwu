@@ -34,7 +34,7 @@ function goodsList(nowPage,object){
                         if(report!=''){
                             report='<a href="'+value.report+'" class="infoColor">下载</a>';
                         }
-                        htmlTab+='<tr><td>'+value.uniqueId+'</td><td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.codeUrl+'" onclick="zdphoto(\'图片显示\',\''+value.codeUrl+'\')"></td><td>'+report+'</td><td>'+value.status+'</td><td>'+value.createTime+'</td><td><a href="/adm/face/'+value.id+'" class="infoColor">查看</a> </td>';
+                        htmlTab+='<tr><td>'+value.uniqueId+'</td><td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.codeUrl+'" onclick="zdphoto(\'图片显示\',\''+value.codeUrl+'\')"></td><td>'+report+'</td><td>'+value.status+'</td><td>'+value.createTime+'</td><td><a href="/adm/face/'+value.id+'" class="infoColor">查看</a> <a href="/adm/face/edit/'+value.uniqueId+'/'+info.page+'" class="infoColor">填报</a> </td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){

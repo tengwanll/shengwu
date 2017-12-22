@@ -1,0 +1,157 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block typeForm %}
+    <div class="addUser">
+        <div class="addUserTit">
+            <h3>盒子管理-<span style="color: #ff8400; font-size:18px;">填写信息</span></h3>
+        </div>
+        <!-- /.addUserTit -->
+        <div class="addUserForm form-horizontal">
+
+                <div class="form-group">
+                    <label for="IL6" class="col-md-3 control-label text-right">IL6：</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="IL6">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="HLA-C" class="col-md-3 control-label text-right">HLA-C：</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="HLA-C">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ZNF365" class="col-md-3 control-label text-right">ZNF365：</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="ZNF365">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="MMP1" class="col-md-3 control-label text-right">MMP1：</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="MMP1">
+                    </div>
+                </div>
+
+            <div class="form-group">
+                <label for="AQP3" class="col-md-3 control-label text-right">AQP3：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="AQP3">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="NQO1" class="col-md-3 control-label text-right">NQO1：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="NQO1">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="SOD2" class="col-md-3 control-label text-right">SOD2：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="SOD2">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="NFE2L2" class="col-md-3 control-label text-right">NFE2L2：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="NFE2L2">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="CAT" class="col-md-3 control-label text-right">CAT：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="CAT">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="MC1R" class="col-md-3 control-label text-right">MC1R：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="MC1R">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="GSTP1" class="col-md-3 control-label text-right">GSTP1：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="GSTP1">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="IRF4" class="col-md-3 control-label text-right">IRF4：</label>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="IRF4">
+                </div>
+            </div>
+
+            <div class="form-group margin_top">
+                    <div class="col-md-2 col-md-offset-3 userSubmit margin_top">
+                        <button class="btn btn-default resetButton" id="cancel">取消</button>
+                    </div>
+                    <div class="col-md-2 margin_top">
+                        <button class="btn btn-default resetButton" id="ensure">确定</button>
+                    </div>
+                </div>
+
+        </div>
+        <!-- /.addUserForm -->
+    </div>
+    <!-- /.addUser -->
+
+{% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .face'));
+            var id={{ id }};
+            var page={{ page }};
+            ajaxAction("get",'/api/box/gene/'+id,"",false,function(data,textStatus){
+                if(!$.isEmptyObject(data.boxGene)){
+                    $.each(data.boxGene,function(index,value){
+                        $('#'+index).val(value);
+                    });
+                }
+            },function(errno,errmsg){
+                alert(errmsg);
+            });
+            $('#cancel').click(function () {
+                location.href="/adm/face?page="+page;
+            });
+            $('#ensure').click(function(){
+                var info={};
+                info.id=id;
+                info.IL6=$.trim( $('#IL6').val() );
+                info.HLA_C=$.trim( $('#HLA-C').val() );
+                info.IL6=$.trim( $('#IL6').val() );
+                info.IL6=$.trim( $('#IL6').val() );
+                info.IL6=$.trim( $('#IL6').val() );
+                info.IL6=$.trim( $('#IL6').val() );
+                info.IL6=$.trim( $('#IL6').val() );
+                info.IL6=$.trim( $('#IL6').val() );
+                info.IL6=$.trim( $('#IL6').val() );
+
+
+
+                ajaxAction("put",'/api/goods',info,false,function(data,textStatus){
+                    zdalert('系统提示','修改成功',function ($r) {
+                        if($r){
+                            location.href="/adm/goods?page="+page;
+                        }
+                    });
+
+                },function(errno,errmsg){
+                    zdalert('系统提示',errmsg);
+                });
+            });
+        });
+
+    </script>
+
+{% endblock %}
