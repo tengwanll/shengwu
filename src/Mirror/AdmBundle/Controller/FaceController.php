@@ -48,6 +48,7 @@ class FaceController extends Controller
     }
 
     /**
+     * @Template()
      * @Route("/edit/{id}/{page}",requirements={"\id":"\d+","page":"\d+"})
      * @param $id
      * @param $page
