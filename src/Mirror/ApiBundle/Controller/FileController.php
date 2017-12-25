@@ -115,4 +115,24 @@ class FileController extends BaseController {
         $conn->exec($sql);
         return $this->buildResponse(new ReturnResult());
     }
+
+    /**
+     * @Route("/HImport")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function HImport(Request $request){
+        $file = $request->files->get('file', '');
+        $file = $this->get('file_service')->saveFile($request,$file);
+        if (!$file) {
+            return $this->buildResponse(new ReturnResult(Code::$file_not_exist));
+        }
+        $id=$file->getId();
+        $orderId=$request->get('orderId','');
+        $conn=$this->get('database_connection');
+        $sql="update weixin.orders set report=$id where id=$orderId";
+        $conn->exec($sql);
+        return $this->buildResponse(new ReturnResult());
+    }
 }

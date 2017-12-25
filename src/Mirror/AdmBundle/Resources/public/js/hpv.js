@@ -43,7 +43,7 @@ function goodsList(nowPage,object){
                         }else{
                             isMarried='未设置';
                         }
-                        htmlTab+='<tr><td>'+value.order_no+'</td><td>'+value.name+'</td><td>'+value.telephone+'</td><td>'+value.price+'</td><td>'+value.number+'</td><td>'+formatter(value.pay_time*1000,'YYYY MM DD')+'</td><td>'+value.user_name+'</td><td>'+value.user_age+'</td><td>'+isMarried+'</td><td>'+status+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> </td>';
+                        htmlTab+='<tr><td>'+value.order_no+'</td><td>'+value.name+'</td><td>'+value.telephone+'</td><td>'+value.price+'</td><td>'+value.number+'</td><td>'+formatter(value.pay_time*1000,'YYYY MM DD')+'</td><td>'+value.user_name+'</td><td>'+value.user_age+'</td><td>'+isMarried+'</td><td>'+status+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <label for="file'+value.id+'" style="color: #ff7800;cursor: pointer">导入报表</label><form action="" name="uploadForm"><input type="file" style="display: none" name="file" id="file'+value.id+'" onchange="changeFile(this,'+info.page+')"><input type="hidden" value="'+value.id+'" name="orderId"></form></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -58,6 +58,15 @@ function goodsList(nowPage,object){
         zdalert('系统提示',errmsg);
     });
 }
+
+function changeFile(obj,page){
+    imgUpload($(obj).parent()[0],'/api/file/HImport','post',function(){},function(data,textStatus){
+        location.href='/adm/face?page='+page;
+    },function(errno,errmsg){
+        zdalert('系统提示',errmsg);
+    });
+}
+
 function goodsInfo(goodsId){
     ajaxAction("get","/api/goods/"+goodsId,"",false,function(data,textStatus){
         var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>商品分类：</dt><dd>'+data.sort+'</dd><dt>商品价格：</dt><dd>'+data.price+'</dd><dt>图片：</dt><dd><a href="javascript:void(0)"><img style="max-height: 300px;max-width: 300px" src="'+data.image+'" /></a></dd><dt>订购次数：</dt><dd>'+data.buyNum+'</dd><dt>商品备注：</dt><dd>'+data.description+'</dd><dt>商品货号：</dt><dd>'+data.goodsNumber+'</dd><dt>商品单位：</dt><dd>'+data.unit+'</dd><dt>商品规格：</dt><dd>'+data.standard+'</dd><dt>商品厂家：</dt><dd>'+data.vender+'</dd>';
