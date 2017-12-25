@@ -91,13 +91,6 @@
                 goodsList(page);
             });
             goodsList(page);
-            $('input[name=file]').change(function(){
-                imgUpload($('form[name=uploadForm]')[0],'/api/file/FImport','post',function(){},function(data,textStatus){
-                    location.href='/adm/face?page='+page;
-                },function(errno,errmsg){
-                    zdalert('系统提示',errmsg);
-                });
-            });
             $('#add').click(function(){
                 var num=parseInt($('#addNumber').val());
                 if(num==0||isNaN(num)){

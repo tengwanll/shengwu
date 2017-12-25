@@ -32,7 +32,7 @@ function goodsList(nowPage,object){
                         if(report!=''){
                             report='<a href="'+value.report+'" class="infoColor">下载</a>';
                         }
-                        htmlTab+='<tr><td>'+value.uniqueId+'</td><td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.codeUrl+'" onclick="zdphoto(\'图片显示\',\''+value.codeUrl+'\')"></td><td>'+report+'</td><td>'+value.status+'</td><td>'+value.createTime+'</td><td><a href="/adm/face/'+value.id+'" class="infoColor">查看</a> <a href="/adm/face/edit/'+value.uniqueId+'/'+info.page+'" class="infoColor">填报</a> <label for="file'+value.id+'" style="color: #ff7800;cursor: pointer">导入报表</label><form action="" name="uploadForm"><input type="file" style="display: none" name="file" id="file'+value.id+'"></form></td>';
+                        htmlTab+='<tr><td>'+value.uniqueId+'</td><td><img style="height: 40px;width: 40px;cursor: pointer" src="'+value.codeUrl+'" onclick="zdphoto(\'图片显示\',\''+value.codeUrl+'\')"></td><td>'+report+'</td><td>'+value.status+'</td><td>'+value.createTime+'</td><td><a href="/adm/face/'+value.id+'" class="infoColor">查看</a> <a href="/adm/face/edit/'+value.uniqueId+'/'+info.page+'" class="infoColor">填报</a> <label for="file'+value.id+'" style="color: #ff7800;cursor: pointer">导入报表</label><form action="" name="uploadForm"><input type="file" style="display: none" name="file" id="file'+value.id+'" onchange="changeFile(this,'+info.page+')"><input type="hidden" value="'+value.id+'" name="boxId"></form></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -43,6 +43,14 @@ function goodsList(nowPage,object){
         });
 
 
+    },function(errno,errmsg){
+        zdalert('系统提示',errmsg);
+    });
+}
+
+function changeFile(obj,page){
+    imgUpload($(obj).parent()[0],'/api/file/FImport','post',function(){},function(data,textStatus){
+        location.href='/adm/face?page='+page;
     },function(errno,errmsg){
         zdalert('系统提示',errmsg);
     });
