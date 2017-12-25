@@ -108,7 +108,7 @@ class FileController extends BaseController {
         if (!$file) {
             return $this->buildResponse(new ReturnResult(Code::$file_not_exist));
         }
-        $id='./'.$file->getId();
+        $id=$file->getId();
         $boxId=$request->get('boxId','');
         $conn=$this->get('database_connection');
         $sql="update weixin.box set report=$id,status=4 where id=$boxId";
