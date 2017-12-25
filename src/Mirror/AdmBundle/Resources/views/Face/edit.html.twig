@@ -137,6 +137,7 @@
                 info.NFE2L2=$.trim( $('#NFE2L2').val() );
                 info.MC1R=$.trim( $('#MC1R').val() );
                 info.GSTP1=$.trim( $('#GSTP1').val() );
+                info.CAT=$.trim( $('#CAT').val() );
                 info.IRF4=$.trim( $('#IRF4').val() );
                 ajaxAction("post",'/api/box/gene',info,false,function(data,textStatus){
                     zdalert('系统提示','修改成功',function ($r) {
