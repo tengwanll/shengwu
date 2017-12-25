@@ -4,6 +4,7 @@ namespace Mirror\ApiBundle\Controller;
 
 use Mirror\ApiBundle\Annotation\AAuth;
 use Mirror\ApiBundle\Common\Code;
+use Mirror\ApiBundle\Common\Constant;
 use Mirror\ApiBundle\ViewModel\ReturnResult;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -93,5 +94,24 @@ class FileController extends BaseController {
         $url='./'.$file->getUrl();
         $rr=$this->get('biology_service')->BImport($url);
         return $this->buildResponse($rr);
+    }
+
+    /**
+     * @Route("/FImport")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function FImport(Request $request){
+        $file = $request->files->get('file', '');
+        $file = $this->get('file_service')->saveFile($request,$file);
+        if (!$file) {
+            return $this->buildResponse(new ReturnResult(Code::$file_not_exist));
+        }
+        $id='./'.$file->getId();
+        $conn=$this->get('database_connection');
+        $sql="update weixin.box set report=$id,status=4";
+        $conn->exec($sql);
+        return $this->buildResponse(new ReturnResult());
     }
 }

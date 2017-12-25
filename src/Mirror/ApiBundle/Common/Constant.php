@@ -39,16 +39,6 @@ class Constant {
     public static $cycle_week=1;
     public static $cycle_month=2;
 
-    //驳回类型
-
-    public static $reject_property=2;
-    public static $reject_reward=3;
-    public static $reject_credit=4;
-    public static $reject_company=5;
-    public static $reject_provincial_agents=6;
-    public static $reject_city_agents=7;
-    public static $reject_user=8;
-    public static $reject_admin=9;
 
     //token有效期
     public static $access_token_expires=7200;
