@@ -61,7 +61,7 @@ function goodsList(nowPage,object){
 
 function changeFile(obj,page){
     imgUpload($(obj).parent()[0],'/api/file/HImport','post',function(){},function(data,textStatus){
-        location.href='/adm/face?page='+page;
+        location.href='/adm/hpv?page='+page;
     },function(errno,errmsg){
         zdalert('系统提示',errmsg);
     });
