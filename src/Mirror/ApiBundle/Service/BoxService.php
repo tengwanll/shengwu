@@ -14,6 +14,8 @@ use Mirror\ApiBundle\Common\Code;
 use Mirror\ApiBundle\Common\Constant;
 use Mirror\ApiBundle\Model\BoxModel;
 use Mirror\ApiBundle\Util\Helper;
+use Mirror\ApiBundle\Util\JsonHelper;
+use Mirror\ApiBundle\Util\JsonParser;
 use Mirror\ApiBundle\ViewModel\ReturnResult;
 use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
@@ -170,6 +172,37 @@ class BoxService
         $rr->result=array(
             'boxGene'=>$arr
         );
+        return $rr;
+    }
+
+    /**
+     * @param JsonParser $json
+     * @param $conn
+     * @return ReturnResult
+     */
+    public function updateBoxGene(JsonParser $json,$conn){
+        $rr=new ReturnResult();
+        $boxId=$json->get('boxId','');
+        $IL6=$json->get('IL6','');
+        $HLA_C=$json->get('HLA_C','');
+        $ZNF365=$json->get('ZNF365','');
+        $MMP1=$json->get('MMP1','');
+        $AQP3=$json->get('AQP3','');
+        $NQO1=$json->get('NQO1','');
+        $SOD2=$json->get('SOD2','');
+        $NFE2L2=$json->get('NFE2L2','');
+        $CAT=$json->get('CAT','');
+        $MC1R=$json->get('MC1R','');
+        $GSTP1=$json->get('GSTP1','');
+        $IRF4=$json->get('IRF4','');
+        $boxGene=$this->boxModel->getBoxGeneDetail($boxId,$conn);
+
+        if(isset($boxGene[0])&&$boxGene[0]){
+            $sql="update wexin.box_gene set IL6='$IL6','HLA-C'='$HLA_C',ZNF365='$ZNF365',MMP1='$MMP1',AQP3='$AQP3',NQO1='$NQO1',SOD2='$SOD2',NFE2L2='$NFE2L2',CAT='$CAT',MC1R='$MC1R',GSTP1='$GSTP1',IRF4='$IRF4' where box_id=$boxId ";
+        }else{
+            $sql="insert into wexin.box_gene(boxId,IL6,'HLA-C',ZNF365,MMP1,AQP3,NQO1,SOD2,NFE2L2,CAT,MC1R,GSTP1,IRF4) value($boxId,'$IL6','$HLA_C','$ZNF365','$MMP1','$AQP3','$NQO1','$SOD2','$NFE2L2','$CAT','$MC1R','$GSTP1','$IRF4')";
+        }
+        $conn->exec($sql);
         return $rr;
     }
 }

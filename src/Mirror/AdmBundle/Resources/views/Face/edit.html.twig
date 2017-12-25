@@ -126,23 +126,22 @@
             });
             $('#ensure').click(function(){
                 var info={};
-                info.id=id;
+                info.boxId=id;
                 info.IL6=$.trim( $('#IL6').val() );
                 info.HLA_C=$.trim( $('#HLA-C').val() );
-                info.IL6=$.trim( $('#IL6').val() );
-                info.IL6=$.trim( $('#IL6').val() );
-                info.IL6=$.trim( $('#IL6').val() );
-                info.IL6=$.trim( $('#IL6').val() );
-                info.IL6=$.trim( $('#IL6').val() );
-                info.IL6=$.trim( $('#IL6').val() );
-                info.IL6=$.trim( $('#IL6').val() );
-
-
-
-                ajaxAction("put",'/api/goods',info,false,function(data,textStatus){
+                info.ZNF365=$.trim( $('#ZNF365').val() );
+                info.MMP1=$.trim( $('#MMP1').val() );
+                info.AQP3=$.trim( $('#AQP3').val() );
+                info.NQO1=$.trim( $('#NQO1').val() );
+                info.SOD2=$.trim( $('#SOD2').val() );
+                info.NFE2L2=$.trim( $('#NFE2L2').val() );
+                info.MC1R=$.trim( $('#MC1R').val() );
+                info.GSTP1=$.trim( $('#GSTP1').val() );
+                info.IRF4=$.trim( $('#IRF4').val() );
+                ajaxAction("post",'/api/box/gene',info,false,function(data,textStatus){
                     zdalert('系统提示','修改成功',function ($r) {
                         if($r){
-                            location.href="/adm/goods?page="+page;
+                            location.href="/adm/face?page="+page;
                         }
                     });
 

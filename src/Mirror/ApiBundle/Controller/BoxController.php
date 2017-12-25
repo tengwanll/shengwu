@@ -71,4 +71,17 @@ class BoxController extends BaseController
         $rr=$this->get('box_service')->getBoxGene($id,$conn);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("/gene")
+     * @Method("POST")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function updateBoxGene(Request $request){
+        $conn=$this->get('database_connection');
+        $json=$this->getJson($request);
+        $rr=$this->get('box_service')->updateBoxGene($json,$conn);
+        return $this->buildResponse($rr);
+    }
 }
