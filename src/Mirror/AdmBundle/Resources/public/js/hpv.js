@@ -30,20 +30,13 @@ function goodsList(nowPage,object){
                 ajaxAction("get",'/api/hpv'+ passParam(info),"",true,function(data,textStatus){
                     htmlTab = '';
                     $.each(data.list,function(index,value){
-                        var status,isMarried;
+                        var status;
                         if(value.status==2){
                             status='检查中';
                         }else{
                             status='已完成';
                         }
-                        if(value.is_married==1){
-                            isMarried='已婚';
-                        }else if(value.is_married==2){
-                            isMarried='未婚';
-                        }else{
-                            isMarried='未设置';
-                        }
-                        htmlTab+='<tr><td>'+value.order_no+'</td><td>'+value.name+'</td><td>'+value.telephone+'</td><td>'+value.price+'</td><td>'+value.number+'</td><td>'+formatter(value.pay_time*1000,'YYYY MM DD')+'</td><td>'+value.user_name+'</td><td>'+value.user_age+'</td><td>'+isMarried+'</td><td>'+status+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <label for="file'+value.id+'" style="color: #ff7800;cursor: pointer">导入报表</label><form action="" name="uploadForm"><input type="file" style="display: none" name="file" id="file'+value.id+'" onchange="changeFile(this,'+info.page+')"><input type="hidden" value="'+value.id+'" name="orderId"></form></td>';
+                        htmlTab+='<tr><td>'+value.order_no+'</td><td>'+value.name+'</td><td>'+value.telephone+'</td><td>'+value.price+'</td><td>'+value.number+'</td><td>'+formatter(value.pay_time*1000,'YYYY MM DD')+'</td><td>'+value.user_name+'</td><td>'+value.user_age+'</td><td>'+data.is_married+'</td><td>'+status+'</td><td><a href="/adm/goods/'+value.id+'" class="infoColor">查看</a> <label for="file'+value.id+'" style="color: #ff7800;cursor: pointer">导入报表</label><form action="" name="uploadForm"><input type="file" style="display: none" name="file" id="file'+value.id+'" onchange="changeFile(this,'+info.page+')"><input type="hidden" value="'+value.id+'" name="orderId"></form></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
@@ -67,9 +60,15 @@ function changeFile(obj,page){
     });
 }
 
-function goodsInfo(goodsId){
-    ajaxAction("get","/api/goods/"+goodsId,"",false,function(data,textStatus){
-        var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>商品分类：</dt><dd>'+data.sort+'</dd><dt>商品价格：</dt><dd>'+data.price+'</dd><dt>图片：</dt><dd><a href="javascript:void(0)"><img style="max-height: 300px;max-width: 300px" src="'+data.image+'" /></a></dd><dt>订购次数：</dt><dd>'+data.buyNum+'</dd><dt>商品备注：</dt><dd>'+data.description+'</dd><dt>商品货号：</dt><dd>'+data.goodsNumber+'</dd><dt>商品单位：</dt><dd>'+data.unit+'</dd><dt>商品规格：</dt><dd>'+data.standard+'</dd><dt>商品厂家：</dt><dd>'+data.vender+'</dd>';
+function hpvInfo(orderId){
+    ajaxAction("get","/api/hpv/"+orderId,"",true,function(data,textStatus){
+        var status;
+        if(value.status==2){
+            status='检查中';
+        }else{
+            status='已完成';
+        }
+        var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>用户账号：</dt><dd>'+data.telephone+'</dd><dt>价格：</dt><dd>'+data.price+'</dd><dt>数量：</dt><dd>'+data.number+'</dd><dt>支付时间：</dt><dd>'+formatter(value.pay_time*1000,'YYYY MM DD')+'</dd><dt>用户名称：</dt><dd>'+data.user_name+'</dd><dt>用户年龄：</dt><dd>'+data.user_age+'</dd><dt>婚姻：</dt><dd>'+is_married+'</dd><dt>订单状态：</dt><dd>'+status+'</dd><dt>订单地址：</dt><dd>'+data.address+'</dd><dt>报表：</dt><dd><a href="'+data.report+'">下载</a></dd>';
         if(data.attr){
             $.each(data.attr,function(index,value){
                 infoHtml+='<dt>'+index+'：</dt><dd>'+value+'</dd>';

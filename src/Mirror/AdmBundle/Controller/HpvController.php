@@ -31,4 +31,14 @@ class HpvController extends Controller
         $page=$request->get('page',1);
         return array('page'=>$page);
     }
+
+    /**
+     * @Route("/{id}",requirements={"id":"\d+"})
+     * @Template()
+     * @param $id
+     * @return array
+     */
+    public function infoAction($id){
+        return array('id'=>$id);
+    }
 }

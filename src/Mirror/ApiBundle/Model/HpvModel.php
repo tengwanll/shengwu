@@ -45,4 +45,9 @@ class HpvModel
         $sql=Helper::makeQueryString($sql,$where);
         return $conn->fetchAll($sql);
     }
+
+    public function getInfo($id,$conn){
+        $sql="select o.order_no,o.id,o.name,o.price,o.number,o.pay_time,o.status,o.user_age,o.user_name,o.is_married,u.telephone,o.address,o.report from weixin.orders o,weixin.user u where o.user_id=u.id and o.id=$id ";
+        return $conn->fetchAll($sql);
+    }
 }

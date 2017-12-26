@@ -23,6 +23,7 @@ use JMS\DiExtraBundle\Annotation\InjectParams;
 class HpvService
 {
     private $hpvModel;
+    private $fileService;
 
     /**
      * @InjectParams({
@@ -31,9 +32,10 @@ class HpvService
      * HpvService constructor.
      * @param HpvModel $hpvModel
      */
-    public function __construct(HpvModel $hpvModel)
+    public function __construct(HpvModel $hpvModel,FileService $fileService)
     {
         $this->hpvModel=$hpvModel;
+        $this->fileService=$fileService;
     }
     
     public function getList($orderNo,$conn,$pageable){
@@ -44,6 +46,17 @@ class HpvService
             'list'=>$lists,
             'total'=>$total[0]['total']
         );
+        return $rr;
+    }
+
+    public function getInfo($id,$conn){
+        $rr=new ReturnResult();
+        $lists=$this->hpvModel->getInfo($id,$conn);
+        if(isset($lists[0])&&$lists[0]){
+            $reportId=$lists[0]['report'];
+            $lists[0]['report']=$this->fileService->getFullUrlById($reportId);
+        }
+        $rr->result=$lists[0];
         return $rr;
     }
 }

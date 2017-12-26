@@ -33,4 +33,16 @@ class HpvController extends BaseController
         $rr=$this->get('hpv_service')->getList($orderNo,$conn,$pageable);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("/{id}",requirements={"id":"\d+"})
+     * @Method("GET")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getInfo($id){
+        $conn=$this->get('database_connection');
+        $rr=$this->get('hpv_service')->getInfo($id,$conn);
+        return $this->buildResponse($rr);
+    }
 }
