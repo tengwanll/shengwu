@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Mirror\ApiBundle\MirrorApiBundle(),
             new Snc\RedisBundle\SncRedisBundle(),
             new Mirror\AdmBundle\MirrorAdmBundle(),
+            new Mirror\MainBundle\MirrorMainBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

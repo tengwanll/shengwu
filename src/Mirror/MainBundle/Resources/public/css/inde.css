@@ -1,0 +1,329 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header，section，footer，aside，nav，main，article，figure{
+    display:none;
+}
+.backgroundColorWhite{
+    background-color: #fff;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+}
+#container{
+    height: 100%;
+}
+li{
+    list-style: none;
+}
+.top{
+    background-color: #141414;
+    height: 80px;
+}
+.topNavLogo{
+    height: 80px;
+    position: relative;
+    width: 100%;
+}
+.logo{
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 80px;
+}
+.index-nav-list{
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 80px;
+    height: 80px;
+}
+.index-nav-list ul li{
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left:35px;
+}
+.index-nav-list ul li:first-child{
+    margin-left: 0;
+}
+.index-nav-list ul li a{
+    font-size: 18px;
+    color: #d2d2d2;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.index-nav-list ul li a:hover,.index-nav-list ul li a.active{
+    background-color: #3ea2c7;
+    color: #fff;
+}
+.slide-down{
+    width: 100%;
+    background-color: #fff;
+    padding: 20px 0;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 9;
+}
+.index-company-info h3{
+    font-size: 24px;
+    line-height: 48px;
+    border-bottom: 2px solid #d5d5d5;
+    color: #333333;
+}
+.index-company-info p{
+    font-size: 16px;
+    color: #333;
+}
+.index-two-nav h4{
+    font-size: 16px;
+    color: #333;
+    line-height: 32px;
+    border-bottom: 2px solid #d5d5d5;
+}
+.index-two-nav ul{
+    padding-left: 0;
+}
+.index-two-nav ul li{
+    font-size: 16px;
+    color: #808080;
+    line-height: 32px;
+}
+
+main{
+    width: 100%;
+}
+.publicityVideo{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+.publicityVideo video#bgvid{
+    width: 100%;
+    height: 100%;
+}
+.publicityVideo h3{
+    margin: 0;
+    letter-spacing: 5px;
+    color: #f4f4f4;
+    font-size: 70px;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    margin-top: 15%;
+}
+.publicityVideo a{
+    margin: 0;
+    text-align: center;
+    display: inline-block;
+    padding: 6px 70px;
+    border: 1px solid #3ea2c7;
+    border-radius: 30px;
+    color: #3ea2c7;
+    font-size: 26px;
+    text-decoration: none;
+    position: absolute;
+    top: 0;
+    width: 246px;
+    margin-left: -123px;
+    left: 50%;
+    margin-top: 23%;
+}
+.advantage{
+    text-align: center;
+}
+figure{
+    width: 600px;
+    margin: 0 auto;
+    margin-top:80px;
+}
+figure figcaption{
+    color: #666666;
+    font-size: 24px;
+    margin-bottom:30px;
+}
+figure figcaption p{
+    color: #101010;
+    font-size: 16px;
+}
+figure p{
+    font-size: 18px;
+    color: #999999;
+}
+figure a {
+    margin: 0;
+    text-align: center;
+    display: inline-block;
+    padding: 6px 50px;
+    border: 1px solid #3ea2c7;
+    border-radius: 30px;
+    color: #3ea2c7;
+    font-size: 18px;
+    text-decoration: none;
+    margin-top: 30px;
+}
+.advantageImg1{
+    background-image: url("../images/advantageBg1.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    padding: 10% 0;
+    box-sizing: border-box;
+    margin-top:45px;
+    background-attachment:fixed;
+}
+.advantageImg1 ul li{
+    width: 300px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin: 0 60px;
+}
+.advantageImg1 ul li h4 p:first-child{
+    font-size: 22px;
+    color: #3ea2c7;
+}
+.advantageImg1 ul li h4 p:nth-child(2){
+    font-size: 22px;
+    color: #3ea2c7;
+}
+.advantageImg2{
+    background-image: url("../images/advantageBg2.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    padding: 10px 0 30% 0;
+    box-sizing: border-box;
+    margin-top:45px;
+    background-attachment:fixed;
+}
+.advantageImg2 figure{
+    margin-top:30px;
+}
+.advantageImg2 figure figcaption{
+    color: #3ea2c7;
+}
+.advantageImg2 figure figcaption p{
+    color: #fff;
+}
+.advantageImg2 figure p{
+    color: #999999;
+}
+.advantage3{
+    padding-top:80px;
+    text-align: center;
+}
+.advantage3 .advantageImg3 figure{
+    text-align: left;
+    margin-left: 50%;
+}
+.advantage3 .advantageImg3 figure p{
+    color: #999999;
+}
+.advantage3 .advantageImg3 figure figcaption,.advantage3 .advantageImg4 figure figcaption{
+    color: #13a2f3;
+}
+
+.advantageImg3{
+    background-image: url("../images/advantageBg3.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    padding: 5% 0 5% 0;
+    box-sizing: border-box;
+    margin-top:45px;
+}
+.advantageImg4{
+    background-image: url("../images/advantageBg4.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    padding: 5% 0 5% 0;
+    box-sizing: border-box;
+}
+.advantage3 .advantageImg4 figure{
+    text-align: left;
+    margin-left: 7%;
+}
+.advantage3 .advantageImg4 figure p{
+    color: #999999;
+}
+footer{
+    width: 100%;
+    background-color: #446582;
+    padding: 20px 0 10px;
+}
+.footerNav ul li{
+    display: inline-block;
+    vertical-align: top;
+    font-size: 18px;
+    color: #fff;
+}
+
+.footerNav ul li:first-child{
+    width: 15%;
+}
+.footerNav ul li:nth-child(2){
+    width: 15%;
+}
+.footerNav ul li:nth-child(3){
+    width: 15%;
+}
+.footerNav ul li:nth-child(4){
+    width: 15%;
+}
+.footerNav ul li:nth-child(5){
+    width: 15%;
+}
+.footerNav ul li:nth-child(6){
+    width: 23%;
+}
+.footerNav ul li span{
+    border-bottom: 1px solid #fff;
+    display: inline-block;
+    line-height: 2em;
+    margin-bottom:10px;
+}
+.footerNav ul li ul{
+    width: 100%;
+}
+.footerNav ul li ul li{
+    width: 100% !important;
+    font-size: 14px;
+    color: #b2b2b2;
+}
+.footerNav ul li ul li a{
+    font-size: 14px;
+    color: #b2b2b2;
+}
+.footerNav ul li p{
+    width: 111px;
+}
+.footerNav ul li p img{
+    width: 111px;
+}
+.copyright{
+    text-align: center;
+    color: #fff;
+    border-top: 1px solid #fff;
+    line-height: 3em;
+}

@@ -28,6 +28,7 @@ class HpvController extends BaseController
      */
     public function getList(Request $request){
         $orderNo=$request->get('orderNo','');
+        $ip=$this->getIpAddress($request);
         $pageable=$this->getPage($request);
         $conn=$this->get('database_connection');
         $rr=$this->get('hpv_service')->getList($orderNo,$conn,$pageable);
