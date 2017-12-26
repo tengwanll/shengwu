@@ -63,7 +63,7 @@ function changeFile(obj,page){
 function hpvInfo(orderId){
     ajaxAction("get","/api/hpv/"+orderId,"",true,function(data,textStatus){
         var status;
-        if(value.status==2){
+        if(data.status==2){
             status='检查中';
         }else{
             status='已完成';
