@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * @DI\Service("/index")
+ * @Route("/index")
  * Class IndexController
  * @package Mirror\MainBundle\Controller
  */
