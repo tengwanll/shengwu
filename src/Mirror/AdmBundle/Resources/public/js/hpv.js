@@ -68,7 +68,7 @@ function hpvInfo(orderId){
         }else{
             status='已完成';
         }
-        var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>用户账号：</dt><dd>'+data.telephone+'</dd><dt>价格：</dt><dd>'+data.price+'</dd><dt>数量：</dt><dd>'+data.number+'</dd><dt>支付时间：</dt><dd>'+formatter(value.pay_time*1000,'YYYY MM DD')+'</dd><dt>用户名称：</dt><dd>'+data.user_name+'</dd><dt>用户年龄：</dt><dd>'+data.user_age+'</dd><dt>婚姻：</dt><dd>'+is_married+'</dd><dt>订单状态：</dt><dd>'+status+'</dd><dt>订单地址：</dt><dd>'+data.address+'</dd><dt>报表：</dt><dd><a href="'+data.report+'">下载</a></dd></dl>';
+        var infoHtml='<dl><dt>商品名称：</dt><dd>'+ data.name +'</dd><dt>用户账号：</dt><dd>'+data.telephone+'</dd><dt>价格：</dt><dd>'+data.price+'</dd><dt>数量：</dt><dd>'+data.number+'</dd><dt>支付时间：</dt><dd>'+formatter(data.pay_time*1000,'YYYY MM DD')+'</dd><dt>用户名称：</dt><dd>'+data.user_name+'</dd><dt>用户年龄：</dt><dd>'+data.user_age+'</dd><dt>婚姻：</dt><dd>'+is_married+'</dd><dt>订单状态：</dt><dd>'+status+'</dd><dt>订单地址：</dt><dd>'+data.address+'</dd><dt>报表：</dt><dd><a href="'+data.report+'">下载</a></dd></dl>';
         $('.infoUserCon').html(infoHtml);
     },function(errno,errmsg){
         zdalert('系统提示',errmsg);
