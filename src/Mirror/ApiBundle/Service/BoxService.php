@@ -204,6 +204,8 @@ class BoxService
             $sql="insert into weixin.box_gene(box_id,IL6,HLA_C,ZNF365,MMP1,AQP3,NQO1,SOD2,NFE2L2,CAT,MC1R,GSTP1,IRF4,status,create_time,update_time) value($boxId,'$IL6','$HLA_C','$ZNF365','$MMP1','$AQP3','$NQO1','$SOD2','$NFE2L2','$CAT','$MC1R','$GSTP1','$IRF4',1,'$date','$date')";
         }
         $conn->exec($sql);
+        $sql='update weixin.box set status=3 where unique_id=$boxId';
+        $conn->exec($sql);
         return $rr;
     }
 }
