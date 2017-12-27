@@ -36,7 +36,7 @@ function goodsList(nowPage,object){
                         }else{
                             status='已完成';
                         }
-                        htmlTab+='<tr><td>'+value.order_no+'</td><td>'+value.name+'</td><td>'+value.telephone+'</td><td>'+value.price+'</td><td>'+value.number+'</td><td>'+formatter(value.pay_time*1000,'YYYY MM DD')+'</td><td>'+value.user_name+'</td><td>'+value.user_age+'</td><td>'+data.is_married+'</td><td>'+status+'</td><td><a href="/adm/hpv/'+value.id+'" class="infoColor">查看</a> <label for="file'+value.id+'" style="color: #ff7800;cursor: pointer">导入报表</label><form action="" name="uploadForm"><input type="file" style="display: none" name="file" id="file'+value.id+'" onchange="changeFile(this,'+info.page+')"><input type="hidden" value="'+value.id+'" name="orderId"></form></td>';
+                        htmlTab+='<tr><td>'+value.order_no+'</td><td>'+value.name+'</td><td>'+value.telephone+'</td><td>'+value.price+'</td><td>'+value.number+'</td><td>'+formatter(value.pay_time*1000,'YYYY MM DD')+'</td><td>'+value.user_name+'</td><td>'+value.user_age+'</td><td>'+value.is_married+'</td><td>'+status+'</td><td><a href="/adm/hpv/'+value.id+'" class="infoColor">查看</a> <label for="file'+value.id+'" style="color: #ff7800;cursor: pointer">导入报表</label><form action="" name="uploadForm"><input type="file" style="display: none" name="file" id="file'+value.id+'" onchange="changeFile(this,'+info.page+')"><input type="hidden" value="'+value.id+'" name="orderId"></form></td>';
                         $('tbody').html(htmlTab);
                     });
                 },function(errno,errmsg){
