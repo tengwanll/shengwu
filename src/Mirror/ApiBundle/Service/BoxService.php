@@ -200,7 +200,7 @@ class BoxService
         if(isset($boxGene[0])&&$boxGene[0]){
             $sql="update weixin.box_gene set IL6='$IL6',HLA_C='$HLA_C',ZNF365='$ZNF365',MMP1='$MMP1',AQP3='$AQP3',NQO1='$NQO1',SOD2='$SOD2',NFE2L2='$NFE2L2',CAT='$CAT',MC1R='$MC1R',GSTP1='$GSTP1',IRF4='$IRF4' where box_id=$boxId ";
         }else{
-            $sql="insert into weixin.box_gene(boxId,IL6,HLA_C,ZNF365,MMP1,AQP3,NQO1,SOD2,NFE2L2,CAT,MC1R,GSTP1,IRF4) value($boxId,'$IL6','$HLA_C','$ZNF365','$MMP1','$AQP3','$NQO1','$SOD2','$NFE2L2','$CAT','$MC1R','$GSTP1','$IRF4')";
+            $sql="insert into weixin.box_gene(box_id,IL6,HLA_C,ZNF365,MMP1,AQP3,NQO1,SOD2,NFE2L2,CAT,MC1R,GSTP1,IRF4) value($boxId,'$IL6','$HLA_C','$ZNF365','$MMP1','$AQP3','$NQO1','$SOD2','$NFE2L2','$CAT','$MC1R','$GSTP1','$IRF4')";
         }
         $conn->exec($sql);
         return $rr;
