@@ -57,7 +57,6 @@ class ExceptionListener {
                     $response->setContent(json_encode($json_r, JSON_UNESCAPED_UNICODE));
                 } else {
                     $message = $exception->getMessage();
-                    var_dump($message);
                     $file = $exception->getFile();
                     $line = $exception->getLine();
                     // $exception->getTraceAsString();
