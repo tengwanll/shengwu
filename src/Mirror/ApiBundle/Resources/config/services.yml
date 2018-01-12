@@ -18,3 +18,7 @@ services:
         class: Mirror\ApiBundle\Model\BaseModel
         arguments: [@validator,@doctrine.orm.entity_manager]
         abstract: true
+    dbal_base_model:
+            class: Mirror\ApiBundle\Model\DbalBaseModel
+            arguments: [@database_connection]
+            abstract: true

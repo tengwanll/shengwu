@@ -19,7 +19,7 @@ use Mirror\ApiBundle\Util\Helper;
 class HpvModel
 {
     public function getList($orderNo,$conn,$pageable){
-        $sql="select o.order_no,o.id,o.name,o.price,o.number,o.pay_time,o.status,o.user_age,o.user_name,o.is_married,u.telephone from weixin.orders o,weixin.user u ";
+        $sql="select o.order_no,o.id,o.name,o.price,o.number,o.pay_time,o.status,o.user_age,o.user_name,o.is_married,u.telephone from hpv.orders o,hpv.user u ";
         $where=array('o.status >1','o.user_id=u.id');
         if($orderNo){
             $where[]='o.order_no like "%'.$orderNo.'%"';
@@ -37,7 +37,7 @@ class HpvModel
     }
 
     public function getCount($orderNo,$conn){
-        $sql="select count(id) as total from weixin.orders ";
+        $sql="select count(id) as total from hpv.orders ";
         $where=array('status >1');
         if($orderNo){
             $where[]='order_no like "%'.$orderNo.'%"';
@@ -47,7 +47,7 @@ class HpvModel
     }
 
     public function getInfo($id,$conn){
-        $sql="select o.order_no,o.id,o.name,o.price,o.number,o.pay_time,o.status,o.user_age,o.user_name,o.is_married,u.telephone,o.address,o.report from weixin.orders o,weixin.user u where o.user_id=u.id and o.id=$id ";
+        $sql="select o.order_no,o.id,o.name,o.price,o.number,o.pay_time,o.status,o.user_age,o.user_name,o.is_married,u.telephone,o.address,o.report from hpv.orders o,hpv.user u where o.user_id=u.id and o.id=$id ";
         return $conn->fetchAll($sql);
     }
 }
