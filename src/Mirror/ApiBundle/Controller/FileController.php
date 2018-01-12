@@ -131,7 +131,7 @@ class FileController extends BaseController {
         $id=$file->getId();
         $orderId=$request->get('orderId','');
         $conn=$this->get('database_connection');
-        $sql="update weixin.orders set report=$id,status=3 where id=$orderId";
+        $sql="update hpv.orders set report=$id,status=3 where id=$orderId";
         $conn->exec($sql);
         return $this->buildResponse(new ReturnResult());
     }
