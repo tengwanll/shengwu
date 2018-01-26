@@ -206,13 +206,14 @@ figure a {
     height: 100%;
     margin-top:0;
     height: 200px;
-    padding-top: 70px;
+    padding-top: 40px;
 }
 
 .figureBg1 p{
     width: 350px;
     margin: 0 auto;
     color: #535353;
+    font-size: 20px;
 }
 
 
@@ -247,6 +248,8 @@ figure a {
     width: 350px;
     margin: 0 auto;
     margin-bottom:30px;
+    color: #535353;
+    font-size: 20px;
 }
 .advantageImg2 figure figcaption{
     border-bottom: none;
@@ -273,7 +276,7 @@ figure a {
     color: #fff;
     padding: 5% 0 5% 0;
     box-sizing: border-box;
-    height: 300px;
+    height: 400px;
     margin-bottom:90px;
 }
 

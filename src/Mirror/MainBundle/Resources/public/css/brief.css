@@ -1,0 +1,313 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header，section，footer，aside，nav，main，article，figure{
+    display:none;
+}
+.backgroundColorWhite{
+    background-color: #fff;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+}
+#container{
+    height: 100%;
+}
+li{
+    list-style: none;
+}
+.topNavLogo{
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    background-color: rgba(255,255,255,0.3);
+}
+.topNavLogo img{
+    width: 100%;
+}
+.logo{
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 80px;
+}
+.index-nav-list{
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 80px;
+    height: 80px;
+}
+.index-nav-list ul li{
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left:35px;
+}
+.index-nav-list ul li:first-child{
+    margin-left: 0;
+}
+.index-nav-list ul li a{
+    font-size: 18px;
+    color: #d2d2d2;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.index-nav-list ul li a:hover,.index-nav-list ul li a.active{
+    background-color: #3ea2c7;
+    color: #fff;
+}
+.slide-down{
+    width: 100%;
+    background-color: #fff;
+    padding: 20px 0;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 9;
+}
+.index-company-info h3{
+    font-size: 24px;
+    line-height: 48px;
+    border-bottom: 2px solid #d5d5d5;
+    color: #333333;
+}
+.index-company-info p{
+    font-size: 16px;
+    color: #333;
+}
+.index-two-nav h4{
+    font-size: 16px;
+    color: #333;
+    line-height: 32px;
+    border-bottom: 2px solid #d5d5d5;
+}
+.index-two-nav ul{
+    padding-left: 0;
+}
+.index-two-nav ul li{
+    font-size: 16px;
+    color: #808080;
+    line-height: 32px;
+}
+
+/*中间部分样式*/
+
+main{
+    width: 100%;
+    overflow: hidden;
+}
+.briefBanner img{
+    height: 500px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.companyDesc{
+    text-align: center;
+    padding: 0 300px;
+}
+
+.companyDesc figure figcaption{
+    font-size: 28px;
+    color: #000;
+    border-bottom: 1px solid #2c9acc;
+    display: inline-block;
+}
+.companyDesc figure span.englishTitle{
+    font-size: 22px;
+    color: #666666;
+    display: block;
+}
+.companyDesc figure p{
+    font-size: 18px;
+    color: #989898;
+    line-height: 2em;
+    margin-top: 10px;
+}
+.companyPicBox aside{
+    display: inline-block;
+    vertical-align: middle;
+}
+.companyPicBox{
+    padding: 20px 30px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.companyPicBox1{
+    background-color: #f0f0f0;
+}
+.companyPicBox2{
+    background-color: #f9f9f9;
+}
+.companyPic{
+    padding: 10px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+.companyPic img{
+    width: 100%;
+    height: 100%;
+}
+.companyPic1{
+    width: 500px;
+    height: 400px;
+}
+.companyPic2{
+    width: 450px;
+    height: 350px;
+}
+.companyDesc1{
+    width: 400px;
+    height: 300px;
+    background-color: #86cbe2;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.companyDesc2{
+    width: 350px;
+    height: 250px;
+    background-color: #86cbe2;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.companyDesc1 h3{
+    font-size: 24px;
+    color: #333333;
+
+}
+.companyDesc1 p{
+    font-size: 14px;
+    color: #333333;
+    line-height: 1.5em;
+    text-align: left;
+}
+.companyDesc2 h3{
+    font-size: 20px;
+    color: #333333;
+}
+.companyDesc2 p{
+    font-size: 12px;
+    color: #333333;
+    line-height: 1.5em;
+    text-align: left;
+}
+
+.briefImg1{
+    width: 100%;
+    height: 20%;
+    margin-bottom: 20px;
+}
+.briefImg1 img{
+    width: 100%;
+    height: 100%;
+}
+.JL-list ul{
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+.JL-list ul li{
+    width: 20%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 490px;
+}
+.JL-list ul li h3{
+    font-size: 26px;
+    font-weight: normal;
+    color: #333;
+    text-align: left;
+}
+.JL-list ul li h3:after{
+    content: '';
+    display: block;
+    height: 6px;
+    width: 30px;
+    background-color: #2c9acc;
+    margin-top: 5px;
+}
+.JL-list ul li p{
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+}
+.briefImg2{
+    width: 100%;
+    height: 500px;
+    margin-top: 20px;
+}
+.briefImg2 img{
+    width: 100%;
+    height: 100%;
+}
+
+/*底部样式*/
+footer{
+    width: 100%;
+    background-color: #446582;
+    padding: 20px 0 10px;
+}
+.footerNav ul li{
+    display: inline-block;
+    vertical-align: top;
+    font-size: 18px;
+    color: #fff;
+}
+
+.footerNav ul li:first-child{
+    width: 15%;
+}
+.footerNav ul li:nth-child(2){
+    width: 15%;
+}
+.footerNav ul li:nth-child(3){
+    width: 15%;
+}
+.footerNav ul li:nth-child(4){
+    width: 15%;
+}
+.footerNav ul li:nth-child(5){
+    width: 15%;
+}
+.footerNav ul li:nth-child(6){
+    width: 23%;
+}
+.footerNav ul li span{
+    border-bottom: 1px solid #fff;
+    display: inline-block;
+    line-height: 2em;
+    margin-bottom:10px;
+}
+.footerNav ul li ul{
+    width: 100%;
+}
+.footerNav ul li ul li{
+    width: 100% !important;
+    font-size: 14px;
+    color: #b2b2b2;
+}
+.footerNav ul li ul li a{
+    font-size: 14px;
+    color: #b2b2b2;
+}
+.footerNav ul li p{
+    width: 111px;
+}
+.footerNav ul li p img{
+    width: 111px;
+}
+.copyright{
+    text-align: center;
+    color: #fff;
+    border-top: 1px solid #fff;
+    line-height: 3em;
+}
