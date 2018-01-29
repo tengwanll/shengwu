@@ -1,0 +1,304 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header，section，footer，aside，nav，main，article，figure{
+    display:none;
+}
+.backgroundColorWhite{
+    background-color: #fff;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+}
+#container{
+    height: 100%;
+}
+li{
+    list-style: none;
+}
+.topNavLogo{
+    height: 80px;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    background-color: rgba(255,255,255,0.3);
+}
+.topNavLogo img{
+    width: 100%;
+}
+.logo{
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 80px;
+}
+.index-nav-list{
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 80px;
+    height: 80px;
+}
+.index-nav-list ul li{
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left:35px;
+}
+.index-nav-list ul li:first-child{
+    margin-left: 0;
+}
+.index-nav-list ul li a{
+    font-size: 18px;
+    color: #d2d2d2;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.index-nav-list ul li a:hover,.index-nav-list ul li a.active{
+    background-color: #3ea2c7;
+    color: #fff;
+}
+.slide-down{
+    width: 100%;
+    background-color: #fff;
+    padding: 20px 0;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 9;
+}
+.index-company-info h3{
+    font-size: 24px;
+    line-height: 48px;
+    border-bottom: 2px solid #d5d5d5;
+    color: #333333;
+}
+.index-company-info p{
+    font-size: 16px;
+    color: #333;
+}
+.index-two-nav h4{
+    font-size: 16px;
+    color: #333;
+    line-height: 32px;
+    border-bottom: 2px solid #d5d5d5;
+}
+.index-two-nav ul{
+    padding-left: 0;
+}
+.index-two-nav ul li{
+    font-size: 16px;
+    color: #808080;
+    line-height: 32px;
+}
+
+main{
+    width: 100%;
+}
+.contactMeBanner{
+    position: relative;
+}
+.bannerPic{
+    width: 100%;
+}
+.bannerPic img{
+    width: 100%;
+    height: 100%;
+}
+.companyInfo{
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    margin-top: 21%;
+
+}
+.companyInfo h2{
+    font-size: 30px;
+    font-weight: normal;
+}
+.companyInfo p{
+    font-size: 12px;
+    font-weight: 200;
+    margin-top: 2%;
+}
+.contactFun{
+    position: absolute;
+    left: 50%;
+    top:0;
+    width: 44%;
+    height: 8%;
+    border: 1px solid #fff;
+    color: #fff;
+    margin-top: 38%;
+    margin-left: -22%;
+    padding: 0 1.5%;
+    background-image: url("../images/envelopeICO.png");
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size: 15% 90%;
+
+}
+.contactFun span{
+    font-size: 18px;
+    display: inline-block;
+    margin-top: 2.5%;
+    margin-right: 5%;
+}
+.contactType{
+    width: 75%;
+    margin: 2% auto;
+    text-align: center;
+}
+.contactType ul li{
+    display: inline-block;
+    margin: 0 5%;
+    width: 23%;
+}
+.contactTypeCon{
+    background-color: #f0f0f0;
+    border-radius: 8%;
+    padding: 3%;
+    box-sizing: border-box;
+}
+.contactTypeCon h3{
+    font-size: 18px;
+    font-weight: 400;
+}
+.contactTypeCon p{
+    text-align: left;
+    font-size: 14px;
+    word-break: break-all
+}
+.swiperBox1,.swiperBox2,.swiperBox3,.swiperBox4,.swiperBox5,.swiperLi{
+    position: relative;
+    color: #fff;
+}
+.swiperLiImg{
+    width: 100%;
+    overflow: hidden;
+}
+.swiperLiImg img{
+    width: 100%;
+    height: 100%;
+}
+.swiperLi .swiperCon{
+    position: absolute;
+    left: 20%;
+    top: 28%;
+    font-size: 18px;
+}
+.swiperLi .swiperCon ul{
+    border: 1px solid #fff;
+    width: 80%;
+    border-radius: 5%;
+}
+.swiperLi h3{
+    position: absolute;
+    left: 65%;
+    top: 45%;
+}
+.swiperLi .swiperCon ul li{
+    border-bottom: 1px solid #fff;
+    padding: 3%;
+    box-sizing: border-box;
+}
+.swiperLi .swiperCon ul li:last-child{
+    border-bottom: none;
+}
+.weather:after{
+    overflow: hidden;
+    clear: both;
+}
+.weather span{
+    display: inline-block;
+    vertical-align: middle;
+}
+.weather span b{
+    font-size: 42px;
+}
+.weatherIco{
+    float: right;
+    margin-top: 10%;
+}
+.leftButton,.rightButton{
+    position: absolute;
+    top: 48%;
+    z-index: 1;
+}
+.leftButton img,.rightButton img{
+    width: 50%;
+    height: 50%;
+}
+.leftButton{
+    left: 10%;
+
+}
+.rightButton{
+    right: 10%;
+}
+footer{
+    width: 100%;
+    background-color: #446582;
+    padding: 20px 0 10px;
+}
+.footerNav ul li{
+    display: inline-block;
+    vertical-align: top;
+    font-size: 18px;
+    color: #fff;
+}
+
+.footerNav ul li:first-child{
+    width: 15%;
+}
+.footerNav ul li:nth-child(2){
+    width: 15%;
+}
+.footerNav ul li:nth-child(3){
+    width: 15%;
+}
+.footerNav ul li:nth-child(4){
+    width: 15%;
+}
+.footerNav ul li:nth-child(5){
+    width: 15%;
+}
+.footerNav ul li:nth-child(6){
+    width: 23%;
+}
+.footerNav ul li span{
+    border-bottom: 1px solid #fff;
+    display: inline-block;
+    line-height: 2em;
+    margin-bottom:10px;
+}
+.footerNav ul li ul{
+    width: 100%;
+}
+.footerNav ul li ul li{
+    width: 100% !important;
+    font-size: 14px;
+    color: #b2b2b2;
+}
+.footerNav ul li ul li a{
+    font-size: 14px;
+    color: #b2b2b2;
+}
+.footerNav ul li p{
+    width: 111px;
+}
+.footerNav ul li p img{
+    width: 111px;
+}
+.copyright{
+    text-align: center;
+    color: #fff;
+    border-top: 1px solid #fff;
+    line-height: 3em;
+}
