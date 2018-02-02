@@ -51,7 +51,7 @@ class MainService
         $this->bannerModel=$bannerModel;
     }
     
-    public function getCompanyList(\Redis $redis){
+    public function getCompanyList($redis){
         $rr=new ReturnResult();
         $companys=$this->companyModel->getOneByProperty('status',Constant::$status_normal);
         $arr=array();
