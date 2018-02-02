@@ -27,10 +27,9 @@ class MainController extends BaseController
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getCompanyList(Request $request){
-        $uniqueId=$request->get('uniqueId','');
-        $pageable=$this->getPage($request);
-        $conn=$this->get('database_connection');
-        $rr=$this->get('box_service')->getList($uniqueId,$conn,$pageable);
+        $redis=$this->get('snc_redis.default');
+        $redis->auth('myRedisdb');
+        $rr=$this->get('main_service')->getCompanyList($redis);
         return $this->buildResponse($rr);
     }
 }

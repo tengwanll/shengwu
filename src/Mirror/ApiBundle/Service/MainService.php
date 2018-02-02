@@ -19,6 +19,7 @@ use Mirror\ApiBundle\Model\WeatherModel;
 use Mirror\ApiBundle\Util\Helper;
 use Mirror\ApiBundle\Util\JsonHelper;
 use Mirror\ApiBundle\Util\JsonParser;
+use Mirror\ApiBundle\Util\WeatherHelper;
 use Mirror\ApiBundle\ViewModel\ReturnResult;
 use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
@@ -50,36 +51,42 @@ class MainService
         $this->bannerModel=$bannerModel;
     }
     
-    public function getList($uniqueId,$conn,$pageable){
+    public function getCompanyList(\Redis $redis){
         $rr=new ReturnResult();
-        $lists=$this->boxModel->getList($uniqueId,$conn,$pageable);
+        $companys=$this->companyModel->getOneByProperty('status',Constant::$status_normal);
         $arr=array();
-        foreach($lists as $box){
-            $status=$box['status'];
-            $reportId=$box['report'];
-            $report=$this->fileService->getFullUrlById($reportId);
-            if($status==1){
-                $status='盒子初始生成';
-            }elseif($status==2){
-                $status='用户已经填写';
-            }elseif($status==3){
-                $status='检测结果已出';
-            }else{
-                $status='报表已经上传';
+        foreach($companys as $company){
+            $address=$company['address'];
+//            $weather=$redis->get($address);
+//            if($weather){
+//                $weather=json_decode($weather,true);
+//            }else{
+                $weather=WeatherHelper::getResult($address);
+//                $redis->set($address,json_encode($weather));
+//                $redis->expireAt($address,strtotime(date('Y-m-d').' 23:59:59'));
+//            }
+            $wid=$weather['result']['today']['weather'];
+            $logo=$this->weatherModel->getOneByProperty('wid',$wid);
+            $logo=$this->fileService->getFullUrlById($logo['logo']);
+            $banners=$this->bannerModel->getByPages(array('type'=>Constant::$banner_type_company,'contact_id'=>$company['id']));
+            $bannerArr=array();
+            foreach($banners as $banner){
+                $photo=$this->fileService->getFullUrlById($banner['photo']);
+                $bannerArr[]=$photo;
             }
             $arr[]=array(
-                'id'=>$box['id'],
-                'uniqueId'=>$box['unique_id'],
-                'codeUrl'=>$box['code_url'],
-                'status'=>$status,
-                'report'=>$report,
-                'createTime'=>$box['create_time']
+                'name'=>$company['name'],
+                'detail'=>$company['detail'],
+                'phone'=>$company['phone'],
+                'address'=>$address,
+                'temperature'=>$weather['result']['today']['temperature'],
+                'weather'=>$weather['result']['today']['weather'],
+                'logo'=>$logo,
+                'banner'=>$bannerArr
             );
         }
-        $total=$this->boxModel->getCount($uniqueId,$conn);
         $rr->result=array(
-            'list'=>$arr,
-            'total'=>$total[0]['total']
+            'list'=>$arr
         );
         return $rr;
     }
