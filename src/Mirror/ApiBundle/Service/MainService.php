@@ -52,8 +52,6 @@ class MainService
     }
     
     public function getCompanyList($redis){
-        $redis->set('aaa',111);
-        var_dump($redis->get('aaa'));
         $rr=new ReturnResult();
         $companys=$this->companyModel->getByProperty('status',Constant::$status_normal);
         $arr=array();
