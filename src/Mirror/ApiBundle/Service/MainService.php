@@ -52,20 +52,22 @@ class MainService
     }
     
     public function getCompanyList($redis){
+        $redis->set('aaa',111);
+        var_dump($redis->get('aaa'));
         $rr=new ReturnResult();
-        $companys=$this->companyModel->getOneByProperty('status',Constant::$status_normal);
+        $companys=$this->companyModel->getByProperty('status',Constant::$status_normal);
         $arr=array();
         foreach($companys as $company){
             $address=$company['address'];
-//            $weather=$redis->get($address);
-//            if($weather){
-//                $weather=json_decode($weather,true);
-//            }else{
+            $weather=$redis->get($address);
+            if($weather){
+                $weather=json_decode($weather,true);
+            }else{
                 $weather=WeatherHelper::getResult($address);
-//                $redis->set($address,json_encode($weather));
-//                $redis->expireAt($address,strtotime(date('Y-m-d').' 23:59:59'));
-//            }
-            $wid=$weather['result']['today']['weather'];
+                $redis->set($address,json_encode($weather));
+                $redis->expireAt($address,strtotime(date('Y-m-d').' 23:59:59'));
+            }
+            $wid=$weather['result']['today']['weather_id']['fa'];
             $logo=$this->weatherModel->getOneByProperty('wid',$wid);
             $logo=$this->fileService->getFullUrlById($logo['logo']);
             $banners=$this->bannerModel->getByPages(array('type'=>Constant::$banner_type_company,'contact_id'=>$company['id']));
