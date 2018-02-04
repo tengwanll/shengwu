@@ -638,6 +638,7 @@
     </footer>
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script src="{{ asset('/bundles/mirrormain/js/admPublic.js',null,false,version) }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
 <script src="{{ asset('/bundles/mirrormain/js/contactMe.js') }}."></script>
 
@@ -648,6 +649,12 @@
     swiperClass('.swiperBox3');
     swiperClass('.swiperBox4');
     swiperClass('.swiperBox5');
+
+    ajaxAction("get",'/api/main/company','',false,function(data,textStatus){
+        console.log(data);
+    },function(errno,errmsg){
+        console.log(errmsg);
+    });
 
     function swiperClass(item) {
         var mySwiper = new Swiper (item, {
