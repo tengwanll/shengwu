@@ -61,4 +61,6 @@ class Constant {
         '5'=>'皮肤色斑风险',
         '6'=>'皮肤弹性'
     );
+
+    public static $banner_type_company=1;//公司的bannner
 }
