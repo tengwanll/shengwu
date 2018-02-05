@@ -184,7 +184,7 @@ main{
     width: 100%;
     overflow: hidden;
     min-height: 400px;
-    background-color: red;
+    background-color: #fff;
 }
 .swiperLiImg img{
     width: 100%;
