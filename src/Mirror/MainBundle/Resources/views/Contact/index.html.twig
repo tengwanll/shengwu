@@ -240,7 +240,7 @@
                 </div>
                 <div class="swiperBox2 swiper-containe">
                     <div class="swiper-wrapper">
-                        <div class="swiperLi swiper-slide">
+                        {#<div class="swiperLi swiper-slide">
                             <div class="swiperLiImg">
                                 <img src="{{ asset('/bundles/mirrormain/images/contactSwiper2.png') }}" alt="">
                             </div>
@@ -314,7 +314,7 @@
                                 </ul>
                             </div>
                             <h3>福州分公司3</h3>
-                        </div>
+                        </div>#}
                     </div>
                     <span class="leftButton">
                         <img src="{{ asset('/bundles/mirrormain/images/leftButtonIco.png') }}" alt="">
@@ -325,7 +325,7 @@
                 </div>
                 <div class="swiperBox3 swiper-containe">
                     <div class="swiper-wrapper">
-                        <div class="swiperLi swiper-slide">
+                        {#<div class="swiperLi swiper-slide">
                             <div class="swiperLiImg">
                                 <img src="{{ asset('/bundles/mirrormain/images/contactSwiper3.png') }}" alt="">
                             </div>
@@ -399,7 +399,7 @@
                                 </ul>
                             </div>
                             <h3>沈阳分公司3</h3>
-                        </div>
+                        </div>#}
                     </div>
                     <span class="leftButton">
                         <img src="{{ asset('/bundles/mirrormain/images/leftButtonIco.png') }}" alt="">
@@ -410,7 +410,7 @@
                 </div>
                 <div class="swiperBox4 swiper-containe">
                     <div class="swiper-wrapper">
-                        <div class="swiperLi swiper-slide">
+                        {#<div class="swiperLi swiper-slide">
                             <div class="swiperLiImg">
                                 <img src="{{ asset('/bundles/mirrormain/images/contactSwiper4.png') }}" alt="">
                             </div>
@@ -484,7 +484,7 @@
                                 </ul>
                             </div>
                             <h3>长春分公司3</h3>
-                        </div>
+                        </div>#}
                     </div>
                     <span class="leftButton">
                         <img src="{{ asset('/bundles/mirrormain/images/leftButtonIco.png') }}" alt="">
@@ -495,7 +495,7 @@
                 </div>
                 <div class="swiperBox5 swiper-containe">
                     <div class="swiper-wrapper">
-                        <div class="swiperLi swiper-slide">
+                        {#<div class="swiperLi swiper-slide">
                             <div class="swiperLiImg">
                                 <img src="{{ asset('/bundles/mirrormain/images/contactSwiper5.png') }}" alt="">
                             </div>
@@ -569,7 +569,7 @@
                                 </ul>
                             </div>
                             <h3>哈尔滨分公司3</h3>
-                        </div>
+                        </div>#}
                     </div>
                     <span class="leftButton">
                         <img src="{{ asset('/bundles/mirrormain/images/leftButtonIco.png') }}" alt="">
@@ -644,14 +644,17 @@
 
 <script>
 
-    swiperClass('.swiperBox1');
-    swiperClass('.swiperBox2');
-    swiperClass('.swiperBox3');
-    swiperClass('.swiperBox4');
-    swiperClass('.swiperBox5');
-
     ajaxAction("get",'/api/main/company','',false,function(data,textStatus){
-        console.log(data);
+        $('.swiperBox1 .swiper-wrapper').html(bannerSwiperHtml(data.list[0]));
+        $('.swiperBox2 .swiper-wrapper').html(bannerSwiperHtml(data.list[1]));
+        $('.swiperBox3 .swiper-wrapper').html(bannerSwiperHtml(data.list[2]));
+        $('.swiperBox4 .swiper-wrapper').html(bannerSwiperHtml(data.list[3]));
+        $('.swiperBox5 .swiper-wrapper').html(bannerSwiperHtml(data.list[4]));
+        swiperClass('.swiperBox1');
+        swiperClass('.swiperBox2');
+        swiperClass('.swiperBox3');
+        swiperClass('.swiperBox4');
+        swiperClass('.swiperBox5');
     },function(errno,errmsg){
         console.log(errmsg);
     });
@@ -666,6 +669,20 @@
                 prevEl: item+' .leftButton'
             }
         })
+    }
+
+
+    function bannerSwiperHtml(data) {
+        var swiperBox1Html1 = '<div class="swiperLi swiper-slide">';
+        $.each(data.banner,function (idx,el) {
+            if(idx===0){
+                swiperBox1Html1=swiperBox1Html1+'<div class="swiperLiImg"><img src="'+el+'" alt=""></div><div class="swiperCon"><ul><li class="weather"><span><b>'+data.temperature+'</b><br><small>'+data.nameAs+'  '+ data.date +'</small></span><span class="weatherIco"><img src="'+data.logo+'" alt=""></span></li><li>'+data.phone+'</li> <li>'+data.detail+'</li></ul></div><h3>'+data.name+'</h3></div>';
+            }else{
+                swiperBox1Html1=swiperBox1Html1+'<div class="swiperLi swiper-slide"><div class="swiperLiImg"><img src="'+el+'" alt=""></div></div>';
+            }
+            console.log(el);
+        });
+        return swiperBox1Html1;
     }
 
 </script>

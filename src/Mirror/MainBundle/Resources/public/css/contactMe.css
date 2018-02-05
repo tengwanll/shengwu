@@ -178,10 +178,13 @@ main{
 .swiperBox1,.swiperBox2,.swiperBox3,.swiperBox4,.swiperBox5,.swiperLi{
     position: relative;
     color: #fff;
+    overflow: hidden;
 }
 .swiperLiImg{
     width: 100%;
     overflow: hidden;
+    min-height: 400px;
+    background-color: red;
 }
 .swiperLiImg img{
     width: 100%;
@@ -195,7 +198,6 @@ main{
 }
 .swiperLi .swiperCon ul{
     border: 1px solid #fff;
-    width: 80%;
     border-radius: 5%;
 }
 .swiperLi h3{
@@ -224,7 +226,8 @@ main{
 }
 .weatherIco{
     float: right;
-    margin-top: 10%;
+    width: 90px;
+    height: 90px;
 }
 .leftButton,.rightButton{
     position: absolute;
