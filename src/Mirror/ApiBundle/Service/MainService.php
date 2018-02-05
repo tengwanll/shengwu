@@ -82,7 +82,9 @@ class MainService
                 'temperature'=>$weather['result']['today']['temperature'],
                 'weather'=>$weather['result']['today']['weather'],
                 'logo'=>$logo,
-                'banner'=>$bannerArr
+                'banner'=>$bannerArr,
+                'date'=>date('Y-m-d'),
+                'nameAs'=>$company['name_as']
             );
         }
         $rr->result=array(
