@@ -199,6 +199,7 @@ main{
 .swiperLi .swiperCon ul{
     border: 1px solid #fff;
     border-radius: 5%;
+    width: 400px;
 }
 .swiperLi h3{
     position: absolute;
