@@ -185,6 +185,15 @@ main{
     overflow: hidden;
     min-height: 400px;
     background-color: #fff;
+    -moz-transition-duration: 10s;
+    -o-transition-duration: 10s;
+    -webkit-transition-duration: 10s;
+    transition-duration: 10s;
+    -moz-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+    -ms-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+    -webkit-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+    transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+
 }
 .swiperLiImg img{
     width: 100%;
