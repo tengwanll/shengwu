@@ -185,6 +185,7 @@ main{
     overflow: hidden;
     min-height: 400px;
     background-color: #fff;
+    background-repeat: no-repeat;
     -moz-transition-duration: 10s;
     -o-transition-duration: 10s;
     -webkit-transition-duration: 10s;
@@ -193,7 +194,10 @@ main{
     -ms-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
     -webkit-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
     transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
-
+}
+.animate{
+    animation:magnify 10s 1;
+    -webkit-animation:magnify 10s 1; /*Safari and Chrome*/
 }
 .swiperLiImg img{
     width: 100%;
@@ -243,10 +247,52 @@ main{
     position: absolute;
     top: 48%;
     z-index: 1;
+    width: 100px;
+}
+.leftButton span,.rightButton span{
+    content: '1/5';
+    opacity: 1;
+    -moz-transition-duration: 0.8s;
+    -o-transition-duration: 0.8s;
+    -webkit-transition-duration: 0.8s;
+    transition-duration: 0.8s;
+    -moz-transition-property: all;
+    -o-transition-property: all;
+    -webkit-transition-property: all;
+    transition-property: all;
+    border-radius: 50px;
+    background-color: #fff;
+    display: block;
+    position: absolute;
+    height: 50px;
+    width: 100px;
+    top: 0%;
+    color: #000;
+    text-align: center;
+    padding-top: 12px;
+    font-size: 19px;
+}
+.leftButton span{
+    padding-left: 40px;
+    clip: rect(0px, 0px, 140px, -18px);
+}
+.leftButton:hover > span{
+    clip: rect(0px, 100px, 140px, -18px);
+}
+.rightButton span{
+    padding-right: 40px;
+    clip: rect(0px, 100px, 140px, 80px);
+}
+.rightButton:hover > span{
+    clip: rect(0px, 100px, 140px, -18px);
 }
 .leftButton img,.rightButton img{
     width: 50%;
     height: 50%;
+    position: relative;
+    z-index: 3;
+    background-color: #446582;
+    border-radius: 100%;
 }
 .leftButton{
     left: 10%;
@@ -254,6 +300,7 @@ main{
 }
 .rightButton{
     right: 10%;
+    text-align: right;
 }
 footer{
     width: 100%;
@@ -314,4 +361,34 @@ footer{
     color: #fff;
     border-top: 1px solid #fff;
     line-height: 3em;
+}
+
+@keyframes magnify {
+    from {
+        -moz-transform: scaleX(1) scaleY(1);
+        -ms-transform: scaleX(1) scaleY(1);
+        -webkit-transform: scaleX(1) scaleY(1);
+        transform: scaleX(1) scaleY(1);
+    }
+    to {
+        -moz-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+        -ms-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+        -webkit-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+        transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+    }
+}
+
+@-webkit-keyframes magnify /*Safari and Chrome*/{
+    from {
+        -moz-transform: scaleX(1) scaleY(1) translateZ(0);
+        -ms-transform: scaleX(1) scaleY(1) translateZ(0);
+        -webkit-transform: scaleX(1) scaleY(1) translateZ(0);
+        transform: scaleX(1) scaleY(1) translateZ(0);
+    }
+    to {
+        -moz-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+        -ms-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+        -webkit-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+        transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+    }
 }
