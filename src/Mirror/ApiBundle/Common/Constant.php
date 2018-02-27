@@ -63,4 +63,11 @@ class Constant {
     );
 
     public static $banner_type_company=1;//公司的bannner
+
+    //rabbitmq 消息队列配置
+    public static $rabbit_host='120.27.5.26';
+    public static $rabbit_port='5672';
+    public static $rabbit_user='zhengyue';
+    public static $rabbit_pass='a123456';
+    public static $rabbit_vhost='/';
 }
