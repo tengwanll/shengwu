@@ -206,6 +206,6 @@ class TestController extends BaseController
         } catch (\XSException $e) {
             var_dump($e->getMessage());
         }
-        return new Response(1);
+        return new Response(0);
     }
 }
