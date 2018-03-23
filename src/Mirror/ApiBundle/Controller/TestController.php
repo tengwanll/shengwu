@@ -163,7 +163,7 @@ class TestController extends BaseController
     }
 
     /**
-     * @Route("xun/search")
+     * @Route("/xun/search")
      * @return Response
      */
     public function xunSearch(){
@@ -179,7 +179,7 @@ class TestController extends BaseController
     }
 
     /**
-     * @Route("xun/update")
+     * @Route("/xun/update")
      * @return Response
      */
     public function xunUpdate(){
