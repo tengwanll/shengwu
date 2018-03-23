@@ -202,7 +202,7 @@ class TestController extends BaseController
                 $doc=new \XSDocument($data);
                 $index->update($doc);
             }
-
+            $index->flushIndex();
         } catch (\XSException $e) {
             var_dump($e->getMessage());
         }
