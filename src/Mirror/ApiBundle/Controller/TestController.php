@@ -170,7 +170,7 @@ class TestController extends BaseController
         try {
             $xs=new \XS('biology');
             $search=$xs->getSearch();
-            $data=$search->search('name:血红素尿');
+            $data=$search->search($name);
             var_dump($data);
         } catch (\XSException $e) {
             var_dump($e->getMessage());
