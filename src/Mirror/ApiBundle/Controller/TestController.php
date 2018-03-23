@@ -161,4 +161,51 @@ class TestController extends BaseController
         $connection->close();
         return new Response(1);
     }
+
+    /**
+     * @Route("xun/search")
+     * @return Response
+     */
+    public function xunSearch(){
+        try {
+            $xs=new \XS('biology');
+            $search=$xs->getSearch();
+            $data=$search->search('肝炎');
+            var_dump($data);
+        } catch (\XSException $e) {
+            var_dump($e->getMessage());
+        }
+        return new Response(1);
+    }
+
+    /**
+     * @Route("xun/update")
+     * @return Response
+     */
+    public function xunUpdate(){
+        try {
+            echo "开始处理\r\n";
+            $xs=new \XS('biology');
+            $index=$xs->getIndex();
+            $lists=$this->get('biology_service')->getList();
+            foreach($lists->result['list'] as $key=>$list){
+                echo "开始处理第{$key}条\r\n";
+                $data=array(
+                    'id'=>$list['id'],
+                    'name'=>$list['name'],
+                    'english_name'=>$list['english_name'],
+                    'sort'=>$list['sort'],
+                    'kind'=>$list['kind'],
+                    'check_gene'=>$list['check_gene'],
+                    'disease'=>$list['disease']
+                );
+                $doc=new \XSDocument($data);
+                $index->update($doc);
+            }
+
+        } catch (\XSException $e) {
+            var_dump($e->getMessage());
+        }
+        return new Response(1);
+    }
 }
