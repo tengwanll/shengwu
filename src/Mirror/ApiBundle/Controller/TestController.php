@@ -163,7 +163,7 @@ class TestController extends BaseController
     }
 
     /**
-     * @Route("/xun/search/name")
+     * @Route("/xun/search/{name}")
      * @return Response
      */
     public function xunSearch($name){
