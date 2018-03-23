@@ -163,14 +163,14 @@ class TestController extends BaseController
     }
 
     /**
-     * @Route("/xun/search")
+     * @Route("/xun/search/name")
      * @return Response
      */
-    public function xunSearch(){
+    public function xunSearch($name){
         try {
             $xs=new \XS('biology');
             $search=$xs->getSearch();
-            $data=$search->search('肝炎');
+            $data=$search->search($name);
             var_dump($data);
         } catch (\XSException $e) {
             var_dump($e->getMessage());
