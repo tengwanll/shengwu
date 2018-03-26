@@ -88,9 +88,4 @@ class BiologyController extends BaseController
         $rr=$this->get('biology_service')->create($biology);
         return $this->buildResponse($rr);
     }
-
-    public function test(){
-        $rr=$this->get('biology_service')->getList();
-        return $this->buildResponse($rr);
-    }
 }
