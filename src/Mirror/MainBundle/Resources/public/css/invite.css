@@ -1,0 +1,262 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header，section，footer，aside，nav，main，article，figure{
+    display:none;
+}
+.backgroundColorWhite{
+    background-color: #fff;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+}
+#container{
+    height: 100%;
+}
+li{
+    list-style: none;
+}
+.topNavLogo{
+    height: 80px;
+    position: static;
+    width: 100%;
+    z-index: 2;
+    background-color: rgba(255,255,255,0.3);
+}
+.topNavLogo img{
+    width: 100%;
+}
+.logo{
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 80px;
+}
+.index-nav-list{
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 80px;
+    height: 80px;
+}
+.index-nav-list ul li{
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left:35px;
+}
+.index-nav-list ul li:first-child{
+    margin-left: 0;
+}
+.index-nav-list ul li a{
+    font-size: 18px;
+    color: #d2d2d2;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.index-nav-list ul li a:hover,.index-nav-list ul li a.active{
+    background-color: #3ea2c7;
+    color: #fff;
+}
+.slide-down{
+    width: 100%;
+    background-color: #fff;
+    padding: 20px 0;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 9;
+}
+.index-company-info h3{
+    font-size: 24px;
+    line-height: 48px;
+    border-bottom: 2px solid #d5d5d5;
+    color: #333333;
+}
+.index-company-info p{
+    font-size: 16px;
+    color: #333;
+}
+.index-two-nav h4{
+    font-size: 16px;
+    color: #333;
+    line-height: 32px;
+    border-bottom: 2px solid #d5d5d5;
+}
+.index-two-nav ul{
+    padding-left: 0;
+}
+.index-two-nav ul li{
+    font-size: 16px;
+    color: #808080;
+    line-height: 32px;
+}
+
+/*中间部分样式*/
+
+main{
+    width: 100%;
+    overflow: hidden;
+}
+.briefBanner img{
+    height: 500px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.companyDesc{
+    text-align: center;
+    padding: 0 300px;
+}
+
+#inviteTitle{height:400px;width:850px; position:relative; margin:10px auto;}
+#inviteTitle a{position:absolute;top:0px;left:0px;color:#000;font-weight:bold;padding:3px 6px;}
+#inviteTitle a:hover{border:1px solid #eee;background:#ccc;border-radius:5px;}
+
+.inviteH3Title{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.inviteH3Title h3{
+    border-bottom: 2px solid #48a8cc;
+    width: 300px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+}
+.inviteH3Title small{
+    color: #666666;
+}
+.inviteVideo{
+    width: 100%;
+}
+.inviteVideo img{
+    width: 100%;
+}
+.inviteListBg{
+    width: 100%;
+}
+.inviteListBg img{
+    width: 100%;
+}
+.inviteList{
+    position: relative;
+    width: 100%;
+}
+
+.inviteList ul{
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    width: 600px;
+    margin: 0 auto;
+    margin-left: -300px;
+}
+.inviteList ul li{
+    float: left;
+    margin-right: 30px;
+    margin-top: 50px;
+    position: relative;
+}
+.inviteList ul li .num{
+    position: absolute;
+    right: 10px;
+    top: -20px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-image: url("../images/inviteNumBg.png");
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+}
+.inviteList ul li .noNum{
+    background-image: url("../images/inviteNoNum.png");
+}
+.inviteList ul li:last-child{
+    margin-right: 0;
+}
+.inviteList ul li:after{
+    overflow: hidden;
+}
+
+.inviteCon{
+    color: #fff;
+    width: 140px;
+    background-color: rgba(62,162,199,0.7);
+    padding: 10px;
+    border-radius: 5px;
+    display: block;
+}
+.inviteCon:hover{
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/*底部样式*/
+footer{
+    width: 100%;
+    background-color: #446582;
+    padding: 20px 0 10px;
+}
+.footerNav ul li{
+    display: inline-block;
+    vertical-align: top;
+    font-size: 18px;
+    color: #fff;
+}
+
+.footerNav ul li:first-child{
+    width: 15%;
+}
+.footerNav ul li:nth-child(2){
+    width: 15%;
+}
+.footerNav ul li:nth-child(3){
+    width: 15%;
+}
+.footerNav ul li:nth-child(4){
+    width: 15%;
+}
+.footerNav ul li:nth-child(5){
+    width: 15%;
+}
+.footerNav ul li:nth-child(6){
+    width: 23%;
+}
+.footerNav ul li span{
+    border-bottom: 1px solid #fff;
+    display: inline-block;
+    line-height: 2em;
+    margin-bottom:10px;
+}
+.footerNav ul li ul{
+    width: 100%;
+}
+.footerNav ul li ul li{
+    width: 100% !important;
+    font-size: 14px;
+    color: #b2b2b2;
+}
+.footerNav ul li ul li a{
+    font-size: 14px;
+    color: #b2b2b2;
+}
+.footerNav ul li p{
+    width: 111px;
+}
+.footerNav ul li p img{
+    width: 111px;
+}
+.copyright{
+    text-align: center;
+    color: #fff;
+    border-top: 1px solid #fff;
+    line-height: 3em;
+}

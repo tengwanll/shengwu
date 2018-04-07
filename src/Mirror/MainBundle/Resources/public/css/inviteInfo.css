@@ -1,0 +1,217 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header，section，footer，aside，nav，main，article，figure{
+    display:none;
+}
+.backgroundColorWhite{
+    background-color: #fff;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+}
+#container{
+    height: 100%;
+}
+li{
+    list-style: none;
+}
+.topNavLogo{
+    height: 80px;
+    width: 100%;
+    z-index: 2;
+    background-color: rgba(255,255,255,0.3);
+}
+.topNavLogo img{
+    width: 100%;
+}
+.logo{
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 80px;
+}
+.index-nav-list{
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 80px;
+    height: 80px;
+}
+.index-nav-list ul li{
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left:35px;
+}
+.index-nav-list ul li:first-child{
+    margin-left: 0;
+}
+.index-nav-list ul li a{
+    font-size: 18px;
+    color: #d2d2d2;
+    padding: 8px 15px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.index-nav-list ul li a:hover,.index-nav-list ul li a.active{
+    background-color: #3ea2c7;
+    color: #fff;
+}
+.slide-down{
+    width: 100%;
+    background-color: #fff;
+    padding: 20px 0;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 9;
+}
+.index-company-info h3{
+    font-size: 24px;
+    line-height: 48px;
+    border-bottom: 2px solid #d5d5d5;
+    color: #333333;
+}
+.index-company-info p{
+    font-size: 16px;
+    color: #333;
+}
+.index-two-nav h4{
+    font-size: 16px;
+    color: #333;
+    line-height: 32px;
+    border-bottom: 2px solid #d5d5d5;
+}
+.index-two-nav ul{
+    padding-left: 0;
+}
+.index-two-nav ul li{
+    font-size: 16px;
+    color: #808080;
+    line-height: 32px;
+}
+
+/*中间部分样式*/
+
+main{
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+    background-color: #fafafc;
+    padding-top: 60px;
+}
+.smallNav{
+    margin-left: 50px;
+    color: #333333;
+}
+.inviteInfo{
+    margin: 0 50px;
+    background-color: #f0f0f0;
+}
+.inviteInfo h1{
+    line-height: 80px;
+    padding-left: 20px;
+}
+.inviteInfo h1,.inviteInfoBottom{
+    background-color: #d6d6d6;
+    color: #333;
+    font-size: 20px;
+    height: 80px;
+}
+.inviteInfoDesc dl{
+    padding-left: 20px;
+    color: #333;
+}
+.inviteInfoDesc dl dt{
+    font-size: 18px;
+    font-weight: normal;
+}
+.inviteInfoContact{
+    padding-left: 20px;
+    padding-bottom: 30px;
+}
+.inviteInfoBottom{
+    border-top: #999999 1px solid;
+    line-height: 80px;
+    text-align: center;
+}
+
+.inviteInfoBottom button{
+    width: 200px;
+    border-radius: 20px;
+    line-height: 40px;
+    margin: 0 20px;
+    color: #fff;
+}
+
+.inviteInfoBottom button:first-child{
+    background-color: #3ea2c7;
+}
+.inviteInfoBottom button:nth-child(2){
+    background-color: #32ab8a;
+}
+
+/*底部样式*/
+footer{
+    width: 100%;
+    background-color: #446582;
+    padding: 20px 0 10px;
+}
+.footerNav ul li{
+    display: inline-block;
+    vertical-align: top;
+    font-size: 18px;
+    color: #fff;
+}
+
+.footerNav ul li:first-child{
+    width: 15%;
+}
+.footerNav ul li:nth-child(2){
+    width: 15%;
+}
+.footerNav ul li:nth-child(3){
+    width: 15%;
+}
+.footerNav ul li:nth-child(4){
+    width: 15%;
+}
+.footerNav ul li:nth-child(5){
+    width: 15%;
+}
+.footerNav ul li:nth-child(6){
+    width: 23%;
+}
+.footerNav ul li span{
+    border-bottom: 1px solid #fff;
+    display: inline-block;
+    line-height: 2em;
+    margin-bottom:10px;
+}
+.footerNav ul li ul{
+    width: 100%;
+}
+.footerNav ul li ul li{
+    width: 100% !important;
+    font-size: 14px;
+    color: #b2b2b2;
+}
+.footerNav ul li ul li a{
+    font-size: 14px;
+    color: #b2b2b2;
+}
+.footerNav ul li p{
+    width: 111px;
+}
+.footerNav ul li p img{
+    width: 111px;
+}
+.copyright{
+    text-align: center;
+    color: #fff;
+    border-top: 1px solid #fff;
+    line-height: 3em;
+}
