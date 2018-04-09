@@ -9,7 +9,7 @@
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="{{ asset('/bundles/mirrormain/css/bootstrap.min.css') }}"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
+    <link rel="stylesheet" href="{{ asset('/bundles/mirrormain/css/swiper.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/bundles/mirrormain/css/contactMe.css') }}">
 </head>
 <body>
@@ -647,9 +647,9 @@
         </div>
     </footer>
 </div>
-<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script src="{{ asset('/bundles/mirrormain/js/jquery.js',null,false,version) }}"></script>
 <script src="{{ asset('/bundles/mirrormain/js/admPublic.js',null,false,version) }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
+<script src="{{ asset('/bundles/mirrormain/js/swiper.min.js',null,false,version) }}"></script>
 <script src="{{ asset('/bundles/mirrormain/js/contactMe.js',null,false,version) }}"></script>
 
 </body>
