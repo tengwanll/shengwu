@@ -50,7 +50,12 @@ class MainService
         $this->weatherModel=$weatherModel;
         $this->bannerModel=$bannerModel;
     }
-    
+
+    /**
+     * 获取公司列表
+     * @param $redis
+     * @return ReturnResult
+     */
     public function getCompanyList($redis){
         $rr=new ReturnResult();
         $companys=$this->companyModel->getByProperty('status',Constant::$status_normal);
