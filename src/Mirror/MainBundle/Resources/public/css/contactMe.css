@@ -190,15 +190,16 @@ main{
     -o-transition-duration: 10s;
     -webkit-transition-duration: 10s;
     transition-duration: 10s;
-    -moz-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+    transition: All 5s linear;
+   /* -moz-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
     -ms-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
     -webkit-transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
-    transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);
+    transform: scaleX(1.1) scaleY(1.1) translateZ(-1px);*/
 }
-.animate{
+/*.animate{
     animation:magnify 10s 1;
-    -webkit-animation:magnify 10s 1; /*Safari and Chrome*/
-}
+    -webkit-animation:magnify 10s 1; !*Safari and Chrome*!
+}*/
 .swiperLiImg img{
     width: 100%;
     height: 100%;

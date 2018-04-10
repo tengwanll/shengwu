@@ -46,28 +46,26 @@ $(function () {
     var swiperBox5Count=0;
 
     $(window).scroll(function () {
-        if(swiperBox1Count<=0){
-            isShow($('.swiperBox1'));
-            $('.swiperBox1 .swiper-wrapper .swiperLi .swiperLiImg').addClass('animate');
-        }
-        if(swiperBox2Count<=0){
-            isShow($('.swiperBox2'));
-            $('.swiperBox2 .swiper-wrapper .swiperLi .swiperLiImg').addClass('animate');
-        }
-        if(swiperBox3Count<=0){
-            isShow($('.swiperBox3'));
-            $('.swiperBox3 .swiper-wrapper .swiperLi .swiperLiImg').addClass('animate');
-        }
-        if(swiperBox4Count<=0){
-            isShow($('.swiperBox4'));
-            $('.swiperBox4 .swiper-wrapper .swiperLi .swiperLiImg').addClass('animate');
-        }
-        if(swiperBox5Count<=0){
-            isShow($('.swiperBox5'));
-            $('.swiperBox5 .swiper-wrapper .swiperLi .swiperLiImg').addClass('animate');
-        }
-
+        showScale('.swiperBox1');
+        showScale('.swiperBox2');
+        showScale('.swiperBox3');
+        showScale('.swiperBox4');
+        showScale('.swiperBox5');
     });
+
+
+    function showScale(item) {
+        if(isShow($(item))){
+            $(item+' .swiper-wrapper .swiperLi .swiperLiImg').css({
+                transform:'scale(1.1)'
+            });
+            // console.log('aaaaaaaaaaaaaaa');
+        }else{
+            $(item+' .swiper-wrapper .swiperLi .swiperLiImg').css({
+                transform:'scale(1)'
+            });
+        }
+    }
 
 
 
@@ -76,14 +74,18 @@ $(function () {
         console.log(a);
         console.log($(window).scrollTop());
         console.log($(window).height());
-        if (a >= $(window).scrollTop() && a < ($(window).scrollTop() + $(window).height())) {
-                swiperBox1Count++;
+        console.log($(window).scrollTop()-$(window).height());
+        if (a <= $(window).scrollTop()+$(window).height() && a >= ($(window).scrollTop() - $(window).height())) {
+                /*swiperBox1Count++;
                 swiperBox2Count++;
                 swiperBox3Count++;
                 swiperBox4Count++;
-                swiperBox5Count++;
+                swiperBox5Count++;*/
+                return true;
 
         }
+
+        return false;
     }
 
 
