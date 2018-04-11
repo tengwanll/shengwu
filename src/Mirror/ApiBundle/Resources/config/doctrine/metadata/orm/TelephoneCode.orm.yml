@@ -28,27 +28,33 @@ TelephoneCode:
             nullable: true
             options:
                 unsigned: false
+                default: 'NULL'
         validBeginTime:
             type: integer
             nullable: true
             options:
                 unsigned: false
+                default: 'NULL'
             column: valid_begin_time
         validEndTime:
             type: integer
             nullable: true
             options:
                 unsigned: false
+                default: 'NULL'
             column: valid_end_time
         validTime:
             type: datetime
             nullable: true
+            options:
+                default: 'NULL'
             column: valid_time
         status:
             type: integer
             nullable: true
             options:
                 unsigned: false
+                default: 'NULL'
         createTime:
             type: datetime
             nullable: false
@@ -57,6 +63,6 @@ TelephoneCode:
             type: datetime
             nullable: false
             options:
-                default: CURRENT_TIMESTAMP
+                default: current_timestamp()
             column: update_time
     lifecycleCallbacks: {  }

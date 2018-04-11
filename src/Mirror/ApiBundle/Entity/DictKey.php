@@ -33,14 +33,14 @@ class DictKey
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
-    private $description;
+    private $description = 'NULL';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="status", type="integer", nullable=true)
      */
-    private $status;
+    private $status = 'NULL';
 
     /**
      * @var \DateTime
@@ -54,7 +54,7 @@ class DictKey
      *
      * @ORM\Column(name="update_time", type="datetime", nullable=false)
      */
-    private $updateTime = 'CURRENT_TIMESTAMP';
+    private $updateTime = 'current_timestamp()';
 
 
 

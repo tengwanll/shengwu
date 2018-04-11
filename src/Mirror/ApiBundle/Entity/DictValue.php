@@ -47,7 +47,7 @@ class DictValue
      *
      * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
-    private $description;
+    private $description = 'NULL';
 
     /**
      * @var integer
@@ -68,7 +68,7 @@ class DictValue
      *
      * @ORM\Column(name="update_time", type="datetime", nullable=false)
      */
-    private $updateTime = 'CURRENT_TIMESTAMP';
+    private $updateTime = 'current_timestamp()';
 
 
 

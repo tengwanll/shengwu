@@ -27,12 +27,14 @@ LogLogin:
             length: 255
             options:
                 fixed: false
+                default: 'NULL'
         type:
             type: integer
             nullable: true
             options:
                 unsigned: false
                 comment: '类型:1.前台用户2.后台用户'
+                default: 'NULL'
         status:
             type: integer
             nullable: false
@@ -46,6 +48,6 @@ LogLogin:
             type: datetime
             nullable: false
             options:
-                default: CURRENT_TIMESTAMP
+                default: current_timestamp()
             column: update_time
     lifecycleCallbacks: {  }

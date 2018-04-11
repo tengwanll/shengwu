@@ -33,21 +33,21 @@ class SystemSettings
      *
      * @ORM\Column(name="value", type="string", length=255, nullable=true)
      */
-    private $value;
+    private $value = 'NULL';
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
-    private $description;
+    private $description = 'NULL';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="show_editor", type="integer", nullable=true)
      */
-    private $showEditor;
+    private $showEditor = 'NULL';
 
     /**
      * @var integer
@@ -68,7 +68,7 @@ class SystemSettings
      *
      * @ORM\Column(name="update_time", type="datetime", nullable=false)
      */
-    private $updateTime = 'CURRENT_TIMESTAMP';
+    private $updateTime = 'current_timestamp()';
 
 
 

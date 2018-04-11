@@ -40,35 +40,35 @@ class TelephoneCode
      *
      * @ORM\Column(name="validity", type="integer", nullable=true)
      */
-    private $validity;
+    private $validity = 'NULL';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="valid_begin_time", type="integer", nullable=true)
      */
-    private $validBeginTime;
+    private $validBeginTime = 'NULL';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="valid_end_time", type="integer", nullable=true)
      */
-    private $validEndTime;
+    private $validEndTime = 'NULL';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="valid_time", type="datetime", nullable=true)
      */
-    private $validTime;
+    private $validTime = 'NULL';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="status", type="integer", nullable=true)
      */
-    private $status;
+    private $status = 'NULL';
 
     /**
      * @var \DateTime
@@ -82,7 +82,7 @@ class TelephoneCode
      *
      * @ORM\Column(name="update_time", type="datetime", nullable=false)
      */
-    private $updateTime = 'CURRENT_TIMESTAMP';
+    private $updateTime = 'current_timestamp()';
 
 
 

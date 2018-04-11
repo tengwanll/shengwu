@@ -41,6 +41,7 @@ Sort:
             nullable: true
             options:
                 unsigned: false
+                default: 'NULL'
         leftR:
             type: smallint
             nullable: false
@@ -80,6 +81,6 @@ Sort:
             type: datetime
             nullable: false
             options:
-                default: '0000-00-00 00:00:00'
+                default: '''0000-00-00 00:00:00'''
             column: update_time
     lifecycleCallbacks: {  }

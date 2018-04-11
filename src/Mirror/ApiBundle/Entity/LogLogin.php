@@ -33,14 +33,14 @@ class LogLogin
      *
      * @ORM\Column(name="ip", type="string", length=255, nullable=true)
      */
-    private $ip;
+    private $ip = 'NULL';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="type", type="integer", nullable=true)
      */
-    private $type;
+    private $type = 'NULL';
 
     /**
      * @var integer
@@ -61,7 +61,7 @@ class LogLogin
      *
      * @ORM\Column(name="update_time", type="datetime", nullable=false)
      */
-    private $updateTime = 'CURRENT_TIMESTAMP';
+    private $updateTime = 'current_timestamp()';
 
 
 

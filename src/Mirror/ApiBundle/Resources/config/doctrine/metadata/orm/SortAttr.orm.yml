@@ -35,6 +35,7 @@ SortAttr:
             options:
                 fixed: false
                 comment: 属性字段
+                default: 'NULL'
         status:
             type: integer
             nullable: false
@@ -48,6 +49,6 @@ SortAttr:
             type: datetime
             nullable: false
             options:
-                default: '0000-00-00 00:00:00'
+                default: '''0000-00-00 00:00:00'''
             column: update_time
     lifecycleCallbacks: {  }

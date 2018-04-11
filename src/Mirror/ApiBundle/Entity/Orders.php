@@ -47,7 +47,7 @@ class Orders
      *
      * @ORM\Column(name="message", type="text", length=65535, nullable=true)
      */
-    private $message;
+    private $message = 'NULL';
 
     /**
      * @var integer
@@ -68,7 +68,7 @@ class Orders
      *
      * @ORM\Column(name="update_time", type="datetime", nullable=false)
      */
-    private $updateTime = '0000-00-00 00:00:00';
+    private $updateTime = '\'0000-00-00 00:00:00\'';
 
 
 

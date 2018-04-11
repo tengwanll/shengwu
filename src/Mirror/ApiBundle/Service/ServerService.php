@@ -58,14 +58,12 @@ class ServerService
         $sorts=$this->serverSortModel->getByProperty('level',1);
         $arr=array();
         foreach ($sorts as $sort){
-            $left_r=$sorts['left_r'];
-            $right_r=$sorts['right_r'];
+            $left_r=$sort['left_r'];
+            $right_r=$sort['right_r'];
             $params=array(
-                '<'=>array('sort_id'=>$right_r),
-                '>'=>array('sort_id'=>$left_r),
                 'status'=>Constant::$status_normal,
             );
-            $data=$this->serverModel->getByPages($params);
+            $data=$this->serverModel->getList($params,'','',$left_r,$right_r);
             $arr[$sort['name']]=$data;
         }
         $rr->result=array('list'=>$arr);

@@ -40,7 +40,7 @@ class SortAttr
      *
      * @ORM\Column(name="value", type="string", length=255, nullable=true)
      */
-    private $value;
+    private $value = 'NULL';
 
     /**
      * @var integer
@@ -61,7 +61,7 @@ class SortAttr
      *
      * @ORM\Column(name="update_time", type="datetime", nullable=false)
      */
-    private $updateTime = '0000-00-00 00:00:00';
+    private $updateTime = '\'0000-00-00 00:00:00\'';
 
 
 

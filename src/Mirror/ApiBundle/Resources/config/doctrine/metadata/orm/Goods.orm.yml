@@ -54,12 +54,14 @@ Goods:
             options:
                 unsigned: false
                 comment: 商品图片
+                default: 'NULL'
         description:
             type: text
             nullable: true
             length: 65535
             options:
                 fixed: false
+                default: 'NULL'
         buyNum:
             type: integer
             nullable: false
@@ -75,6 +77,7 @@ Goods:
             options:
                 fixed: false
                 comment: 专有属性
+                default: 'NULL'
         goodsNumber:
             type: string
             nullable: false
@@ -117,6 +120,6 @@ Goods:
             type: datetime
             nullable: false
             options:
-                default: '0000-00-00 00:00:00'
+                default: '''0000-00-00 00:00:00'''
             column: update_time
     lifecycleCallbacks: {  }

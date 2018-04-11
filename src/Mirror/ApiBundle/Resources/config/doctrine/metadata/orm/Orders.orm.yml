@@ -45,6 +45,7 @@ Orders:
             options:
                 fixed: false
                 comment: 留言
+                default: 'NULL'
         status:
             type: integer
             nullable: false
@@ -59,6 +60,6 @@ Orders:
             type: datetime
             nullable: false
             options:
-                default: '0000-00-00 00:00:00'
+                default: '''0000-00-00 00:00:00'''
             column: update_time
     lifecycleCallbacks: {  }

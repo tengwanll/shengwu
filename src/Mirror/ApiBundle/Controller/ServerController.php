@@ -15,11 +15,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("/server/sort")
+ * @Route("/server")
  * Class SortController
  * @package Mirror\ApiBundle\Controller
  */
-class ServerSortController extends BaseController
+class ServerController extends BaseController
 {
     /**
      * @Route("")
@@ -28,7 +28,7 @@ class ServerSortController extends BaseController
      * @return mixed
      */
     public function getList(Request $request){
-        $rr=$this->get('server_sort_service')->getList();
+        $rr=$this->get('server_service')->getIndexServer();
         return $this->buildResponse($rr);
     }
 
@@ -42,8 +42,8 @@ class ServerSortController extends BaseController
         $json=$this->getJson($request);
         $name=$json->get('name','');
         $parentId=$json->get('parentId',0);
-        $description=$json->get('description','');
-        $logo=$json->get('logo',0);
+        $description=$json->get('description',0);
+        $logo=$json->get('logo','');
         $rr=$this->get('server_sort_service')->add($name,$parentId,$logo,$description);
         return $this->buildResponse($rr);
     }

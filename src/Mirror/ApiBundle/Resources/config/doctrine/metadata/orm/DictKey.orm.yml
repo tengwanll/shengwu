@@ -23,11 +23,13 @@ DictKey:
             length: 255
             options:
                 fixed: false
+                default: 'NULL'
         status:
             type: integer
             nullable: true
             options:
                 unsigned: false
+                default: 'NULL'
         createTime:
             type: datetime
             nullable: false
@@ -36,6 +38,6 @@ DictKey:
             type: datetime
             nullable: false
             options:
-                default: CURRENT_TIMESTAMP
+                default: current_timestamp()
             column: update_time
     lifecycleCallbacks: {  }

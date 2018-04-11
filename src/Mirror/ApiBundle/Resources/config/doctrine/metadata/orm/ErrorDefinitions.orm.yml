@@ -37,6 +37,6 @@ ErrorDefinitions:
             type: datetime
             nullable: false
             options:
-                default: CURRENT_TIMESTAMP
+                default: current_timestamp()
             column: update_time
     lifecycleCallbacks: {  }

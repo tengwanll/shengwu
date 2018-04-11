@@ -33,7 +33,7 @@ class User
      *
      * @ORM\Column(name="mobile", type="string", length=11, nullable=true)
      */
-    private $mobile;
+    private $mobile = 'NULL';
 
     /**
      * @var string
@@ -47,7 +47,7 @@ class User
      *
      * @ORM\Column(name="image", type="integer", nullable=true)
      */
-    private $image;
+    private $image = 'NULL';
 
     /**
      * @var integer
@@ -82,7 +82,7 @@ class User
      *
      * @ORM\Column(name="update_time", type="datetime", nullable=false)
      */
-    private $updateTime = 'CURRENT_TIMESTAMP';
+    private $updateTime = 'current_timestamp()';
 
 
 

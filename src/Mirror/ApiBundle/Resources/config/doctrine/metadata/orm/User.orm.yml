@@ -34,6 +34,7 @@ User:
             length: 11
             options:
                 fixed: false
+                default: 'NULL'
         password:
             type: string
             nullable: false
@@ -45,6 +46,7 @@ User:
             nullable: true
             options:
                 unsigned: false
+                default: 'NULL'
         role:
             type: integer
             nullable: false
@@ -69,6 +71,6 @@ User:
             type: datetime
             nullable: false
             options:
-                default: CURRENT_TIMESTAMP
+                default: current_timestamp()
             column: update_time
     lifecycleCallbacks: {  }

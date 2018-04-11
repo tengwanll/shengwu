@@ -68,7 +68,7 @@ class OrderGoods
      *
      * @ORM\Column(name="update_time", type="datetime", nullable=false)
      */
-    private $updateTime = '0000-00-00 00:00:00';
+    private $updateTime = '\'0000-00-00 00:00:00\'';
 
 
 

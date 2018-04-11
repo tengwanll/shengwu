@@ -39,6 +39,7 @@ DictValue:
             length: 65535
             options:
                 fixed: false
+                default: 'NULL'
         status:
             type: integer
             nullable: false
@@ -52,6 +53,6 @@ DictValue:
             type: datetime
             nullable: false
             options:
-                default: CURRENT_TIMESTAMP
+                default: current_timestamp()
             column: update_time
     lifecycleCallbacks: {  }

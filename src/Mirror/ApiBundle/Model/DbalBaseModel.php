@@ -13,11 +13,23 @@ use Mirror\ApiBundle\ViewModel\Pageable;
  */
 abstract class DbalBaseModel {
 
-    private $conn;
+    protected $conn;
 
     public function __construct(Connection $conn)
     {
         $this->conn=$conn;
+    }
+
+    public function beginTransaction(){
+        $this->conn->beginTransaction();
+    }
+
+    public function commit(){
+        $this->conn->commit();
+    }
+
+    public function rollback(){
+        $this->conn->rollBack();
     }
 
     /**

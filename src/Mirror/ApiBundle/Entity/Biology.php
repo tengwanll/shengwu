@@ -33,70 +33,70 @@ class Biology
      *
      * @ORM\Column(name="english_name", type="string", length=255, nullable=true)
      */
-    private $englishName;
+    private $englishName = 'NULL';
 
     /**
      * @var string
      *
      * @ORM\Column(name="sort", type="string", length=255, nullable=true)
      */
-    private $sort;
+    private $sort = 'NULL';
 
     /**
      * @var string
      *
      * @ORM\Column(name="kind", type="string", length=255, nullable=true)
      */
-    private $kind;
+    private $kind = 'NULL';
 
     /**
      * @var string
      *
      * @ORM\Column(name="check_gene", type="string", length=255, nullable=true)
      */
-    private $checkGene;
+    private $checkGene = 'NULL';
 
     /**
      * @var string
      *
      * @ORM\Column(name="other_gene", type="string", length=255, nullable=true)
      */
-    private $otherGene;
+    private $otherGene = 'NULL';
 
     /**
      * @var string
      *
      * @ORM\Column(name="literature", type="string", length=255, nullable=true)
      */
-    private $literature;
+    private $literature = 'NULL';
 
     /**
      * @var string
      *
      * @ORM\Column(name="disease", type="text", length=65535, nullable=true)
      */
-    private $disease;
+    private $disease = 'NULL';
 
     /**
      * @var string
      *
      * @ORM\Column(name="keyword", type="string", length=255, nullable=true)
      */
-    private $keyword;
+    private $keyword = 'NULL';
 
     /**
      * @var string
      *
      * @ORM\Column(name="is_usual", type="string", length=10, nullable=true)
      */
-    private $isUsual;
+    private $isUsual = 'NULL';
 
     /**
      * @var string
      *
      * @ORM\Column(name="comment", type="text", length=65535, nullable=true)
      */
-    private $comment;
+    private $comment = 'NULL';
 
     /**
      * @var integer
