@@ -13,6 +13,7 @@ use Mirror\ApiBundle\Common\Code;
 use Mirror\ApiBundle\Common\Constant;
 use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
+use Mirror\ApiBundle\Model\CompanyModel;
 use Mirror\ApiBundle\Model\ServerModel;
 use Mirror\ApiBundle\Model\ServerSortModel;
 use Mirror\ApiBundle\Model\SystemSettingModel;
@@ -29,6 +30,7 @@ class ServerService
     private $fileService;
     private $serverSortModel;
     private $systemSettingModel;
+    private $companyModel;
 
     /**
      * @InjectParams({
@@ -40,15 +42,17 @@ class ServerService
      * @param FileService $fileService
      * @param SystemSettingModel $systemSettingModel
      */
-    public function __construct(ServerModel $serverModel,ServerSortModel $serverSortModel,FileService $fileService,SystemSettingModel $systemSettingModel)
+    public function __construct(ServerModel $serverModel,ServerSortModel $serverSortModel,FileService $fileService,SystemSettingModel $systemSettingModel,CompanyModel $companyModel)
     {
         $this->serverModel=$serverModel;
         $this->serverSortModel=$serverSortModel;
         $this->fileService=$fileService;
         $this->systemSettingModel=$systemSettingModel;
+        $this->companyModel=$companyModel;
     }
 
     /**
+     * 获取首页菜单显示的服务
      * @param $pageable
      * @param $userId
      * @return ReturnResult
@@ -56,6 +60,7 @@ class ServerService
     public function getIndexServer(){
         $rr=new ReturnResult();
         $sorts=$this->serverSortModel->getByProperty('level',1);
+        $company=$this->companyModel->getByProperty('name_as',Constant::$main_company);
         $arr=array();
         foreach ($sorts as $sort){
             $left_r=$sort['left_r'];
@@ -64,9 +69,41 @@ class ServerService
                 'status'=>Constant::$status_normal,
             );
             $data=$this->serverModel->getList($params,'','',$left_r,$right_r);
-            $arr[$sort['name']]=$data;
+            $arr[]=array(
+                'name'=>$sort['name'],
+                'sortId'=>$sort['id'],
+                'server'=>$data
+            );
         }
-        $rr->result=array('list'=>$arr);
+        $rr->result=array('list'=>$arr,'company'=>$company);
+        return $rr;
+    }
+
+    /**
+     * 获取中间页分类的服务
+     * @param $sortId  //分类id
+     * @return ReturnResult
+     */
+    public function getListBySort($sortId){
+        $rr=new ReturnResult();
+        $arr=array();
+        $sort=$this->serverSortModel->getById($sortId);
+        $arr['sort']=$sort;
+        $left_r=$sort['left_r'];
+        $right_r=$sort['right_r'];
+        $noUp=array(
+            'status'=>Constant::$status_normal,
+            'is_up'=>0
+        );
+        $list=$this->serverModel->getList($noUp,'','',$left_r,$right_r);
+        $arr['list']=$list;
+        $up=array(
+            'status'=>Constant::$status_normal,
+            'is_up'=>1
+        );
+        $upList=$this->serverModel->getList($up,'','',$left_r,$right_r);
+        $arr['upList']=$upList;
+        $rr->result=$arr;
         return $rr;
     }
 
