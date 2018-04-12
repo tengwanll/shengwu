@@ -77,5 +77,5 @@ snc_redis:
         default:
             type: predis
             alias: default
-            dsn: redis://120.27.5.26
+            dsn: redis://myRedisdb@120.27.5.26
             logging: %kernel.debug%

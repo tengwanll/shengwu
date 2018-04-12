@@ -28,7 +28,6 @@ class MainController extends BaseController
      */
     public function getCompanyList(Request $request){
         $redis=$this->get('snc_redis.default');
-        $redis->auth('myRedisdb');
         $rr=$this->get('main_service')->getCompanyList($redis);
         return $this->buildResponse($rr);
     }

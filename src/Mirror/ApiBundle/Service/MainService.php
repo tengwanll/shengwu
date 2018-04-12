@@ -71,6 +71,7 @@ class MainService
                 $redis->expireAt($address,strtotime(date('Y-m-d').' 23:59:59'));
             }
             $wid=$weather['result']['today']['weather_id']['fa'];
+
             $logo=$this->weatherModel->getOneByProperty('wid',$wid);
             $logo=$this->fileService->getFullUrlById($logo['logo']);
             $banners=$this->bannerModel->getByPages(array('type'=>Constant::$banner_type_company,'contact_id'=>$company['id']));

@@ -62,6 +62,7 @@ class ServerService
             $right_r=$sort['right_r'];
             $params=array(
                 'status'=>Constant::$status_normal,
+                'is_up=0'
             );
             $data=$this->serverModel->getList($params,'','',$left_r,$right_r);
             $arr[$sort['name']]=$data;
