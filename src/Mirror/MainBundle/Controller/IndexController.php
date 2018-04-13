@@ -22,6 +22,6 @@ class IndexController extends Controller
     public function indexAction()
     {
         $rr=$this->get('server_service')->getIndexServer();
-        return array();
+        return array('list'=>$rr->result['list'],'company'=>$rr->result['company']);
     }
 }

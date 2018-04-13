@@ -33,6 +33,18 @@ class ServerController extends BaseController
     }
 
     /**
+     * 获取中间页分类的服务
+     * @Route("/{sortId}",requirements={"sortId":"\d+"})
+     * @Method("GET")
+     * @param $sortId
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getSortList($sortId){
+        $rr=$this->get('server_service')->getListBySort($sortId);
+        return $this->buildResponse($rr);
+    }
+
+    /**
      * @Route("")
      * @Method("POST")
      * @param Request $request

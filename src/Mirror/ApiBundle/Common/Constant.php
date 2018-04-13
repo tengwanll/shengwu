@@ -63,6 +63,7 @@ class Constant {
     );
 
     public static $banner_type_company=1;//公司的bannner
+    public static $main_company='XIAMEN';//总公司
 
     //rabbitmq 消息队列配置
     public static $rabbit_host='120.27.5.26';
