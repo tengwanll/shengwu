@@ -60,15 +60,22 @@ class ServerService
     public function getIndexServer(){
         $rr=new ReturnResult();
         $sorts=$this->serverSortModel->getByProperty('level',1);
-        $company=$this->companyModel->getByProperty('name_as',Constant::$main_company);
+        $company=$this->companyModel->getOneByProperty('name_as',Constant::$main_company);
+        if($company)
+            $company['logo']=$this->fileService->getFullUrlById($company['logo']);
         $arr=array();
         foreach ($sorts as $sort){
             $left_r=$sort['left_r'];
             $right_r=$sort['right_r'];
             $params=array(
                 'status'=>Constant::$status_normal,
+                'is_up'=>1
             );
             $data=$this->serverModel->getList($params,'','',$left_r,$right_r);
+            foreach($data as $key=>$val){
+                $data[$key]['logo']=$this->fileService->getFullUrlById($val['logo']);
+                $data[$key]['banner']=$this->fileService->getFullUrlById($val['banner']);
+            }
             $arr[]=array(
                 'name'=>$sort['name'],
                 'sortId'=>$sort['id'],

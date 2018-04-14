@@ -17,11 +17,11 @@
         <div class="nav">
             <ul>
                 <li><a href="">首页</a></li>
-                <li><a href="">临床服务</a></li>
-                <li><a href="">健康管理</a></li>
-                <li><a href="">科研服务</a></li>
+                {% for sort in list %}
+                    <li><a href="/main/server/sort/{{ sort['sortId'] }}">{{ sort['name'] }}</a></li>
+                {% endfor %}
                 <li><a href="">关于我们</a></li>
-                <li><a href="">博客</a></li>
+                {#<li><a href="">博客</a></li>#}
             </ul>
         </div>
     </section>

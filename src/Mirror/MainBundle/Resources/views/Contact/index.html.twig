@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>美服基因检测</title>
+    <title>联系我们</title>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="{{ asset('/bundles/mirrormain/css/bootstrap.min.css') }}"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -21,88 +21,14 @@
                     <div class="col-md-3 logo"><img src="{{ asset('/bundles/mirrormain/images/logo1.png') }}" alt=""></div>
                     <nav class="col-md-9 index-nav-list text-right">
                         <ul>
-                            <li><a href="#" class="active">首页</a></li>
-                            <li><a href="#">临床服务</a></li>
-                            <li><a href="#">健康管理</a></li>
-                            <li><a href="#">科研服务</a></li>
-                            <li><a href="#">关于我们</a></li>
-                            <li><a href="#">博客</a></li>
+                            <li><a href="/main/index" class="active">首页</a></li>
+                            {% for sort in list %}
+                                <li><a href="/main/server/sort/{{ sort['sortId'] }}">{{ sort['name'] }}</a></li>
+                            {% endfor %}
+                            <li><a href="/main/company">关于我们</a></li>
+                            {#<li><a href="#">博客</a></li>#}
                         </ul>
                     </nav>
-                </div>
-            </section>
-            <section class="slide-down" style="display: none">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="figure-pic">
-                                <img src="{{ asset('/bundles/mirrormain/images/figurePic.png') }}" alt="">
-                            </div>
-                            <div class="index-company-info">
-                                <h3>公司简介</h3>
-                                <p>
-                                    公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介公司简介</p>
-                            </div>
-                        </div>
-                        <div class="col-md-8 index-two-nav">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h4>50个肿瘤热点区域基因检测</h4>
-                                    <ul>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>50个肿瘤热点区域基因检测</h4>
-                                    <ul>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>50个肿瘤热点区域基因检测</h4>
-                                    <ul>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>50个肿瘤热点区域基因检测</h4>
-                                    <ul>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>50个肿瘤热点区域基因检测</h4>
-                                    <ul>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>50个肿瘤热点区域基因检测</h4>
-                                    <ul>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
         </div>
@@ -135,17 +61,17 @@
                     <li>
                         <img src="{{ asset('/bundles/mirrormain/images/contactTypeIco2.png') }}" alt="">
                         <div class="contactTypeCon">
-                            <h3>人力资源部</h3>
-                            <p>电话：0592-3278807转6</p>
-                            <p>邮箱：hr_zyn@amogene.com</p>
+                            <h3>技术支持</h3>
+                            <p>电话：0592-3278807转1</p>
+                            <p>邮箱：support@amogene.com</p>
                         </div>
                     </li>
                     <li>
                         <img src="{{ asset('/bundles/mirrormain/images/contactTypeIco3.png') }}" alt="">
                         <div class="contactTypeCon">
-                            <h3>人力资源部</h3>
-                            <p>电话：0592-3278807转6</p>
-                            <p>邮箱：hr_zyn@amogene.com</p>
+                            <h3>健康管理部</h3>
+                            <p>电话：0592-3278807转7</p>
+                            <p>邮箱：Healthcare@amogene.com</p>
                         </div>
                     </li>
                 </ul>

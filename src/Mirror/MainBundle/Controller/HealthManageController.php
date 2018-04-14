@@ -21,6 +21,7 @@ class HealthManageController extends Controller
      */
     public function indexAction($id)
     {
-        return array();
+        $rr=$this->get('server_service')->getIndexServer();
+        return array('sortId'=>$id,'list'=>$rr->result['list']);
     }
 }
