@@ -8,14 +8,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * @Route("/server)
+ * @Route("/server")
  * Class IndexController
  * @package Mirror\MainBundle\Controller
  */
 class HealthManageController extends Controller
 {
     /**
-     * @Route("/sort/{id}",requirements={"id":"\d+"}")
+     * @Route("/sort/{id}",requirements={"id":"\d+"})
      * @Template()
      * @return array
      */
