@@ -87,23 +87,27 @@ class ServerService
     public function getListBySort($sortId){
         $rr=new ReturnResult();
         $arr=array();
-        $sort=$this->serverSortModel->getById($sortId);
-        $arr['sort']=$sort;
-        $left_r=$sort['left_r'];
-        $right_r=$sort['right_r'];
-        $noUp=array(
-            'status'=>Constant::$status_normal,
-            'is_up'=>0
-        );
-        $list=$this->serverModel->getList($noUp,'','',$left_r,$right_r);
-        $arr['list']=$list;
-        $up=array(
-            'status'=>Constant::$status_normal,
-            'is_up'=>1
-        );
-        $upList=$this->serverModel->getList($up,'','',$left_r,$right_r);
-        $arr['upList']=$upList;
-        $rr->result=$arr;
+        $sorts=$this->serverSortModel->getByProperty('parent_id',$sortId);
+        foreach($sorts as $sort){
+            $left_r=$sort['left_r'];
+            $right_r=$sort['right_r'];
+            $noUp=array(
+                'status'=>Constant::$status_normal,
+                'is_up'=>0
+            );
+            $list=$this->serverModel->getList($noUp,'','',$left_r,$right_r);
+            $up=array(
+                'status'=>Constant::$status_normal,
+                'is_up'=>1
+            );
+            $upList=$this->serverModel->getList($up,'','',$left_r,$right_r);
+            $arr[]=array(
+                'sort'=>$sort,
+                'list'=>$list,
+                'up_list'=>$upList
+            );
+        }
+        $rr->result=array('data'=>$arr);
         return $rr;
     }
 
