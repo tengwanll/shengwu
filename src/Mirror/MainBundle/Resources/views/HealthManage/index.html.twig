@@ -29,40 +29,32 @@
         <aside class="left">
             <h3>健康管理 <p>Health</p><p>management</p></h3>
             <ul>
-                <li><a href="#">美服基因</a></li>
-                <li><a href="#">HPV</a></li>
+                {#<li><a href="#">美服基因</a></li>
+                <li><a href="#">HPV</a></li>#}
             </ul>
         </aside>
         <aside class="right">
             <div class="rightMain">
-                <h3>妇幼保健</h3>
-                <p>现代医学研究表明，人类患病是基因（内因）和环境（外因）共同作用的结果。通过基因检测获取基因型信息，全面了解个体遗传特性，帮助建立更加健康的生活方式及饮食习惯，做到复杂疾病的全面预防。</p>
+                <h3></h3>
+                <p></p>
                 <div class="healthList">
                     <ul>
+                        {#<li><a href="#">孕妇产前基因检测套餐</a></li>
                         <li><a href="#">孕妇产前基因检测套餐</a></li>
                         <li><a href="#">孕妇产前基因检测套餐</a></li>
                         <li><a href="#">孕妇产前基因检测套餐</a></li>
                         <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                    </ul>
-                    <ul>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
+                        <li><a href="#">孕妇产前基因检测套餐</a></li>#}
                     </ul>
                 </div>
 
                 <div style="clear: both"></div>
                 <div class="page">
-                        <span>
+                        <span class="pageLeft">
                             <img src="{{ asset('/bundles/mirrormain/images/arrowsTop.png') }}" alt="">
                         </span>
-                    <span>01</span>
-                    <span>
+                    <span class="count">01</span>
+                    <span class="pageRight">
                             <img src="{{ asset('/bundles/mirrormain/images/arrowsBottom.png') }}" alt="">
                         </span>
                 </div>
@@ -71,5 +63,56 @@
         </aside>
     </section>
 </div>
+<script src="{{ asset('/bundles/mirrormain/js/jquery.js',null,false,version) }}"></script>
+<script src="{{ asset('/bundles/mirrormain/js/admPublic.js',null,false,version) }}"></script>
+<script>
+    $(function () {
+        ajaxAction("get",'/api/server/'+{{ sortId }},'',false,function(data,textStatus){
+            var count =1;
+            healthPage(count,data);
+            $('.pageLeft').on('click',function () {
+                if(count>1){
+                    count--;
+                    if(count<10){
+                        $('.count').text('0'+count);
+                    }else {
+                        $('.count').text(count);
+                    }
+                    healthPage(count,data);
+                }
+
+            });
+            $('.pageRight').on('click',function () {
+                if(count<data.data.length){
+                    count++;
+                    if(count<10){
+                        $('.count').text('0'+count);
+                    }else {
+                        $('.count').text(count);
+                    }
+                    healthPage(count,data);
+                }
+
+            });
+
+        })
+    });
+
+
+    function healthPage(count,data) {
+        count = count-1;
+        var leftDom = '',rightDom='';
+        $.each(data.data[count].up_list,function (idx,item) {
+            leftDom+='<li><a href="#">'+item.title+'</a></li>';
+        });
+        $.each(data.data[count].list,function (idx,item) {
+            rightDom+='<li><a href="#">'+item.title+'</a></li>';
+        });
+        $('.left ul').html(leftDom);
+        $('.healthList ul').html(rightDom);
+        $('.rightMain h3').text(data.data[count].sort.name);
+        $('.rightMain p').text(data.data[count].sort.description);
+    }
+</script>
 </body>
 </html>
