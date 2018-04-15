@@ -103,11 +103,19 @@ class ServerService
                 'is_up'=>0
             );
             $list=$this->serverModel->getList($noUp,'','',$left_r,$right_r);
+            foreach($list as $key=>$val){
+                $list[$key]['logo']=$this->fileService->getFullUrlById($val['logo']);
+                $list[$key]['banner']=$this->fileService->getFullUrlById($val['banner']);
+            }
             $up=array(
                 'status'=>Constant::$status_normal,
                 'is_up'=>1
             );
             $upList=$this->serverModel->getList($up,'','',$left_r,$right_r);
+            foreach($upList as $key=>$val){
+                $upList[$key]['logo']=$this->fileService->getFullUrlById($val['logo']);
+                $upList[$key]['banner']=$this->fileService->getFullUrlById($val['banner']);
+            }
             $arr[]=array(
                 'sort'=>$sort,
                 'list'=>$list,
