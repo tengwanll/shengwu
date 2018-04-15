@@ -42,6 +42,9 @@ class FileController extends BaseController {
                     'url' => $request->getHttpHost().$file->getUrl(),
                 );
             }
+            $result=array(
+                'result'=>$rr
+            );
         } else {
             $file = $this->get('file_service')->saveFile($request,$file);
             if (!$file) {
@@ -53,10 +56,12 @@ class FileController extends BaseController {
                 'md5' => $file->getMd5(),
                 'url' => $request->getHttpHost().$file->getUrl(),
             );
+            $result=array(
+                'result'=>$rr,
+                'link'=>'http://'.$request->getHttpHost().$file->getUrl()
+            );
         }
-        $result=array(
-            'result'=>$rr
-        );
+
         return $this->buildResponse(new ReturnResult(0,$result));
     }
 

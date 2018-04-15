@@ -139,4 +139,18 @@ class ServerService
         return $rr;
     }
 
+    public function add($data){
+        $rr=new ReturnResult();
+        $data['status']=Constant::$status_normal;
+        $data['create_time']=date('Y-m-d H:i:s');
+        $data['update_time']=date('Y-m-d H:i:s');
+        $server=$this->serverModel->save($data);
+        if(!$server){
+            $rr->errno=Code::$add_error;
+            return $rr;
+        }
+        $rr->result=array('id'=>$server);
+        return $rr;
+    }
+
 }

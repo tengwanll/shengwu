@@ -1,0 +1,118 @@
+{% extends 'MirrorAdmBundle:Base:base.html.twig' %}
+{% block javascript %}
+    <script src="{{ asset('/bundles/mirroradm/js/goods.js') }}"></script>
+{% endblock %}
+{% block typeForm %}
+        <div class="form-group col-md-8">
+            <!-- /.row -->
+            <div class="row margin_top">
+                <label for="name" class="col-md-1 control-label" style="width: 10%">名称：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control for_search" id="name">
+                </div>
+                <label for="sort" class="col-md-1 control-label" style="width: 10%">分类：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control for_search" id="sort">
+                </div>
+                <div style="clear:both"></div>
+                <label for="goodNumber" class="col-md-1 control-label addressLabel" style="width: 10%">货号：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control for_search" id="goodNumber">
+                </div>
+                <label for="attrName" class="col-md-1 control-label addressLabel" style="width: 10%">属性名：</label>
+                <div class="col-md-2">
+                    <input type="text" class="form-control for_search" id="attrName">
+                </div>
+                <div class="col-md-3" style="margin-left: 50px;">
+                    <button class="btn btn-default resetButton" id="add">+添加</button>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+        <div class="form-group col-md-3">
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9">
+                    <button type="reset" class="btn btn-default resetButton">重置</button>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-3 col-md-offset-9 margin_top">
+                    <button id="search" class="btn btn-default resetButton">搜索</button>
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
+{% endblock %}
+{% block thead %}
+    <tr class="tableTit">
+        <td>商品货号</td>
+        <td>名称</td>
+        <td>分类</td>
+        <td>单位</td>
+        <td>单价</td>
+        <td>规格</td>
+        <td>厂家</td>
+        <td>图片</td>
+        <td>属性值</td>
+        <td colspan="3" width="18%">操作</td>
+    </tr>
+{% endblock %}
+ {% block tbody %}
+     {#表格内容区#}
+ {% endblock %}
+ {% block page %}
+     <div class="row">
+         <div class="col-md-11 col-md-offset-1">
+             <p class="listInfo">显示第 1-10项结果，共<span id="countNumber">0</span> 项</p>
+         </div>
+         <!-- /.col-md-5 col-md-offset-1 -->
+         <div class="col-md-6 col-md-offset-3 text-center">
+             <div class="page_list">
+                 <ul id="pagination">
+                     <span class="prev_page">上一页</span><li class="on">1</li><li>2</li><li>3</li><li>4</li><li>5</li><li>6</li><span class="next_page">下一页</span>
+                 </ul>
+             </div>
+         </div>
+         <!-- /.col-md-6 col-md-offset-3 -->
+     </div>
+     <!-- /.row -->
+ {% endblock %}
+{% block otherJs %}
+    <script>
+        $(function(){
+            adminTabNav($('.adminLeftNav .goods'));
+            var role={{ role }};
+            var page={{ page }};
+
+            $('.for_search').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    var info={};
+                    info.name=$('#name').val();
+                    info.sort=$('#sort').val();
+                    info.goodNumber=$('#goodNumber').val();
+                    info.attr=$('#attrName').val();
+                    goodsList(role,page,info);
+                }
+            });
+
+            $('#search').click(function(){
+                var info={};
+                info.name=$('#name').val();
+                info.sort=$('#sort').val();
+                info.goodNumber=$('#goodNumber').val();
+                info.attr=$('#attrName').val();
+                goodsList(role,page,info);
+                return false;
+            });
+
+            $('button[type=reset]').click(function(){
+                goodsList(role,page);
+            });
+            goodsList(role,page);
+        });
+    </script>
+
+{% endblock %}

@@ -83,7 +83,7 @@ class ServerSortController extends BaseController
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function getLeaf(){
-        $rr=$this->get('sort_service')->getLeaf();
+        $rr=$this->get('server_sort_service')->getLeaf();
         return $this->buildResponse($rr);
     }
 

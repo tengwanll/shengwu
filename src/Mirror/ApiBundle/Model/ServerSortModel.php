@@ -53,9 +53,12 @@ class ServerSortModel extends DbalBaseModel
         return $this->conn->executeQuery($dql);
     }
 
+    /**
+     * 获取所有叶子分类
+     * @return mixed
+     */
     public function getLeaf(){
-        $dql = "select u from ".$this->getRepositoryName()." u where u.leftR+1=u.rightR";
-        $query = $this->getEntityManager()->createQuery($dql);
-        return $query->getResult();
+        $dql = 'select u.* from '.$this->tableName.' u where u.left_r+1=u.right_r';
+        return $this->conn->fetchAll($dql);
     }
 }

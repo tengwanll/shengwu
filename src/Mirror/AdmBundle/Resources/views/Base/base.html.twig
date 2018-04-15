@@ -4,20 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>爱默基因后台管理系统</title>
-    <script src="//cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
-    <script src="{{ asset('/bundles/mirroradm/js/jquery.json.js') }}"></script>
-    <script src="{{ asset('/bundles/mirroradm/js/jqPaginator.js') }}"></script>
+
 
 
     <link href="{{ asset('/bundles/mirroradm/css/bootstrap-datepicker.css') }}" rel="stylesheet">
     <link href="{{ asset('/bundles/mirroradm/css/bootstrap.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/bundles/mirroradm/css/adm.css') }}">
-    <script src="{{ asset('/bundles/mirroradm/js/comfirm.js') }}"></script>
-    <script src="{{ asset('/bundles/mirroradm/js/admin.js') }}"></script>
-    <script src="{{ asset('/bundles/mirroradm/js/admPublic.js') }}"></script>
-    <script src="{{ asset('/bundles/mirroradm/js/jquery.json.js') }}"></script>
 
-    {% block javascript %} {% endblock %}
     {% block css %} {% endblock %}
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -156,7 +149,17 @@
         </div>
         <!-- /.row -->
     </div>
+    <script src="//cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
+    <script src="{{ asset('/bundles/mirroradm/js/jquery.json.js') }}"></script>
+    <script src="{{ asset('/bundles/mirroradm/js/jqPaginator.js') }}"></script>
+    <script src="{{ asset('/bundles/mirroradm/js/jquery.json.js') }}"></script>
     <!-- /.container-fluid -->
+    <script src="{{ asset('/bundles/mirroradm/js/comfirm.js') }}"></script>
+    <script src="{{ asset('/bundles/mirroradm/js/admin.js') }}"></script>
+    <script src="{{ asset('/bundles/mirroradm/js/admPublic.js') }}"></script>
+
+
+    {% block javascript %} {% endblock %}
     <script>
         $(function(){
             ajaxAction("get",'/api/order/number',"",true,function(data,textStatus){

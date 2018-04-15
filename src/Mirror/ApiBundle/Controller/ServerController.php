@@ -58,17 +58,14 @@ class ServerController extends BaseController
 
     /**
      * @Route("")
-     * @Method("PUT")
+     * @Method("POST")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function edit(Request $request){
+    public function add(Request $request){
         $json=$this->getJson($request);
-        $name=$json->get('name','');
-        $id=$json->get('id',0);
-        $image=$json->get('image','');
-        $attr=$json->get('attr','');
-        $rr=$this->get('sort_service')->edit($name,$id,$image,$attr);
+        $data=$json->getAll();
+        $rr=$this->get('server_service')->add($data);
         return $this->buildResponse($rr);
     }
 
