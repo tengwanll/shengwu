@@ -8,20 +8,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * @Route("/healthtemp")
+ * @Route("/server")
  * Class IndexController
  * @package Mirror\MainBundle\Controller
  */
 class HealthTempController extends Controller
 {
     /**
-     * @Route("")
+     * @Route("/{id}",requirements={"id":"\d+"})
      * @Template()
      * @return array
      */
-    public function indexAction()
+    public function indexAction($id)
     {
         $rr=$this->get('server_service')->getIndexServer();
-        return array('list'=>$rr->result['list'],'company'=>$rr->result['company']);
+        return array('list'=>$rr->result['list'],'company'=>$rr->result['company'],'id'=>$id);
     }
 }
