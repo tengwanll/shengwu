@@ -195,27 +195,16 @@ class ServerSortService
         return $rr;
     }
 
+    /**
+     * 获取所有叶子分类
+     * @return ReturnResult
+     */
     public function getLeaf(){
         $rr=new ReturnResult();
-        $data=$this->sortModel->getLeaf();
-        $arr=array();
-        $attr=array();
-        foreach($data as $key=>$sort){
-            /**@var $sort \Mirror\ApiBundle\Entity\Sort*/
-            $sortId=$sort->getId();
-            $sortAttrs=$this->sortAttrModel->getByProperty('sortId',$sortId);
-            foreach ($sortAttrs as $sortAttr){
-                /**@var $sortAttr \Mirror\ApiBundle\Entity\SortAttr*/
-                $attr[$sortId][]=$sortAttr->getName();
-            }
-            $arr[]=array(
-                'name'=>$sort->getName(),
-                'id'=>$sortId
-            );
-        }
+        $data=$this->serverSortModel->getLeaf();
+
         $rr->result=array(
-            'list'=>$arr,
-            'attr'=>$attr
+            'list'=>$data
         );
         return $rr;
     }

@@ -20,12 +20,12 @@
                     <div class="col-md-3 logo"><img src="{{ asset('/bundles/mirrormain/images/logo1.png') }}" alt=""></div>
                     <nav class="col-md-9 index-nav-list text-right">
                         <ul>
-                            <li><a href="#" class="active">首页</a></li>
-                            <li><a href="#">临床服务</a></li>
-                            <li><a href="#">健康管理</a></li>
-                            <li><a href="#">科研服务</a></li>
-                            <li><a href="#">关于我们</a></li>
-                            <li><a href="#">博客</a></li>
+                            <li><a href="/main/index" class="active">首页</a></li>
+                            {% for sort in list %}
+                            <li><a href="/main/server/sort/{{ sort['sortId'] }}">{{ sort['name'] }}</a></li>
+                            {% endfor %}
+                            <li><a href="/main/company">关于我们</a></li>
+                            {#<li><a href="#">博客</a></li>#}
                         </ul>
                     </nav>
                 </div>
@@ -35,42 +35,27 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="figure-pic">
-                                <img src="{{ asset('/bundles/mirrormain/images/figurePic.png') }}" alt="">
+                                <img src="{{ company['logo'] }}" alt="">
                             </div>
                             <div class="index-company-info">
                                 <h3>公司简介</h3>
                                 <p>
-                                    爱默基因公司以数位国家“千人计划”归国教授团队为核心组建，以“产学研”一体化的创新发展模式引领基因组学的发展，并同厦门大学药学院共建了“基因诊断研发中心”。公司主要基于高通量测序、生物信息服务、生物信息云计算、医学检测和生物医药等领域，推动基因科技成果转化，实现基因科技造福人类，专注于肿瘤ctDNA基因测序和肿瘤患者个体化治疗指导，以二代测序及医学生物信息学为核心，常规肿瘤分子病理检测为基石，致力于打造肿瘤个体化治疗临床检测服务及科研一站式解决方案。
+                                    {{ company['name']}}
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-8 index-two-nav">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <h4>临床服务</h4>
-                                    <ul>
-                                        <li>50个肿瘤基因热点区域突变检测</li>
-                                        <li>乳腺癌卵巢癌易感基因突变检测</li>
-                                        <li>遗传性结直肠癌基因突变检测</li>
-                                        <li>线粒体全长基因检测</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>健康服务</h4>
-                                    <ul>
-                                        <li>美肤基因检测</li>
-                                        <li>HPV基因检测</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>科研服务</h4>
-                                    <ul>
-                                        <li>高通量测序服务</li>
-                                        <li>液体活检</li>
-                                        <li>CRISPR</li>
-                                        <li>慢病毒包装服务</li>
-                                    </ul>
-                                </div>
+                                {% for sort in list %}
+                                    <div class="col-md-4">
+                                        <h4>{{ sort['name'] }}</h4>
+                                        <ul>
+                                            {% for server in sort['server'] %}
+                                                <li>{{ server['title'] }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
                                 <div class="col-md-4">
                                     <h4>关于我们</h4>
                                     <ul>
@@ -79,24 +64,6 @@
                                         <li>联系我们</li>
                                     </ul>
                                 </div>
-                                <!--<div class="col-md-4">
-                                    <h4>50个肿瘤热点区域基因检测</h4>
-                                    <ul>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>50个肿瘤热点区域基因检测</h4>
-                                    <ul>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                        <li>乳腺癌</li>
-                                    </ul>
-                                </div>-->
                             </div>
                         </div>
                     </div>

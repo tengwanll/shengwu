@@ -37,6 +37,8 @@ class ServerModel extends DbalBaseModel
                 foreach ($equals as $k => $value) {
                     $where[] = ' u.'.$k.' '.$key.' '.$value;
                 }
+            }else{
+                $where[] = ' u.'.$key.' = '.$equals;
             }
         }
         $dql = QueryHelper::makeQueryString($dql, $where);

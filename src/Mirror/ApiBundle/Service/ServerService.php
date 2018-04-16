@@ -60,16 +60,22 @@ class ServerService
     public function getIndexServer(){
         $rr=new ReturnResult();
         $sorts=$this->serverSortModel->getByProperty('level',1);
-        $company=$this->companyModel->getByProperty('name_as',Constant::$main_company);
+        $company=$this->companyModel->getOneByProperty('name_as',Constant::$main_company);
+        if($company)
+            $company['logo']=$this->fileService->getFullUrlById($company['logo']);
         $arr=array();
         foreach ($sorts as $sort){
             $left_r=$sort['left_r'];
             $right_r=$sort['right_r'];
             $params=array(
                 'status'=>Constant::$status_normal,
-                'is_up=0'
+                'is_up'=>1
             );
             $data=$this->serverModel->getList($params,'','',$left_r,$right_r);
+            foreach($data as $key=>$val){
+                $data[$key]['logo']=$this->fileService->getFullUrlById($val['logo']);
+                $data[$key]['banner']=$this->fileService->getFullUrlById($val['banner']);
+            }
             $arr[]=array(
                 'name'=>$sort['name'],
                 'sortId'=>$sort['id'],
@@ -88,237 +94,63 @@ class ServerService
     public function getListBySort($sortId){
         $rr=new ReturnResult();
         $arr=array();
-        $sort=$this->serverSortModel->getById($sortId);
-        $arr['sort']=$sort;
-        $left_r=$sort['left_r'];
-        $right_r=$sort['right_r'];
-        $noUp=array(
-            'status'=>Constant::$status_normal,
-            'is_up'=>0
-        );
-        $list=$this->serverModel->getList($noUp,'','',$left_r,$right_r);
-        $arr['list']=$list;
-        $up=array(
-            'status'=>Constant::$status_normal,
-            'is_up'=>1
-        );
-        $upList=$this->serverModel->getList($up,'','',$left_r,$right_r);
-        $arr['upList']=$upList;
-        $rr->result=$arr;
-        return $rr;
-    }
-
-    /**
-     * @param $id
-     * @return ReturnResult
-     */
-    public function addNumber($id){
-        $rr=new ReturnResult();
-        $car=$this->carModel->getById($id);
-        /**@var $car \Mirror\ApiBundle\Entity\GoodsCar*/
-        if(!$car){
-            $rr->errno=Code::$car_not_exist;
-            return $rr;
-        }
-        $number=$car->getNumber();
-        $price=$car->getPrice();
-        $car->setNumber($number+1);
-        $car->setPrice($price+$price/$number);
-        $this->carModel->save($car);
-        return $rr;
-    }
-
-    /**
-     * @param $id
-     * @return ReturnResult
-     */
-    public function subNumber($id){
-        $rr=new ReturnResult();
-        $car=$this->carModel->getById($id);
-        /**@var $car \Mirror\ApiBundle\Entity\GoodsCar*/
-        if(!$car){
-            $rr->errno=Code::$car_not_exist;
-            return $rr;
-        }
-        if($car->getNumber()<=1){
-            $rr->errno=Code::$number_not_right;
-            return $rr;
-        }
-        $number=$car->getNumber();
-        $price=$car->getPrice();
-        $car->setNumber($number-1);
-        $car->setPrice($price-$price/$number);
-        $this->carModel->save($car);
-        return $rr;
-    }
-
-    /**
-     * @param $carId
-     * @return ReturnResult
-     */
-    public function deleteCar($carId){
-        $rr=new ReturnResult();
-        $car=$this->carModel->getById($carId);
-        /**@var $car \Mirror\ApiBundle\Entity\GoodsCar*/
-        if(!$car){
-            $rr->errno=Code::$car_not_exist;
-            return $rr;
-        }
-        $this->carModel->delete($car);
-        return $rr;
-    }
-
-    /**
-     * @param $result
-     * @param $userId
-     * @return ReturnResult
-     */
-    public function import($file,$userId,$conn){
-        $rr=new ReturnResult();
-        if(pathinfo($file,PATHINFO_EXTENSION )!='xlsx'){
-            $rr->errno=Code::$file_not_right_excel;
-            return $rr;
-        }
-        define('PHPEXCEL', dirname(__FILE__) . '/../Util/');
-        require(PHPEXCEL . 'Import.php');
-        $result=array();
-        if(($highestColumnIndex-8)%2==1){
-            $rr->errno=Code::$attr_not_right;
-            return $rr;
-        }
-        for ($row = 2;$row <= $highestRow;$row++)
-        {
-            //注意highestColumnIndex的列数索引从0开始
-            $name=$objWorksheet->getCellByColumnAndRow(0, $row)->getValue();
-            if(!$name){
-                $rr->errno=Code::$file_name_null;
-                $rr->result=array(
-                    'rows'=>$row,
-                    'col'=>1
-                );
-                return $rr;
+        $sorts=$this->serverSortModel->getByProperty('parent_id',$sortId);
+        foreach($sorts as $sort){
+            $left_r=$sort['left_r'];
+            $right_r=$sort['right_r'];
+            $noUp=array(
+                'status'=>Constant::$status_normal,
+                'is_up'=>0
+            );
+            $list=$this->serverModel->getList($noUp,'','',$left_r,$right_r);
+            foreach($list as $key=>$val){
+                $list[$key]['logo']=$this->fileService->getFullUrlById($val['logo']);
+                $list[$key]['banner']=$this->fileService->getFullUrlById($val['banner']);
             }
-            $sortName=$objWorksheet->getCellByColumnAndRow(1, $row)->getValue();
-            $sort=$this->sortModel->getOneByCriteria(array('name'=>$sortName,'status'=>Constant::$status_normal));
-            /**@var $sort \Mirror\ApiBundle\Entity\Sort*/
-            if(!$sort){
-                $rr->errno=Code::$file_sort_not_exist;
-                $rr->result=array(
-                    'rows'=>$row,
-                    'col'=>2
-                );
-                return $rr;
+            $up=array(
+                'status'=>Constant::$status_normal,
+                'is_up'=>1
+            );
+            $upList=$this->serverModel->getList($up,'','',$left_r,$right_r);
+            foreach($upList as $key=>$val){
+                $upList[$key]['logo']=$this->fileService->getFullUrlById($val['logo']);
+                $upList[$key]['banner']=$this->fileService->getFullUrlById($val['banner']);
             }
-            $price=$objWorksheet->getCellByColumnAndRow(4, $row)->getValue();
-            if(!$price){
-                $rr->errno=Code::$file_price_null;
-                $rr->result=array(
-                    'rows'=>$row,
-                    'col'=>5
-                );
-                return $rr;
-            }
-            $description='';
-            $number=$objWorksheet->getCellByColumnAndRow(5, $row)->getValue();
-            $goodsNumber=$objWorksheet->getCellByColumnAndRow(2, $row)->getValue();
-            if(!$goodsNumber){
-                $rr->errno=Code::$file_goods_number_null;
-                $rr->result=array(
-                    'rows'=>$row,
-                    'col'=>3
-                );
-                return $rr;
-            }
-            $unit=$objWorksheet->getCellByColumnAndRow(3, $row)->getValue();
-            if(!$unit){
-                $rr->errno=Code::$file_unit_null;
-                $rr->result=array(
-                    'rows'=>$row,
-                    'col'=>4
-                );
-                return $rr;
-            }
-            $standard=$objWorksheet->getCellByColumnAndRow(6, $row)->getValue();
-            if(!$standard){
-                $rr->errno=Code::$file_standard_null;
-                $rr->result=array(
-                    'rows'=>$row,
-                    'col'=>7
-                );
-                return $rr;
-            }
-            $vender=$objWorksheet->getCellByColumnAndRow(7, $row)->getValue();
-            if(!$vender){
-                $rr->errno=Code::$file_vender_null;
-                $rr->result=array(
-                    'rows'=>$row,
-                    'col'=>8
-                );
-                return $rr;
-            }
-            $attrs='';
-            for($i=8;$i<$highestColumnIndex;$i++){
-                $attrs.=$objWorksheet->getCellByColumnAndRow($i, $row)->getValue().',';
-            }
-            $result[]=array(
-                'name'=>$name,
-                'sort'=>$sort->getId(),
-                'price'=>$price,
-                'number'=>$number?$number:1,
-                'description'=>$description,
-                'goodsNumber'=>$goodsNumber,
-                'unit'=>$unit,
-                'standard'=>$standard,
-                'vender'=>$vender,
-                'attrs'=>rtrim($attrs,',')
+            $arr[]=array(
+                'sort'=>$sort,
+                'list'=>$list,
+                'up_list'=>$upList
             );
         }
-        foreach ($result as $val){
-            $goodsNumber=$val['goodsNumber'];
-            $goods=$this->goodsModel->getOneByCriteria(array('goodsNumber'=>$goodsNumber,'status'=>Constant::$status_normal));
-            /**@var $goods \Mirror\ApiBundle\Entity\Goods*/
-            if($goods){
-                //如果已经存在商品
-                $goodsId=$goods->getId();
-                $carGoods=$this->carModel->getOneByCriteria(array('userId'=>$userId,'goodsId'=>$goodsId,'status'=>Constant::$status_normal));
-                /**@var $carGoods \Mirror\ApiBundle\Entity\GoodsCar*/
-                if($carGoods){
-                    //购物车中已经有该商品,直接在购物车中添加数量和价格
-                    $numberAll=$carGoods->getNumber()+$val['number'];
-                    $carGoods->setNumber($numberAll);
-                    $carGoods->setPrice($carGoods->getPrice()+($carGoods->getPrice()/$carGoods->getNumber())*$numberAll);
-                    $this->carModel->save($carGoods);
-                }else{
-                    //购物车中没有该商品,添加进购物车
-                    $this->carModel->add($userId,$goodsId,$val['number'],$val['price']);
-                }
-            }else{
-                //没有该商品,添加到商品表中,然后添加到购物车
-                $goods=$this->goodsModel->add($val['name'],$val['sort'],$val['price'],$val['description'],$val['attrs'],$conn,0,$val['goodsNumber'],$val['unit'],$val['standard'],$val['vender']);
-                $goodsId=$goods['goodsId'];
-                $this->carModel->add($userId,$goodsId,$val['number'],$val['price']);
-            }
-        }
+        $rr->result=array('data'=>$arr);
         return $rr;
     }
 
-    public function updateNumber($carId,$number){
+    /**
+     * 获取服务详情
+     * @param $id
+     * @return ReturnResult
+     */
+    public function detail($id){
         $rr=new ReturnResult();
-        $car=$this->carModel->getById($carId);
-        /**@var $car \Mirror\ApiBundle\Entity\GoodsCar*/
-        if(!$car){
-            $rr->errno=Code::$car_not_exist;
-            return $rr;
-        }
-        if($number<=0){
-            $rr->errno=Code::$number_not_right;
-            return $rr;
-        }
-        $oldNumber=$car->getNumber();
-        $price=$car->getPrice();
-        $car->setNumber($number);
-        $car->setPrice($price/$oldNumber*$number);
-        $this->carModel->save($car);
+        $server=$this->serverModel->getById($id);
+        $server['banner']=$this->fileService->getFullUrlById($server['banner']);
+        $rr->result=$server;
         return $rr;
     }
+
+    public function add($data){
+        $rr=new ReturnResult();
+        $data['status']=Constant::$status_normal;
+        $data['create_time']=date('Y-m-d H:i:s');
+        $data['update_time']=date('Y-m-d H:i:s');
+        $server=$this->serverModel->save($data);
+        if(!$server){
+            $rr->errno=Code::$add_error;
+            return $rr;
+        }
+        $rr->result=array('id'=>$server);
+        return $rr;
+    }
+
 }

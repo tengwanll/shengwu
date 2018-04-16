@@ -27,6 +27,7 @@ class ContactController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $rr=$this->get('server_service')->getIndexServer();
+        return array('list'=>$rr->result['list'],'company'=>$rr->result['company']);
     }
 }
