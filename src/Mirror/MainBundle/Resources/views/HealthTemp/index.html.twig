@@ -37,8 +37,8 @@
         <div class="banner">
             <img src="" alt="" id="banner">
             <div class="bannerDesc">
-                <h3>目标区域测序</h3>
-                <p>目标区域测序区域测序目标区域测序目标区域测序目标区域测序</p>
+                <h3 id="title"></h3>
+                <p id="description">目标区域测序区域测序目标区域测序目标区域测序目标区域测序</p>
             </div>
 
         </div>
@@ -142,6 +142,8 @@
         $('.question section').html(data.problem);
         $('.product section').html(data.product);
         $('#banner').attr('src',data.banner);
+        $('#title').html(data.title);
+        $('#description').html(data.description);
     },function(errno,errmsg){
         zdalert('系统提示',errmsg);
     });
