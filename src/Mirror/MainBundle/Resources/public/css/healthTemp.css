@@ -104,10 +104,28 @@ main{
 main .banner{
     width: 100%;
     overflow: hidden;
+    position: relative;
 }
 
 main .banner img{
     width: 100%;
+}
+.bannerDesc{
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    text-align: center;
+    color: #fff;
+    margin-left: -260px;
+    width: 520px;
+}
+.bannerDesc h3{
+    font-size: 35px;
+    font-weight: normal;
+}
+.bannerDesc p{
+    font-size: 18px;
+    font-weight: 200;
 }
 .tabNav{
     width: 100%;
