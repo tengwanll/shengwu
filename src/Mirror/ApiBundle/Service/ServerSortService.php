@@ -53,7 +53,8 @@ class ServerSortService
      */
     public function getList(){
         $rr=new ReturnResult();
-
+        $sorts=$this->serverSortModel->getAll();
+        $rr->result=array('list'=>$sorts);
         return $rr;
     }
 

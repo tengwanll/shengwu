@@ -27,7 +27,7 @@ class ServerSortController extends BaseController
      * @param Request $request
      * @return mixed
      */
-    public function getList(Request $request){
+    public function getList(){
         $rr=$this->get('server_sort_service')->getList();
         return $this->buildResponse($rr);
     }
@@ -41,7 +41,7 @@ class ServerSortController extends BaseController
     public function addSort(Request $request){
         $json=$this->getJson($request);
         $name=$json->get('name','');
-        $parentId=$json->get('parentId',0);
+        $parentId=$json->get('parent_id',0);
         $description=$json->get('description','');
         $logo=$json->get('logo',0);
         $rr=$this->get('server_sort_service')->add($name,$parentId,$logo,$description);
@@ -86,6 +86,7 @@ class ServerSortController extends BaseController
         $rr=$this->get('server_sort_service')->getLeaf();
         return $this->buildResponse($rr);
     }
+
 
     /**
      * @OAuth()

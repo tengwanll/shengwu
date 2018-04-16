@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class SortController
  * @package Mirror\AdmBundle\Controller
  */
-class ServerController extends BaseController
+class ServerSortController extends BaseController
 {
     /**
      * @Route("")
@@ -40,13 +40,13 @@ class ServerController extends BaseController
     }
 
     /**
-     * @Route("/add/{sortId}",requirements={"sortId":"\d+"})
+     * @Route("/add")
      * @Template()
      * @param $sortId
      * @return array
      */
-    public function addAction($sortId){
-        return array('sortId'=>$sortId);
+    public function addAction(){
+        return array();
     }
 
     /**

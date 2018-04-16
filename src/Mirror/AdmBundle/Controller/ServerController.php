@@ -48,15 +48,4 @@ class ServerController extends BaseController
     public function addAction($sortId){
         return array('sortId'=>$sortId);
     }
-
-    /**
-     * @OAuth()
-     * @Route("/{id}/edit/{sortId}",requirements={"id":"\d+"})
-     * @Template()
-     * @param $id
-     * @return array
-     */
-    public function editAction($id,$sortId){
-        return array('sortId'=>$sortId);
-    }
 }
