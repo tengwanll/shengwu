@@ -46,13 +46,13 @@ class ServerController extends BaseController
 
     /**
      * 获取服务详情
-     * @Route("/{id}",requirements={"id":"\d+"})
+     * @Route("/info/{id}",requirements={"id":"\d+"})
      * @Method("GET")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function detail($id){
-        $rr=$this->get('sort_service')->detail($id);
+        $rr=$this->get('server_service')->detail($id);
         return $this->buildResponse($rr);
     }
 
