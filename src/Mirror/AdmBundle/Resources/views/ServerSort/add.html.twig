@@ -69,7 +69,7 @@
                 info.logo=$('#logoValue').val();
                 ajaxAction("post",'/api/server/sort',info,false,function(data,textStatus){
                     zdalert('系统提示','添加成功',function($r) {
-
+                        location.reload();
                     });
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);
