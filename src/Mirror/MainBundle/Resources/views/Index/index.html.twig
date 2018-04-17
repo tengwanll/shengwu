@@ -51,7 +51,7 @@
                                         <h4>{{ sort['name'] }}</h4>
                                         <ul>
                                             {% for server in sort['server'] %}
-                                                <li>{{ server['title'] }}</li>
+                                                <li><a href="/main/server/{{ server['id'] }}">{{ server['title'] }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </div>
@@ -59,9 +59,9 @@
                                 <div class="col-md-4">
                                     <h4>关于我们</h4>
                                     <ul>
-                                        <li>爱默简介</li>
-                                        <li>加入我们</li>
-                                        <li>联系我们</li>
+                                        <li><a href="/main/company">爱默简介</a></li>
+                                        <li><a href="/main/invite">加入我们</a></li>
+                                        <li><a href="/main/contact">联系我们</a></li>
                                     </ul>
                                 </div>
                             </div>
