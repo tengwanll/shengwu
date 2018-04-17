@@ -31,4 +31,25 @@ class MainController extends BaseController
         $rr=$this->get('main_service')->getCompanyList($redis);
         return $this->buildResponse($rr);
     }
+
+    /**
+     * @Route("/join")
+     * @Method("GET")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getJoinList(){
+        $rr=$this->get('main_service')->getJoinList();
+        return $this->buildResponse($rr);
+    }
+
+    /**
+     * @Route("/join/{id}",requirements={"id":"\d+"})
+     * @Method("GET")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getJoinInfo($id){
+        $rr=$this->get('main_service')->getJoinInfo($id);
+        return $this->buildResponse($rr);
+    }
 }

@@ -40,12 +40,11 @@ class ServerController extends BaseController
     }
 
     /**
-     * @Route("/add/{sortId}",requirements={"sortId":"\d+"})
+     * @Route("/add")
      * @Template()
-     * @param $sortId
      * @return array
      */
-    public function addAction($sortId){
-        return array('sortId'=>$sortId);
+    public function addAction(){
+        return array();
     }
 }
