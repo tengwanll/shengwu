@@ -35,7 +35,7 @@
     </header>
     <main>
         <div class="smallNav">
-            <p>当前位置：加入我们>生物信息专员</p>
+            {#<p>当前位置：加入我们>生物信息专员</p>#}
         </div>
         <div class="inviteInfo">
             <h1>生物信息专员</h1>
@@ -43,23 +43,31 @@
                 <div class="inviteInfoDesc">
                     <dl>
                         <dt>岗位职责：</dt>
-                        <dd>1、NGS 数据分析；</dd>
-                        <dd>2、生物信息分析流程开发及部署；</dd>
-                        <dd>3、面向健康和临床的基因组学数据和文献的采集、整理、挖掘和利用；</dd>
-                        <dd>4、领导交代的其他任务；</dd>
+                        <div class="inviteInfoDutyList">
+                            {#<dd>1、NGS 数据分析；</dd>
+                            <dd>2、生物信息分析流程开发及部署；</dd>
+                            <dd>3、面向健康和临床的基因组学数据和文献的采集、整理、挖掘和利用；</dd>
+                            <dd>4、领导交代的其他任务；</dd>#}
+                        </div>
+
                     </dl>
                     <dl>
                         <dt>任职要求：</dt>
-                        <dd>1、全日制本科及以上学历，医学、生物学、生物信息学、计算机和数理等相关专业;</dd>
-                        <dd>2、须拥有计算机科学和生物信息学相关的学习或工作经验（数学、统计学、物理学、计算机、生物信息学、遗传学、分子生物学、微生物学等方向的专业经验将能帮助您更快的参与具体的工作）；</dd>
-                        <dd>3、能够适应创业团队的工作方式，能够承担短时间高强度的弹性工作。专业技术工作之外还包括不同事务层面的沟通，需要积极的态度及创造性的合作；</dd>
+                        <div class="inviteInfoRequireList">
+                            {#<dd>1、全日制本科及以上学历，医学、生物学、生物信息学、计算机和数理等相关专业;</dd>
+                            <dd>2、须拥有计算机科学和生物信息学相关的学习或工作经验（数学、统计学、物理学、计算机、生物信息学、遗传学、分子生物学、微生物学等方向的专业经验将能帮助您更快的参与具体的工作）；</dd>
+                            <dd>3、能够适应创业团队的工作方式，能够承担短时间高强度的弹性工作。专业技术工作之外还包括不同事务层面的沟通，需要积极的态度及创造性的合作；</dd>#}
+                        </div>
+
                     </dl>
                     <dl>
                         <dt>优厚的福利待遇：</dt>
-                        <dd>1、优越的薪酬体系：基本工资+绩效工资+社会保险+午餐补助+年终奖。 </dd>
+                        <div class="inviteInfoTreatmentList">
+                            {#<dd>1、优越的薪酬体系：基本工资+绩效工资+社会保险+午餐补助+年终奖。 </dd>
                         <dd>2、年薪6W——10W以上。</dd>
                         <dd>3、定期组织员工活动。</dd>
-                        <dd>4、提供良好实践平台，欢迎来我司参观，实习。</dd>
+                        <dd>4、提供良好实践平台，欢迎来我司参观，实习。</dd>#}
+                        </div>
                     </dl>
                 </div>
                 <div class="inviteInfoContact">
@@ -131,6 +139,17 @@
     </footer>
 </div>
 <script src="{{ asset('/bundles/mirrormain/js/jquery.js',null,false,version) }}"></script>
+<script src="{{ asset('/bundles/mirrormain/js/admPublic.js',null,false,version) }}"></script>
 <script src="{{ asset('/bundles/mirrormain/js/inviteInfo.js') }}"></script>
+<script>
+    var id={{ id }};
+    ajaxAction("get",'/api/main/join/'+id,'',true,function(data,textStatus){
+        console.log(data);
+        $('.inviteInfoDutyList').html(data.info.duty);
+        $('.inviteInfoRequireList').html(data.info.require);
+        $('.inviteInfoTreatmentList').html(data.info.treatment);
+        $('.smallNav p').text('当前位置：加入我们 > '+data.info.title+'');
+    })
+</script>
 </body>
 </html>
