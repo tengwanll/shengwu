@@ -42,7 +42,7 @@
             </div>
 
         </div>
-        <div class="tabNav">
+        <div class="tabNav" id="show">
             <ul>
                 <li class="current">产品介绍</li>
                 <li>常见问题</li>
@@ -52,13 +52,14 @@
         </div>
         <div class="tabContent">
             <div class="product">
+                <section>
 
+                </section>
             </div>
             <div class="question">
                 <section>
 
                 </section>
-
             </div>
             <div class="case">
                 <section>
@@ -138,10 +139,13 @@
         $('.result section').html(data.result);
         $('.case section').html(data.example);
         $('.question section').html(data.problem);
-        $('.product').html(data.product);
+        $('.product section').html(data.product);
         $('#banner').attr('src',data.banner);
         $('#title').html(data.title);
         $('#description').html(data.description);
+        if(data.is_product=='2'){
+            $('#show').hide();
+        }
     },function(errno,errmsg){
         zdalert('系统提示',errmsg);
     });
