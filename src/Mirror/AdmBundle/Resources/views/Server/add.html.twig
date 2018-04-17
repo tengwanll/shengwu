@@ -44,11 +44,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="is_up" class="col-md-2 control-label text-right">不推荐：</label>
+                    <label for="is_up" class="col-md-2 control-label text-right">是否推荐：</label>
                     <div class="col-md-2">
                         <select name="is_up" id="is_up">
                             <option value="0">不推荐</option>
                             <option value="1">推荐</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="is_product" class="col-md-2 control-label text-right">类型：</label>
+                    <div class="col-md-2">
+                        <select name="is_product" id="is_product">
+                            <option value="1">服务</option>
+                            <option value="2">产品</option>
                         </select>
                     </div>
                 </div>
@@ -127,6 +137,7 @@
                 info.title=$.trim($('#title').val());
                 info.sort_id=$.trim( $('#sortId').find('option[value="'+comName+'"]').attr('sortId') );
                 info.description=$.trim($('#description').val());
+                info.is_product=$('#is_product').val();
                 info.banner=$('#bannerValue').val();
                 info.logo=$('#logoValue').val();
                 info.product=$('#product').val();
