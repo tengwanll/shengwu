@@ -44,7 +44,7 @@ class GoodsModel extends BaseModel
     public function add($name,$sortId,$price,$description,$attrs,$conn,$image,$goodsNumber,$unit,$standard,$vender){
         $date=date("y-m-d H:i:s");
         $str='null';
-        if($attrs){
+        if($attrs&&$attrs!='NULL'){
             $str='';
             $attrs=explode(',',$attrs);
             foreach ($attrs as $attr){
