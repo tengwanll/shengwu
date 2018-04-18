@@ -7,7 +7,17 @@ $(function () {
         $('.slide-down').stop().slideUp();
     });
 
+    ajaxAction("get",'/api/main/join','',false,function(data,textStatus){
+        console.log(data);
+        var dom1 = '',dom2 = '';
+        $.each(data.list,function (idx,item) {
+            dom1 += '<a href="/main/inviteinfo/'+item.id+'" target="_blank">'+item.title+'</a>';
+            dom2 += '<li><a href="/main/inviteinfo/'+item.id+'" class="inviteCon">'+item.title+'</a><span class="num">'+item.num+'</span></li>';
+        })
 
+        $('#inviteTitle').html(dom1);
+        $('.inviteList ul').html(dom2);
+    })
 
     var radius = 180;
     var dtr = Math.PI/180;

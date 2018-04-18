@@ -98,6 +98,7 @@ class ServerService
         foreach($sorts as $sort){
             $left_r=$sort['left_r'];
             $right_r=$sort['right_r'];
+            $sort['logo']=$this->fileService->getFullUrlById($sort['logo']);
             $noUp=array(
                 'status'=>Constant::$status_normal,
                 'is_up'=>0

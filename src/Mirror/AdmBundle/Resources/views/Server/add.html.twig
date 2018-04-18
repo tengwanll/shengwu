@@ -2,7 +2,7 @@
 {% block javascript %}
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
-    <script type="text/javascript" src="{{ asset('/bundles/mirroradm/js/froala/js/froala_editor.pkgd.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/mirroradm/js/froala_editor.pkgd.min.js') }}"></script>
 {% endblock %}
 {% block css %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -44,11 +44,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="is_up" class="col-md-2 control-label text-right">不推荐：</label>
+                    <label for="is_up" class="col-md-2 control-label text-right">是否推荐：</label>
                     <div class="col-md-2">
                         <select name="is_up" id="is_up">
                             <option value="0">不推荐</option>
                             <option value="1">推荐</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="is_product" class="col-md-2 control-label text-right">类型：</label>
+                    <div class="col-md-2">
+                        <select name="is_product" id="is_product">
+                            <option value="1">服务</option>
+                            <option value="2">产品</option>
                         </select>
                     </div>
                 </div>
@@ -127,6 +137,7 @@
                 info.title=$.trim($('#title').val());
                 info.sort_id=$.trim( $('#sortId').find('option[value="'+comName+'"]').attr('sortId') );
                 info.description=$.trim($('#description').val());
+                info.is_product=$('#is_product').val();
                 info.banner=$('#bannerValue').val();
                 info.logo=$('#logoValue').val();
                 info.product=$('#product').val();
@@ -136,7 +147,7 @@
                 info.is_up=$('#is_up').val();
                 ajaxAction("post",'/api/server',info,false,function(data,textStatus){
                     zdalert('系统提示','添加成功',function($r) {
-
+                        location.reload();
                     });
                 },function(errno,errmsg){
                     zdalert('系统提示',errmsg);

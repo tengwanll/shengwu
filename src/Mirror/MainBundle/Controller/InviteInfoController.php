@@ -15,13 +15,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class InviteInfoController extends Controller
 {
     /**
-     * @Route("")
+     * @Route("/{id}",requirements={"id":"\d+"})
      * @Template()
      * @return array
      */
-    public function indexAction()
+    public function indexAction($id)
     {
         $rr=$this->get('server_service')->getIndexServer();
-        return array('list'=>$rr->result['list'],'company'=>$rr->result['company']);
+        return array('list'=>$rr->result['list'],'company'=>$rr->result['company'],'id'=>$id);
     }
 }
