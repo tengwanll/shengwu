@@ -20,6 +20,8 @@ use Mirror\ApiBundle\Util\JsonParser;
 use Mirror\ApiBundle\ViewModel\ReturnResult;
 use JMS\DiExtraBundle\Annotation\Inject;
 use JMS\DiExtraBundle\Annotation\InjectParams;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 /**
  * @DI\Service("box_service")
@@ -200,7 +202,8 @@ class BoxService
 
         if(isset($boxGene[0])&&$boxGene[0]){
             $sql="update weixin.box_gene set IL6='$IL6',HLA_C='$HLA_C',ZNF365='$ZNF365',MMP1='$MMP1',AQP3='$AQP3',NQO1='$NQO1',SOD2='$SOD2',NFE2L2='$NFE2L2',CAT='$CAT',MC1R='$MC1R',GSTP1='$GSTP1',IRF4='$IRF4' where box_id=$boxId ";
-            $res=CurlHelper::httpGet('http://120.79.34.206/gene/resend?box_id='.$boxId);
+            $data=array('action'=>'curl','boxId'=>$boxId);
+            $this->publisher(json_encode($data));
         }else{
             $date=date('Y-m-d H:i:s');
             $sql="insert into weixin.box_gene(box_id,IL6,HLA_C,ZNF365,MMP1,AQP3,NQO1,SOD2,NFE2L2,CAT,MC1R,GSTP1,IRF4,status,create_time,update_time) value($boxId,'$IL6','$HLA_C','$ZNF365','$MMP1','$AQP3','$NQO1','$SOD2','$NFE2L2','$CAT','$MC1R','$GSTP1','$IRF4',1,'$date','$date')";
@@ -209,5 +212,51 @@ class BoxService
         $sql='update weixin.box set status=3 where unique_id='.$boxId;
         $conn->exec($sql);
         return $rr;
+    }
+
+    /**
+     * 消息队列发送消息
+     * @param $message
+     */
+    public function publisher($message){
+        $exchange = 'router';
+        $queue = 'msgs';
+
+        $connection = new AMQPStreamConnection(Constant::$rabbit_host, Constant::$rabbit_port, Constant::$rabbit_user, Constant::$rabbit_pass, Constant::$rabbit_vhost);
+        $channel = $connection->channel();
+
+        /*
+            The following code is the same both in the consumer and the producer.
+            In this way we are sure we always have a queue to consume from and an
+                exchange where to publish messages.
+        */
+
+        /*
+            name: $queue
+            passive: false
+            durable: true // the queue will survive server restarts
+            exclusive: false // the queue can be accessed in other channels
+            auto_delete: false //the queue won't be deleted once the channel is closed.
+        */
+        $channel->queue_declare($queue, false, true, false, false);
+
+        /*
+            name: $exchange
+            type: direct
+            passive: false
+            durable: true // the exchange will survive server restarts
+            auto_delete: false //the exchange won't be deleted once the channel is closed.
+        */
+
+        $channel->exchange_declare($exchange, 'direct', false, true, false);
+
+        $channel->queue_bind($queue, $exchange);
+
+        $messageBody = $message;
+        $message = new AMQPMessage($messageBody, array('content_type' => 'text/plain', 'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT));
+        $channel->basic_publish($message, $exchange);
+
+        $channel->close();
+        $connection->close();
     }
 }
