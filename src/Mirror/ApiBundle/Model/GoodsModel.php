@@ -150,7 +150,7 @@ class GoodsModel extends BaseModel
 
     public function update($id,$name,$sortId,$price,$description,$attrs,$conn,$image=0,$goodsNumber,$unit,$standard,$vender){
         $str='null';
-        if($attrs){
+        if($attrs&&$attrs!='NULL'){
             $str='';
             $attrs=explode(',',$attrs);
             foreach ($attrs as $attr){
