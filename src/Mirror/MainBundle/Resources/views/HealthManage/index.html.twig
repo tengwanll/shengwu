@@ -107,7 +107,7 @@
             leftDom+='<li><a href="http://www.amogene.com/main/server/'+item.id+'" style="background-image: url('+item.logo+')">'+item.title+'</a></li>';
         });
         $.each(data.data[count].list,function (idx,item) {
-            rightDom+='<li><a href="http://www.amogene.com/main/server/'+item.id+'">'+item.title+'</a></li>';
+            rightDom+='<li><a href="http://www.amogene.com/main/server/'+item.id+'" style="background-image: url('+item.logo+')>'+item.title+'</a></li>';
         });
         $('.rightMain').css({'background-image':'url('+data.data[count].sort.logo+')'});
         $('.left ul').html(leftDom);
