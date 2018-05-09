@@ -119,7 +119,7 @@ class ServerService
             }
             $arr[]=array(
                 'sort'=>$sort,
-                'list'=>$list,
+                'lists'=>$list,
                 'up_list'=>$upList
             );
         }
