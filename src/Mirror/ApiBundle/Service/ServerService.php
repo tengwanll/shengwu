@@ -68,8 +68,7 @@ class ServerService
             $left_r=$sort['left_r'];
             $right_r=$sort['right_r'];
             $params=array(
-                'status'=>Constant::$status_normal,
-                'is_up'=>1
+                'status'=>Constant::$status_normal
             );
             $data=$this->serverModel->getList($params,'','',$left_r,$right_r);
             foreach($data as $key=>$val){

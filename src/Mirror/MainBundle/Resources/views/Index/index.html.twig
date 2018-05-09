@@ -169,7 +169,9 @@
                         <li><span>{{ sort['name'] }}</span>
                             <ul>
                                 {% for server in sort['server'] %}
+                                    {% if(server['is_up']==1) %}
                                     <li><a href="/main/server/{{ server['id'] }}">{{ server['title'] }}</a></li>
+                                    {% endif %}
                                 {% endfor %}
                             </ul>
                         </li>
