@@ -66,6 +66,22 @@
 <script src="{{ asset('/bundles/mirrormain/js/jquery.js',null,false,version) }}"></script>
 <script src="{{ asset('/bundles/mirrormain/js/admPublic.js',null,false,version) }}"></script>
 <script>
+    function healthPage(count,data) {
+        count = count-1;
+        var leftDom = '',rightDom='';
+        $.each(data.data[count].up_list,function (idx,item) {
+            leftDom+='<li><a href="http://www.amogene.com/main/server/'+item.id+'" style="background-image: url('+item.logo+')">'+item.title+'</a></li>';
+        });
+        $.each(data.data[count].lists,function (idx,item) {
+            rightDom+='<li><a href="http://www.amogene.com/main/server/'+item.id+'" style="background-image: url('+item.logo+')>'+item.title+'</a></li>';
+        });
+        $('.rightMain').css({'background-image':'url('+data.data[count].sort.logo+')'});
+        $('.left ul').html(leftDom);
+        $('.healthList ul').html(rightDom);
+        $('.rightMain h3').text(data.data[count].sort.name);
+        $('.rightMain p').text(data.data[count].sort.description);
+    }
+
     $(function () {
         ajaxAction("get",'/api/server/'+{{ sortId }},'',false,function(data,textStatus){
             var count =1;
@@ -99,21 +115,7 @@
     });
 
 
-    function healthPage(count,data) {
-        count = count-1;
-        var leftDom = '',rightDom='';
-        $.each(data.data[count].up_list,function (idx,item) {
-            leftDom+='<li><a href="http://www.amogene.com/main/server/'+item.id+'" style="background-image: url('+item.logo+')">'+item.title+'</a></li>';
-        });
-        $.each(data.data[count].lists,function (idx,item) {
-            rightDom+='<li><a href="http://www.amogene.com/main/server/'+item.id+'" style="background-image: url('+item.logo+')>'+item.title+'</a></li>';
-        });
-        $('.rightMain').css({'background-image':'url('+data.data[count].sort.logo+')'});
-        $('.left ul').html(leftDom);
-        $('.healthList ul').html(rightDom);
-        $('.rightMain h3').text(data.data[count].sort.name);
-        $('.rightMain p').text(data.data[count].sort.description);
-    }
+
 </script>
 </body>
 </html>
