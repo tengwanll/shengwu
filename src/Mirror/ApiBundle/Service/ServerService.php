@@ -94,6 +94,7 @@ class ServerService
     public function getListBySort($sortId){
         $rr=new ReturnResult();
         $arr=array();
+        $nowSort=$this->serverSortModel->getById($sortId);
         $sorts=$this->serverSortModel->getByProperty('parent_id',$sortId);
         foreach($sorts as $sort){
             $left_r=$sort['left_r'];
@@ -123,7 +124,7 @@ class ServerService
                 'up_list'=>$upList
             );
         }
-        $rr->result=array('data'=>$arr);
+        $rr->result=array('data'=>$arr,'name'=>$nowSort['name']);
         return $rr;
     }
 

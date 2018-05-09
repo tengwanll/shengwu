@@ -27,7 +27,7 @@
     </section>
     <section class="main">
         <aside class="left">
-            <h3>健康管理 <p>Health</p><p>management</p></h3>
+            <h3 id="now_sort">健康管理</h3>
             <ul>
                 {#<li><a href="#">美服基因</a></li>
                 <li><a href="#">HPV</a></li>#}
@@ -39,12 +39,7 @@
                 <p></p>
                 <div class="healthList">
                     <ul>
-                        {#<li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>
-                        <li><a href="#">孕妇产前基因检测套餐</a></li>#}
+
                     </ul>
                 </div>
 
@@ -63,8 +58,8 @@
         </aside>
     </section>
 </div>
-<script src="{{ asset('/bundles/mirrormain/js/jquery.js',null,false,version) }}"></script>
-<script src="{{ asset('/bundles/mirrormain/js/admPublic.js',null,false,version) }}"></script>
+<script src="{{ asset('/bundles/mirrormain/js/jquery.js') }}"></script>
+<script src="{{ asset('/bundles/mirrormain/js/admPublic.js') }}"></script>
 <script>
     function healthPage(count,data) {
         count = count-1;
@@ -73,7 +68,7 @@
             leftDom+='<li><a href="http://www.amogene.com/main/server/'+item.id+'" style="background-image: url('+item.logo+')">'+item.title+'</a></li>';
         });
         $.each(data.data[count].lists,function (idx,item) {
-            rightDom+='<li><a href="http://www.amogene.com/main/server/'+item.id+'" style="background-image: url('+item.logo+')>'+item.title+'</a></li>';
+            rightDom+='<li><a href="http://www.amogene.com/main/server/'+item.id+'" style="background-image: url('+item.logo+')">'+item.title+'</a></li>';
         });
         $('.rightMain').css({'background-image':'url('+data.data[count].sort.logo+')'});
         $('.left ul').html(leftDom);
@@ -85,6 +80,7 @@
     $(function () {
         ajaxAction("get",'/api/server/'+{{ sortId }},'',false,function(data,textStatus){
             var count =1;
+            $('#now_sort').html(data.name);
             healthPage(count,data);
             $('.pageLeft').on('click',function () {
                 if(count>1){
