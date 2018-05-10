@@ -127,21 +127,7 @@ abstract class DbalBaseModel {
      * @return bool|int
      */
     public function save(array $parameters){
-        $keys='';
-        $vals="";
-        foreach($parameters as $key=>$val){
-            $keys.=$key.',';
-            $vals.=is_string($val)?"'$val',":$val.',';
-        }
-        $dql='insert into '.$this->getTableName().'('.rtrim($keys,',').')'.' value('.rtrim($vals,',').')';
-//        $res=$this->conn->exec($dql);
-        $res=$this->conn->insert($this->getTableName(),$parameters);
-        if($res){
-            $nowId=$this->conn->fetchAll('select LAST_INSERT_ID() as nowId');
-            return $nowId[0]['nowId'];
-        }else{
-            return false;
-        }
+        return $this->conn->insert($this->getTableName(),$parameters);
     }
 
     /**
