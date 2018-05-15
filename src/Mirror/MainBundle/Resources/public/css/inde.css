@@ -277,6 +277,7 @@ footer{
     vertical-align: top;
     font-size: 18px;
     color: #fff;
+    width: 12%;
 }
 
 .footerNav ul li:nth-child(6){
